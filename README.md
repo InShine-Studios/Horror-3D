@@ -1,7 +1,5 @@
 # Horror Game
 Tech Stack: 
-- Unity 2020.3.22f1 (Deprecated: 10 Dec 2021)
-- Unity 2020.3.24f1 (Deprecated: 18 Dec 2021)
 - Unity 2020.3.25f1 (Active: 19 Dec 2021)
 
 # Dev Team
