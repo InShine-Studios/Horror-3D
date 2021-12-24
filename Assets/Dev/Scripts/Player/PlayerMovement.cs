@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(PlayerBase))]
+// TODO: Docs & Tooltip
 public class PlayerMovement : MonoBehaviour
 {
     #region Movement Values

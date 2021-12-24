@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// TODO: Docs & Tooltip
 public class PlayerAnimation : MonoBehaviour
 {
     [Header("Animation")]

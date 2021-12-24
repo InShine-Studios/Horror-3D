@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// TODO: Docs & Tooltip
 public class PlayerRotation : MonoBehaviour
 {
     #region Movement Values
@@ -8,16 +9,22 @@ public class PlayerRotation : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     private Plane playerMovementPlane;
     private Vector3 playerToMouse;
+
+    public float rotationSpeed;
+    private Vector3 posPrev;
     #endregion
 
     private void Awake()
     {
         CreatePlayerMovementPlane();
+        posPrev = this.transform.position;
     }
 
     private void Update()
     {
         RotatePlayer();
+        playerMovementPlane.Translate(posPrev - this.transform.position);
+        posPrev = this.transform.position;
     }
 
     #region Input System
@@ -36,7 +43,7 @@ public class PlayerRotation : MonoBehaviour
         playerToMouse = cursorWorldPosition - transform.position;
         playerToMouse.y = 0f;
         Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-        transform.rotation = newRotation;
+        transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
     }
 
     #region Screen to World
@@ -49,12 +56,14 @@ public class PlayerRotation : MonoBehaviour
     Vector3 PlaneRayIntersection(Plane plane, Ray ray)
     {
         plane.Raycast(ray, out float dist);
-        return ray.GetPoint(dist);
+        Vector3 worldPos = ray.GetPoint(dist);
+        //Debug.DrawLine(ray.origin, worldPos, Color.blue);
+        return worldPos;
     }
 
     private void CreatePlayerMovementPlane()
     {
-        playerMovementPlane = new Plane(transform.up, transform.position + transform.up);
+        playerMovementPlane = new Plane(new Vector3(0,1,-1), this.transform.position);
     }
     #endregion
 }
