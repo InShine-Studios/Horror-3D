@@ -1,14 +1,27 @@
 using UnityEngine;
 
-// TODO: Docs & Tooltip
+/*
+ * Class to keep all player constants.
+ * Use Setter and Getter to access the variables.
+ */
 public class PlayerBase : MonoBehaviour
 {
     #region Variables
-    [SerializeField] private float playerMoveentSpeed;
+    [Header("Movement Constants")]
+    [Tooltip("Walk Speed")]
+    [SerializeField] private float playerMovementSpeed;
+
+    [Header("Rotation Constants")]
+    [Tooltip("Rotation Speed")]
+    [SerializeField] private float rotationSpeed;
+    #endregion
 
     public float GetPlayerMovementSpeed(){
-        return playerMoveentSpeed;
+        return playerMovementSpeed;
     }
 
-    #endregion
+    public float GetRotationSpeed()
+    {
+        return rotationSpeed;
+    }
 }
