@@ -1,17 +1,28 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/*
+ * Class to control the player movement.
+ * Using Input Actions.
+ */
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(PlayerBase))]
 public class PlayerMovement : MonoBehaviour
 {
-    #region Movement Values
+    #region Movement Variables
+    [Header("External Variables")]
+    [Tooltip("The Controller component")]
     private CharacterController controller;
+    [Tooltip("The PlayerBase for constants")]
     private PlayerBase playerBase;
-    private float movementSpeed;
 
+    [Space][Header("Movement Constants")]
+    [Tooltip("The movement speed used")]
+    private float movementSpeed;
+    [Tooltip("The movement input from input actions")]
     private Vector2 movementInput = new Vector2(0, 0);
+    [Tooltip("The move direction generated")]
     private Vector3 moveDirection;
     #endregion
 
