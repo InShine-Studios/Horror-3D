@@ -1,12 +1,21 @@
 using UnityEngine;
 
+/*
+ * Class to control player animation states.
+ * Takes the current movement magnitude from PlayerMovement.
+ * Takes the current rotation angle from PlayerRotation.
+ */
 public class PlayerAnimation : MonoBehaviour
 {
-    [Header("Animation")]
+    #region Variables
+    [Header("Player Parts")]
+    [Tooltip("The Animator for this player")]
     private Animator animator;
-
+    [Tooltip("The movement component for the speed")]
     public PlayerMovement playerMovement;
+    [Tooltip("The rotation component for the angle")]
     public PlayerRotation playerRotation;
+    #endregion
 
     private void Awake()
     {

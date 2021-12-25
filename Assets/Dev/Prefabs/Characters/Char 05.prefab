@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 694466695831181193}
   - component: {fileID: 694466695831181194}
   m_Layer: 0
-  m_Name: Char_05_0
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -586,7 +586,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c861a4a5ebc80f43b9b8c5ad1273027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMoveentSpeed: 400
+  playerMovementSpeed: 500
+  rotationSpeed: 25
 --- !u!1 &694466696426876522
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,7 +602,7 @@ GameObject:
   - component: {fileID: 694466696426876532}
   - component: {fileID: 694466696426876535}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Rotate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
