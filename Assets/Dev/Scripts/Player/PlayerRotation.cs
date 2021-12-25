@@ -37,6 +37,7 @@ public class PlayerRotation : MonoBehaviour
         playerToMouse.y = 0f;
         Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
         transform.rotation = newRotation;
+        GameObject.Find("Flashlight").GetComponent<Transform>().rotation = newRotation;
     }
 
     #region Screen to World
