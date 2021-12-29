@@ -11,11 +11,6 @@ using UnityEngine.InputSystem;
 public abstract class ObjectDetector : MonoBehaviour
 {
     #region Variables
-    [Header("Detection Constants")]
-    [Tooltip("Radius to detect interactable objects")]
-    public float circleRad = 0.35f;
-
-    [Space]
     [Header("Input System")]
     protected PlayerInput playerInput;
 
