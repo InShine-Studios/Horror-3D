@@ -14,5 +14,10 @@ public class PlayerHelper : MonoBehaviour
         Right,
         Left
     }
-}
+
+    public static bool CheckIsInteractZone(Collider target)
+    {
+        return target.gameObject.CompareTag("Player") && target.name == "InteractZone";
+    }
+    }
 }
