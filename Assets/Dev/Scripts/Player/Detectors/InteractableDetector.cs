@@ -25,11 +25,7 @@ public class InteractableDetector : ObjectDetector
 
     protected override Collider[] FindOverlaps()
     {
-        CapsuleCollider CapsuleDetector = GetComponent<CapsuleCollider>();
-        Vector3 startCapsulePos = transform.position + new Vector3(0f, CapsuleDetector.height / 2f) +
-            CapsuleDetector.center;
-        Vector3 finalCapsulePos = transform.position - new Vector3(0f, CapsuleDetector.height / 2f) +
-            CapsuleDetector.center;
-        return Physics.OverlapCapsule(startCapsulePos, finalCapsulePos, CapsuleDetector.radius);
+        CapsuleCollider interactZone = GetComponent<CapsuleCollider>();
+        return Utils.GeometryCalcu.FindOverlapsFromCollider(transform, interactZone);
     }
 }

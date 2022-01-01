@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728479974111243851}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.031, y: -0.137, z: 0.103}
-  m_LocalScale: {x: 1.312621, y: 2.2116787, z: 1.4701983}
+  m_LocalPosition: {x: -0.031, y: -0.137, z: 0.002}
+  m_LocalScale: {x: 2.0883286, y: 2.2116787, z: 2.1041136}
   m_Children: []
   m_Father: {fileID: 8057739222434694645}
   m_RootOrder: 0
@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00bc4174dd11fb848a3861f3ff88ec36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circleRad: 0.35
 --- !u!136 &7612435407238431527
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -895,7 +894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c861a4a5ebc80f43b9b8c5ad1273027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovementSpeed: 100
+  playerMovementSpeed: 500
   rotationSpeed: 25
 --- !u!54 &8057739222682510106
 Rigidbody:
