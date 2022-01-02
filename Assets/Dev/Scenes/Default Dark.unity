@@ -201,7 +201,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89082645}
-  m_LocalRotation: {x: 0.2627411, y: 0.00000001660185, z: -0.000000004520822, w: 0.9648664}
+  m_LocalRotation: {x: 0.2627411, y: -0.00000001660185, z: 0.0000000045208224, w: 0.9648664}
   m_LocalPosition: {x: 0.044430733, y: 3.62, z: -4.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -468,7 +468,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-15998
+  m_Name: pb_Mesh-1304
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1619,10 +1619,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8057739223163586151, guid: e4042580c30f349b0bc5fccc43e12f7e, type: 3}
-      propertyPath: playerMovementSpeed
-      value: 1000
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4042580c30f349b0bc5fccc43e12f7e, type: 3}
 --- !u!4 &983196098 stripped
@@ -1654,7 +1650,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1034879077}
-  m_LocalRotation: {x: -0, y: -1.7763568e-15, z: 8.881784e-16, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
