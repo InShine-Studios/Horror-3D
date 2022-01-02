@@ -63,13 +63,13 @@ public class PlayerMovement : MonoBehaviour
     public void SprintPressed(InputAction.CallbackContext ctx)
     {
         isSprinting = true;
-        Debug.Log(this.name + " started sprinting " + isSprinting);
+        //Debug.Log(this.name + " started sprinting " + isSprinting);
     }
 
     public void SprintReleased(InputAction.CallbackContext ctx)
     {
         isSprinting = false;
-        Debug.Log(this.name + " no longer sprinting " + isSprinting);
+        //Debug.Log(this.name + " no longer sprinting " + isSprinting);
     }
     #endregion
 
