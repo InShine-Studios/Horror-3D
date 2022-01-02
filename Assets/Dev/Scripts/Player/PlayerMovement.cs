@@ -54,22 +54,25 @@ public class PlayerMovement : MonoBehaviour
     // Read movement input and set move direction
     public void OnMovementInput(InputAction.CallbackContext inputVal)
     {
-        movementInput = inputVal.ReadValue<Vector2>();
-        moveDirection = new Vector3(0, 0) { x = movementInput.x, z = movementInput.y };
-        //Debug.Log("[PLAYER] Movement direction: " + moveDirection);
+        if (inputVal.performed)
+            movementInput = inputVal.ReadValue<Vector2>();
+            moveDirection = new Vector3(0, 0) { x = movementInput.x, z = movementInput.y };
+            //Debug.Log("[PLAYER] Movement direction: " + moveDirection);
     }
 
     //TODO Sprint with cooldown?
     public void SprintPressed(InputAction.CallbackContext ctx)
     {
-        isSprinting = true;
-        //Debug.Log(this.name + " started sprinting " + isSprinting);
+        if (ctx.performed)
+            isSprinting = true;
+            Debug.Log(this.name + " started sprinting " + isSprinting);
     }
 
     public void SprintReleased(InputAction.CallbackContext ctx)
     {
-        isSprinting = false;
-        //Debug.Log(this.name + " no longer sprinting " + isSprinting);
+        if (ctx.performed)
+            isSprinting = false;
+            Debug.Log(this.name + " no longer sprinting " + isSprinting);
     }
     #endregion
 
@@ -77,9 +80,7 @@ public class PlayerMovement : MonoBehaviour
     {
         movementSpeed = playerBase.GetPlayerMovementSpeed();
         if (isSprinting)
-        {
             movementSpeed = playerBase.GetSprintSpeed();
-        }
         controller.SimpleMove(movementSpeed * Time.deltaTime * moveDirection);
     }
 }
