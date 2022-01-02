@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
         movementSpeed = playerBase.GetPlayerMovementSpeed();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         MovePlayer();
     }
@@ -75,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
+        movementSpeed = playerBase.GetPlayerMovementSpeed();
         if (isSprinting)
         {
             movementSpeed = playerBase.GetSprintSpeed();
