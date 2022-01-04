@@ -24,6 +24,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 movementInput = new Vector2(0, 0);
     [Tooltip("The move direction generated")]
     private Vector3 moveDirection;
+
+    [Tooltip("Sprinting boolean")]
+    private bool isSprinting;
     #endregion
 
     private void Awake()
@@ -55,10 +58,32 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = new Vector3(0, 0) { x = movementInput.x, z = movementInput.y };
         //Debug.Log("[PLAYER] Movement direction: " + moveDirection);
     }
+
+    //TODO Sprint with cooldown?
+    public void SprintPressed(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            isSprinting = true;
+            //Debug.Log(this.name + " started sprinting " + isSprinting);
+        }
+    }
+
+    public void SprintReleased(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            isSprinting = false;
+            //Debug.Log(this.name + " no longer sprinting " + isSprinting);
+        }
+    }
     #endregion
 
     private void MovePlayer()
     {
+        movementSpeed = playerBase.GetPlayerMovementSpeed();
+        if (isSprinting)
+            movementSpeed = playerBase.GetSprintSpeed();
         controller.SimpleMove(movementSpeed * Time.deltaTime * moveDirection);
     }
 }
