@@ -13,8 +13,6 @@ public class InteractableDetector : ObjectDetector
     private void Awake()
     {
         detectionTag = "Interactable";
-        playerInput = GetComponentInParent<PlayerInput>();
-        playerInput.actions["Interact"].performed += CheckInteraction;
     }
 
     protected override void InteractClosest(Interactable closest)

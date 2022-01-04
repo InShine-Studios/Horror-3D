@@ -45,18 +45,21 @@ public abstract class ObjectDetector : MonoBehaviour
         return closest;
     }
 
-    protected void CheckInteraction(InputAction.CallbackContext ctx)
+    public void CheckInteraction(InputAction.CallbackContext ctx)
     {
-        //Debug.Log("[INTERACTABLE] Player pressed " + ctx.action.name);
-
-        // Find objects that overlap with collider
-        Collider[] colliders = this.FindOverlaps();
-
-        Interactable closest = GetClosestInteractable(colliders);
-
-        if (closest)
+        if (ctx.performed)
         {
-            InteractClosest(closest);
+            //Debug.Log("[INTERACTABLE] Player pressed " + ctx.action.name);
+
+            // Find objects that overlap with collider
+            Collider[] colliders = this.FindOverlaps();
+
+            Interactable closest = GetClosestInteractable(colliders);
+
+            if (closest)
+            {
+                InteractClosest(closest);
+            }
         }
     }
 }
