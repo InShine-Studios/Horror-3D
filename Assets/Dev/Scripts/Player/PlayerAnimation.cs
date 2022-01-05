@@ -61,10 +61,10 @@ public class PlayerAnimation : MonoBehaviour
         {
             animator.SetBool("IsIdle", true);
         }
-        //else if (isSprinting)
-        //{
-        //    animator.SetBool("IsSprinting", true);
-        //}
+        else if (playerMovement.GetSprintBool())
+        {
+            animator.SetBool("IsSprinting", true);
+        }
         else
         {
             animator.SetBool("IsWalking", true);
