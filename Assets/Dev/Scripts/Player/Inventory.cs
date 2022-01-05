@@ -91,7 +91,7 @@ public class Inventory : MonoBehaviour
             // Put item as child of Inventory
             item.gameObject.transform.parent = this.transform;
             item.transform.position = this.transform.position + activeItemYOffset;  // Reposition object to middle body of player
-            item.transform.rotation = this.transform.rotation;  // Reposition object to middle body of player
+            item.transform.rotation = this.transform.rotation;  // Reset item rotation
             item.OnInteraction();
 
             //Debug.Log("[INVENTORY] Pick " + item.name + " on position " + pickedIdx);
