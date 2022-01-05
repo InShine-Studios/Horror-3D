@@ -14,7 +14,7 @@ public abstract class ObjectDetector : MonoBehaviour
     [Header("Input System")]
     protected PlayerInput playerInput;
 
-    [Tooltip("Tag to detect from feet")]
+    [Tooltip("Tag to distinguish interactable types")]
     protected string detectionTag;
 
     #endregion
