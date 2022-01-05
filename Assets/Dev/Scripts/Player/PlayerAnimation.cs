@@ -71,19 +71,4 @@ public class PlayerAnimation : MonoBehaviour
         }
     }
     #endregion
-
-    //#region Sprint
-    // TODO Sprint with cooldown?
-    //private void SprintPressed(InputAction.CallbackContext ctx)
-    //{
-    //    //Debug.Log(this.name + " started sprinting");
-    //    isSprinting = true;
-    //}
-
-    //private void SprintReleased(InputAction.CallbackContext ctx)
-    //{
-    //    //Debug.Log(this.name + " no longer sprinting");
-    //    isSprinting = false;
-    //}
-    //#endregion
 }
