@@ -50,6 +50,11 @@ public class PlayerMovement : MonoBehaviour
         return moveDirection;
     }
 
+    public bool GetSprintBool()
+    {
+        return isSprinting;
+    }
+
     #region Input System
     // Read movement input and set move direction
     public void OnMovementInput(InputAction.CallbackContext inputVal)
