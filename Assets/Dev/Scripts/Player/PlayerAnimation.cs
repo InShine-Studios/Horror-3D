@@ -61,29 +61,14 @@ public class PlayerAnimation : MonoBehaviour
         {
             animator.SetBool("IsIdle", true);
         }
-        //else if (isSprinting)
-        //{
-        //    animator.SetBool("IsSprinting", true);
-        //}
+        else if (playerMovement.GetSprintBool())
+        {
+            animator.SetBool("IsSprinting", true);
+        }
         else
         {
             animator.SetBool("IsWalking", true);
         }
     }
     #endregion
-
-    //#region Sprint
-    // TODO Sprint with cooldown?
-    //private void SprintPressed(InputAction.CallbackContext ctx)
-    //{
-    //    //Debug.Log(this.name + " started sprinting");
-    //    isSprinting = true;
-    //}
-
-    //private void SprintReleased(InputAction.CallbackContext ctx)
-    //{
-    //    //Debug.Log(this.name + " no longer sprinting");
-    //    isSprinting = false;
-    //}
-    //#endregion
 }
