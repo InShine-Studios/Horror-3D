@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CapsuleCollider))]
 public class InteractableDetector : ObjectDetector
 {
-    private void Awake()
+    private void Start()
     {
         detectionTag = "Interactable";
     }

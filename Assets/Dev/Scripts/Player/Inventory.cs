@@ -30,12 +30,15 @@ public class Inventory : MonoBehaviour
 
     [Tooltip("The number of item in inventory")]
     private int numOfItem = 0;
+
+    [Tooltip("Overworld Item in Level")]
+    public GameObject overworldItem;
     #endregion
 
     #region Variables - Item position adjustment
     [Space]
     [Tooltip("Active item height offset")]
-    private Vector3 activeItemYOffset = new Vector3(0, -0.5f, 0);
+    public Vector3 activeItemYOffset = new Vector3(0, -0.5f, 0);
     #endregion
 
     #region Variables - Input System
@@ -86,6 +89,8 @@ public class Inventory : MonoBehaviour
                 items[activeIdx] = item;
                 activeItem = item;
                 numOfItem++;
+
+                // TODO: Update Inventory HUD
             }
 
             // Put item as child of Inventory
@@ -106,12 +111,15 @@ public class Inventory : MonoBehaviour
             {
                 //Debug.Log("[INVENTORY] Discard " + activeItem.name);
 
-                // Put item as child of Inventory
+                // Activate collider and mesh renderer
                 activeItem.SetCollider(true);
-
-                activeItem.gameObject.transform.parent = GameObject.Find("OverworldItems").transform;
-                activeItem.transform.position -= activeItemYOffset + new Vector3(0, this.transform.position.y, 0);
                 activeItem.SetMeshRenderer(true);
+
+                // Reposition item to world
+                activeItem.gameObject.transform.parent = overworldItem.transform;
+                activeItem.transform.position -= activeItemYOffset + new Vector3(0, this.transform.position.y, 0);
+
+                // Reset active item state
                 activeItem = null;
                 items[activeIdx] = null;
                 numOfItem--;
@@ -148,7 +156,7 @@ public class Inventory : MonoBehaviour
         // Show active item
         activeItem?.ShowItem();
 
-        // TODO: Change display on HUD
+        // TODO: Change active item display on HUD
     }
     #endregion
 

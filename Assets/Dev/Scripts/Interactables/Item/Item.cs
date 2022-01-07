@@ -13,11 +13,11 @@ public abstract class Item : Interactable
     public override void OnInteraction()
     {
         Pick();
-        SetMeshRenderer(false);
     }
     private void Pick()
     {
         SetCollider(false);
+        SetMeshRenderer(false);
     }
     public void SetMeshRenderer(bool enabled)
     {
