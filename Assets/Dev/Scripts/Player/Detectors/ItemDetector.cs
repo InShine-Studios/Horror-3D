@@ -7,19 +7,19 @@ using UnityEngine.InputSystem;
  * 
  * Will call the Inventory to pick this item.
  */
-[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(CapsuleCollider))]
 public class ItemDetector : ObjectDetector
 {
     [Tooltip("The inventory of the player for this item detector")]
     private Inventory inventory;
 
     [Tooltip("Detector zone for item")]
-    private BoxCollider detectorZone;
+    private CapsuleCollider detectorZone;
 
     private void Start()
     {
         detectionTag = "Item";
-        detectorZone = GetComponent<BoxCollider>();
+        detectorZone = GetComponent<CapsuleCollider>();
         inventory = GetComponent<Inventory>();
     }
 
