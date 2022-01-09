@@ -14,6 +14,10 @@ public class PlayerBase : MonoBehaviour
     [Header("Rotation Constants")]
     [Tooltip("Rotation Speed")]
     [SerializeField] private float rotationSpeed;
+
+    [Header("Sprint Constants")]
+    [Tooltip("Sprint Speed")]
+    [SerializeField] private float sprintSpeed;
     #endregion
 
     public float GetPlayerMovementSpeed(){
@@ -23,5 +27,10 @@ public class PlayerBase : MonoBehaviour
     public float GetRotationSpeed()
     {
         return rotationSpeed;
+    }
+
+    public float GetSprintSpeed()
+    {
+        return sprintSpeed;
     }
 }
