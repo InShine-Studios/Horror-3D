@@ -9,8 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3935439492266647455}
-  - component: {fileID: 7587431485049714996}
   - component: {fileID: 7612435407238431527}
+  - component: {fileID: 7587431485049714996}
+  - component: {fileID: 5185263958987290348}
+  - component: {fileID: 1105417087990013444}
   m_Layer: 0
   m_Name: InteractZone
   m_TagString: Player
@@ -29,21 +31,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 8057739223163586144}
-  m_RootOrder: 3
+  m_Father: {fileID: 8057739222434694645}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7587431485049714996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728479974111243851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00bc4174dd11fb848a3861f3ff88ec36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &7612435407238431527
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -58,6 +48,46 @@ CapsuleCollider:
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 0.15, z: 0}
+--- !u!114 &7587431485049714996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728479974111243851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00bc4174dd11fb848a3861f3ff88ec36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5185263958987290348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728479974111243851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5622bb197ecee5e4680b32e161a3e775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invenLength: 3
+  overworldItem: {fileID: 0}
+  activeItemYOffset: {x: 0, y: -0.5, z: 0}
+  scrollSensitivity: 1
+--- !u!114 &1105417087990013444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728479974111243851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aafa030043c6fbd4ab58efaf38fe26c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1845195656393805060
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,6 +304,7 @@ Transform:
   m_Children:
   - {fileID: 4095615816411845074}
   - {fileID: 8057739223065118964}
+  - {fileID: 3935439492266647455}
   m_Father: {fileID: 8057739223163586144}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -758,7 +789,6 @@ Transform:
   - {fileID: 8057739222434694645}
   - {fileID: 8057739222879337489}
   - {fileID: 954159943982308359}
-  - {fileID: 3935439492266647455}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -854,7 +884,19 @@ MonoBehaviour:
     m_ActionId: e18275dd-0199-4b73-8c87-a3cc91c20f61
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7587431485049714996}
+        m_TargetAssemblyTypeName: ObjectDetector, Assembly-CSharp
+        m_MethodName: CheckInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: c513c0b0-0b07-4f2f-b58d-27aa85fffc98
     m_ActionName: Player/Interact[/Keyboard/e]
   - m_PersistentCalls:
@@ -889,8 +931,72 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5ffa5fda-d280-4edc-990c-2bac39a49d5d
     m_ActionName: Player/SprintEnd[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1105417087990013444}
+        m_TargetAssemblyTypeName: ObjectDetector, Assembly-CSharp
+        m_MethodName: CheckInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f990e470-b051-43cc-b4b2-cc0c56075fad
+    m_ActionName: Player/PickItem[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5185263958987290348}
+        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
+        m_MethodName: DiscardItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9b64ca37-a981-41d5-8561-953dc4b7fdf9
+    m_ActionName: Player/DiscardItem[/Keyboard/g]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5185263958987290348}
+        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
+        m_MethodName: UseActiveItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cfd942f3-06ac-42a2-a197-3fbbdb5181d1
+    m_ActionName: Player/UseItem[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5185263958987290348}
+        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
+        m_MethodName: ScrollActiveItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 30787200-0281-41d9-8fa9-730c3dd995fb
+    m_ActionName: Player/ChangeItem[/Mouse/scroll]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

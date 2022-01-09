@@ -21,5 +21,11 @@ public static class GeometryCalcu
             CapsuleDetector.center;
         return Physics.OverlapCapsule(startCapsulePos, finalCapsulePos, CapsuleDetector.radius);
     }
+
+    public static Collider[] FindOverlapsFromCollider(Transform source, BoxCollider BoxDetector)
+    {
+        Vector3 detectorCenter = source.position + BoxDetector.center;
+        return Physics.OverlapBox(detectorCenter, BoxDetector.size / 2);
+    }
 }
 }

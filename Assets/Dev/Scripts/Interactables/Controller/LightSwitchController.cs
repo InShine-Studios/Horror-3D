@@ -21,7 +21,6 @@ public class LightSwitchController : Interactable
     private void Awake()
     {
         lightSources = GetComponentsInChildren<Light>();
-        SetLightSources(false);
     }
     public override void OnInteraction()
     {
