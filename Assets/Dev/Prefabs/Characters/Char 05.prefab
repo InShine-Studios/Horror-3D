@@ -1012,6 +1012,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1af00169c2c81c742aa7bbfc88b027a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gravity: -10
+  forceGrounding: 1
 --- !u!114 &8057739223163586151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1024,9 +1026,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c861a4a5ebc80f43b9b8c5ad1273027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovementSpeed: 500
+  playerMovementSpeed: 200
   rotationSpeed: 25
-  sprintSpeed: 1000
+  sprintSpeed: 300
 --- !u!54 &8057739222682510106
 Rigidbody:
   m_ObjectHideFlags: 0
