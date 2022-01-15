@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 /*
  * DummyFlashlight class.
  * Implement mechanics related to flashlight, such as toggle on/off light source.

@@ -1,6 +1,18 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+public interface IInventory
+{
+    void DiscardItem(InputAction.CallbackContext ctx);
+    int GetActiveIdx();
+    IItem GetActiveItem();
+    IItem GetItemByIndex(int idx);
+    int GetNumOfItem();
+    int GetScrollStep();
+    void PickItem(Item item);
+    void ScrollActiveItem(InputAction.CallbackContext ctx);
+    void UseActiveItem(InputAction.CallbackContext ctx);
+}
 
 /*
  * The Inventory for a player.
@@ -12,7 +24,7 @@ using UnityEngine.InputSystem;
  * ScrollActiveItem() will be called in Update() and read value of mouse scroll
  * Active item sprite direction and aim direction is handled separately
  */
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, IInventory
 {
     #region Variables - Item List
     [Header("Item List")]
@@ -35,6 +47,14 @@ public class Inventory : MonoBehaviour
     public GameObject overworldItem;
     #endregion
 
+    #region Setter Getter
+    public int GetNumOfItem() { return numOfItem; }
+    public int GetActiveIdx() { return activeIdx; }
+    public IItem GetActiveItem() { return activeItem; }
+
+    public IItem GetItemByIndex(int idx) { return items[idx]; }
+    #endregion
+
     #region Variables - Item position adjustment
     [Space]
     [Tooltip("Active item height offset")]
@@ -54,6 +74,8 @@ public class Inventory : MonoBehaviour
     {
         items = new Item[invenLength];
     }
+
+    public int GetScrollStep() { return scrollStep * scrollSensitivity; }
 
     #region Pick - Discard
     public void PickItem(Item item)
