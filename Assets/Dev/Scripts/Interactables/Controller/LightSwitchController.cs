@@ -1,10 +1,15 @@
 using UnityEngine;
 
+public interface ILightSwitchController: IInteractable
+{
+    bool GetState();
+}
+
 /*
  * Class to control light switch states and sprite.
  * Inherit Interactable.
  */
-public class LightSwitchController : Interactable
+public class LightSwitchController : Interactable, ILightSwitchController
 {
     #region Variables
     [Header("Light switch state")]
@@ -38,5 +43,10 @@ public class LightSwitchController : Interactable
         {
             lightSource.enabled = value;
         }
+    }
+
+    public bool GetState()
+    {
+        return isOn;
     }
 }

@@ -1,12 +1,20 @@
 using UnityEngine;
 
+public interface IItem: IInteractable
+{
+    void HideItem();
+    void SetMeshRenderer(bool enabled);
+    void ShowItem();
+    void Use();
+}
+
 /*
  * Item abstract class.
  * Parent class for all item objects.
  * Implement Use() function on each child class.
  */
 [RequireComponent(typeof(MeshRenderer))]
-public abstract class Item : Interactable
+public abstract class Item : Interactable, IItem
 {
     public abstract void Use();
 

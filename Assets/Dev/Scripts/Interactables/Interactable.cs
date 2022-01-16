@@ -1,12 +1,19 @@
 using UnityEngine;
 
+public interface IInteractable
+{
+    void OnInteraction();
+    void SetCollider(bool state);
+    void SetInteractableIcon(bool state);
+}
+
 /*
  * Interactable abstract class.
  * Parent class for all interactable objects.
  * Implement OnInteraction() function on each child class.
  */
 [RequireComponent(typeof(Collider))]
-public abstract class Interactable : MonoBehaviour
+public abstract class Interactable : MonoBehaviour, IInteractable
 {
     #region Variables
     [Header("Interactable Icons")]
