@@ -1,9 +1,8 @@
 using UnityEngine;
 
-public interface ILightSwitchController
+public interface ILightSwitchController: IInteractable
 {
     bool GetState();
-    void OnInteraction();
 }
 
 /*
