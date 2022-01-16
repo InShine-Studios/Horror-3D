@@ -20,23 +20,22 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     [Tooltip("True if there is an icon to be used")]
     public bool hasIcon;
 
-    [Tooltip("The Sprite Renderer for the icon")]
-    public SpriteRenderer interactableIcon;
+    [Tooltip("The Game Object for the icon")]
+    public GameObject interactableIcon;
 
     [Tooltip("True if player is in Blocker")]
     public bool inBlocker = false;
 
     [Space]
     [Header("Audio")]
-    [Tooltip("Audio for Turning On")]
-    public AudioSource audioOn;
-    [Tooltip("Audio for Turning Off")]
-    public AudioSource audioOff;
+    [Tooltip("Audio Manager")]
+    public AudioManager audioManager;
 
     #endregion
 
     private void Reset()
     {
+        audioManager = GetComponent<AudioManager>();
         GetComponent<Collider>().isTrigger = true;
     }
 
@@ -63,7 +62,7 @@ public abstract class Interactable : MonoBehaviour, IInteractable
         if (hasIcon)
         {
             //Debug.Log("[INTERACTABLE] Setting icon " + this.name + " to " + state);
-            interactableIcon.enabled = state;
+            interactableIcon.SetActive(state);
         }
     }
 
@@ -74,15 +73,8 @@ public abstract class Interactable : MonoBehaviour, IInteractable
         GetComponent<Collider>().enabled = state;
     }
 
-    protected void PlayAudio(bool isOn)
+    protected void PlayAudio(string name)
     {
-        if (isOn)
-        {
-            audioOn.Play();
-        }
-        else
-        {
-            audioOff.Play();
-        }
+        audioManager.Play(name);
     }
 }

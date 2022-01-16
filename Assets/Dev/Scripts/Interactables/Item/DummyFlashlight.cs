@@ -23,6 +23,6 @@ public class DummyFlashlight : Item
     {
         //Debug.Log("[ITEM] Use " + this.name);
         lightSource.enabled = !lightSource.enabled;
-        PlayAudio(lightSource.enabled);
+        PlayAudio("Flashlight_Switch");
     }
 }
