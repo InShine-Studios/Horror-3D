@@ -102,7 +102,7 @@ public class PlayerTest
     public void PlayerTearDown()
     {
         inputTestFixture.TearDown();
-        SceneManager.UnloadSceneAsync(sceneName);
+        //SceneManager.UnloadSceneAsync(sceneName);
     }
     #endregion
 
@@ -159,7 +159,7 @@ public class PlayerTest
     {
         yield return new WaitWhile(() => sceneLoaded == false);
         inputTestFixture.Press(KeyBoardMouseTestFixture.RegisteredInput.Sprint);
-        yield return null;
+        yield return new WaitForSeconds(0.3f);
 
         IPlayerMovement playerMovement = player.GetComponent<IPlayerMovement>();
         IPlayerBase playerBase = player.GetComponent<IPlayerBase>();
@@ -167,7 +167,7 @@ public class PlayerTest
         Assert.AreEqual(playerBase.GetSprintSpeed(), playerMovement.GetMovementSpeed());
 
         inputTestFixture.Release(KeyBoardMouseTestFixture.RegisteredInput.Sprint);
-        yield return null;
+        yield return new WaitForSeconds(0.3f);
         Assert.IsFalse(playerMovement.GetSprintBool());
         Assert.AreEqual(playerBase.GetPlayerMovementSpeed(), playerMovement.GetMovementSpeed());
     }
