@@ -35,6 +35,10 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private Vector2 movementInput = new Vector2(0, 0);
     [Tooltip("The move direction generated")]
     private Vector3 moveDirection;
+    [Tooltip("Gravity Strength")]
+    public float gravity = -50.0f;
+    [Tooltip("Force Grounding Flag")][SerializeField]
+    private bool forceGrounding = true;
 
     [Tooltip("Sprinting boolean")]
     private bool isSprinting;
@@ -53,9 +57,10 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         movementSpeed = playerBase.GetPlayerMovementSpeed();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         MovePlayer();
+        if(forceGrounding) ForceGrounding();
     }
 
     public Vector3 GetMoveDirection()
@@ -96,6 +101,14 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         }
     }
     #endregion
+
+    private void ForceGrounding()
+    {
+        if (!controller.isGrounded)
+        {
+            controller.Move(new Vector3(0, gravity, 0) * Time.deltaTime);
+        }
+    }
 
     private void MovePlayer()
     {
