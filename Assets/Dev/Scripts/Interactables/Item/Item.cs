@@ -3,7 +3,6 @@ using UnityEngine;
 public interface IItem: IInteractable
 {
     void HideItem();
-    void OnInteraction();
     void SetMeshRenderer(bool enabled);
     void ShowItem();
     void Use();

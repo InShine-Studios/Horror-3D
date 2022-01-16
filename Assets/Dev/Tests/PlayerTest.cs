@@ -11,16 +11,12 @@ class KeyBoardMouseTestFixture: InputTestFixture
 {
     public enum RegisteredInput
     {
-        MoveForward,
-        MoveBack,
-        MoveLeft,
-        MoveRight,
         Sprint,
         Interact,
         PickItem,
         DiscardItem,
         UseItem,
-        ScrollItem
+        ChangeItem
     }
     private Keyboard keyboard;
     private Mouse mouse;
@@ -34,10 +30,6 @@ class KeyBoardMouseTestFixture: InputTestFixture
         keyboard = InputSystem.AddDevice<Keyboard>();
         mouse = InputSystem.AddDevice<Mouse>();
         keyboardInputMap = new Dictionary<RegisteredInput, KeyControl>() {
-            {RegisteredInput.MoveForward, keyboard.wKey},
-            {RegisteredInput.MoveBack, keyboard.sKey },
-            {RegisteredInput.MoveLeft, keyboard.aKey },
-            {RegisteredInput.MoveRight, keyboard.dKey },
             {RegisteredInput.Sprint, keyboard.leftShiftKey },
             {RegisteredInput.Interact, keyboard.eKey },
             {RegisteredInput.PickItem, keyboard.fKey },
@@ -47,13 +39,12 @@ class KeyBoardMouseTestFixture: InputTestFixture
             {RegisteredInput.UseItem, mouse.rightButton},
         };
         axisInputMap = new Dictionary<RegisteredInput, AxisControl>() {
-            { RegisteredInput.ScrollItem, mouse.scroll.y }
+            { RegisteredInput.ChangeItem, mouse.scroll.y }
         };
     }
 
     public override void TearDown()
     {
-        // Add teardown code here.
         InputSystem.RemoveDevice(keyboard);
         InputSystem.RemoveDevice(mouse);
         base.TearDown();
