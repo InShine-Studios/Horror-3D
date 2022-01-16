@@ -26,7 +26,8 @@ public class LightSwitchController : Interactable
     {
         isOn = !isOn;
         SetLightSources(isOn);
-        PlayAudio(isOn);
+        if(isOn) PlayAudio("Switch_On");
+        else PlayAudio("Switch_Off");
         //Debug.Log(
         //    String.Format("[INTERACTABLE] Turning \"{0}\" {1}", this.name, (isOn ? "on" : "off"))
         //);

@@ -66,15 +66,8 @@ public abstract class Interactable : MonoBehaviour
         GetComponent<Collider>().enabled = state;
     }
 
-    protected void PlayAudio(bool isOn)
+    protected void PlayAudio(string name)
     {
-        if (isOn)
-        {
-            audioManager.Play("Switch_On");
-        }
-        else
-        {
-            audioManager.Play("Switch_Off");
-        }
+        audioManager.Play(name);
     }
 }
