@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour
 {
     public void Play(string name)
     {
-        GameObject s = GameObject.Find(name);
+        Transform s = transform.Find(name);
         if (s == null)
         {
             Debug.LogWarning("Sound: " + name + " not found!");
