@@ -47,14 +47,6 @@ public class Inventory : MonoBehaviour, IInventory
     public GameObject overworldItem;
     #endregion
 
-    #region Setter Getter
-    public int GetNumOfItem() { return numOfItem; }
-    public int GetActiveIdx() { return activeIdx; }
-    public IItem GetActiveItem() { return activeItem; }
-
-    public IItem GetItemByIndex(int idx) { return items[idx]; }
-    #endregion
-
     #region Variables - Item position adjustment
     [Space]
     [Tooltip("Active item height offset")]
@@ -75,7 +67,14 @@ public class Inventory : MonoBehaviour, IInventory
         items = new Item[invenLength];
     }
 
+    #region Setter Getter
+    public int GetNumOfItem() { return numOfItem; }
+    public int GetActiveIdx() { return activeIdx; }
+    public IItem GetActiveItem() { return activeItem; }
+    public IItem GetItemByIndex(int idx) { return items[idx]; }
     public int GetScrollStep() { return scrollStep * scrollSensitivity; }
+
+    #endregion
 
     #region Pick - Discard
     public void PickItem(Item item)
