@@ -1,6 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public interface IPlayerMovement
+{
+    Vector3 GetMoveDirection();
+    bool GetSprintBool();
+    float GetMovementSpeed();
+    void OnMovementInput(InputAction.CallbackContext inputVal);
+    void SprintPressed(InputAction.CallbackContext ctx);
+    void SprintReleased(InputAction.CallbackContext ctx);
+}
+
 /*
  * Class to control the player movement.
  * Using Input Actions.
@@ -8,7 +18,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(PlayerBase))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IPlayerMovement
 {
     #region Movement Variables
     [Header("External Variables")]
@@ -17,17 +27,24 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("The PlayerBase for constants")]
     private PlayerBase playerBase;
 
-    [Space][Header("Movement Constants")]
+    [Space]
+    [Header("Movement Constants")]
     [Tooltip("The movement speed used")]
     private float movementSpeed;
     [Tooltip("The movement input from input actions")]
     private Vector2 movementInput = new Vector2(0, 0);
     [Tooltip("The move direction generated")]
     private Vector3 moveDirection;
+    [Tooltip("Gravity Strength")]
+    public float gravity = -50.0f;
+    [Tooltip("Force Grounding Flag")][SerializeField]
+    private bool forceGrounding = true;
 
     [Tooltip("Sprinting boolean")]
     private bool isSprinting;
     #endregion
+
+    public float GetMovementSpeed() { return movementSpeed; }
 
     private void Awake()
     {
@@ -40,9 +57,10 @@ public class PlayerMovement : MonoBehaviour
         movementSpeed = playerBase.GetPlayerMovementSpeed();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         MovePlayer();
+        if(forceGrounding) ForceGrounding();
     }
 
     public Vector3 GetMoveDirection()
@@ -83,6 +101,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     #endregion
+
+    private void ForceGrounding()
+    {
+        if (!controller.isGrounded)
+        {
+            controller.Move(new Vector3(0, gravity, 0) * Time.deltaTime);
+        }
+    }
 
     private void MovePlayer()
     {

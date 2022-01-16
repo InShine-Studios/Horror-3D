@@ -1,10 +1,17 @@
 using UnityEngine;
 
+public interface IPlayerBase
+{
+    float GetPlayerMovementSpeed();
+    float GetRotationSpeed();
+    float GetSprintSpeed();
+}
+
 /*
  * Class to keep all player constants.
  * Use Setter and Getter to access the variables.
  */
-public class PlayerBase : MonoBehaviour
+public class PlayerBase : MonoBehaviour, IPlayerBase
 {
     #region Variables
     [Header("Movement Constants")]
@@ -20,7 +27,8 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] private float sprintSpeed;
     #endregion
 
-    public float GetPlayerMovementSpeed(){
+    public float GetPlayerMovementSpeed()
+    {
         return playerMovementSpeed;
     }
 
