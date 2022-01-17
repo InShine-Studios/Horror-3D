@@ -29,94 +29,94 @@ public class Inventory : MonoBehaviour, IInventory
     #region Variables - Item List
     [Header("Item List")]
     [Tooltip("The list of items")]
-    private Item[] items;
+    private Item[] _items;
 
     [Tooltip("Inventory Length")]
-    public int invenLength = 3;
+    public int InvenLength = 3;
 
     [Tooltip("The current active item")]
-    private Item activeItem = null;
+    private Item _activeItem = null;
 
     [Tooltip("The current active index")]
-    private int activeIdx = 0;
+    private int _activeIdx = 0;
 
     [Tooltip("The number of item in inventory")]
-    private int numOfItem = 0;
+    private int _numOfItem = 0;
 
     [Tooltip("Overworld Item in Level")]
-    public GameObject overworldItem;
+    public GameObject OverworldItem;
     #endregion
 
     #region Variables - Item position adjustment
     [Space]
     [Tooltip("Active item height offset")]
-    public Vector3 activeItemYOffset = new Vector3(0, -0.5f, 0);
+    public Vector3 ActiveItemYOffset = new Vector3(0, -0.5f, 0);
     #endregion
 
     #region Variables - Input System
     [Header("Input System")]
     [Tooltip("Mouse scroll sensitivity in integer")]
-    public int scrollSensitivity = 1;
+    public int ScrollSensitivity = 1;
 
     [Tooltip("Scroll value step for each strength")]
-    private const int scrollStep = 120;
+    private const int _scrollStep = 120;
     #endregion
 
     private void Awake()
     {
-        items = new Item[invenLength];
+        _items = new Item[InvenLength];
     }
 
     #region Setter Getter
-    public int GetNumOfItem() { return numOfItem; }
-    public int GetActiveIdx() { return activeIdx; }
-    public IItem GetActiveItem() { return activeItem; }
-    public IItem GetItemByIndex(int idx) { return items[idx]; }
-    public int GetScrollStep() { return scrollStep * scrollSensitivity; }
+    public int GetNumOfItem() { return _numOfItem; }
+    public int GetActiveIdx() { return _activeIdx; }
+    public IItem GetActiveItem() { return _activeItem; }
+    public IItem GetItemByIndex(int idx) { return _items[idx]; }
+    public int GetScrollStep() { return _scrollStep * ScrollSensitivity; }
 
     #endregion
 
     #region Pick - Discard
     public void PickItem(Item item)
     {
-        if (numOfItem == invenLength)
+        if (_numOfItem == InvenLength)
         {
             Debug.Log("[INVENTORY] Cannot pick item, inventory full");
         }
         else
         {
-            int pickedIdx = activeIdx;
+            int pickedIdx = _activeIdx;
 
-            if (activeItem)
+            if (_activeItem)
             {
-                for (int i = 0; i < invenLength; i++)
+                for (int i = 0; i < InvenLength; i++)
                 {
                     // Find empty slot in inventory,
                     // search from activeIdx to the end of array
                     // and continue from the front of the array
-                    int cur = (activeIdx + i) % invenLength;
-                    if (!items[cur])
+                    int cur = (_activeIdx + i) % InvenLength;
+                    if (!_items[cur])
                     {
-                        items[cur] = item;
+                        _items[cur] = item;
                         pickedIdx = cur; // For logs
                         break;
                     }
                 }
 
-                numOfItem++;
+                _numOfItem++;
             }
             else
             {
-                items[activeIdx] = item;
-                activeItem = item;
-                numOfItem++;
+                _items[_activeIdx] = item;
+                _activeItem = item;
+                _numOfItem++;
 
                 // TODO: Update Inventory HUD
             }
 
             // Put item as child of Inventory
             item.gameObject.transform.parent = this.transform;
-            item.transform.position = this.transform.position + activeItemYOffset;  // Reposition object to middle body of player
+            item.transform.position = this.transform.position + ActiveItemYOffset;  // Reposition object to middle body of player
             item.transform.rotation = this.transform.rotation;  // Reset item rotation
             item.OnInteraction();
 
@@ -128,22 +128,22 @@ public class Inventory : MonoBehaviour, IInventory
     {
         if (ctx.performed)
         {
-            if (activeItem)
+            if (_activeItem)
             {
                 //Debug.Log("[INVENTORY] Discard " + activeItem.name);
 
                 // Activate collider and mesh renderer
-                activeItem.SetCollider(true);
-                activeItem.SetMeshRenderer(true);
+                _activeItem.SetCollider(true);
+                _activeItem.SetMeshRenderer(true);
 
                 // Reposition item to world
-                activeItem.gameObject.transform.parent = overworldItem.transform;
-                activeItem.transform.position -= activeItemYOffset + new Vector3(0, this.transform.position.y, 0);
+                _activeItem.gameObject.transform.parent = OverworldItem.transform;
+                _activeItem.transform.position -= ActiveItemYOffset + new Vector3(0, this.transform.position.y, 0);
 
                 // Reset active item state
-                activeItem = null;
-                items[activeIdx] = null;
-                numOfItem--;
+                _activeItem = null;
+                _items[_activeIdx] = null;
+                _numOfItem--;
 
             }
             else
@@ -158,8 +158,8 @@ public class Inventory : MonoBehaviour, IInventory
     public void ScrollActiveItem(InputAction.CallbackContext ctx)
     {
         float scrollValue = ctx.ReadValue<float>();
-        int indexShift = (int)scrollValue / (scrollStep * scrollSensitivity);
-        int newIdx = Utils.MathCalcu.mod(activeIdx - indexShift, invenLength);
+        int indexShift = (int)scrollValue / (_scrollStep * ScrollSensitivity);
+        int newIdx = Utils.MathCalcu.mod(_activeIdx - indexShift, InvenLength);
         ChangeActiveItem(newIdx);
 
         //Debug.Log("[INVENTORY] Change active item to " + (activeItem ? activeItem.name : "nothing") + " with index " + activeIdx);
@@ -168,14 +168,14 @@ public class Inventory : MonoBehaviour, IInventory
     private void ChangeActiveItem(int newIdx)
     {
         // Hide active item
-        activeItem?.HideItem();
+        _activeItem?.HideItem();
 
         // Change active item
-        activeIdx = newIdx;
-        activeItem = items[activeIdx];
+        _activeIdx = newIdx;
+        _activeItem = _items[_activeIdx];
 
         // Show active item
-        activeItem?.ShowItem();
+        _activeItem?.ShowItem();
 
         // TODO: Change active item display on HUD
     }
@@ -185,8 +185,8 @@ public class Inventory : MonoBehaviour, IInventory
     {
         if (ctx.performed)
         {
-            activeItem?.Use();
-            if (!activeItem) Debug.Log("[ITEM] Missing active item");
+            _activeItem?.Use();
+            if (!_activeItem) Debug.Log("[ITEM] Missing active item");
         }
     }
 }

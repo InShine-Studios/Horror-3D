@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab977764b5149e4c9d156b6018660ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
+  _mainCamera: {fileID: 0}
 --- !u!1 &8057739222879337488
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,8 +417,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852518e8b4d7f6f4594dedf01db0c990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 8057739223163586148}
-  playerRotation: {fileID: 8057739222434694633}
+  PlayerMovement: {fileID: 8057739223163586148}
+  PlayerRotation: {fileID: 8057739222434694633}
 --- !u!95 &8057739222879337492
 Animator:
   serializedVersion: 3
@@ -763,7 +763,6 @@ GameObject:
   - component: {fileID: 8057739223163586150}
   - component: {fileID: 8057739223163586145}
   - component: {fileID: 8057739223163586148}
-  - component: {fileID: 8057739223163586151}
   - component: {fileID: 8057739222682510106}
   - component: {fileID: 8057739222682512613}
   - component: {fileID: 8057739222682512609}
@@ -1012,23 +1011,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1af00169c2c81c742aa7bbfc88b027a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: -10
-  forceGrounding: 1
---- !u!114 &8057739223163586151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8057739223163586147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c861a4a5ebc80f43b9b8c5ad1273027, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerMovementSpeed: 200
-  rotationSpeed: 25
-  sprintSpeed: 300
+  _playerBase:
+    _playerMovementSpeed: 200
+    _rotationSpeed: 25
+    _sprintSpeed: 300
+  Gravity: -50
+  _isForceGrounding: 1
 --- !u!54 &8057739222682510106
 Rigidbody:
   m_ObjectHideFlags: 0

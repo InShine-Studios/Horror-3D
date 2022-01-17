@@ -3,9 +3,10 @@ using UnityEngine.InputSystem;
 
 public interface IPlayerMovement
 {
+    PlayerBase GetPlayerBase();
     Vector3 GetMoveDirection();
     bool GetSprintBool();
-    float GetMovementSpeed();
+    float GetCurMoveSpeed();
     void OnMovementInput(InputAction.CallbackContext inputVal);
     void SprintPressed(InputAction.CallbackContext ctx);
     void SprintReleased(InputAction.CallbackContext ctx);
@@ -17,68 +18,55 @@ public interface IPlayerMovement
  */
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
-[RequireComponent(typeof(PlayerBase))]
 public class PlayerMovement : MonoBehaviour, IPlayerMovement
 {
     #region Movement Variables
     [Header("External Variables")]
     [Tooltip("The Controller component")]
-    private CharacterController controller;
-    [Tooltip("The PlayerBase for constants")]
-    private PlayerBase playerBase;
+    private CharacterController _controller;
+    [SerializeField] [Tooltip("The PlayerBase for constants")]
+    private PlayerBase _playerBase;
 
     [Space]
     [Header("Movement Constants")]
     [Tooltip("The movement speed used")]
-    private float movementSpeed;
+    private float _curMoveSpeed;
     [Tooltip("The movement input from input actions")]
-    private Vector2 movementInput = new Vector2(0, 0);
+    private Vector2 _moveInput = new Vector2(0, 0);
     [Tooltip("The move direction generated")]
-    private Vector3 moveDirection;
+    private Vector3 _moveDirection;
     [Tooltip("Gravity Strength")]
-    public float gravity = -50.0f;
-    [Tooltip("Force Grounding Flag")][SerializeField]
-    private bool forceGrounding = true;
+    public float Gravity = -50.0f;
+    [Tooltip("Force Grounding Flag")] [SerializeField]
+    private bool _isForceGrounding = true;
 
     [Tooltip("Sprinting boolean")]
-    private bool isSprinting;
+    private bool _isSprinting;
     #endregion
 
-    public float GetMovementSpeed() { return movementSpeed; }
+    public PlayerBase GetPlayerBase() { return _playerBase; }
+    public float GetCurMoveSpeed() { return _curMoveSpeed; }
+    public Vector3 GetMoveDirection() { return _moveDirection; }
+    public bool GetSprintBool(){ return _isSprinting; }
 
     private void Awake()
     {
-        playerBase = GetComponent<PlayerBase>();
-        controller = GetComponent<CharacterController>();
-    }
-
-    private void Start()
-    {
-        movementSpeed = playerBase.GetPlayerMovementSpeed();
+        _controller = GetComponent<CharacterController>();
     }
 
     private void FixedUpdate()
     {
         MovePlayer();
-        if(forceGrounding) ForceGrounding();
+        if(_isForceGrounding) ForceGrounding();
     }
 
-    public Vector3 GetMoveDirection()
-    {
-        return moveDirection;
-    }
-
-    public bool GetSprintBool()
-    {
-        return isSprinting;
-    }
 
     #region Input System
     // Read movement input and set move direction
     public void OnMovementInput(InputAction.CallbackContext inputVal)
     {
-        movementInput = inputVal.ReadValue<Vector2>();
-        moveDirection = new Vector3(0, 0) { x = movementInput.x, z = movementInput.y };
+        _moveInput = inputVal.ReadValue<Vector2>();
+        _moveDirection = new Vector3(0, 0) { x = _moveInput.x, z = _moveInput.y };
         //Debug.Log("[PLAYER] Movement direction: " + moveDirection);
     }
 
@@ -87,7 +75,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     {
         if (ctx.performed)
         {
-            isSprinting = true;
+            _isSprinting = true;
             //Debug.Log(this.name + " started sprinting " + isSprinting);
         }
     }
@@ -96,7 +84,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     {
         if (ctx.performed)
         {
-            isSprinting = false;
+            _isSprinting = false;
             //Debug.Log(this.name + " no longer sprinting " + isSprinting);
         }
     }
@@ -104,17 +92,17 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
 
     private void ForceGrounding()
     {
-        if (!controller.isGrounded)
+        if (!_controller.isGrounded)
         {
-            controller.Move(new Vector3(0, gravity, 0) * Time.deltaTime);
+            _controller.Move(new Vector3(0, Gravity, 0) * Time.deltaTime);
         }
     }
 
     private void MovePlayer()
     {
-        movementSpeed = playerBase.GetPlayerMovementSpeed();
-        if (isSprinting)
-            movementSpeed = playerBase.GetSprintSpeed();
-        controller.SimpleMove(movementSpeed * Time.deltaTime * moveDirection);
+        _curMoveSpeed = _playerBase.GetPlayerMovementSpeed();
+        if (_isSprinting)
+            _curMoveSpeed = _playerBase.GetSprintSpeed();
+        _controller.SimpleMove(_curMoveSpeed * Time.deltaTime * _moveDirection);
     }
 }

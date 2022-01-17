@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.TestTools;
 
-class KeyBoardMouseTestFixture: InputTestFixture
+class KeyboardMouseTestFixture: InputTestFixture
 {
     public enum RegisteredInput
     {
@@ -77,7 +77,7 @@ public class PlayerTest
     private const string sceneName = "TestScene";
     private bool sceneLoaded = false;
     private GameObject player;
-    private KeyBoardMouseTestFixture inputTestFixture = new KeyBoardMouseTestFixture();
+    private KeyboardMouseTestFixture inputTestFixture = new KeyboardMouseTestFixture();
 
     #region Setup Teardown
     [SetUp]
@@ -111,7 +111,7 @@ public class PlayerTest
     public IEnumerator PlayerItemDetector_PlayerInventory_PickAndUseDummyFlashlight()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        inputTestFixture.Press(KeyBoardMouseTestFixture.RegisteredInput.PickItem);
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.PickItem);
         yield return null;
         GameObject flashlight = player.transform.Find("Rotate/InteractZone/DummyFlashlight").gameObject;
         Assert.NotNull(flashlight);
@@ -121,7 +121,7 @@ public class PlayerTest
         Assert.NotNull(inventory.GetActiveItem());
         Assert.AreEqual(0, inventory.GetActiveIdx());
 
-        inputTestFixture.Press(KeyBoardMouseTestFixture.RegisteredInput.UseItem);
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return null;
         Assert.IsTrue(flashlight.GetComponentInChildren<Light>().enabled);
     }
@@ -145,7 +145,7 @@ public class PlayerTest
     public IEnumerator PlayerInteractableDetector_InteractLightSwitch()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        inputTestFixture.Press(KeyBoardMouseTestFixture.RegisteredInput.Interact);
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.Interact);
         yield return null;
 
         ILightSwitchController lightSwitchController = GameObject.Find("LightSwitch").GetComponent<ILightSwitchController>();
@@ -158,18 +158,18 @@ public class PlayerTest
     public IEnumerator PlayerMovement_Sprint()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        inputTestFixture.Press(KeyBoardMouseTestFixture.RegisteredInput.Sprint);
-        yield return new WaitForSeconds(0.3f);
-
         IPlayerMovement playerMovement = player.GetComponent<IPlayerMovement>();
-        IPlayerBase playerBase = player.GetComponent<IPlayerBase>();
-        Assert.IsTrue(playerMovement.GetSprintBool());
-        Assert.AreEqual(playerBase.GetSprintSpeed(), playerMovement.GetMovementSpeed());
+        IPlayerBase playerBase = playerMovement.GetPlayerBase();
 
-        inputTestFixture.Release(KeyBoardMouseTestFixture.RegisteredInput.Sprint);
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.Sprint);
+        yield return new WaitForSeconds(0.3f);
+        Assert.IsTrue(playerMovement.GetSprintBool());
+        Assert.AreEqual(playerBase.GetSprintSpeed(), playerMovement.GetCurMoveSpeed());
+
+        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.Sprint);
         yield return new WaitForSeconds(0.3f);
         Assert.IsFalse(playerMovement.GetSprintBool());
-        Assert.AreEqual(playerBase.GetPlayerMovementSpeed(), playerMovement.GetMovementSpeed());
+        Assert.AreEqual(playerBase.GetPlayerMovementSpeed(), playerMovement.GetCurMoveSpeed());
     }
     #endregion
 }

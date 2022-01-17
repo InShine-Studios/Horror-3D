@@ -1,6 +1,4 @@
-using UnityEngine.Audio;
 using UnityEngine;
-using System;
 
 /*
  * Class to manage audio with array of Sound objects.
@@ -10,12 +8,12 @@ public class AudioManager : MonoBehaviour
 {
     public void Play(string name)
     {
-        Transform s = transform.Find(name);
-        if (s == null)
+        Transform sound = transform.Find(name);
+        if (sound == null)
         {
             Debug.LogWarning("Sound: " + name + " not found!");
             return;
         }
-        s.GetComponent<AudioSource>().Play();
+        sound.GetComponent<AudioSource>().Play();
     }
 }

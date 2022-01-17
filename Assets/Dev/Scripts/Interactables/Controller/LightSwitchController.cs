@@ -15,23 +15,23 @@ public class LightSwitchController : Interactable, ILightSwitchController
     [Header("Light switch state")]
     [SerializeField]
     [Tooltip("True if light switch is on")]
-    private bool isOn = false;
+    private bool _isOn = false;
 
     [Space]
     [Header("Light")]
     [Tooltip("Light Source")]
-    private Light[] lightSources;
+    private Light[] _lightSources;
     #endregion
 
     private void Awake()
     {
-        lightSources = GetComponentsInChildren<Light>();
+        _lightSources = GetComponentsInChildren<Light>();
     }
     public override void OnInteraction()
     {
-        isOn = !isOn;
-        SetLightSources(isOn);
-        if(isOn) PlayAudio("Switch_On");
+        _isOn = !_isOn;
+        SetLightSources(_isOn);
+        if(_isOn) PlayAudio("Switch_On");
         else PlayAudio("Switch_Off");
         //Debug.Log(
         //    String.Format("[INTERACTABLE] Turning \"{0}\" {1}", this.name, (isOn ? "on" : "off"))
@@ -40,7 +40,7 @@ public class LightSwitchController : Interactable, ILightSwitchController
 
     private void SetLightSources(bool value)
     {
-        foreach (Light lightSource in lightSources)
+        foreach (Light lightSource in _lightSources)
         {
             lightSource.enabled = value;
         }
@@ -48,6 +48,6 @@ public class LightSwitchController : Interactable, ILightSwitchController
 
     public bool GetState()
     {
-        return isOn;
+        return _isOn;
     }
 }

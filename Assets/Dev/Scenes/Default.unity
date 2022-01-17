@@ -129,7 +129,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-11786
+  m_Name: pb_Mesh-112070
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -312,11 +312,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044022937042, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -5.3290705e-15
+      value: 8.348877e-14
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044022937042, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 2.220446e-15
+      value: -4.8849813e-14
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044022937043, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_Follow
@@ -364,11 +364,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044410928812, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000016601852
+      value: 0.00000001660178
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044410928812, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000045208224
+      value: -0.0000000045208024
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044410928812, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -384,6 +384,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
+--- !u!20 &263737878 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3273256044410928803, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
+  m_PrefabInstance: {fileID: 263737877}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &424142485
 Mesh:
   m_ObjectHideFlags: 0
@@ -1093,6 +1098,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8057739222434694633, guid: e4042580c30f349b0bc5fccc43e12f7e, type: 3}
+      propertyPath: _mainCamera
+      value: 
+      objectReference: {fileID: 263737878}
     - target: {fileID: 8057739223065118952, guid: e4042580c30f349b0bc5fccc43e12f7e, type: 3}
       propertyPath: m_Mesh
       value: 
