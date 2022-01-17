@@ -11,33 +11,33 @@ public class PlayerRotation : MonoBehaviour
     #region Rotation Variables
     [Header("External Variables")]
     [Tooltip("Current mouse position")]
-    private Vector2 mousePosition = new Vector2(0, 0);
+    private Vector2 _mousePosition = new Vector2(0, 0);
     [Tooltip("The camera that follows the player")]
-    [SerializeField] private Camera mainCamera;
+    [SerializeField] private Camera _mainCamera;
     [Tooltip("The Plane used to map the mouse position")]
-    private Plane playerMovementPlane;
+    private Plane _playerMovementPlane;
     [Tooltip("The PlayerBase for constants")]
-    private PlayerBase playerBase;
+    private PlayerBase _playerBase;
 
     [Space][Header("Rotation Constants")]
     [Tooltip("The last position of this object")]
-    private Vector3 posPrev;
+    private Vector3 _posPrev;
     [Tooltip("Direction from player to cursor position")]
-    private Vector3 playerToMouse;
+    private Vector3 _playerToMouse;
     [Tooltip("The rotation speed used")]
-    private float rotationSpeed;
+    private float _rotationSpeed;
     #endregion
 
     private void Awake()
     {
-        playerBase = GetComponentInParent<PlayerBase>();
+        _playerBase = GetComponentInParent<PlayerMovement>().GetPlayerBase();
         CreatePlayerMovementPlane();
-        posPrev = this.transform.position; // Save init pos
+        _posPrev = this.transform.position; // Save init pos
     }
 
     private void Start()
     {
-        rotationSpeed = playerBase.GetRotationSpeed();
+        _rotationSpeed = _playerBase.GetRotationSpeed();
     }
 
     private void Update()
@@ -45,27 +45,27 @@ public class PlayerRotation : MonoBehaviour
         RotatePlayer();
 
         // Move plane based on player movement
-        playerMovementPlane.Translate(posPrev - this.transform.position);
-        posPrev = this.transform.position;
+        _playerMovementPlane.Translate(_posPrev - this.transform.position);
+        _posPrev = this.transform.position;
     }
 
     #region Input System
     // Read mouse position to change player direction
     public void OnMousePosition(InputAction.CallbackContext mousePos)
     {
-        mousePosition = mousePos.ReadValue<Vector2>();
+        _mousePosition = mousePos.ReadValue<Vector2>();
         //Debug.Log("[PLAYER] Movement direction: " + mousePosition);
     }
     #endregion
 
     private void RotatePlayer()
     {
-        Vector3 cursorScenePosition = mousePosition;
-        Vector3 cursorWorldPosition = ScreenPointToWorldPlane(cursorScenePosition, playerMovementPlane, mainCamera);
-        playerToMouse = cursorWorldPosition - transform.position;
-        playerToMouse.y = 0f;
-        Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-        transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
+        Vector3 cursorScenePosition = _mousePosition;
+        Vector3 cursorWorldPosition = ScreenPointToWorldPlane(cursorScenePosition, _playerMovementPlane, _mainCamera);
+        _playerToMouse = cursorWorldPosition - transform.position;
+        _playerToMouse.y = 0f;
+        Quaternion newRotation = Quaternion.LookRotation(_playerToMouse);
+        transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, _rotationSpeed * Time.deltaTime);
     }
 
     #region Screen to World
@@ -87,7 +87,7 @@ public class PlayerRotation : MonoBehaviour
 
     private void CreatePlayerMovementPlane()
     {
-        playerMovementPlane = new Plane(new Vector3(0,1,-1), this.transform.position);
+        _playerMovementPlane = new Plane(new Vector3(0,1,-1), this.transform.position);
     }
     #endregion
 }

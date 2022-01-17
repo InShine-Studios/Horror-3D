@@ -10,16 +10,16 @@ public class PlayerAnimation : MonoBehaviour
     #region Variables
     [Header("Player Parts")]
     [Tooltip("The Animator for this player")]
-    private Animator animator;
-    [Tooltip("The movement component for the speed")]
-    public PlayerMovement playerMovement;
-    [Tooltip("The rotation component for the angle")]
-    public PlayerRotation playerRotation;
+    private Animator _animator;
+    [SerializeField][Tooltip("The movement component for the speed")]
+    private PlayerMovement _playerMovement;
+    [SerializeField][Tooltip("The rotation component for the angle")]
+    private PlayerRotation _playerRotation;
     #endregion
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -31,43 +31,43 @@ public class PlayerAnimation : MonoBehaviour
     #region Set Anim
     private void SetPlayerDir()
     {
-        float currentAngle = playerRotation.transform.localEulerAngles.y;
+        float currentAngle = _playerRotation.transform.localEulerAngles.y;
 
         if (currentAngle >= 135 && currentAngle < 225)
         {
-            animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Down);
+            _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Down);
         }
         else if (currentAngle >= 45 && currentAngle < 135)
         {
-            animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Right);
+            _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Right);
         }
         else if (currentAngle >= 315 || currentAngle < 45)
         {
-            animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Up);
+            _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Up);
         }
         else if (currentAngle >= 225 && currentAngle < 315)
         {
-            animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Left);
+            _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Left);
         }
     }
 
     void SetPlayerMoveAnim()
     {
-        animator.SetBool("IsIdle", false);
-        animator.SetBool("IsWalking", false);
-        animator.SetBool("IsSprinting", false);
+        _animator.SetBool("IsIdle", false);
+        _animator.SetBool("IsWalking", false);
+        _animator.SetBool("IsSprinting", false);
 
-        if (playerMovement.GetMoveDirection().magnitude == 0)
+        if (_playerMovement.GetMoveDirection().magnitude == 0)
         {
-            animator.SetBool("IsIdle", true);
+            _animator.SetBool("IsIdle", true);
         }
-        else if (playerMovement.GetSprintBool())
+        else if (_playerMovement.GetSprintBool())
         {
-            animator.SetBool("IsSprinting", true);
+            _animator.SetBool("IsSprinting", true);
         }
         else
         {
-            animator.SetBool("IsWalking", true);
+            _animator.SetBool("IsWalking", true);
         }
     }
     #endregion

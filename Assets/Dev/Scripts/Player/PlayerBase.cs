@@ -11,34 +11,35 @@ public interface IPlayerBase
  * Class to keep all player constants.
  * Use Setter and Getter to access the variables.
  */
-public class PlayerBase : MonoBehaviour, IPlayerBase
+[System.Serializable]
+public class PlayerBase : IPlayerBase
 {
     #region Variables
     [Header("Movement Constants")]
     [Tooltip("Walk Speed")]
-    [SerializeField] private float playerMovementSpeed;
+    [SerializeField] private float _playerMovementSpeed;
 
     [Header("Rotation Constants")]
     [Tooltip("Rotation Speed")]
-    [SerializeField] private float rotationSpeed;
+    [SerializeField] private float _rotationSpeed;
 
     [Header("Sprint Constants")]
     [Tooltip("Sprint Speed")]
-    [SerializeField] private float sprintSpeed;
+    [SerializeField] private float _sprintSpeed;
     #endregion
 
     public float GetPlayerMovementSpeed()
     {
-        return playerMovementSpeed;
+        return _playerMovementSpeed;
     }
 
     public float GetRotationSpeed()
     {
-        return rotationSpeed;
+        return _rotationSpeed;
     }
 
     public float GetSprintSpeed()
     {
-        return sprintSpeed;
+        return _sprintSpeed;
     }
 }

@@ -11,26 +11,26 @@ using UnityEngine.InputSystem;
 public class ItemDetector : ObjectDetector
 {
     [Tooltip("The inventory of the player for this item detector")]
-    private Inventory inventory;
+    private Inventory _inventory;
 
     [Tooltip("Detector zone for item")]
-    private CapsuleCollider detectorZone;
+    private CapsuleCollider _detectorZone;
 
     private void Start()
     {
         detectionTag = "Item";
-        detectorZone = GetComponent<CapsuleCollider>();
-        inventory = GetComponent<Inventory>();
+        _detectorZone = GetComponent<CapsuleCollider>();
+        _inventory = GetComponent<Inventory>();
     }
 
     protected override void InteractClosest(Interactable closest)
     {
         //Debug.Log("[ITEM] Player picked " + closest.name);
-        inventory.PickItem((Item)closest);
+        _inventory.PickItem((Item)closest);
     }
 
     protected override Collider[] FindOverlaps()
     {
-        return Utils.GeometryCalcu.FindOverlapsFromCollider(transform, detectorZone);
+        return Utils.GeometryCalcu.FindOverlapsFromCollider(transform, _detectorZone);
     }
 }

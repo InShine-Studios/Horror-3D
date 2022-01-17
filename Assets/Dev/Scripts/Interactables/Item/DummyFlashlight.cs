@@ -10,19 +10,19 @@ public class DummyFlashlight : Item
 {
     #region Variables
     [Header("Light")]
-    private Light lightSource;
+    private Light _lightSource;
 
     #endregion
 
     private void Awake()
     {
-        lightSource = GetComponentInChildren<Light>();
+        _lightSource = GetComponentInChildren<Light>();
     }
 
     public override void Use()
     {
         //Debug.Log("[ITEM] Use " + this.name);
-        lightSource.enabled = !lightSource.enabled;
+        _lightSource.enabled = !_lightSource.enabled;
         PlayAudio("Flashlight_Switch");
     }
 }

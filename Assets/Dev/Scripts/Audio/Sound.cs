@@ -1,4 +1,3 @@
-using UnityEngine.Audio;
 using UnityEngine;
 
 /*
@@ -8,17 +7,17 @@ using UnityEngine;
 public class Sound 
 {
 
-    public string name;
+    public string Name;
 
-    public AudioClip clip;
+    public AudioClip Clip;
 
     [Range(0f, 1f)]
-    public float volume;
+    public float Volume;
     [Range(0.1f, 3f)]
-    public float pitch;
+    public float Pitch;
 
-    public bool loop;
+    public bool Loop;
 
     [HideInInspector]
-    public AudioSource source;
+    public AudioSource Source;
 }

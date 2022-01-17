@@ -1,67 +1,67 @@
 fileFormatVersion: 2
-guid: 06978910a6fdb8b46943918897211cc9
+guid: 54f13f68bde38164d9826d26423321f2
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: -2762090392597500839
-    second: spr_player_iris_0
+    second: spr_player_iris_s_idle
   - first:
       213: 1750114890588715735
-    second: spr_player_iris_1
+    second: spr_player_iris_s_1
   - first:
       213: -2859805241022969283
-    second: spr_player_iris_2
+    second: spr_player_iris_s_2
   - first:
       213: -5075469079216474781
-    second: spr_player_iris_3
+    second: spr_player_iris_s_3
   - first:
       213: 3788099229274205984
-    second: spr_player_iris_4
+    second: spr_player_iris_s_4
   - first:
       213: -2274722635950148253
-    second: spr_player_iris_5
+    second: spr_player_iris_a_idle
   - first:
       213: 8058100071692831564
-    second: spr_player_iris_6
+    second: spr_player_iris_a_1
   - first:
       213: -5933367349575647330
-    second: spr_player_iris_7
+    second: spr_player_iris_a_2
   - first:
       213: 2799779409974673524
-    second: spr_player_iris_8
+    second: spr_player_iris_a_3
   - first:
       213: 7108747446145009248
-    second: spr_player_iris_9
+    second: spr_player_iris_a_4
   - first:
       213: -3867007719872533840
-    second: spr_player_iris_10
+    second: spr_player_iris_w_idle
   - first:
       213: 4290809868943643366
-    second: spr_player_iris_11
+    second: spr_player_iris_w_1
   - first:
       213: -1579511259143518391
-    second: spr_player_iris_12
+    second: spr_player_iris_w_2
   - first:
       213: -8053532685904637835
-    second: spr_player_iris_13
+    second: spr_player_iris_w_3
   - first:
       213: 6546096912459702245
-    second: spr_player_iris_14
+    second: spr_player_iris_w_4
   - first:
       213: 8056438600732892827
-    second: spr_player_iris_15
+    second: spr_player_iris_d_idle
   - first:
       213: -1465232239126492999
-    second: spr_player_iris_16
+    second: spr_player_iris_d_1
   - first:
       213: 8294919119271670447
-    second: spr_player_iris_17
+    second: spr_player_iris_d_2
   - first:
       213: -5168448283608330390
-    second: spr_player_iris_18
+    second: spr_player_iris_d_3
   - first:
       213: -1303490584651202289
-    second: spr_player_iris_19
+    second: spr_player_iris_d_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -92,7 +92,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 2
     mipBias: 0
     wrapU: 1
@@ -128,7 +128,7 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -140,7 +140,7 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -187,15 +187,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_player_iris_0
+      name: spr_player_iris_s_idle
       rect:
         serializedVersion: 2
-        x: 36
-        y: 288
-        width: 24
-        height: 77
+        x: 52
+        y: 576
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -208,15 +208,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_1
+      name: spr_player_iris_s_1
       rect:
         serializedVersion: 2
-        x: 133
-        y: 288
-        width: 22
-        height: 76
+        x: 245
+        y: 576
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -229,15 +229,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_2
+      name: spr_player_iris_s_2
       rect:
         serializedVersion: 2
-        x: 228
-        y: 288
-        width: 24
-        height: 77
+        x: 436
+        y: 576
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -250,15 +250,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_3
+      name: spr_player_iris_s_3
       rect:
         serializedVersion: 2
-        x: 325
-        y: 288
-        width: 22
-        height: 76
+        x: 628
+        y: 576
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -271,15 +271,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_4
+      name: spr_player_iris_s_4
       rect:
         serializedVersion: 2
-        x: 420
-        y: 288
-        width: 24
-        height: 77
+        x: 820
+        y: 576
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -292,15 +292,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_5
+      name: spr_player_iris_a_idle
       rect:
         serializedVersion: 2
-        x: 39
-        y: 192
-        width: 19
-        height: 77
+        x: 51
+        y: 384
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -313,15 +313,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_6
+      name: spr_player_iris_a_1
       rect:
         serializedVersion: 2
-        x: 121
-        y: 192
-        width: 44
-        height: 76
+        x: 242
+        y: 385
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -334,15 +334,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_7
+      name: spr_player_iris_a_2
       rect:
         serializedVersion: 2
-        x: 231
-        y: 192
-        width: 19
-        height: 77
+        x: 434
+        y: 384
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -355,15 +355,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_8
+      name: spr_player_iris_a_3
       rect:
         serializedVersion: 2
-        x: 313
-        y: 192
-        width: 44
-        height: 76
+        x: 626
+        y: 384
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -376,15 +376,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_9
+      name: spr_player_iris_a_4
       rect:
         serializedVersion: 2
-        x: 423
-        y: 192
-        width: 19
-        height: 77
+        x: 818
+        y: 384
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -397,15 +397,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_10
+      name: spr_player_iris_w_idle
       rect:
         serializedVersion: 2
-        x: 36
-        y: 96
-        width: 24
-        height: 77
+        x: 52
+        y: 192
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -418,15 +418,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_11
+      name: spr_player_iris_w_1
       rect:
         serializedVersion: 2
-        x: 132
-        y: 96
-        width: 22
-        height: 76
+        x: 245
+        y: 192
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -439,15 +439,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_12
+      name: spr_player_iris_w_2
       rect:
         serializedVersion: 2
-        x: 228
-        y: 96
-        width: 24
-        height: 77
+        x: 436
+        y: 192
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -460,15 +460,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_13
+      name: spr_player_iris_w_3
       rect:
         serializedVersion: 2
-        x: 326
-        y: 96
-        width: 22
-        height: 76
+        x: 628
+        y: 192
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -481,15 +481,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_14
+      name: spr_player_iris_w_4
       rect:
         serializedVersion: 2
-        x: 420
-        y: 96
-        width: 24
-        height: 77
+        x: 820
+        y: 192
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -502,15 +502,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_15
+      name: spr_player_iris_d_idle
       rect:
         serializedVersion: 2
-        x: 38
+        x: 55
         y: 0
-        width: 19
-        height: 77
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -523,15 +523,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_16
+      name: spr_player_iris_d_1
       rect:
         serializedVersion: 2
-        x: 123
+        x: 246
         y: 0
-        width: 44
-        height: 76
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -544,15 +544,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_17
+      name: spr_player_iris_d_2
       rect:
         serializedVersion: 2
-        x: 230
+        x: 438
         y: 0
-        width: 19
-        height: 77
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -565,15 +565,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_18
+      name: spr_player_iris_d_3
       rect:
         serializedVersion: 2
-        x: 315
+        x: 630
         y: 0
-        width: 44
-        height: 76
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -586,15 +586,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_19
+      name: spr_player_iris_d_4
       rect:
         serializedVersion: 2
-        x: 422
+        x: 822
         y: 0
-        width: 19
-        height: 77
+        width: 88
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -609,7 +609,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 09222d5d15fec474793d7a0720456048
+    spriteID: 1df45aedff3dce54e94d11191ad48ac7
     internalID: 0
     vertices: []
     indices: 

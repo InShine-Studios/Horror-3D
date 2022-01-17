@@ -18,24 +18,21 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     #region Variables
     [Header("Interactable Icons")]
     [Tooltip("True if there is an icon to be used")]
-    public bool hasIcon;
+    public bool UseIcon;
 
     [Tooltip("The Game Object for the icon")]
-    public GameObject interactableIcon;
-
-    [Tooltip("True if player is in Blocker")]
-    public bool inBlocker = false;
+    public GameObject InteractableIcon;
 
     [Space]
     [Header("Audio")]
     [Tooltip("Audio Manager")]
-    public AudioManager audioManager;
+    public AudioManager AudioManager;
 
     #endregion
 
     private void Reset()
     {
-        audioManager = GetComponent<AudioManager>();
+        AudioManager = GetComponent<AudioManager>();
         GetComponent<Collider>().isTrigger = true;
     }
 
@@ -43,8 +40,10 @@ public abstract class Interactable : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter(Collider collision)
     {
+        Debug.Log("aaa");
         if (Utils.PlayerHelper.CheckIsInteractZone(collision))
         {
+            Debug.Log("bbb");
             SetInteractableIcon(true);
         }
     }
@@ -59,10 +58,10 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     // Function to set Icon state
     public void SetInteractableIcon(bool state)
     {
-        if (hasIcon)
+        if (UseIcon)
         {
             //Debug.Log("[INTERACTABLE] Setting icon " + this.name + " to " + state);
-            interactableIcon.SetActive(state);
+            InteractableIcon.SetActive(state);
         }
     }
 
@@ -75,6 +74,6 @@ public abstract class Interactable : MonoBehaviour, IInteractable
 
     protected void PlayAudio(string name)
     {
-        audioManager.Play(name);
+        AudioManager.Play(name);
     }
 }
