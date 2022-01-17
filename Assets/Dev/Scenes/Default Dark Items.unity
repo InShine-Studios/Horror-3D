@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 89082648}
   - component: {fileID: 89082647}
-  - component: {fileID: 89082646}
   - component: {fileID: 89082649}
   - component: {fileID: 89082650}
   m_Layer: 0
@@ -143,14 +142,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &89082646
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 89082645}
-  m_Enabled: 1
 --- !u!20 &89082647
 Camera:
   m_ObjectHideFlags: 0
@@ -201,7 +192,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89082645}
-  m_LocalRotation: {x: 0.2627411, y: 0.000000016427716, z: -0.0000000044734034, w: 0.9648664}
+  m_LocalRotation: {x: 0.2627411, y: 0.00000001660185, z: -0.0000000045208224, w: 0.9648664}
   m_LocalPosition: {x: 0.044430733, y: 3.62, z: -4.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -344,7 +335,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-5150
+  m_Name: pb_Mesh-2392
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1150,7 +1141,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1034879077}
-  m_LocalRotation: {x: -0, y: -0.0000000022868623, z: 0.0000000013452133, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
