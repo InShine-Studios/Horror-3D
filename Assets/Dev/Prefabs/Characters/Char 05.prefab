@@ -767,6 +767,7 @@ GameObject:
   - component: {fileID: 8057739222682512613}
   - component: {fileID: 8057739222682512609}
   - component: {fileID: 8057739222682512614}
+  - component: {fileID: 2924674624073137082}
   m_Layer: 0
   m_Name: Char 05
   m_TagString: Player
@@ -1096,3 +1097,11 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!81 &2924674624073137082
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8057739223163586147}
+  m_Enabled: 1
