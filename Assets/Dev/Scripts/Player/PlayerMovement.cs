@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     [Tooltip("Gravity Strength")]
     public float Gravity = -50.0f;
     [Tooltip("Force Grounding Flag")] [SerializeField]
-    private bool _isForceGrounding = true;
+    private bool _useForceGrounding = true;
 
     [Tooltip("Sprinting boolean")]
     private bool _isSprinting;
@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private void FixedUpdate()
     {
         MovePlayer();
-        if(_isForceGrounding) ForceGrounding();
+        if(_useForceGrounding) ForceGrounding();
     }
 
 

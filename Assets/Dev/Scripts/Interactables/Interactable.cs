@@ -18,7 +18,7 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     #region Variables
     [Header("Interactable Icons")]
     [Tooltip("True if there is an icon to be used")]
-    public bool HasIcon;
+    public bool UseIcon;
 
     [Tooltip("The Game Object for the icon")]
     public GameObject InteractableIcon;
@@ -40,8 +40,10 @@ public abstract class Interactable : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter(Collider collision)
     {
+        Debug.Log("aaa");
         if (Utils.PlayerHelper.CheckIsInteractZone(collision))
         {
+            Debug.Log("bbb");
             SetInteractableIcon(true);
         }
     }
@@ -56,7 +58,7 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     // Function to set Icon state
     public void SetInteractableIcon(bool state)
     {
-        if (HasIcon)
+        if (UseIcon)
         {
             //Debug.Log("[INTERACTABLE] Setting icon " + this.name + " to " + state);
             InteractableIcon.SetActive(state);

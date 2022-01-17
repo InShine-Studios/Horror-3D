@@ -11,10 +11,10 @@ public class PlayerAnimation : MonoBehaviour
     [Header("Player Parts")]
     [Tooltip("The Animator for this player")]
     private Animator _animator;
-    [Tooltip("The movement component for the speed")]
-    public PlayerMovement PlayerMovement;
-    [Tooltip("The rotation component for the angle")]
-    public PlayerRotation PlayerRotation;
+    [SerializeField][Tooltip("The movement component for the speed")]
+    private PlayerMovement _playerMovement;
+    [SerializeField][Tooltip("The rotation component for the angle")]
+    private PlayerRotation _playerRotation;
     #endregion
 
     private void Awake()
@@ -31,7 +31,7 @@ public class PlayerAnimation : MonoBehaviour
     #region Set Anim
     private void SetPlayerDir()
     {
-        float currentAngle = PlayerRotation.transform.localEulerAngles.y;
+        float currentAngle = _playerRotation.transform.localEulerAngles.y;
 
         if (currentAngle >= 135 && currentAngle < 225)
         {
@@ -57,11 +57,11 @@ public class PlayerAnimation : MonoBehaviour
         _animator.SetBool("IsWalking", false);
         _animator.SetBool("IsSprinting", false);
 
-        if (PlayerMovement.GetMoveDirection().magnitude == 0)
+        if (_playerMovement.GetMoveDirection().magnitude == 0)
         {
             _animator.SetBool("IsIdle", true);
         }
-        else if (PlayerMovement.GetSprintBool())
+        else if (_playerMovement.GetSprintBool())
         {
             _animator.SetBool("IsSprinting", true);
         }

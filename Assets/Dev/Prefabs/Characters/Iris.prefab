@@ -416,8 +416,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852518e8b4d7f6f4594dedf01db0c990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerMovement: {fileID: 8057739223163586148}
-  PlayerRotation: {fileID: 8057739222434694633}
+  _playerMovement: {fileID: 8057739223163586148}
+  _playerRotation: {fileID: 8057739222434694633}
 --- !u!95 &8057739222879337492
 Animator:
   serializedVersion: 3
@@ -451,6 +451,7 @@ GameObject:
   - component: {fileID: 8057739223163586148}
   - component: {fileID: 5756019973116728186}
   - component: {fileID: 8193939564536706077}
+  - component: {fileID: -2560991310140210103}
   m_Layer: 0
   m_Name: Iris
   m_TagString: Player
@@ -731,3 +732,11 @@ CapsuleCollider:
   m_Height: 1.55
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!81 &-2560991310140210103
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8057739223163586147}
+  m_Enabled: 1
