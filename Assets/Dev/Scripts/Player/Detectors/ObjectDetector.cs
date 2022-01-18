@@ -33,7 +33,7 @@ public abstract class ObjectDetector : MonoBehaviour
             Collider cur = colliders[i];
 
             // Calculate minimum distance and update closest interactable
-            float curDist = Utils.GeometryCalcu.GetDistance3D(transform, cur.transform);
+            float curDist = Utils.GeometryCalcu.GetDistance3D(transform.position, cur.transform.position);
             if (cur.CompareTag(detectionTag) && curDist < minDist)
             {
                 //Debug.Log("[INTERACTABLE] Updated closest interactable to " + cur.name);

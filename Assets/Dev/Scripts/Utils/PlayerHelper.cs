@@ -14,10 +14,17 @@ namespace Utils
             Right,
             Left
         }
+        public static int FixedUpdateCallsPerSecond = 50;
 
         public static bool CheckIsInteractZone(Collider target)
         {
             return target.gameObject.CompareTag("Player") && target.name == "InteractZone";
+        }
+
+        public static float DistanceToMoveDuration(IPlayerMovement playerMovement, float distance)
+        {
+            float speed = playerMovement.GetCurMoveSpeed();
+            return (distance / speed) * FixedUpdateCallsPerSecond;
         }
     }
 }

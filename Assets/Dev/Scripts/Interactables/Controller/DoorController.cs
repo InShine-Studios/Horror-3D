@@ -1,10 +1,16 @@
 using UnityEngine;
 
+public interface IDoorController: IInteractable
+{
+    bool GetState();
+    float GetAngle();
+}
+
 /*
  * Class to control door states and animation.
  * Inherit Interactable.
  */
-public class DoorController : Interactable
+public class DoorController : Interactable, IDoorController
 {
     #region Variables
     private const string animParam = "isOpen";
@@ -19,6 +25,15 @@ public class DoorController : Interactable
     private Animator _doorAnim;
     #endregion
 
+    public bool GetState()
+    {
+        return isOpen;
+    }
+
+    public float GetAngle()
+    {
+        return transform.parent.rotation.y;
+    }
 
     // General function to change the state of doors
     private void ChangeState()
@@ -30,10 +45,6 @@ public class DoorController : Interactable
 
     public override void OnInteraction()
     {
-        //if (inBlocker)
-        //{
-        //    return;
-        //}
 
         ChangeState();
         Debug.Log("[INTERACTABLE] Door interacted");

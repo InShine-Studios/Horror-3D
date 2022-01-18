@@ -7,9 +7,9 @@ namespace Utils
     */
     public static class GeometryCalcu
     {
-        public static float GetDistance3D(Transform feetPosition, Transform objPosition)
+        public static float GetDistance3D(Vector3 source, Vector3 target)
         {
-            return Vector3.Distance(feetPosition.transform.position, objPosition.transform.position);
+            return Vector3.Distance(source, target);
         }
 
         public static Collider[] FindOverlapsFromCollider(Transform source, CapsuleCollider CapsuleDetector)
