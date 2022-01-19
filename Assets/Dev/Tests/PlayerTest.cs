@@ -192,7 +192,11 @@ public class PlayerTest
         yield return new WaitForSeconds(moveDuration);
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.MoveForward);
 
-        IDoorController door = GameObject.Find("WoodenDoor/Rotate/Model").GetComponent<IDoorController>();
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.MoveLeft);
+        yield return new WaitForSeconds(0.1f);
+        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.MoveLeft);
+
+        IDoorController door = GameObject.Find("WoodenDoor/Rotate").GetComponent<IDoorController>();
         float currentRotation = door.GetAngle();
 
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.Interact);
@@ -200,6 +204,10 @@ public class PlayerTest
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.Interact);
         yield return new WaitForSeconds(1f);
         Assert.IsTrue(door.GetState());
+
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.MoveForward);
+        yield return new WaitForSeconds(0.4f);
+        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.MoveForward);
 
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.Interact);
         yield return new WaitForSeconds(1f);
