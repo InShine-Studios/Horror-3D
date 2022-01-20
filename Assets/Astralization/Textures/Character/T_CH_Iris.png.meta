@@ -4,64 +4,64 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -2762090392597500839
-    second: spr_player_iris_s_idle
+    second: Iris_Idle_S
   - first:
       213: 1750114890588715735
-    second: spr_player_iris_s_1
+    second: Iris_Walk_S_1
   - first:
       213: -2859805241022969283
-    second: spr_player_iris_s_2
+    second: Iris_Walk_S_2
   - first:
       213: -5075469079216474781
-    second: spr_player_iris_s_3
+    second: Iris_Walk_S_3
   - first:
       213: 3788099229274205984
-    second: spr_player_iris_s_4
+    second: Iris_Walk_S_4
   - first:
       213: -2274722635950148253
-    second: spr_player_iris_a_idle
+    second: Iris_Idle_W
   - first:
       213: 8058100071692831564
-    second: spr_player_iris_a_1
+    second: Iris_Walk_W_1
   - first:
       213: -5933367349575647330
-    second: spr_player_iris_a_2
+    second: Iris_Walk_W_2
   - first:
       213: 2799779409974673524
-    second: spr_player_iris_a_3
+    second: Iris_Walk_W_3
   - first:
       213: 7108747446145009248
-    second: spr_player_iris_a_4
+    second: Iris_Walk_W_4
   - first:
       213: -3867007719872533840
-    second: spr_player_iris_w_idle
+    second: Iris_Idle_N
   - first:
       213: 4290809868943643366
-    second: spr_player_iris_w_1
+    second: Iris_Walk_N_1
   - first:
       213: -1579511259143518391
-    second: spr_player_iris_w_2
+    second: Iris_Walk_N_2
   - first:
       213: -8053532685904637835
-    second: spr_player_iris_w_3
+    second: Iris_Walk_N_3
   - first:
       213: 6546096912459702245
-    second: spr_player_iris_w_4
+    second: Iris_Walk_N_4
   - first:
       213: 8056438600732892827
-    second: spr_player_iris_d_idle
+    second: Iris_Idle_E
   - first:
       213: -1465232239126492999
-    second: spr_player_iris_d_1
+    second: Iris_Walk_E_1
   - first:
       213: 8294919119271670447
-    second: spr_player_iris_d_2
+    second: Iris_Walk_E_2
   - first:
       213: -5168448283608330390
-    second: spr_player_iris_d_3
+    second: Iris_Walk_E_3
   - first:
       213: -1303490584651202289
-    second: spr_player_iris_d_4
+    second: Iris_Walk_E_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -187,7 +187,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_player_iris_s_idle
+      name: Iris_Idle_S
       rect:
         serializedVersion: 2
         x: 52
@@ -208,7 +208,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_s_1
+      name: Iris_Walk_S_1
       rect:
         serializedVersion: 2
         x: 245
@@ -229,7 +229,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_s_2
+      name: Iris_Walk_S_2
       rect:
         serializedVersion: 2
         x: 436
@@ -250,7 +250,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_s_3
+      name: Iris_Walk_S_3
       rect:
         serializedVersion: 2
         x: 628
@@ -271,7 +271,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_s_4
+      name: Iris_Walk_S_4
       rect:
         serializedVersion: 2
         x: 820
@@ -292,7 +292,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_a_idle
+      name: Iris_Idle_W
       rect:
         serializedVersion: 2
         x: 51
@@ -313,7 +313,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_a_1
+      name: Iris_Walk_W_1
       rect:
         serializedVersion: 2
         x: 242
@@ -334,7 +334,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_a_2
+      name: Iris_Walk_W_2
       rect:
         serializedVersion: 2
         x: 434
@@ -355,7 +355,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_a_3
+      name: Iris_Walk_W_3
       rect:
         serializedVersion: 2
         x: 626
@@ -376,7 +376,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_a_4
+      name: Iris_Walk_W_4
       rect:
         serializedVersion: 2
         x: 818
@@ -397,7 +397,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_w_idle
+      name: Iris_Idle_N
       rect:
         serializedVersion: 2
         x: 52
@@ -418,7 +418,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_w_1
+      name: Iris_Walk_N_1
       rect:
         serializedVersion: 2
         x: 245
@@ -439,7 +439,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_w_2
+      name: Iris_Walk_N_2
       rect:
         serializedVersion: 2
         x: 436
@@ -460,7 +460,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_w_3
+      name: Iris_Walk_N_3
       rect:
         serializedVersion: 2
         x: 628
@@ -481,7 +481,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_w_4
+      name: Iris_Walk_N_4
       rect:
         serializedVersion: 2
         x: 820
@@ -502,7 +502,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_d_idle
+      name: Iris_Idle_E
       rect:
         serializedVersion: 2
         x: 55
@@ -523,7 +523,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_d_1
+      name: Iris_Walk_E_1
       rect:
         serializedVersion: 2
         x: 246
@@ -544,7 +544,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_d_2
+      name: Iris_Walk_E_2
       rect:
         serializedVersion: 2
         x: 438
@@ -565,7 +565,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_d_3
+      name: Iris_Walk_E_3
       rect:
         serializedVersion: 2
         x: 630
@@ -586,7 +586,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_player_iris_d_4
+      name: Iris_Walk_E_4
       rect:
         serializedVersion: 2
         x: 822
