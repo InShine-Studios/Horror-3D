@@ -13,21 +13,21 @@ public interface IDoorController: IInteractable
 public class DoorController : Interactable, IDoorController
 {
     #region Variables
-    private const string animParam = "isOpen";
+    private const string _animParam = "isOpen";
     [Header("Door States")]
     [SerializeField]
     [Tooltip("True if door is in open state")]
-    private bool isOpen = false;
+    private bool _isOpen = false;
 
     [Space]
     [SerializeField]
     [Header("Animation")]
-    private Animator _doorAnim;
+    private Animator _animator;
     #endregion
 
     public bool GetState()
     {
-        return isOpen;
+        return _isOpen;
     }
 
     public float GetAngle()
@@ -39,14 +39,14 @@ public class DoorController : Interactable, IDoorController
     private void ChangeState()
     {
         //Debug.Log("[INTERACTABLE] " + (isOpen ? "Closing " : "Opening ") + this.name);
-        isOpen = !_doorAnim.GetBool(animParam);
-        _doorAnim.SetBool(animParam, isOpen);
+        _isOpen = !_isOpen;
+        _animator.SetBool(_animParam, _isOpen);
     }
 
     public override void OnInteraction()
     {
         ChangeState();
-        Debug.Log("[INTERACTABLE] Door interacted");
+        //Debug.Log("[INTERACTABLE] Door interacted");
         //PlayAudio(isOpen);
     }
 

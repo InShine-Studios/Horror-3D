@@ -96,8 +96,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.37484202, y: 0.22000003, z: 0.30786997}
-  m_Center: {x: 0.024011642, y: 1.83, z: -1.845082}
+  m_Size: {x: 0.5509875, y: 3.5665112, z: 0.46591187}
+  m_Center: {x: 0.006173253, y: 1.776236, z: -1.0601296}
 --- !u!114 &3911253526875388007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,9 +112,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UseIcon: 0
   InteractableIcon: {fileID: 0}
-  AudioManager: {fileID: 0}
-  isOpen: 0
-  _doorAnim: {fileID: 2205640042124373969}
+  AudioManager: {fileID: 7228865263061821897}
+  _isOpen: 0
+  _animator: {fileID: 2205640042124373969}
 --- !u!1001 &4262824894621506787
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -177,6 +177,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6879967579770631465, guid: 791ebdef87edc574fa9396cb927fbe97, type: 3}
   m_PrefabInstance: {fileID: 4262824894621506787}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7228865263061821897 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6879967579770631466, guid: 791ebdef87edc574fa9396cb927fbe97, type: 3}
+  m_PrefabInstance: {fileID: 4262824894621506787}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8845c5b65e040ac419c298898dd17ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5341670690724535928
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -243,18 +254,6 @@ PrefabInstance:
     - target: {fileID: 2936879384999752649, guid: 5f3752bf60c9e793384ea293b836c9ce, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3600762232591405210, guid: 5f3752bf60c9e793384ea293b836c9ce, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 3793998661306552380, guid: 5f3752bf60c9e793384ea293b836c9ce, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 3970203076248958662, guid: 5f3752bf60c9e793384ea293b836c9ce, type: 3}
-      propertyPath: m_TagString
-      value: Interactable
       objectReference: {fileID: 0}
     - target: {fileID: 4156643203563247736, guid: 5f3752bf60c9e793384ea293b836c9ce, type: 3}
       propertyPath: m_Mesh
@@ -1487,18 +1486,6 @@ PrefabInstance:
     - target: {fileID: 7889592321832426132, guid: 5f3752bf60c9e793384ea293b836c9ce, type: 3}
       propertyPath: m_Name
       value: Model
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889592321832426132, guid: 5f3752bf60c9e793384ea293b836c9ce, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 8008415164289421272, guid: 5f3752bf60c9e793384ea293b836c9ce, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 8377984477175951553, guid: 5f3752bf60c9e793384ea293b836c9ce, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 9027146356581184722, guid: 5f3752bf60c9e793384ea293b836c9ce, type: 3}
       propertyPath: m_Mesh

@@ -165,12 +165,13 @@ public class PlayerTest
     public IEnumerator PlayerInteractableDetector_InteractLightSwitch()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
+        GameObject lightSwitch = GameObject.Find("LightSwitch");
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.MoveRight);
-        float moveDuration = GetMovementDurationTowards(GameObject.Find("LightSwitch").transform);
+        float moveDuration = GetMovementDurationTowards(lightSwitch.transform);
         yield return new WaitForSeconds(moveDuration);
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.MoveRight);
 
-        ILightSwitchController lightSwitchController = GameObject.Find("LightSwitch").GetComponent<ILightSwitchController>();
+        ILightSwitchController lightSwitchController = lightSwitch.GetComponent<ILightSwitchController>();
 
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.Interact);
         yield return null;
@@ -179,6 +180,8 @@ public class PlayerTest
         Assert.IsTrue(lightSwitchController.GetState());
 
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.Interact);
+        yield return null;
+        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.Interact);
         yield return null;
         Assert.IsFalse(lightSwitchController.GetState());
     }
@@ -210,6 +213,8 @@ public class PlayerTest
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.MoveForward);
 
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.Interact);
+        yield return null;
+        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.Interact);
         yield return new WaitForSeconds(1f);
         Assert.IsFalse(door.GetState());
     }
