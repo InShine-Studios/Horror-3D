@@ -40,10 +40,8 @@ public abstract class Interactable : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("aaa");
         if (Utils.PlayerHelper.CheckIsInteractZone(collision))
         {
-            Debug.Log("bbb");
             SetInteractableIcon(true);
         }
     }

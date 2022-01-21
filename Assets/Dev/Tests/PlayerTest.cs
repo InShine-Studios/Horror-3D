@@ -11,6 +11,10 @@ class KeyboardMouseTestFixture: InputTestFixture
 {
     public enum RegisteredInput
     {
+        MoveForward,
+        MoveLeft,
+        MoveRight,
+        MoveBack,
         Sprint,
         Interact,
         PickItem,
@@ -30,6 +34,10 @@ class KeyboardMouseTestFixture: InputTestFixture
         keyboard = InputSystem.AddDevice<Keyboard>();
         mouse = InputSystem.AddDevice<Mouse>();
         keyboardInputMap = new Dictionary<RegisteredInput, KeyControl>() {
+            {RegisteredInput.MoveForward, keyboard.wKey },
+            {RegisteredInput.MoveLeft, keyboard.aKey },
+            {RegisteredInput.MoveRight, keyboard.dKey },
+            {RegisteredInput.MoveBack, keyboard.sKey },
             {RegisteredInput.Sprint, keyboard.leftShiftKey },
             {RegisteredInput.Interact, keyboard.eKey },
             {RegisteredInput.PickItem, keyboard.fKey },
@@ -77,7 +85,15 @@ public class PlayerTest
     private const string sceneName = "TestScene";
     private bool sceneLoaded = false;
     private GameObject player;
+    private IPlayerMovement playerMovement;
     private KeyboardMouseTestFixture inputTestFixture = new KeyboardMouseTestFixture();
+
+    private float GetMovementDurationTowards(Transform target)
+    {
+        float moveDistance = Utils.GeometryCalcu.GetDistance3D(player.transform.position, target.transform.position);
+        float moveDuration = Utils.PlayerHelper.DistanceToMoveDuration(playerMovement, moveDistance);
+        return moveDuration;
+    }
 
     #region Setup Teardown
     [SetUp]
@@ -94,7 +110,11 @@ public class PlayerTest
         GameObject[] gameObjects = scene.GetRootGameObjects();
         foreach (GameObject gameObject in gameObjects)
         {
-            if (gameObject.name == "Player") player = gameObject;
+            if (gameObject.name == "Player")
+            {
+                player = gameObject;
+                playerMovement = player.GetComponent<IPlayerMovement>();
+            }
         }
     }
 
@@ -145,11 +165,58 @@ public class PlayerTest
     public IEnumerator PlayerInteractableDetector_InteractLightSwitch()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
+        GameObject lightSwitch = GameObject.Find("LightSwitch");
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.MoveRight);
+        float moveDuration = GetMovementDurationTowards(lightSwitch.transform);
+        yield return new WaitForSeconds(moveDuration);
+        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.MoveRight);
+
+        ILightSwitchController lightSwitchController = lightSwitch.GetComponent<ILightSwitchController>();
+
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.Interact);
         yield return null;
-
-        ILightSwitchController lightSwitchController = GameObject.Find("LightSwitch").GetComponent<ILightSwitchController>();
+        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.Interact);
+        yield return null;
         Assert.IsTrue(lightSwitchController.GetState());
+
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.Interact);
+        yield return null;
+        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.Interact);
+        yield return null;
+        Assert.IsFalse(lightSwitchController.GetState());
+    }
+
+    [UnityTest]
+    public IEnumerator PlayerInteractableDetector_InteractWoodenDoor()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.MoveForward);
+        float moveDuration = GetMovementDurationTowards(GameObject.Find("WoodenDoor").transform);
+        yield return new WaitForSeconds(moveDuration);
+        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.MoveForward);
+
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.MoveLeft);
+        yield return new WaitForSeconds(0.1f);
+        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.MoveLeft);
+
+        IDoorController door = GameObject.Find("WoodenDoor/Rotate").GetComponent<IDoorController>();
+        float currentRotation = door.GetAngle();
+
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.Interact);
+        yield return null;
+        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.Interact);
+        yield return new WaitForSeconds(1f);
+        Assert.IsTrue(door.GetState());
+
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.MoveForward);
+        yield return new WaitForSeconds(0.4f);
+        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.MoveForward);
+
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.Interact);
+        yield return null;
+        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.Interact);
+        yield return new WaitForSeconds(1f);
+        Assert.IsFalse(door.GetState());
     }
     #endregion
 
