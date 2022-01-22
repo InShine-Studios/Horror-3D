@@ -23,6 +23,9 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     [Tooltip("The Game Object for the icon")]
     public GameObject InteractableIcon;
 
+    [Tooltip("The Sprite for the logo")]
+    public Sprite InteractableLogo;
+
     [Space]
     [Header("Audio")]
     [Tooltip("Audio Manager")]

@@ -45,6 +45,10 @@ public class Inventory : MonoBehaviour, IInventory
 
     [Tooltip("Overworld Item in Level")]
     public GameObject OverworldItem;
+
+    [Tooltip("Hud for Item in Level")]
+    [SerializeField]
+    private Hud _hud;
     #endregion
 
     #region Variables - Item position adjustment
@@ -111,7 +115,7 @@ public class Inventory : MonoBehaviour, IInventory
                 _activeItem = item;
                 _numOfItem++;
 
-                // TODO: Update Inventory HUD
+                _hud.ActivateHud(_activeItem.InteractableLogo);
             }
 
             // Put item as child of Inventory
@@ -145,6 +149,8 @@ public class Inventory : MonoBehaviour, IInventory
                 _items[_activeIdx] = null;
                 _numOfItem--;
 
+                _hud.DeactivateHud();
+
             }
             else
             {
@@ -177,7 +183,7 @@ public class Inventory : MonoBehaviour, IInventory
         // Show active item
         _activeItem?.ShowItem();
 
-        // TODO: Change active item display on HUD
+        if (_activeItem) _hud.ActivateHud(_activeItem.InteractableLogo);
     }
     #endregion
 
