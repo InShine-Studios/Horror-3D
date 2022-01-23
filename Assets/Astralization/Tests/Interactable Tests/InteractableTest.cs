@@ -3,12 +3,14 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 
 public class InteractableTest
 {
     private const string sceneName = "InteractableTestScene";
     private bool sceneLoaded = false;
     private GameObject player;
+    private GameObject hud;
     private IPlayerMovement playerMovement;
     private KeyboardMouseTestFixture inputTestFixture = new KeyboardMouseTestFixture();
 
@@ -39,6 +41,10 @@ public class InteractableTest
                 player = gameObject;
                 playerMovement = player.GetComponent<IPlayerMovement>();
             }
+            else if (gameObject.name == "Hud")
+            {
+                hud = gameObject;
+            }
         }
     }
 
@@ -68,6 +74,9 @@ public class InteractableTest
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return null;
         Assert.IsTrue(flashlight.GetComponentInChildren<Light>().enabled);
+        Image img = hud.transform.Find("Canvas/Placeholder").GetComponent<Image>();
+        Assert.IsTrue(img.enabled);
+        Assert.AreEqual(flashlight.name, img.sprite.name);
     }
 
     [UnityTest]

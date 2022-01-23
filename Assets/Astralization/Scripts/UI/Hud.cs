@@ -20,5 +20,6 @@ public class Hud : MonoBehaviour
     public void DeactivateHud()
     {
         _img.enabled = false;
+        _img.sprite = null;
     }
 }

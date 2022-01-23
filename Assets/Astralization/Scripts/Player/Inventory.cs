@@ -115,7 +115,7 @@ public class Inventory : MonoBehaviour, IInventory
                 _activeItem = item;
                 _numOfItem++;
 
-                _hud.ActivateHud(_activeItem.InteractableLogo);
+                _hud.ActivateHud(_activeItem.InteractableLogoGetter());
             }
 
             // Put item as child of Inventory
@@ -183,7 +183,8 @@ public class Inventory : MonoBehaviour, IInventory
         // Show active item
         _activeItem?.ShowItem();
 
-        if (_activeItem) _hud.ActivateHud(_activeItem.InteractableLogo);
+        if (_activeItem) _hud.ActivateHud(_activeItem.InteractableLogoGetter());
+        else _hud.DeactivateHud();
     }
     #endregion
 
