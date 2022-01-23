@@ -41,7 +41,7 @@ public class InteractableTest
                 player = gameObject;
                 playerMovement = player.GetComponent<IPlayerMovement>();
             }
-            else if (gameObject.name == "Hud")
+            else if (gameObject.name == "Canvas")
             {
                 hud = gameObject;
             }
@@ -74,7 +74,7 @@ public class InteractableTest
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return null;
         Assert.IsTrue(flashlight.GetComponentInChildren<Light>().enabled);
-        Image img = hud.transform.Find("Canvas/Placeholder").GetComponent<Image>();
+        Image img = hud.transform.Find("ItemHud/Logo").GetComponent<Image>();
         Assert.IsTrue(img.enabled);
         Assert.AreEqual(flashlight.name, img.sprite.name);
     }
@@ -90,6 +90,9 @@ public class InteractableTest
 
         Assert.AreEqual(idxBefore + 1, inventory.GetActiveIdx());
         Assert.AreEqual(inventory.GetItemByIndex(inventory.GetActiveIdx()), inventory.GetActiveItem());
+        Image img = hud.transform.Find("ItemHud/Logo").GetComponent<Image>();
+        if (inventory.GetActiveItem() == null) Assert.IsTrue(!img.enabled);
+        else Assert.IsTrue(img.enabled);
     }
     #endregion
 

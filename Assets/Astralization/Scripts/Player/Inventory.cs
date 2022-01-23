@@ -48,7 +48,7 @@ public class Inventory : MonoBehaviour, IInventory
 
     [Tooltip("Hud for Item in Level")]
     [SerializeField]
-    private Hud _hud;
+    private ItemHud _hud;
     #endregion
 
     #region Variables - Item position adjustment
@@ -115,7 +115,7 @@ public class Inventory : MonoBehaviour, IInventory
                 _activeItem = item;
                 _numOfItem++;
 
-                _hud.ActivateHud(_activeItem.InteractableLogoGetter());
+                _hud.ActivateHud(_activeItem.GetItemLogo());
             }
 
             // Put item as child of Inventory
@@ -183,7 +183,7 @@ public class Inventory : MonoBehaviour, IInventory
         // Show active item
         _activeItem?.ShowItem();
 
-        if (_activeItem) _hud.ActivateHud(_activeItem.InteractableLogoGetter());
+        if (_activeItem) _hud.ActivateHud(_activeItem.GetItemLogo());
         else _hud.DeactivateHud();
     }
     #endregion

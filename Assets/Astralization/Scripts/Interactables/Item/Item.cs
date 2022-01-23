@@ -18,7 +18,7 @@ public abstract class Item : Interactable, IItem
 {
     [SerializeField]
     [Tooltip("The Sprite for the logo")]
-    private Sprite InteractableLogo;
+    private Sprite _itemLogo;
 
     public abstract void Use();
 
@@ -50,8 +50,8 @@ public abstract class Item : Interactable, IItem
     }
     #endregion
 
-    public Sprite InteractableLogoGetter()
+    public Sprite GetItemLogo()
     {
-        return InteractableLogo;
+        return _itemLogo;
     }
 }
