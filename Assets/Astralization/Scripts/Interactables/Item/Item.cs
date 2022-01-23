@@ -16,6 +16,10 @@ public interface IItem: IInteractable
 [RequireComponent(typeof(MeshRenderer))]
 public abstract class Item : Interactable, IItem
 {
+    [SerializeField]
+    [Tooltip("The Sprite for the logo")]
+    private Sprite _itemLogo;
+
     public abstract void Use();
 
     public override void OnInteraction()
@@ -45,4 +49,9 @@ public abstract class Item : Interactable, IItem
         this.gameObject.SetActive(true);
     }
     #endregion
+
+    public Sprite GetItemLogo()
+    {
+        return _itemLogo;
+    }
 }
