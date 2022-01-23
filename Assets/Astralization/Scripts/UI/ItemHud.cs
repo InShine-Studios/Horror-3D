@@ -14,12 +14,12 @@ public class ItemHud : MonoBehaviour
     }
     public void ActivateHud(Sprite logo)
     {
-        _img.enabled = true;
         _img.sprite = logo;
+        _img.enabled = true;
     }
     public void DeactivateHud()
     {
-        _img.enabled = false;
         _img.sprite = null;
+        _img.enabled = false;
     }
 }

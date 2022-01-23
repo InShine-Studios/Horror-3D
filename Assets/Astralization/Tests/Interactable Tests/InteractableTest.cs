@@ -92,7 +92,6 @@ public class InteractableTest
         Assert.AreEqual(inventory.GetItemByIndex(inventory.GetActiveIdx()), inventory.GetActiveItem());
         Image img = hud.transform.Find("ItemHud/Logo").GetComponent<Image>();
         if (inventory.GetActiveItem() == null) Assert.IsTrue(!img.enabled);
-        else Assert.IsTrue(img.enabled);
     }
     #endregion
 
