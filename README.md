@@ -101,7 +101,7 @@ All project files used are in the "Assets/Astralization" folder.
 
 > 4.2 [Audios](#audio)
 
-> 4.3 [Character](#char)
+> 4.3 [Characters](#char)
 
 > 4.4 [FX](#fx)
 
@@ -158,7 +158,7 @@ The main folder to keep **ALL gameplay related assets**. This includes objects r
 <a name="script"></a>
 ### 4.6 Scripts
 
-This folder is used to keep **ALL the scripts** that will be used inside the project. It also has its own **assembly definition** asset to exclude it from the normal C# assembly for testing purposes. 
+This folder is used to keep **ALL the scripts** that will be used inside the project. It also has its own **assembly definition** asset to exclude it from the normal C# assembly for testing purposes.
 
 Each script will be kept in its own subfolder depending on what it is used for. The name of the script file **must** be the same as the class name. All scripts should be named using **PascalCase** format.
 
@@ -192,7 +192,7 @@ Most things are prefixed with the prefix generally being an acronym of the asset
 
 Naming Convention: `Prefix_BaseAssetName_Variant_Suffix`
 
-All assets should have a _Base Asset Name_. A Base Asset Name represents a logical grouping of related assets. Any asset that is part of this logical group 
+All assets should have a _Base Asset Name_. A Base Asset Name represents a logical grouping of related assets. Any asset that is part of this logical group
 should follow the the standard of  `Prefix_BaseAssetName_Variant_Suffix`.
 
 Keeping the pattern `Prefix_BaseAssetName_Variant_Suffix` in mind and using common sense is generally enough to warrant good asset names.
@@ -263,7 +263,7 @@ Assets that are **effects** that will be used in objects or scenes. This include
 
 | Asset Type      | Prefix | Suffix | Notes |
 | --------------- | ------ | ------ | ----- |
-| VOL             | VOL_   |        |       |
+| Volume          | VOL_   |        |       |
 | Particle System | PS_    |        |       |
 
 **[⬆ Back to Top](#table-of-contents)**
