@@ -11,6 +11,7 @@ public class InteractableTest
     private bool sceneLoaded = false;
     private GameObject player;
     private GameObject hud;
+    private GameObject astral;
     private IPlayerMovement playerMovement;
     private KeyboardMouseTestFixture inputTestFixture = new KeyboardMouseTestFixture();
 
@@ -45,6 +46,10 @@ public class InteractableTest
             {
                 hud = gameObject;
             }
+            else if (gameObject.name == "VOL_Global_AstralWorld_1")
+            {
+                astral = gameObject;
+            }
         }
     }
 
@@ -77,6 +82,31 @@ public class InteractableTest
         Image img = hud.transform.Find("ItemHud/Logo").GetComponent<Image>();
         Assert.IsTrue(img.enabled);
         Assert.AreEqual(flashlight.name, img.sprite.name);
+    }
+
+    [UnityTest]
+    public IEnumerator PlayerItemDetector_PlayerInventory_PickAndUseDummyAnkh()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        GameObject ankhOW = GameObject.Find("OverworldItems/DummyAnkh");
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.MoveLeft);
+        float moveDuration = GetMovementDurationTowards(ankhOW.transform);
+        yield return new WaitForSeconds(moveDuration);
+        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.MoveLeft);
+
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.PickItem);
+        yield return null;
+        GameObject ankh = player.transform.Find("Rotate/InteractZone/DummyAnkh").gameObject;
+        Assert.NotNull(ankh);
+
+        IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
+        Assert.AreEqual(1, inventory.GetNumOfItem());
+        Assert.NotNull(inventory.GetActiveItem());
+        Assert.AreEqual(0, inventory.GetActiveIdx());
+
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.UseItem);
+        yield return null;
+        Assert.IsTrue(astral.activeInHierarchy);
     }
 
     [UnityTest]
