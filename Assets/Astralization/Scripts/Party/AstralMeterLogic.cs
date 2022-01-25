@@ -4,14 +4,14 @@ using UnityEngine;
 
 public interface IAstralMeterLogic
 {
-    void ChangeSight();
+    void ChangeSightState();
     void ChangeWorld();
     float GetAstralMeter();
     float GetConstantRate();
+    bool IsOnRealWorld();
+    bool IsOnSight();
     void NPCWrongAnswer();
-    bool OnSight();
     void PlayerKilled();
-    bool World();
 }
 
 public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
@@ -19,19 +19,24 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     private float _astralMeter = 0.0f;
     private float _maxMeter = 100.0f;
     private float _constantRate = 0.05f;
-    private float sightAmount = 1.0f;
-    public bool isOnRealWorld = true;
-    public bool isOnSight = false;
+    private float _sightAmount = 1.0f;
+    private bool _isOnRealWorld = true;
+    private bool _isOnSight = false;
 
-    // Start is called before the first frame update
-    private void Start()
+    void Update()
     {
-
+        float currentMeter = 0.0f;
+        if (_isOnSight)
+        {
+            currentMeter += _sightAmount;
+        }
+        currentMeter += _constantRate;
+        _astralMeter = System.Math.Min(_maxMeter, _astralMeter + (currentMeter * Time.deltaTime));
     }
 
-    public bool World()
+    public bool IsOnRealWorld()
     {
-        return isOnRealWorld;
+        return _isOnRealWorld;
     }
 
     public float GetAstralMeter()
@@ -46,8 +51,8 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
 
     public void ChangeWorld()
     {
-        isOnRealWorld = !isOnRealWorld;
-        if (isOnRealWorld)
+        _isOnRealWorld = !_isOnRealWorld;
+        if (_isOnRealWorld)
         {
             _constantRate = 0.05f;
         }
@@ -57,14 +62,14 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
         }
     }
 
-    public bool OnSight()
+    public bool IsOnSight()
     {
-        return isOnSight;
+        return _isOnSight;
     }
 
-    public void ChangeSight()
+    public void ChangeSightState()
     {
-        isOnSight = !isOnSight;
+        _isOnSight = !_isOnSight;
     }
 
     public void NPCWrongAnswer()
@@ -77,17 +82,5 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     {
         int randKillAmount = Random.Range(15, 20);
         _astralMeter += (float)randKillAmount;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        float currentMeter = 0.0f;
-        if (isOnSight)
-        {
-            currentMeter += sightAmount;
-        }
-        currentMeter += _constantRate;
-        _astralMeter = System.Math.Min(_maxMeter, _astralMeter + (currentMeter * Time.deltaTime));
     }
 }

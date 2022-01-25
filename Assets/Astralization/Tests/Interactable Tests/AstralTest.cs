@@ -62,6 +62,7 @@ public class AstralTest
     }
     #endregion
 
+    #region Astral World
     [UnityTest]
     public IEnumerator AstralMeter_RealWorldAccumulation()
     {
@@ -69,7 +70,7 @@ public class AstralTest
         IAstralMeterLogic astralMeterLogic = party.GetComponent<IAstralMeterLogic>();
 
         yield return new WaitForSeconds(1.0f);
-        Assert.IsTrue(astralMeterLogic.World());
+        Assert.IsTrue(astralMeterLogic.IsOnRealWorld());
         Assert.AreEqual(3.0f, astralMeterLogic.GetAstralMeter() * 60, 0.5f);
     }
 
@@ -81,7 +82,7 @@ public class AstralTest
         astralMeterLogic.ChangeWorld();
 
         yield return new WaitForSeconds(1.0f);
-        Assert.IsFalse(astralMeterLogic.World());
+        Assert.IsFalse(astralMeterLogic.IsOnRealWorld());
         Assert.AreEqual(5.0f, astralMeterLogic.GetAstralMeter() * 60, 0.5f);
     }
 
@@ -91,10 +92,10 @@ public class AstralTest
         yield return new WaitWhile(() => sceneLoaded == false);
         IAstralMeterLogic astralMeterLogic = party.GetComponent<IAstralMeterLogic>();
         astralMeterLogic.ChangeWorld();
-        astralMeterLogic.ChangeSight();
+        astralMeterLogic.ChangeSightState();
 
         yield return new WaitForSeconds(1.0f);
-        Assert.IsFalse(astralMeterLogic.World());
+        Assert.IsFalse(astralMeterLogic.IsOnRealWorld());
         Assert.AreEqual(1.0f, astralMeterLogic.GetAstralMeter(), 0.5f);
     }
 
@@ -106,7 +107,7 @@ public class AstralTest
         astralMeterLogic.ChangeWorld();
         astralMeterLogic.NPCWrongAnswer();
 
-        Assert.IsFalse(astralMeterLogic.World());
+        Assert.IsFalse(astralMeterLogic.IsOnRealWorld());
         Assert.IsTrue(astralMeterLogic.GetAstralMeter() >= 10.0f);
         Assert.IsTrue(astralMeterLogic.GetAstralMeter() <= 15.0f);
     }
@@ -119,8 +120,9 @@ public class AstralTest
         astralMeterLogic.ChangeWorld();
         astralMeterLogic.PlayerKilled();
 
-        Assert.IsFalse(astralMeterLogic.World());
+        Assert.IsFalse(astralMeterLogic.IsOnRealWorld());
         Assert.IsTrue(astralMeterLogic.GetAstralMeter() >= 15.0f);
         Assert.IsTrue(astralMeterLogic.GetAstralMeter() <= 20.0f);
     }
+    #endregion
 }
