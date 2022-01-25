@@ -2,7 +2,7 @@
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
-class KeyboardMouseTestFixture: InputTestFixture
+public class KeyboardMouseTestFixture: InputTestFixture
 {
     public enum RegisteredInput
     {
