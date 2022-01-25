@@ -45,9 +45,10 @@ public class DoorController : Interactable, IDoorController
 
     public override void OnInteraction()
     {
-        ChangeState();
         //Debug.Log("[INTERACTABLE] Door interacted");
-        //PlayAudio(isOpen);
+        ChangeState();
+        if (_isOpen) PlayAudio("Door_Open");
+        else PlayAudio("Door_Close");
     }
 
     //TODO: Half Open for Ghost Interaction
