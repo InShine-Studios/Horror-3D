@@ -23,6 +23,11 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     private bool _isOnRealWorld = true;
     private bool _isOnSight = false;
 
+    void Start()
+    {
+        InvokeRepeating("Update", 3.0f, 1.0f);
+    }
+
     void Update()
     {
         float currentMeter = 0.0f;
