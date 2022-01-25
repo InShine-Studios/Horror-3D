@@ -12,16 +12,14 @@ public class Ankh : Item
 
     private bool _inAstral = false;
 
-    private Color _col;
-
     #endregion
 
     public override void Use()
     {
         //Debug.Log("[ITEM] Use " + this.name);
         _inAstral = !_inAstral;
-        Color _col = Utils.ColorParser.GetColor("#5F466A");
-        if (_inAstral) RenderSettings.fogColor = _col;
+        Color col = Utils.ColorParser.GetColor("#ZZZZZZ");
+        if (_inAstral) RenderSettings.fogColor = col;
         else RenderSettings.fogColor = Color.black;
         _astralWorld.SetActive(_inAstral);
     }

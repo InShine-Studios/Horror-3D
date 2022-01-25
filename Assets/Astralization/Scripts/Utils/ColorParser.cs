@@ -12,8 +12,12 @@ namespace Utils
         public static Color GetColor(string hex)
         {
             bool bConverted = ColorUtility.TryParseHtmlString(hex, out _color);
-            if (bConverted) return _color;
-            else return Color.black;
+            if(bConverted) return _color;
+            else
+            {
+                Debug.LogError("Wrong Hex Code");
+                return _color;
+            }
         }
     }
 }
