@@ -71,7 +71,7 @@ public class AstralTest
 
         yield return new WaitForSeconds(1.0f);
         Assert.IsTrue(astralMeterLogic.IsOnRealWorld());
-        Assert.AreEqual(3.0f, astralMeterLogic.GetAstralMeter() * 60, 0.8f);
+        Assert.AreEqual(3.0f, astralMeterLogic.GetAstralMeter() * 60, 1.0f);
     }
 
     [UnityTest]
@@ -83,7 +83,7 @@ public class AstralTest
 
         yield return new WaitForSeconds(1.0f);
         Assert.IsFalse(astralMeterLogic.IsOnRealWorld());
-        Assert.AreEqual(5.0f, astralMeterLogic.GetAstralMeter() * 60, 0.8f);
+        Assert.AreEqual(5.0f, astralMeterLogic.GetAstralMeter() * 60, 1.0f);
     }
 
     [UnityTest]
@@ -96,7 +96,7 @@ public class AstralTest
 
         yield return new WaitForSeconds(1.0f);
         Assert.IsFalse(astralMeterLogic.IsOnRealWorld());
-        Assert.AreEqual(1.0f, astralMeterLogic.GetAstralMeter(), 0.8f);
+        Assert.AreEqual(1.0f, astralMeterLogic.GetAstralMeter(), 1.0f);
     }
 
     [UnityTest]
