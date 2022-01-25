@@ -11,7 +11,6 @@ public class InteractableTest
     private bool sceneLoaded = false;
     private GameObject player;
     private GameObject hud;
-    private GameObject astral;
     private IPlayerMovement playerMovement;
     private KeyboardMouseTestFixture inputTestFixture = new KeyboardMouseTestFixture();
 
@@ -45,10 +44,6 @@ public class InteractableTest
             else if (gameObject.name == "Canvas")
             {
                 hud = gameObject;
-            }
-            else if (gameObject.name == "VOL_Global_AstralWorld_1")
-            {
-                astral = gameObject;
             }
         }
     }
@@ -85,10 +80,10 @@ public class InteractableTest
     }
 
     [UnityTest]
-    public IEnumerator PlayerItemDetector_PlayerInventory_PickAndUseDummyAnkh()
+    public IEnumerator PlayerItemDetector_PlayerInventory_PickAndUseAnkh()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        GameObject ankhOW = GameObject.Find("OverworldItems/DummyAnkh");
+        GameObject ankhOW = GameObject.Find("OverworldItems/Ankh");
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.MoveLeft);
         float moveDuration = GetMovementDurationTowards(ankhOW.transform);
         yield return new WaitForSeconds(moveDuration);
@@ -96,7 +91,7 @@ public class InteractableTest
 
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.PickItem);
         yield return null;
-        GameObject ankh = player.transform.Find("Rotate/InteractZone/DummyAnkh").gameObject;
+        GameObject ankh = player.transform.Find("Rotate/InteractZone/Ankh").gameObject;
         Assert.NotNull(ankh);
 
         IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
@@ -106,6 +101,7 @@ public class InteractableTest
 
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return null;
+        GameObject astral = GameObject.Find("VOL_Global_AstralWorld_1");
         Assert.IsTrue(astral.activeInHierarchy);
     }
 
