@@ -147,7 +147,6 @@ public class Inventory : MonoBehaviour, IInventory
                 // Reset active item state
                 _activeItem = null;
                 _items[_activeIdx] = null;
-                _activeIdx = -1;
                 _numOfItem--;
 
                 _itemHud.DeactivateHud();

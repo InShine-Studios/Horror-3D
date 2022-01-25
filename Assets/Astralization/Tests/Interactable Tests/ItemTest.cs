@@ -41,7 +41,6 @@ public class ItemTest : TestBase
         Assert.IsFalse(img.enabled);
         Assert.AreEqual(0, inventory.GetNumOfItem());
         Assert.IsNull(inventory.GetActiveItem());
-        Assert.AreEqual(-1,inventory.GetActiveIdx());
     }
 
     [UnityTest]
