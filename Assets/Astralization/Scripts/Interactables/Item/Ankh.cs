@@ -18,8 +18,11 @@ public class Ankh : Item
     {
         //Debug.Log("[ITEM] Use " + this.name);
         _inAstral = !_inAstral;
-        Color col = Utils.ColorParser.GetColor("#ZZZZZZ");
-        if (_inAstral) RenderSettings.fogColor = col;
+        if (_inAstral)
+        {
+            Color col = Utils.ColorHelper.ParseHex("#5F466A");
+            RenderSettings.fogColor = col;
+        }
         else RenderSettings.fogColor = Color.black;
         _astralWorld.SetActive(_inAstral);
     }

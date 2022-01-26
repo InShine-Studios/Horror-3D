@@ -5,18 +5,18 @@ namespace Utils
     /*
     * Class that has methods related to player
     */
-    public static class ColorParser
+    public static class ColorHelper
     {
         private static Color _color;
 
-        public static Color GetColor(string hex)
+        public static Color ParseHex(string hex)
         {
             bool bConverted = ColorUtility.TryParseHtmlString(hex, out _color);
             if(bConverted) return _color;
             else
             {
-                Debug.LogError("Wrong Hex Code");
-                return _color;
+                Debug.LogError("[COLOR HELPER] Unable to parse from given hex code");
+                return Color.black;
             }
         }
     }
