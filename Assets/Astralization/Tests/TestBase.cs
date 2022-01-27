@@ -1,8 +1,8 @@
 using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.TestTools;
 
 public class TestBase
 {
@@ -10,6 +10,7 @@ public class TestBase
     protected bool sceneLoaded = false;
     protected GameObject player;
     protected GameObject hud;
+    protected GameObject party;
     protected IPlayerMovement playerMovement;
     protected KeyboardMouseTestFixture inputTestFixture = new KeyboardMouseTestFixture();
 
@@ -48,9 +49,10 @@ public class TestBase
         GameObject[] gameObjects = scene.GetRootGameObjects();
         foreach (GameObject gameObject in gameObjects)
         {
-            if (gameObject.name == "Player")
+            if (gameObject.name == "Party")
             {
-                player = gameObject;
+                party = gameObject;
+                player = party.transform.Find("Iris").gameObject;
                 playerMovement = player.GetComponent<IPlayerMovement>();
             }
             else if (gameObject.name == "Canvas")

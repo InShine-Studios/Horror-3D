@@ -5,60 +5,15 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
-public class AstralTest
+public class AstralTest: TestBase
 {
-    private const string sceneName = "AstralTestScene";
-    private bool sceneLoaded = false;
-    private GameObject player;
-    private GameObject hud;
-    private GameObject party;
-    private IPlayerMovement playerMovement;
-    private IAstralMeterLogic astralMeterLogic;
-    //private KeyboardMouseTestFixture inputTestFixture = new KeyboardMouseTestFixture();
-
-    private float GetMovementDurationTowards(Transform target)
-    {
-        float moveDistance = Utils.GeometryCalcu.GetDistance3D(player.transform.position, target.transform.position);
-        float moveDuration = Utils.PlayerHelper.DistanceToMoveDuration(playerMovement, moveDistance);
-        return moveDuration;
-    }
 
     #region Setup Teardown
     [SetUp]
-    public void PlayerSetUp()
+    public override void SetUp()
     {
-        //inputTestFixture.Setup();
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.LoadScene(sceneName);
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        sceneLoaded = true;
-        GameObject[] gameObjects = scene.GetRootGameObjects();
-        foreach (GameObject gameObject in gameObjects)
-        {
-            if (gameObject.name == "Player")
-            {
-                player = gameObject;
-                playerMovement = player.GetComponent<IPlayerMovement>();
-            }
-            else if (gameObject.name == "Canvas")
-            {
-                hud = gameObject;
-            }
-            else if (gameObject.name == "Party")
-            {
-                party = gameObject;
-            }
-        }
-    }
-
-    [TearDown]
-    public void PlayerTearDown()
-    {
-        //inputTestFixture.TearDown();
-        //SceneManager.UnloadSceneAsync(sceneName);
+        sceneName = "AstralTestScene";
+        base.SetUp();
     }
     #endregion
 
