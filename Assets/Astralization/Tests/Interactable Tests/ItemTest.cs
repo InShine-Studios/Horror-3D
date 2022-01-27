@@ -44,6 +44,32 @@ public class ItemTest : TestBase
     }
 
     [UnityTest]
+    public IEnumerator PlayerItemDetector_PlayerInventory_PickAndUseAnkh()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        GameObject ankhOW = GameObject.Find("OverworldItems/Ankh");
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.MoveLeft);
+        float moveDuration = GetMovementDurationTowards(ankhOW.transform);
+        yield return new WaitForSeconds(moveDuration);
+        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.MoveLeft);
+
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.PickItem);
+        yield return null;
+        GameObject ankh = player.transform.Find("Rotate/InteractZone/Ankh").gameObject;
+        Assert.NotNull(ankh);
+
+        IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
+        Assert.AreEqual(1, inventory.GetNumOfItem());
+        Assert.NotNull(inventory.GetActiveItem());
+        Assert.AreEqual(0, inventory.GetActiveIdx());
+
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.UseItem);
+        yield return null;
+        GameObject astral = GameObject.Find("VOL_Global_AstralWorld_1");
+        Assert.IsTrue(astral.activeInHierarchy);
+    }
+
+    [UnityTest]
     public IEnumerator PlayerInventory_ScrollActiveItem()
     {
         yield return new WaitWhile(() => sceneLoaded == false);

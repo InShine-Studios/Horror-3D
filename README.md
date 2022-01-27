@@ -294,14 +294,17 @@ Assets that are **3D Original Meshes**. These original meshes will not have each
 Use **"M_"** as the prefix for meshes.
 
 Examples:
-- M_CH_Iris
+- M_HO_Door
 - M_LS_CeilingLight_TMP
 
-| Asset Type    | Prefix | Suffix | Notes |
-| ------------- | ------ | ------ | ----- |
-| Light Sources | LS_    |        |       |
-| House Objects | HO_    |        |       |
-| Temporary     |        | _TMP   |       |
+| Asset Type    | Prefix  | Suffix | Notes |
+| ------------- | ------- | ------ | ----- |
+| Light Sources | LS_     |        |       |
+| House Objects | HO_     |        |       |
+| Properties    | PROPS_  |        |       |
+| Structures    | STRUCT_ |        |       |
+| From Snaps    |         | _SNAPS |       |
+| Temporary     |         | _TMP   |       |
 
 List of All [Meshes](https://docs.google.com/spreadsheets/d/1uGEMDAMG0gg0ye39r2UNICfS8tpuOsGJXS7MlWKUVZk/edit?usp=sharing)
 
