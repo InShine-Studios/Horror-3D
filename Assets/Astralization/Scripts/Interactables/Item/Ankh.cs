@@ -25,5 +25,7 @@ public class Ankh : Item
         }
         else RenderSettings.fogColor = Color.black;
         _astralWorld.SetActive(_inAstral);
+        //TODO: Call PlayAudio for Ankh
+        //TODO: Implement transition animation
     }
 }
