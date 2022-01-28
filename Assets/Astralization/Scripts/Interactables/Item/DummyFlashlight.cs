@@ -12,12 +12,11 @@ public class DummyFlashlight : Item
     [Header("Light")]
     private Light _lightSource;
 
-    public static event Action<string> PlayAudioEvent;
-
     #endregion
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _lightSource = GetComponentInChildren<Light>();
     }
 
@@ -25,7 +24,6 @@ public class DummyFlashlight : Item
     {
         //Debug.Log("[ITEM] Use " + this.name);
         _lightSource.enabled = !_lightSource.enabled;
-        //PlayAudio("Flashlight_Switch");
-        PlayAudioEvent?.Invoke("Flashlight_Switch");
+        PlayAudio("Flashlight_Switch");
     }
 }

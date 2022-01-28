@@ -5,7 +5,6 @@ using UnityEngine;
  */
 public class VolumeAstral : MonoBehaviour
 {
-    // TODO: Refactor this to singleton
     #region Enable - Disable
     private void OnEnable()
     {

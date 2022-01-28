@@ -14,6 +14,11 @@ public class Ankh : Item
 
     #endregion
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
     public override void Use()
     {
         //Debug.Log("[ITEM] Use " + this.name);

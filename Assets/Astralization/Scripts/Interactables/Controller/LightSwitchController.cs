@@ -24,10 +24,9 @@ public class LightSwitchController : Interactable, ILightSwitchController
     private Light[] _lightSources;
     #endregion
 
-    public static event Action<string> PlayAudioEvent;
-
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _lightSources = GetComponentsInChildren<Light>();
     }
     public override void OnInteraction()
@@ -37,8 +36,8 @@ public class LightSwitchController : Interactable, ILightSwitchController
         //);
         _isOn = !_isOn;
         SetLightSources(_isOn);
-        if(_isOn) PlayAudioEvent?.Invoke("Switch_On");
-        else PlayAudioEvent?.Invoke("Switch_Off");
+        if(_isOn) PlayAudio("Switch_On");
+        else PlayAudio("Switch_Off");
     }
 
     private void SetLightSources(bool value)

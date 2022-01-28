@@ -6,7 +6,6 @@ using UnityEngine;
  */
 public class OverworldItem : MonoBehaviour
 {
-    // TODO: Refactor this to singleton
     #region Enable - Disable
     private void OnEnable()
     {

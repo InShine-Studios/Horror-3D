@@ -27,11 +27,14 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     [Space]
     [Header("Audio")]
     [Tooltip("Audio Manager")]
-    public AudioManager AudioManager;
-
-    //public event Action<string> PlayAudioEvent;
+    protected AudioManager _audioManager;
 
     #endregion
+
+    protected virtual void Awake()
+    {
+        _audioManager = GetComponentInChildren<AudioManager>();
+    }
 
     private void Reset()
     {
@@ -72,11 +75,8 @@ public abstract class Interactable : MonoBehaviour, IInteractable
         GetComponent<Collider>().enabled = state;
     }
 
-    //protected void PlayAudio(string name)
-    //{
-    //    //AudioManager.Play(name);
-    //    Debug.Log("asd");
-
-    //    PlayAudioEvent(name);
-    //}
+    protected void PlayAudio(string name)
+    {
+        _audioManager.Play(name);
+    }
 }
