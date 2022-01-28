@@ -39,6 +39,21 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
         _astralMeter = System.Math.Min(_maxMeter, _astralMeter + (currentMeter * Time.deltaTime));
     }
 
+    private void OnEnable()
+    {
+        GameManager.ChangeWorldEvent += Dummy;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.ChangeWorldEvent -= Dummy;
+    }
+
+    private void Dummy()
+    {
+        Debug.Log("World Changed");
+    }
+
     public bool IsOnRealWorld()
     {
         return _isOnRealWorld;
