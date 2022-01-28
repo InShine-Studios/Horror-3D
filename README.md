@@ -113,6 +113,8 @@ All project files used are in the "Assets/Astralization" folder.
 
 > 4.8 [UI](#ui)
 
+> 4.9 [MaterialLibrary](#material-library)
+
 <a name="level"></a>
 ### 4.1 _Levels
 
@@ -184,6 +186,15 @@ This folder is used to keep **ALL the assets** used for UI. User interface inclu
 
 
 <a name="anc"></a>
+
+### 4.9 MaterialLibrary
+
+This folder is used to keep **ALL the common materials and its pallete**. Don't put mesh specific material in this directory.
+
+**[⬆ Back to Top](#table-of-contents)**
+
+
+<a name="material-library"></a>
 ## 5. Asset Naming Conventions
 
 Naming conventions should be treated as law. A project that conforms to a naming convention is able to have its assets managed, searched, parsed, and maintained with incredible ease.
@@ -272,15 +283,18 @@ Assets that are **effects** that will be used in objects or scenes. This include
 <a name="anc-material"></a>
 ### 5.4 Materials
 
-Assets that are **materials** that will be used in objects. Materials can both be the original material, material instance, or a physical material. Since materials can have variants for the same object, material names should specify both the part and variant of the material: **[Prefix]\_[ObjectName]\_[Part]\_[VariantNum]**.
+Assets that are **materials** that will be used in objects. Materials can both be the original material, material instance, or a physical material. Since materials can have variants for the same object, material names should specify both the part and variant of the material: **[Prefix]\_[ObjectName]\_[Part]\_[VariantNum]**. For common materials that can be used as a part of a pallete, save it in the **MaterialLibrary/[PalleteName]** with name format: **[Prefix\_[PalleteName]\_[Color]\_[VariantNum]** with lower VariantNum for darker shade, and higer VariantNum for lighter shade.
 
 Examples:
 - MAT_Fog_1
-- MAT_LightSwitch_Base_1
+- MAT_LightSwitch_Base_1 (part and variant)
+- MAT_Plain_Gray_1 (common material)
+- MP_Plain (material pallete)
 
 | Asset Type        | Prefix | Suffix | Notes |
 | ----------------- | ------ | ------ | ----- |
 | Material          | MAT_   |        |       |
+| Material Pallete  | MP_    |        |       |
 | Material Instance | MI_    |        |       |
 | Physical Material | PM_    |        |       |
 
