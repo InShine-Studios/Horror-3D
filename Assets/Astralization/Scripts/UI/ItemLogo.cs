@@ -16,12 +16,12 @@ public class ItemLogo : MonoBehaviour
     #region Enable - Disable
     private void OnEnable()
     {
-        Inventory.ActiveItemLogo += UpdateLogo;
+        Inventory.ItemLogoEvent += UpdateLogo;
     }
 
     private void OnDisable()
     {
-        Inventory.ActiveItemLogo -= UpdateLogo;
+        Inventory.ItemLogoEvent -= UpdateLogo;
     }
     #endregion
 

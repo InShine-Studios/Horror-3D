@@ -43,9 +43,6 @@ public class Inventory : MonoBehaviour, IInventory
 
     [Tooltip("The number of item in inventory")]
     private int _numOfItem = 0;
-
-    [Tooltip("Overworld Item in Level")]
-    public GameObject OverworldItem;
     #endregion
 
     #region Variables - Item position adjustment
@@ -63,7 +60,12 @@ public class Inventory : MonoBehaviour, IInventory
     private const int _scrollStep = 120;
     #endregion
 
-    public static event Action<bool, Sprite> ActiveItemLogo;
+    #region Events
+    public static event Action<bool, Sprite> ItemLogoEvent;
+
+    public static event Action<Item> DiscardItemEvent;
+
+    #endregion
 
     private void Awake()
     {
@@ -115,7 +117,7 @@ public class Inventory : MonoBehaviour, IInventory
                 _activeItem = item;
                 _numOfItem++;
 
-                ActiveItemLogo?.Invoke(true, _activeItem.GetItemLogo());
+                ItemLogoEvent?.Invoke(true, _activeItem.GetItemLogo());
             }
 
             // Put item as child of Inventory
@@ -140,7 +142,7 @@ public class Inventory : MonoBehaviour, IInventory
                 _activeItem.Discard();
 
                 // Reposition item to world
-                _activeItem.gameObject.transform.parent = OverworldItem.transform;
+                DiscardItemEvent?.Invoke(_activeItem);
                 _activeItem.transform.position -= ActiveItemYOffset + new Vector3(0, this.transform.position.y, 0);
 
                 // Reset active item state
@@ -148,7 +150,7 @@ public class Inventory : MonoBehaviour, IInventory
                 _items[_activeIdx] = null;
                 _numOfItem--;
 
-                ActiveItemLogo?.Invoke(false, null);
+                ItemLogoEvent?.Invoke(false, null);
             }
             else
             {
@@ -158,7 +160,7 @@ public class Inventory : MonoBehaviour, IInventory
     }
     #endregion
 
-    #region Change item
+    #region Change Active Item
     public void ScrollActiveItem(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
@@ -185,8 +187,8 @@ public class Inventory : MonoBehaviour, IInventory
         // Show active item
         _activeItem?.ShowItem();
 
-        if(_activeItem) ActiveItemLogo?.Invoke(true, _activeItem.GetItemLogo());
-        else ActiveItemLogo?.Invoke(false, null);
+        if(_activeItem) ItemLogoEvent?.Invoke(true, _activeItem.GetItemLogo());
+        else ItemLogoEvent?.Invoke(false, null);
     }
     #endregion
 

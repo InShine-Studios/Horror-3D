@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public interface IDoorController: IInteractable
@@ -25,6 +26,8 @@ public class DoorController : Interactable, IDoorController
     private Animator _animator;
     #endregion
 
+    public static event Action<string> PlayAudioEvent;
+
     public bool GetState()
     {
         return _isOpen;
@@ -47,8 +50,8 @@ public class DoorController : Interactable, IDoorController
     {
         //Debug.Log("[INTERACTABLE] Door interacted");
         ChangeState();
-        if (_isOpen) PlayAudio("Door_Open");
-        else PlayAudio("Door_Close");
+        if (_isOpen) PlayAudioEvent?.Invoke("Door_Open");
+        else PlayAudioEvent?.Invoke("Door_Close");
     }
 
     //TODO: Half Open for Ghost Interaction

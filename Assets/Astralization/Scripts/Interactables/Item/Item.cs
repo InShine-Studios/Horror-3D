@@ -38,7 +38,6 @@ public abstract class Item : Interactable, IItem
     }
     public void SetMeshRenderer(bool enabled)
     {
-        Debug.Log("aaa " + enabled + " " + this.name);
         GetComponent<MeshRenderer>().enabled = enabled;
     }
 

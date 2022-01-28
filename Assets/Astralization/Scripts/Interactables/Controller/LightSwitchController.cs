@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public interface ILightSwitchController: IInteractable
@@ -23,19 +24,21 @@ public class LightSwitchController : Interactable, ILightSwitchController
     private Light[] _lightSources;
     #endregion
 
+    public static event Action<string> PlayAudioEvent;
+
     private void Awake()
     {
         _lightSources = GetComponentsInChildren<Light>();
     }
     public override void OnInteraction()
     {
-        _isOn = !_isOn;
-        SetLightSources(_isOn);
-        if(_isOn) PlayAudio("Switch_On");
-        else PlayAudio("Switch_Off");
         //Debug.Log(
         //    String.Format("[INTERACTABLE] Turning \"{0}\" {1}", this.name, (isOn ? "on" : "off"))
         //);
+        _isOn = !_isOn;
+        SetLightSources(_isOn);
+        if(_isOn) PlayAudioEvent?.Invoke("Switch_On");
+        else PlayAudioEvent?.Invoke("Switch_Off");
     }
 
     private void SetLightSources(bool value)
