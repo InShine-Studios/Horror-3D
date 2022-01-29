@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+
 /*
  * Ankh class.
  * Implement mechanics related to ankh item, such as toggle on/off astral world.
@@ -6,17 +8,22 @@ using UnityEngine;
 public class Ankh : Item
 {
     #region Variables
-    [Tooltip("Astral World")]
-    [SerializeField]
-    private GameObject _astralWorld;
+    private bool _inAstral = false; //TODO: Refactor this to GM
 
-    private bool _inAstral = false;
+    public static event Action ChangeWorldEvent; //TODO: Refactor this to GM
 
     #endregion
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     public override void Use()
     {
         //Debug.Log("[ITEM] Use " + this.name);
+        ChangeWorldEvent?.Invoke();
+
         _inAstral = !_inAstral;
         if (_inAstral)
         {
@@ -24,7 +31,7 @@ public class Ankh : Item
             RenderSettings.fogColor = col;
         }
         else RenderSettings.fogColor = Color.black;
-        _astralWorld.SetActive(_inAstral);
+
         //TODO: Call PlayAudio for Ankh
         //TODO: Implement transition animation
     }

@@ -266,7 +266,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UseIcon: 0
   InteractableIcon: {fileID: 0}
-  AudioManager: {fileID: 7323683046042364107}
   _itemLogo: {fileID: 7231765672420922833, guid: 76c058bdb7187bc45bba0328cc1afc28, type: 3}
 --- !u!1 &6744795270797301836
 GameObject:
@@ -414,23 +413,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6879967579770631467, guid: 791ebdef87edc574fa9396cb927fbe97, type: 3}
       propertyPath: m_Name
-      value: AudioManager
+      value: AudioManager_DummyFlashlight
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6879967579770631466, guid: 791ebdef87edc574fa9396cb927fbe97, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 791ebdef87edc574fa9396cb927fbe97, type: 3}
 --- !u!4 &7323683046042364104 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6879967579770631465, guid: 791ebdef87edc574fa9396cb927fbe97, type: 3}
   m_PrefabInstance: {fileID: 4240276361094716897}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7323683046042364107 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6879967579770631466, guid: 791ebdef87edc574fa9396cb927fbe97, type: 3}
-  m_PrefabInstance: {fileID: 4240276361094716897}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8845c5b65e040ac419c298898dd17ab7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

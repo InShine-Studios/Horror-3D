@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public interface IDoorController: IInteractable
@@ -24,6 +25,11 @@ public class DoorController : Interactable, IDoorController
     [Header("Animation")]
     private Animator _animator;
     #endregion
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     public bool GetState()
     {
@@ -52,5 +58,4 @@ public class DoorController : Interactable, IDoorController
     }
 
     //TODO: Half Open for Ghost Interaction
-
 }
