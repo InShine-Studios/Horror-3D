@@ -9,7 +9,6 @@ public class AudioManager : MonoBehaviour
     public void Play(string name)
     {
         Transform sound = transform.Find(name);
-        Debug.Log("play " + name);
         if (sound == null)
         {
             Debug.LogWarning("Sound: " + name + " not found!");

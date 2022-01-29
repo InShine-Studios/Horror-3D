@@ -27,13 +27,13 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     [Space]
     [Header("Audio")]
     [Tooltip("Audio Manager")]
-    protected AudioManager _audioManager;
+    protected AudioManager AudioManagerObj;
 
     #endregion
 
     protected virtual void Awake()
     {
-        _audioManager = GetComponentInChildren<AudioManager>();
+        AudioManagerObj = GetComponentInChildren<AudioManager>();
     }
 
     private void Reset()
@@ -77,6 +77,6 @@ public abstract class Interactable : MonoBehaviour, IInteractable
 
     protected void PlayAudio(string name)
     {
-        _audioManager.Play(name);
+        AudioManagerObj.Play(name);
     }
 }

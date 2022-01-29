@@ -167,7 +167,7 @@ public class Inventory : MonoBehaviour, IInventory
         {
             Vector2 scrollVector = ctx.ReadValue<Vector2>();
             float scrollValue = scrollVector.y;
-            int indexShift = (int) (scrollValue / (_scrollStep * ScrollSensitivity));
+            int indexShift = (int) (scrollValue / (GetScrollStep()));
             int newIdx = Utils.MathCalcu.mod(_activeIdx - indexShift, InvenLength);
             ChangeActiveItem(newIdx);
 

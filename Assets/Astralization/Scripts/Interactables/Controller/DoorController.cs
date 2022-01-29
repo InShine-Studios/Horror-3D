@@ -53,10 +53,9 @@ public class DoorController : Interactable, IDoorController
     {
         //Debug.Log("[INTERACTABLE] Door interacted");
         ChangeState();
-        //if (_isOpen) PlayAudio("Door_Open");
-        //else PlayAudio("Door_Close");
+        if (_isOpen) PlayAudio("Door_Open");
+        else PlayAudio("Door_Close");
     }
 
     //TODO: Half Open for Ghost Interaction
-
 }
