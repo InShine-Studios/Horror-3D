@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +21,8 @@ public interface IPlayerMovement
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour, IPlayerMovement
 {
+    public static event Action FindClosest;
+
     #region Movement Variables
     [Header("External Variables")]
     [Tooltip("The Controller component")]
@@ -67,6 +70,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     {
         _moveInput = inputVal.ReadValue<Vector2>();
         _moveDirection = new Vector3(0, 0) { x = _moveInput.x, z = _moveInput.y };
+        FindClosest?.Invoke();
         //Debug.Log("[PLAYER] Movement direction: " + moveDirection);
     }
 

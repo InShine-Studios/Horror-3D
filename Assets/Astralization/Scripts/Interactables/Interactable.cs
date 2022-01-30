@@ -43,14 +43,14 @@ public abstract class Interactable : MonoBehaviour, IInteractable
 
     public abstract void OnInteraction();
 
-    private void OnTriggerEnter(Collider collision)
-    {
-        if (Utils.PlayerHelper.CheckIsInteractZone(collision))
-        {
-            SetInteractableIcon(true);
-        }
-    }
-    private void OnTriggerExit(Collider collision)
+    //private void OnTriggerEnter(Collider collision)
+    //{
+    //    if (Utils.PlayerHelper.CheckIsInteractZone(collision))
+    //    {
+    //        SetInteractableIcon(true);
+    //    }
+    //}
+    protected void OnTriggerExit(Collider collision)
     {
         if (Utils.PlayerHelper.CheckIsInteractZone(collision))
         {
@@ -63,7 +63,7 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     {
         if (UseIcon)
         {
-            //Debug.Log("[INTERACTABLE] Setting icon " + this.name + " to " + state);
+            Debug.Log("[INTERACTABLE] Setting icon " + this.name + " to " + state);
             InteractableIcon.SetActive(state);
         }
     }

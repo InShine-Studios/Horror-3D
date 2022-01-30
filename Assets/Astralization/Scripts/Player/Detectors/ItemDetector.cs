@@ -20,6 +20,7 @@ public class ItemDetector : ObjectDetector
         detectionTag = "Item";
         _detectorZone = GetComponent<CapsuleCollider>();
         _inventory = GetComponent<Inventory>();
+        Debug.Log(_detectorZone);
     }
 
     protected override void InteractClosest(Interactable closest)

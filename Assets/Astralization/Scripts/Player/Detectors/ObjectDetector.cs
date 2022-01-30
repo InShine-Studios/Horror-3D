@@ -23,6 +23,42 @@ public abstract class ObjectDetector : MonoBehaviour
 
     protected abstract Collider[] FindOverlaps();
 
+    #region Enable - Disable
+    private void OnEnable()
+    {
+        PlayerMovement.FindClosest += test;
+    }
+
+    private void OnDisable()
+    {
+        PlayerMovement.FindClosest -= test;
+    }
+    #endregion
+
+    //bikin method baru
+
+    private void test()
+    {
+        Collider[] colliders = this.FindOverlaps();
+        if (colliders.Length == 0) return;
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            Collider cur = colliders[i];
+            if (cur.CompareTag(detectionTag))
+            {
+                Interactable interact = cur.GetComponent<Interactable>();
+                //Debug.Log(interact.name);
+                interact.SetInteractableIcon(false);
+            }
+        }
+        Interactable closestInteract = GetClosestInteractable(colliders);
+        if (closestInteract)
+        {
+            closestInteract.SetInteractableIcon(true);
+            //Debug.Log("Closest: " + closestInteract.name);
+        }
+    }
+
     protected Interactable GetClosestInteractable(Collider[] colliders)
     {
         float minDist = Mathf.Infinity;

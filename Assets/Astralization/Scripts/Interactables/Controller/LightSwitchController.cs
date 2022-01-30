@@ -13,6 +13,7 @@ public interface ILightSwitchController: IInteractable
 public class LightSwitchController : Interactable, ILightSwitchController
 {
     #region Variables
+    private const string _animParam = "isOn";
     [Header("Light switch state")]
     [SerializeField]
     [Tooltip("True if light switch is on")]
@@ -22,6 +23,11 @@ public class LightSwitchController : Interactable, ILightSwitchController
     [Header("Light")]
     [Tooltip("Light Source")]
     private Light[] _lightSources;
+
+    [Space]
+    [SerializeField]
+    [Header("Animation")]
+    private Animator _animator;
     #endregion
 
     protected override void Awake()
@@ -34,7 +40,7 @@ public class LightSwitchController : Interactable, ILightSwitchController
         //Debug.Log(
         //    String.Format("[INTERACTABLE] Turning \"{0}\" {1}", this.name, (isOn ? "on" : "off"))
         //);
-        _isOn = !_isOn;
+        ChangeState();
         SetLightSources(_isOn);
         if(_isOn) PlayAudio("Switch_On");
         else PlayAudio("Switch_Off");
@@ -46,6 +52,13 @@ public class LightSwitchController : Interactable, ILightSwitchController
         {
             lightSource.enabled = value;
         }
+    }
+
+    private void ChangeState()
+    {
+        //Debug.Log("[INTERACTABLE] " + (isOpen ? "Closing " : "Opening ") + this.name);
+        _isOn = !_isOn;
+        _animator.SetBool(_animParam, _isOn);
     }
 
     public bool GetState()
