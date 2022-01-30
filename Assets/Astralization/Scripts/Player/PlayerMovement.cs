@@ -59,8 +59,8 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
 
     private void FixedUpdate()
     {
-        MovePlayer();
-        if(_useForceGrounding) ForceGrounding();
+        if(MovePlayer()) FindClosest?.Invoke();
+        if (_useForceGrounding) ForceGrounding();
     }
 
 
@@ -70,7 +70,6 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     {
         _moveInput = inputVal.ReadValue<Vector2>();
         _moveDirection = new Vector3(0, 0) { x = _moveInput.x, z = _moveInput.y };
-        FindClosest?.Invoke();
         //Debug.Log("[PLAYER] Movement direction: " + moveDirection);
     }
 
@@ -102,11 +101,13 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         }
     }
 
-    private void MovePlayer()
+    private bool MovePlayer()
     {
         _curMoveSpeed = _playerBase.GetPlayerMovementSpeed();
         if (_isSprinting)
             _curMoveSpeed = _playerBase.GetSprintSpeed();
         _controller.SimpleMove(_curMoveSpeed * Time.deltaTime * _moveDirection);
+        if (_moveDirection.magnitude == 0) return false;
+        else return true;
     }
 }

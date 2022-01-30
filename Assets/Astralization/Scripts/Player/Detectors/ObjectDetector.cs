@@ -47,7 +47,6 @@ public abstract class ObjectDetector : MonoBehaviour
             if (cur.CompareTag(detectionTag))
             {
                 Interactable interact = cur.GetComponent<Interactable>();
-                //Debug.Log(interact.name);
                 interact.SetInteractableIcon(false);
             }
         }
@@ -55,7 +54,6 @@ public abstract class ObjectDetector : MonoBehaviour
         if (closestInteract)
         {
             closestInteract.SetInteractableIcon(true);
-            //Debug.Log("Closest: " + closestInteract.name);
         }
     }
 
