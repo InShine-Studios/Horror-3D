@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public interface INpcController: IInteractable
@@ -17,10 +18,7 @@ public class NpcController : Interactable, INpcController
     [Tooltip("True if NPC is interacted")]
     private bool _isInteracted = false;
 
-    //[Space]
-    //[Header("Player")]
-    //[Tooltip("Player Prefab")]
-    //private Light[] _player;
+    public static event Action<bool> NpcInteractionEvent;
     #endregion
 
     private void Awake()
@@ -30,16 +28,15 @@ public class NpcController : Interactable, INpcController
     public override void OnInteraction()
     {
         _isInteracted = !_isInteracted;
-        //if(_isInteracted) PlayAudio("Switch_On");
+        //Debug.Log("OnInteraction: " + _isInteracted);
+        if (_isInteracted)
+            NpcInteractionEvent?.Invoke(true);
+        else
+            NpcInteractionEvent?.Invoke(false);
         //else PlayAudio("Switch_Off");
-        Debug.Log(
-            ("[INTERACTABLE] "+ this.name + (_isInteracted ? "on" : "off"))
-        );
-    }
-
-    private void SetPlayerInputState(bool value)
-    {
-        // TODO disable input system
+        //Debug.Log(
+        //    ("[INTERACTABLE] "+ this.name + (_isInteracted ? "on" : "off"))
+        //);
     }
 
     public bool GetState()
