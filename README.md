@@ -185,8 +185,7 @@ This folder is used to keep **ALL the assets** used for UI. User interface inclu
 **[⬆ Back to Top](#table-of-contents)**
 
 
-<a name="anc"></a>
-
+<a name="material-library"></a>
 ### 4.9 MaterialLibrary
 
 This folder is used to keep **ALL the common materials and its pallete**. Don't put mesh specific material in this directory.
@@ -194,7 +193,7 @@ This folder is used to keep **ALL the common materials and its pallete**. Don't 
 **[⬆ Back to Top](#table-of-contents)**
 
 
-<a name="material-library"></a>
+<a name="anc"></a>
 ## 5. Asset Naming Conventions
 
 Naming conventions should be treated as law. A project that conforms to a naming convention is able to have its assets managed, searched, parsed, and maintained with incredible ease.
