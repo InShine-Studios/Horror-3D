@@ -78,7 +78,7 @@ public class ItemTest : TestBase
         inputTestFixture.Set("Scroll/Y", inventory.GetScrollStep());
         yield return null;
 
-        Assert.AreEqual(idxBefore + 1, inventory.GetActiveIdx());
+        Assert.AreEqual(Utils.MathCalcu.mod(idxBefore - 1, inventory.GetLength()), inventory.GetActiveIdx());
         Assert.AreEqual(inventory.GetItemByIndex(inventory.GetActiveIdx()), inventory.GetActiveItem());
         Image img = hud.transform.Find("ItemHud/Logo").GetComponent<Image>();
         Assert.IsTrue(!img.enabled);
