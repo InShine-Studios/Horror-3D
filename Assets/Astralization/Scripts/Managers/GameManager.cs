@@ -4,36 +4,37 @@ using UnityEngine;
 public interface IGameManager
 {
     bool GetWorld();
-    void InvokeChangeEvent();
+    void InvokeChangeWorld();
 }
 
 public class GameManager : MonoBehaviour, IGameManager
 {
     #region Variables
     [Tooltip("Bool flag to check if the player is in Real World or Astral World")]
-    private bool _isOnRealWorld = true;
+    [SerializeField]
+    private bool _isInAstralWorld = false;
     #endregion
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public static event Action ChangeWorldEvent;
+    public static event Action<bool> ChangeWorldEvent;
 
     #region Setter Getter
-    public bool GetWorld() { return _isOnRealWorld; }
+    public bool GetWorld() { return _isInAstralWorld; }
     #endregion
 
-    public void InvokeChangeEvent()
+    public void InvokeChangeWorld()
     {
-        ChangeWorldEvent?.Invoke();
+        //Debug.Log("[GM] Change World");
+        _isInAstralWorld = !_isInAstralWorld;
+        ChangeWorldEvent?.Invoke(_isInAstralWorld);
+    }
+
+    private void OnEnable()
+    {
+        Ankh.ChangeWorldGM += InvokeChangeWorld;
+    }
+
+    private void OnDisable()
+    {
+        Ankh.ChangeWorldGM -= InvokeChangeWorld;
     }
 }

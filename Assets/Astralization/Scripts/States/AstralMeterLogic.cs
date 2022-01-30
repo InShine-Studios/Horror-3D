@@ -5,10 +5,8 @@ using UnityEngine;
 public interface IAstralMeterLogic
 {
     void ChangeSightState();
-    void ChangeWorld();
     float GetAstralMeter();
     float GetConstantRate();
-    bool IsOnRealWorld();
     bool IsOnSight();
     void NPCWrongAnswer();
     void PlayerKilled();
@@ -20,7 +18,7 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     private float _maxMeter = 100.0f;
     private float _constantRate = 0.05f;
     private float _sightAmount = 1.0f;
-    private bool _isOnRealWorld = true;
+    //private bool _isOnRealWorld = true;
     private bool _isOnSight = false;
 
     void Start()
@@ -41,23 +39,38 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
 
     private void OnEnable()
     {
-        GameManager.ChangeWorldEvent += Dummy;
+        GameManager.ChangeWorldEvent += ChangeWorld;
     }
 
     private void OnDisable()
     {
-        GameManager.ChangeWorldEvent -= Dummy;
+        GameManager.ChangeWorldEvent -= ChangeWorld;
     }
 
-    private void Dummy()
+    private void ChangeWorld(bool state)
     {
-        Debug.Log("World Changed");
+        //Debug.Log("World Changed");
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            GameObject go = transform.GetChild(i).gameObject;
+            go.SetActive(state);
+        }
+        ToggleWorldRate(state);
     }
 
-    public bool IsOnRealWorld()
+    private void ToggleWorldRate(bool state)
     {
-        return _isOnRealWorld;
+        if (state)
+        {
+            _constantRate = 0.083f;
+        }
+        else _constantRate = 0.05f;
     }
+
+    //public bool IsOnRealWorld()
+    //{
+    //    return _isOnRealWorld;
+    //}
 
     public float GetAstralMeter()
     {
@@ -69,18 +82,18 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
         return _constantRate;
     }
 
-    public void ChangeWorld()
-    {
-        _isOnRealWorld = !_isOnRealWorld;
-        if (_isOnRealWorld)
-        {
-            _constantRate = 0.05f;
-        }
-        else
-        {
-            _constantRate = 0.083f;
-        }
-    }
+    //public void ChangeWorld()
+    //{
+    //    _isOnRealWorld = !_isOnRealWorld;
+    //    if (_isOnRealWorld)
+    //    {
+    //        _constantRate = 0.05f;
+    //    }
+    //    else
+    //    {
+    //        _constantRate = 0.083f;
+    //    }
+    //}
 
     public bool IsOnSight()
     {

@@ -8,23 +8,34 @@ public class VolumeAstral : MonoBehaviour
     #region Enable - Disable
     private void OnEnable()
     {
-        Ankh.ChangeWorldEvent += ToggleActive;
+        GameManager.ChangeWorldEvent += SetState;
     }
 
     private void OnDisable()
     {
-        Ankh.ChangeWorldEvent -= ToggleActive;
+        GameManager.ChangeWorldEvent -= SetState;
     }
     #endregion
 
-    private void ToggleActive()
+    private void SetState(bool state)
     {
         //Debug.Log("[VOLUME ASTRAL] Toggle " + this.name);
 
         for (int i = 0; i < transform.childCount; i++)
         {
             GameObject go = transform.GetChild(i).gameObject;
-            go.SetActive(!go.activeInHierarchy);
+            go.SetActive(state);
         }
+        ToggleFogColor(state);
+    }
+
+    private void ToggleFogColor(bool state)
+    {
+        if (state)
+        {
+            Color col = Utils.ColorHelper.ParseHex("#5F466A");
+            RenderSettings.fogColor = col;
+        }
+        else RenderSettings.fogColor = Color.black;
     }
 }
