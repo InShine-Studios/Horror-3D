@@ -564,7 +564,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UseIcon: 1
   InteractableIcon: {fileID: 5531130732856742836}
-  AudioManager: {fileID: 5549422879738943856}
   _isOn: 0
 --- !u!1001 &1331109162518408282
 PrefabInstance:
@@ -647,7 +646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6879967579770631467, guid: 791ebdef87edc574fa9396cb927fbe97, type: 3}
       propertyPath: m_Name
-      value: AudioManager
+      value: AudioManager_Light
       objectReference: {fileID: 0}
     - target: {fileID: 6879967579770631467, guid: 791ebdef87edc574fa9396cb927fbe97, type: 3}
       propertyPath: m_IsActive
@@ -660,17 +659,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6879967579770631465, guid: 791ebdef87edc574fa9396cb927fbe97, type: 3}
   m_PrefabInstance: {fileID: 1331109162518408282}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5549422879738943856 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6879967579770631466, guid: 791ebdef87edc574fa9396cb927fbe97, type: 3}
-  m_PrefabInstance: {fileID: 1331109162518408282}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8845c5b65e040ac419c298898dd17ab7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4891898456856915774
 PrefabInstance:
   m_ObjectHideFlags: 0

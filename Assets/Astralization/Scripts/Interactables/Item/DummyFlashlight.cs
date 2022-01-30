@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-
 
 /*
  * DummyFlashlight class.
@@ -14,8 +14,9 @@ public class DummyFlashlight : Item
 
     #endregion
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _lightSource = GetComponentInChildren<Light>();
     }
 
