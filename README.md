@@ -312,8 +312,9 @@ Examples:
 
 | Asset Type    | Prefix  | Suffix | Notes |
 | ------------- | ------- | ------ | ----- |
+| House Decor   | HD_     |        |       |
+| Interactables | INT_    |        |       |
 | Light Sources | LS_     |        |       |
-| House Objects | HO_     |        |       |
 | Properties    | PROPS_  |        |       |
 | Structures    | STRUCT_ |        |       |
 | From Snaps    |         | _SNAPS |       |
