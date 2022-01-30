@@ -21,10 +21,6 @@ public class NpcController : Interactable, INpcController
     public static event Action<bool> NpcInteractionEvent;
     #endregion
 
-    private void Awake()
-    {
-        // TODO isi kalo butuh
-    }
     public override void OnInteraction()
     {
         _isInteracted = !_isInteracted;
@@ -33,7 +29,6 @@ public class NpcController : Interactable, INpcController
             NpcInteractionEvent?.Invoke(true);
         else
             NpcInteractionEvent?.Invoke(false);
-        //else PlayAudio("Switch_Off");
         //Debug.Log(
         //    ("[INTERACTABLE] "+ this.name + (_isInteracted ? "on" : "off"))
         //);
