@@ -31,6 +31,11 @@ public abstract class Item : Interactable, IItem
         SetCollider(false);
         SetMeshRenderer(false);
     }
+    public void Discard()
+    {
+        SetCollider(true);
+        SetMeshRenderer(true);
+    }
     public void SetMeshRenderer(bool enabled)
     {
         GetComponent<MeshRenderer>().enabled = enabled;

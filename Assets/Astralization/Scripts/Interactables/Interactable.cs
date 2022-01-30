@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public interface IInteractable
@@ -26,13 +27,17 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     [Space]
     [Header("Audio")]
     [Tooltip("Audio Manager")]
-    public AudioManager AudioManager;
+    protected AudioManager AudioManagerObj;
 
     #endregion
 
+    protected virtual void Awake()
+    {
+        AudioManagerObj = GetComponentInChildren<AudioManager>();
+    }
+
     private void Reset()
     {
-        AudioManager = GetComponent<AudioManager>();
         GetComponent<Collider>().isTrigger = true;
     }
 
@@ -72,6 +77,6 @@ public abstract class Interactable : MonoBehaviour, IInteractable
 
     protected void PlayAudio(string name)
     {
-        AudioManager.Play(name);
+        AudioManagerObj.Play(name);
     }
 }
