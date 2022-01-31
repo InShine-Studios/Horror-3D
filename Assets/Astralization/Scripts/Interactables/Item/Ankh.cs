@@ -8,7 +8,7 @@ using UnityEngine;
 public class Ankh : Item
 {
     #region Variables
-    public static event Action ChangeWorldGM; //TODO: Refactor this to GM
+    public static event Action ChangeWorldGM;
 
     #endregion
 

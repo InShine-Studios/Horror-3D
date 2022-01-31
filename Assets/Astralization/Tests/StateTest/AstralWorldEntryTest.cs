@@ -21,6 +21,9 @@ public class AstralWorldEntryTest : TestBase
     public IEnumerator AstralWorld_MoveToAstralWorld()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
+        IAstralMeterLogic astralMeterLogic = GameObject.Find("AstralMeter").GetComponent<IAstralMeterLogic>();
+        Assert.IsTrue(astralMeterLogic.GetConstantRate() == 0.05f);
+
         GameObject ankhOW = GameObject.Find("OverworldItems/Ankh");
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.MoveLeft);
         float moveDuration = GetMovementDurationTowards(ankhOW.transform);
@@ -42,12 +45,17 @@ public class AstralWorldEntryTest : TestBase
         GameObject astral = GameObject.Find("VOL_Global_AstralWorld_1");
         Assert.IsTrue(astral.activeInHierarchy);
 
-        IAstralMeterLogic astralMeterLogic = GameObject.Find("AstralMeter").GetComponent<IAstralMeterLogic>();
+        GameObject realWorld = GameObject.Find("VOL_Global_RealWorld_1");
+        for (int i = 0; i < realWorld.transform.childCount; i++)
+        {
+            GameObject go = realWorld.transform.GetChild(i).gameObject;
+            Assert.IsFalse(go.activeInHierarchy);
+        }
+
         IGameManager gameManager = GameObject.Find("GameManager").GetComponent<IGameManager>();
 
-        yield return new WaitForSeconds(1.0f);
         Assert.IsTrue(gameManager.GetWorld());
-        Assert.IsTrue(astralMeterLogic.GetAstralMeter() <= 10.0f);
+        Assert.IsTrue(astralMeterLogic.GetConstantRate() == 0.083f);
     }
     #endregion
 }

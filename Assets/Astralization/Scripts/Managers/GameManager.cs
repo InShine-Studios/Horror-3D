@@ -17,16 +17,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public static event Action<bool> ChangeWorldEvent;
 
-    #region Setter Getter
-    public bool GetWorld() { return _isInAstralWorld; }
-    #endregion
-
-    public void InvokeChangeWorld()
-    {
-        _isInAstralWorld = !_isInAstralWorld;
-        ChangeWorldEvent?.Invoke(_isInAstralWorld);
-    }
-
+    #region Enable - Disable
     private void OnEnable()
     {
         Ankh.ChangeWorldGM += InvokeChangeWorld;
@@ -35,5 +26,16 @@ public class GameManager : MonoBehaviour, IGameManager
     private void OnDisable()
     {
         Ankh.ChangeWorldGM -= InvokeChangeWorld;
+    }
+    #endregion
+
+    #region Setter Getter
+    public bool GetWorld() { return _isInAstralWorld; }
+    #endregion
+
+    public void InvokeChangeWorld()
+    {
+        _isInAstralWorld = !_isInAstralWorld;
+        ChangeWorldEvent?.Invoke(_isInAstralWorld);
     }
 }
