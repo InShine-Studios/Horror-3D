@@ -51,6 +51,8 @@ public class ItemTest : TestBase
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.MoveLeft);
         float moveDuration = GetMovementDurationTowards(ankhOW.transform);
         yield return new WaitForSeconds(moveDuration);
+        Transform markItem = ankhOW.transform.Find("ExclamationMarkItem");
+        Assert.True(markItem.gameObject.activeInHierarchy);
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.MoveLeft);
 
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.PickItem);

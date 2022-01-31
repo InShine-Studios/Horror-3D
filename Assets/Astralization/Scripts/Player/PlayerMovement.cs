@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
 
     private void FixedUpdate()
     {
-        if(MovePlayer()) FindClosest?.Invoke();
+        if (MovePlayer()) FindClosest?.Invoke();
         if (_useForceGrounding) ForceGrounding();
     }
 
@@ -107,7 +107,6 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         if (_isSprinting)
             _curMoveSpeed = _playerBase.GetSprintSpeed();
         _controller.SimpleMove(_curMoveSpeed * Time.deltaTime * _moveDirection);
-        if (_moveDirection.magnitude == 0) return false;
-        else return true;
+        return _moveDirection.magnitude != 0;
     }
 }

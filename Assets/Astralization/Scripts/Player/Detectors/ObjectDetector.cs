@@ -26,18 +26,16 @@ public abstract class ObjectDetector : MonoBehaviour
     #region Enable - Disable
     private void OnEnable()
     {
-        PlayerMovement.FindClosest += test;
+        PlayerMovement.FindClosest += SetClosestItemInteractable;
     }
 
     private void OnDisable()
     {
-        PlayerMovement.FindClosest -= test;
+        PlayerMovement.FindClosest -= SetClosestItemInteractable;
     }
     #endregion
 
-    //bikin method baru
-
-    private void test()
+    private void SetClosestItemInteractable()
     {
         Collider[] colliders = this.FindOverlaps();
         if (colliders.Length == 0) return;
