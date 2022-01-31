@@ -1,15 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+public interface IDialogueManager
+{
+    Animator GetAnimator();
+}
 
-public class DialogueManager : MonoBehaviour
+    public class DialogueManager : MonoBehaviour, IDialogueManager
 {
     [SerializeField]
     private Text _nameText;
     [SerializeField]
     private Text _dialogueText;
-
-    public Animator animator;
+    [SerializeField]
+    private Animator _animator;
 
     private void Awake()
     {
@@ -35,9 +39,15 @@ public class DialogueManager : MonoBehaviour
     public void ShowDialogBox(bool isInteractWithNpc)
     {
         if (isInteractWithNpc)
-            animator.SetBool("IsOpen", true);
+            _animator.SetBool("IsOpen", true);
         else
-            animator.SetBool("IsOpen", false);
+            _animator.SetBool("IsOpen", false);
         //Debug.Log("isInteractWithNpc: " + isInteractWithNpc);
     }
+
+    public Animator GetAnimator()
+    {
+        return _animator;
+    }
+
 }

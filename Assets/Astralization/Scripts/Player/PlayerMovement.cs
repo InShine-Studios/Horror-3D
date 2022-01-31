@@ -124,7 +124,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     public void UpdatePlayerMovement(bool isInteractWithNpc)
     {
         if (isInteractWithNpc)
-            _playerInput.SwitchCurrentActionMap("Dialog");
+            _playerInput.SwitchCurrentActionMap("Dialogue");
         else
             _playerInput.SwitchCurrentActionMap("Player");
         //Debug.Log("isInteractWithNpc: " + isInteractWithNpc +
