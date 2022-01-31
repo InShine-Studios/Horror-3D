@@ -14,6 +14,7 @@ public class AstralTest
     private GameObject party;
     private IPlayerMovement playerMovement;
     private IAstralMeterLogic astralMeterLogic;
+    private IGameManager gameManager;
     //private KeyboardMouseTestFixture inputTestFixture = new KeyboardMouseTestFixture();
 
     private float GetMovementDurationTowards(Transform target)
@@ -99,30 +100,32 @@ public class AstralTest
     //    Assert.AreEqual(1.0f, astralMeterLogic.GetAstralMeter(), 1.0f);
     //}
 
-    //[UnityTest]
-    //public IEnumerator AstralMeter_NPCWrongAnswer()
-    //{
-    //    yield return new WaitWhile(() => sceneLoaded == false);
-    //    IAstralMeterLogic astralMeterLogic = party.GetComponent<IAstralMeterLogic>();
-    //    astralMeterLogic.ChangeWorld();
-    //    astralMeterLogic.NPCWrongAnswer();
+    [UnityTest]
+    public IEnumerator AstralMeter_NPCWrongAnswer()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        IAstralMeterLogic astralMeterLogic = GameManager.GetComponent<IAstralMeterLogic>();
+        IGameManager gameManager = gameManager.GetComponent<IGameManager>();
+        astralMeterLogic.ChangeWorld();
+        astralMeterLogic.NPCWrongAnswer();
 
-    //    Assert.IsFalse(astralMeterLogic.IsOnRealWorld());
-    //    Assert.IsTrue(astralMeterLogic.GetAstralMeter() >= 10.0f);
-    //    Assert.IsTrue(astralMeterLogic.GetAstralMeter() <= 15.0f);
-    //}
+        Assert.IsTrue(gameManager.GetWorld());
+        Assert.IsTrue(astralMeterLogic.GetAstralMeter() >= 10.0f);
+        Assert.IsTrue(astralMeterLogic.GetAstralMeter() <= 15.0f);
+    }
 
-    //[UnityTest]
-    //public IEnumerator AstralMeter_PlayerKilled()
-    //{
-    //    yield return new WaitWhile(() => sceneLoaded == false);
-    //    IAstralMeterLogic astralMeterLogic = party.GetComponent<IAstralMeterLogic>();
-    //    astralMeterLogic.ChangeWorld();
-    //    astralMeterLogic.PlayerKilled();
+    [UnityTest]
+    public IEnumerator AstralMeter_PlayerKilled()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        IAstralMeterLogic astralMeterLogic = party.GetComponent<IAstralMeterLogic>();
+        IGameManager gameManager = gameManager.GetComponent<IGameManager>();
+        astralMeterLogic.ChangeWorld();
+        astralMeterLogic.PlayerKilled();
 
-    //    Assert.IsFalse(astralMeterLogic.IsOnRealWorld());
-    //    Assert.IsTrue(astralMeterLogic.GetAstralMeter() >= 15.0f);
-    //    Assert.IsTrue(astralMeterLogic.GetAstralMeter() <= 20.0f);
-    //}
+        Assert.IsTrue(gameManager.GetWorld());
+        Assert.IsTrue(astralMeterLogic.GetAstralMeter() >= 15.0f);
+        Assert.IsTrue(astralMeterLogic.GetAstralMeter() <= 20.0f);
+    }
     //#endregion
 }
