@@ -8,6 +8,7 @@ public interface IInventory
     int GetActiveIdx();
     IItem GetActiveItem();
     IItem GetItemByIndex(int idx);
+    int GetLength();
     int GetNumOfItem();
     float GetScrollStep();
     void PickItem(Item item);
@@ -73,6 +74,7 @@ public class Inventory : MonoBehaviour, IInventory
     }
 
     #region Setter Getter
+    public int GetLength() { return InvenLength; }
     public int GetNumOfItem() { return _numOfItem; }
     public int GetActiveIdx() { return _activeIdx; }
     public IItem GetActiveItem() { return _activeItem; }
