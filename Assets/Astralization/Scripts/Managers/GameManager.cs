@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void InvokeChangeWorld()
     {
-        //Debug.Log("[GM] Change World");
         _isInAstralWorld = !_isInAstralWorld;
         ChangeWorldEvent?.Invoke(_isInAstralWorld);
     }

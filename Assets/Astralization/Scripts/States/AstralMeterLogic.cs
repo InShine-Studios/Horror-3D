@@ -18,7 +18,6 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     private float _maxMeter = 100.0f;
     private float _constantRate = 0.05f;
     private float _sightAmount = 1.0f;
-    //private bool _isOnRealWorld = true;
     private bool _isOnSight = false;
 
     void Start()
@@ -49,7 +48,6 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
 
     private void ChangeWorld(bool state)
     {
-        //Debug.Log("World Changed");
         for (int i = 0; i < transform.childCount; i++)
         {
             GameObject go = transform.GetChild(i).gameObject;
@@ -67,11 +65,6 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
         else _constantRate = 0.05f;
     }
 
-    //public bool IsOnRealWorld()
-    //{
-    //    return _isOnRealWorld;
-    //}
-
     public float GetAstralMeter()
     {
         return _astralMeter;
@@ -81,19 +74,6 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     {
         return _constantRate;
     }
-
-    //public void ChangeWorld()
-    //{
-    //    _isOnRealWorld = !_isOnRealWorld;
-    //    if (_isOnRealWorld)
-    //    {
-    //        _constantRate = 0.05f;
-    //    }
-    //    else
-    //    {
-    //        _constantRate = 0.083f;
-    //    }
-    //}
 
     public bool IsOnSight()
     {
