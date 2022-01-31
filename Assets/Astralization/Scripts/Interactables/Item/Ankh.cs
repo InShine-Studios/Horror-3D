@@ -8,8 +8,6 @@ using UnityEngine;
 public class Ankh : Item
 {
     #region Variables
-    //private bool _inAstral = false; //TODO: Refactor this to GM
-
     public static event Action ChangeWorldGM; //TODO: Refactor this to GM
 
     #endregion
