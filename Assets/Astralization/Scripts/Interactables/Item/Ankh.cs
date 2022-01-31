@@ -21,17 +21,7 @@ public class Ankh : Item
 
     public override void Use()
     {
-        //Debug.Log("[ITEM] Use " + this.name);
         ChangeWorldGM?.Invoke();
-
-        //_inAstral = !_inAstral;
-        //if (_inAstral)
-        //{
-        //    //Color col = Utils.ColorHelper.ParseHex("#5F466A");
-        //    RenderSettings.fogColor = col;
-        //}
-        //else RenderSettings.fogColor = Color.black;
-
         //TODO: Call PlayAudio for Ankh
         //TODO: Implement transition animation
     }
