@@ -1,9 +1,9 @@
 using UnityEngine;
 
 /*
- * Class to keep the state of the astral volume settings.
+ * Class to keep the state of the real world volume settings.
  */
-public class VolumeAstral : MonoBehaviour
+public class VolumeReal : MonoBehaviour
 {
     #region Enable - Disable
     private void OnEnable()
@@ -19,23 +19,12 @@ public class VolumeAstral : MonoBehaviour
 
     private void SetState(bool state)
     {
-        //Debug.Log("[VOLUME ASTRAL] Toggle " + this.name);
-
+        //Debug.Log("[VOLUME REAL] Toggle " + this.name);
+        state = !state;
         for (int i = 0; i < transform.childCount; i++)
         {
             GameObject go = transform.GetChild(i).gameObject;
             go.SetActive(state);
         }
-        ToggleFogColor(state);
-    }
-
-    private void ToggleFogColor(bool state)
-    {
-        if (state)
-        {
-            Color col = Utils.ColorHelper.ParseHex("#5F466A");
-            RenderSettings.fogColor = col;
-        }
-        else RenderSettings.fogColor = Color.black;
     }
 }
