@@ -44,7 +44,7 @@ public class ItemTest : TestBase
     }
 
     [UnityTest]
-    public IEnumerator PlayerItemDetector_PlayerInventory_ShowClosestItemIcon()
+    public IEnumerator PlayerItemDetector_ShowClosestItemIcon()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveLeft, false, 1);
@@ -54,7 +54,7 @@ public class ItemTest : TestBase
         Transform markItem2 = overworldAnkh2.transform.Find("ExclamationMarkItem");
         Assert.True(markItem.gameObject.activeInHierarchy);
         Assert.False(markItem2.gameObject.activeInHierarchy);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, (float)0.2);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, 0.2f);
         Assert.True(markItem2.gameObject.activeInHierarchy);
         Assert.False(markItem.gameObject.activeInHierarchy);
     }
