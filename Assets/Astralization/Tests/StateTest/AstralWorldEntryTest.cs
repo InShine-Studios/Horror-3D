@@ -25,12 +25,10 @@ public class AstralWorldEntryTest : TestBase
         Assert.IsTrue(astralMeterLogic.GetConstantRate() == 0.05f);
 
         GameObject ankhOW = GameObject.Find("OverworldItems/Ankh");
-        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.MoveLeft);
         float moveDuration = GetMovementDurationTowards(ankhOW.transform);
-        yield return new WaitForSeconds(moveDuration);
-        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.MoveLeft);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveLeft, false, moveDuration);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
 
-        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.PickItem);
         yield return null;
         GameObject ankh = player.transform.Find("Rotate/InteractZone/Ankh").gameObject;
         Assert.NotNull(ankh);
@@ -54,7 +52,7 @@ public class AstralWorldEntryTest : TestBase
 
         IGameManager gameManager = GameObject.Find("GameManager").GetComponent<IGameManager>();
 
-        Assert.IsTrue(gameManager.GetWorld());
+        Assert.IsTrue(gameManager.IsInAstralWorld());
         Assert.IsTrue(astralMeterLogic.GetConstantRate() == 0.083f);
     }
     #endregion

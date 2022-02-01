@@ -22,10 +22,10 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
 
     void Start()
     {
-        InvokeRepeating("Update", 3.0f, 1.0f);
+        InvokeRepeating("Increment", 3.0f, 1.0f);
     }
 
-    void Update()
+    void Increment()
     {
         float currentMeter = 0.0f;
         if (_isOnSight)

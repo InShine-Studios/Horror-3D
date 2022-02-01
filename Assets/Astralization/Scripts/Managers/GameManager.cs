@@ -3,7 +3,7 @@ using UnityEngine;
 
 public interface IGameManager
 {
-    bool GetWorld();
+    bool IsInAstralWorld();
     void InvokeChangeWorld();
 }
 
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour, IGameManager
     #endregion
 
     #region Setter Getter
-    public bool GetWorld() { return _isInAstralWorld; }
+    public bool IsInAstralWorld() { return _isInAstralWorld; }
     #endregion
 
     public void InvokeChangeWorld()
