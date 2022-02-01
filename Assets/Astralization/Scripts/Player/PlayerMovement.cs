@@ -112,16 +112,16 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     #region Enable - Disable
     private void OnEnable()
     {
-        NpcController.NpcInteractionEvent += UpdatePlayerMovement;
+        NpcController.NpcInteractionEvent += SetPlayerActionMap;
     }
 
     private void OnDisable()
     {
-        NpcController.NpcInteractionEvent -= UpdatePlayerMovement;
+        NpcController.NpcInteractionEvent -= SetPlayerActionMap;
     }
     #endregion
 
-    public void UpdatePlayerMovement(bool isInteractWithNpc)
+    public void SetPlayerActionMap(bool isInteractWithNpc)
     {
         if (isInteractWithNpc)
             _playerInput.SwitchCurrentActionMap("Dialogue");
