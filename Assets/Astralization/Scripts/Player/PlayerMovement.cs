@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private CharacterController _controller;
     [SerializeField] [Tooltip("The PlayerBase for constants")]
     private PlayerBase _playerBase;
+    [Tooltip("The Player Input component")]
+    private PlayerInput _playerInput;
 
     [Space]
     [Header("Movement Constants")]
@@ -55,6 +57,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
+        _playerInput = GetComponent<PlayerInput>();
     }
 
     private void FixedUpdate()
@@ -108,5 +111,27 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
             _curMoveSpeed = _playerBase.GetSprintSpeed();
         _controller.SimpleMove(_curMoveSpeed * Time.deltaTime * _moveDirection);
         return _moveDirection.magnitude != 0;
+    }
+
+    #region Enable - Disable
+    private void OnEnable()
+    {
+        NpcController.NpcInteractionEvent += SetPlayerActionMap;
+    }
+
+    private void OnDisable()
+    {
+        NpcController.NpcInteractionEvent -= SetPlayerActionMap;
+    }
+    #endregion
+
+    public void SetPlayerActionMap(bool isInteractWithNpc)
+    {
+        if (isInteractWithNpc)
+            _playerInput.SwitchCurrentActionMap("Dialogue");
+        else
+            _playerInput.SwitchCurrentActionMap("Player");
+        //Debug.Log("isInteractWithNpc: " + isInteractWithNpc +
+        //    " _playerInput: " + _playerInput.currentActionMap);
     }
 }
