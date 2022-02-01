@@ -38,7 +38,7 @@ public class AstralWorldEntryTest : TestBase
         Assert.NotNull(inventory.GetActiveItem());
         Assert.AreEqual(0, inventory.GetActiveIdx());
 
-        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.UseItem);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return null;
         GameObject astral = GameObject.Find("VOL_Global_AstralWorld_1");
         Assert.IsTrue(astral.activeInHierarchy);
