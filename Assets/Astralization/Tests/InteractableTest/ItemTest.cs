@@ -44,31 +44,18 @@ public class ItemTest : TestBase
     }
 
     [UnityTest]
-    public IEnumerator PlayerItemDetector_PlayerInventory_PickAndUseAnkh()
+    public IEnumerator PlayerItemDetector_PlayerInventory_ShowClosestItemIcon()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        GameObject ankhOW = GameObject.Find("OverworldItems/Ankh");
-        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.MoveLeft);
-        float moveDuration = GetMovementDurationTowards(ankhOW.transform);
-        yield return new WaitForSeconds(moveDuration);
-        Transform markItem = ankhOW.transform.Find("ExclamationMarkItem");
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveLeft, false, 1);
+        GameObject overworldAnkh = GameObject.Find("OverworldItems/Ankh");
+        GameObject overworldAnkh2 = GameObject.Find("OverworldItems/Ankh(2)");
+        Transform markItem = overworldAnkh.transform.Find("ExclamationMarkItem");
+        Transform markItem2 = overworldAnkh2.transform.Find("ExclamationMarkItem");
         Assert.True(markItem.gameObject.activeInHierarchy);
-        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.MoveLeft);
-
-        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.PickItem);
-        yield return null;
-        GameObject ankh = player.transform.Find("Rotate/InteractZone/Ankh").gameObject;
-        Assert.NotNull(ankh);
-
-        IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
-        Assert.AreEqual(1, inventory.GetNumOfItem());
-        Assert.NotNull(inventory.GetActiveItem());
-        Assert.AreEqual(0, inventory.GetActiveIdx());
-
-        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.UseItem);
-        yield return null;
-        GameObject astral = GameObject.Find("VOL_Global_AstralWorld_1");
-        Assert.IsTrue(astral.activeInHierarchy);
+        Assert.False(markItem2.gameObject.activeInHierarchy);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveRight, false, (float)0.5);
+        Assert.True(!markItem.gameObject.activeInHierarchy);
     }
 
     [UnityTest]
