@@ -41,7 +41,7 @@ public class InteractableTest: TestBase
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveLeft, false, 0.1f);
 
-        IDoorController door = GameObject.Find("WoodenDoor/Rotate").GetComponent<IDoorController>();
+        IDoorController door = GameObject.Find("WoodenDoor/Model/Rotate").GetComponent<IDoorController>();
         float currentRotation = door.GetAngle();
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
