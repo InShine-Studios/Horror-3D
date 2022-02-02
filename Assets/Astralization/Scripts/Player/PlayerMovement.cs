@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,12 +21,16 @@ public interface IPlayerMovement
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour, IPlayerMovement
 {
+    public static event Action FindClosest;
+
     #region Movement Variables
     [Header("External Variables")]
     [Tooltip("The Controller component")]
     private CharacterController _controller;
     [SerializeField] [Tooltip("The PlayerBase for constants")]
     private PlayerBase _playerBase;
+    [Tooltip("The Player Input component")]
+    private PlayerInput _playerInput;
 
     [Space]
     [Header("Movement Constants")]
@@ -52,12 +57,13 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
+        _playerInput = GetComponent<PlayerInput>();
     }
 
     private void FixedUpdate()
     {
-        MovePlayer();
-        if(_useForceGrounding) ForceGrounding();
+        if (MovePlayer()) FindClosest?.Invoke();
+        if (_useForceGrounding) ForceGrounding();
     }
 
 
@@ -98,11 +104,34 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         }
     }
 
-    private void MovePlayer()
+    private bool MovePlayer()
     {
         _curMoveSpeed = _playerBase.GetPlayerMovementSpeed();
         if (_isSprinting)
             _curMoveSpeed = _playerBase.GetSprintSpeed();
         _controller.SimpleMove(_curMoveSpeed * Time.deltaTime * _moveDirection);
+        return _moveDirection.magnitude != 0;
+    }
+
+    #region Enable - Disable
+    private void OnEnable()
+    {
+        NpcController.NpcInteractionEvent += SetPlayerActionMap;
+    }
+
+    private void OnDisable()
+    {
+        NpcController.NpcInteractionEvent -= SetPlayerActionMap;
+    }
+    #endregion
+
+    public void SetPlayerActionMap(bool isInteractWithNpc)
+    {
+        if (isInteractWithNpc)
+            _playerInput.SwitchCurrentActionMap("Dialogue");
+        else
+            _playerInput.SwitchCurrentActionMap("Player");
+        //Debug.Log("isInteractWithNpc: " + isInteractWithNpc +
+        //    " _playerInput: " + _playerInput.currentActionMap);
     }
 }
