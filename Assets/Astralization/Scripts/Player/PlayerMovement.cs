@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +21,8 @@ public interface IPlayerMovement
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour, IPlayerMovement
 {
+    public static event Action FindClosest;
+
     #region Movement Variables
     [Header("External Variables")]
     [Tooltip("The Controller component")]
@@ -59,8 +62,8 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
 
     private void FixedUpdate()
     {
-        MovePlayer();
-        if(_useForceGrounding) ForceGrounding();
+        if (MovePlayer()) FindClosest?.Invoke();
+        if (_useForceGrounding) ForceGrounding();
     }
 
 
@@ -101,12 +104,13 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         }
     }
 
-    private void MovePlayer()
+    private bool MovePlayer()
     {
         _curMoveSpeed = _playerBase.GetPlayerMovementSpeed();
         if (_isSprinting)
             _curMoveSpeed = _playerBase.GetSprintSpeed();
         _controller.SimpleMove(_curMoveSpeed * Time.deltaTime * _moveDirection);
+        return _moveDirection.magnitude != 0;
     }
 
     #region Enable - Disable
