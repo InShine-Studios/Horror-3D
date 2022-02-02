@@ -42,7 +42,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728479974111243851}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 1
   m_Height: 2.5
@@ -73,7 +73,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InvenLength: 3
-  OverworldItem: {fileID: 0}
   ActiveItemYOffset: {x: 0, y: -0.5, z: 0}
   ScrollSensitivity: 1
 --- !u!114 &1105417087990013444
@@ -701,7 +700,7 @@ MonoBehaviour:
     _rotationSpeed: 25
     _sprintSpeed: 300
   Gravity: -50
-  _isForceGrounding: 1
+  _useForceGrounding: 1
 --- !u!54 &5756019973116728186
 Rigidbody:
   m_ObjectHideFlags: 0

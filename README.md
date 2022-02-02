@@ -113,6 +113,8 @@ All project files used are in the "Assets/Astralization" folder.
 
 > 4.8 [UI](#ui)
 
+> 4.9 [MaterialLibrary](#material-library)
+
 <a name="level"></a>
 ### 4.1 _Levels
 
@@ -179,6 +181,14 @@ List of All [Test Cases](https://docs.google.com/spreadsheets/d/1G74XV_d05xa5i4_
 ### 4.8 UI
 
 This folder is used to keep **ALL the assets** used for UI. User interface includes objects in game (marker, objective, etc.) or menu UI.
+
+**[⬆ Back to Top](#table-of-contents)**
+
+
+<a name="material-library"></a>
+### 4.9 MaterialLibrary
+
+This folder is used to keep **ALL the common materials and its pallete**. Don't put mesh specific material in this directory.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -272,15 +282,18 @@ Assets that are **effects** that will be used in objects or scenes. This include
 <a name="anc-material"></a>
 ### 5.4 Materials
 
-Assets that are **materials** that will be used in objects. Materials can both be the original material, material instance, or a physical material. Since materials can have variants for the same object, material names should specify both the part and variant of the material: **[Prefix]\_[ObjectName]\_[Part]\_[VariantNum]**.
+Assets that are **materials** that will be used in objects. Materials can both be the original material, material instance, or a physical material. Since materials can have variants for the same object, material names should specify both the part and variant of the material: **[Prefix]\_[ObjectName]\_[Part]\_[VariantNum]**. For common materials that can be used as a part of a pallete, save it in the **MaterialLibrary/[PalleteName]** with name format: **[Prefix\_[PalleteName]\_[Color]\_[VariantNum]** with lower VariantNum for darker shade, and higer VariantNum for lighter shade.
 
 Examples:
 - MAT_Fog_1
-- MAT_LightSwitch_Base_1
+- MAT_LightSwitch_Base_1 (part and variant)
+- MAT_Plain_Gray_1 (common material)
+- MP_Plain (material pallete)
 
 | Asset Type        | Prefix | Suffix | Notes |
 | ----------------- | ------ | ------ | ----- |
 | Material          | MAT_   |        |       |
+| Material Pallete  | MP_    |        |       |
 | Material Instance | MI_    |        |       |
 | Physical Material | PM_    |        |       |
 
@@ -294,14 +307,18 @@ Assets that are **3D Original Meshes**. These original meshes will not have each
 Use **"M_"** as the prefix for meshes.
 
 Examples:
-- M_CH_Iris
+- M_HO_Door
 - M_LS_CeilingLight_TMP
 
-| Asset Type    | Prefix | Suffix | Notes |
-| ------------- | ------ | ------ | ----- |
-| Light Sources | LS_    |        |       |
-| House Objects | HO_    |        |       |
-| Temporary     |        | _TMP   |       |
+| Asset Type    | Prefix  | Suffix | Notes |
+| ------------- | ------- | ------ | ----- |
+| House Decor   | HD_     |        |       |
+| Interactables | INT_    |        |       |
+| Light Sources | LS_     |        |       |
+| Properties    | PROPS_  |        |       |
+| Structures    | STRUCT_ |        |       |
+| From Snaps    |         | _SNAPS |       |
+| Temporary     |         | _TMP   |       |
 
 List of All [Meshes](https://docs.google.com/spreadsheets/d/1uGEMDAMG0gg0ye39r2UNICfS8tpuOsGJXS7MlWKUVZk/edit?usp=sharing)
 

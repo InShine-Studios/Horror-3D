@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,8 +8,9 @@ public interface IInventory
     int GetActiveIdx();
     IItem GetActiveItem();
     IItem GetItemByIndex(int idx);
+    int GetLength();
     int GetNumOfItem();
-    int GetScrollStep();
+    float GetScrollStep();
     void PickItem(Item item);
     void ScrollActiveItem(InputAction.CallbackContext ctx);
     void UseActiveItem(InputAction.CallbackContext ctx);
@@ -42,13 +44,6 @@ public class Inventory : MonoBehaviour, IInventory
 
     [Tooltip("The number of item in inventory")]
     private int _numOfItem = 0;
-
-    [Tooltip("Overworld Item in Level")]
-    public GameObject OverworldItem;
-
-    [Tooltip("Hud for Item in Level")]
-    [SerializeField]
-    private ItemHud _itemHud;
     #endregion
 
     #region Variables - Item position adjustment
@@ -60,10 +55,17 @@ public class Inventory : MonoBehaviour, IInventory
     #region Variables - Input System
     [Header("Input System")]
     [Tooltip("Mouse scroll sensitivity in integer")]
-    public int ScrollSensitivity = 1;
+    public float ScrollSensitivity = 1;
 
     [Tooltip("Scroll value step for each strength")]
     private const int _scrollStep = 120;
+    #endregion
+
+    #region Events
+    public static event Action<bool, Sprite> ItemLogoEvent;
+
+    public static event Action<Item> DiscardItemEvent;
+
     #endregion
 
     private void Awake()
@@ -72,11 +74,12 @@ public class Inventory : MonoBehaviour, IInventory
     }
 
     #region Setter Getter
+    public int GetLength() { return InvenLength; }
     public int GetNumOfItem() { return _numOfItem; }
     public int GetActiveIdx() { return _activeIdx; }
     public IItem GetActiveItem() { return _activeItem; }
     public IItem GetItemByIndex(int idx) { return _items[idx]; }
-    public int GetScrollStep() { return _scrollStep * ScrollSensitivity; }
+    public float GetScrollStep() { return _scrollStep * ScrollSensitivity; }
 
     #endregion
 
@@ -108,6 +111,7 @@ public class Inventory : MonoBehaviour, IInventory
                 }
 
                 _numOfItem++;
+                item?.HideItem();
             }
             else
             {
@@ -115,7 +119,7 @@ public class Inventory : MonoBehaviour, IInventory
                 _activeItem = item;
                 _numOfItem++;
 
-                _itemHud.ActivateHud(_activeItem.GetItemLogo());
+                ItemLogoEvent?.Invoke(true, _activeItem.GetItemLogo());
             }
 
             // Put item as child of Inventory
@@ -134,14 +138,13 @@ public class Inventory : MonoBehaviour, IInventory
         {
             if (_activeItem)
             {
-                //Debug.Log("[INVENTORY] Discard " + activeItem.name);
+                //Debug.Log("[INVENTORY] Discard " + _activeItem.name);
 
                 // Activate collider and mesh renderer
-                _activeItem.SetCollider(true);
-                _activeItem.SetMeshRenderer(true);
+                _activeItem.Discard();
 
                 // Reposition item to world
-                _activeItem.gameObject.transform.parent = OverworldItem.transform;
+                DiscardItemEvent?.Invoke(_activeItem);
                 _activeItem.transform.position -= ActiveItemYOffset + new Vector3(0, this.transform.position.y, 0);
 
                 // Reset active item state
@@ -149,8 +152,7 @@ public class Inventory : MonoBehaviour, IInventory
                 _items[_activeIdx] = null;
                 _numOfItem--;
 
-                _itemHud.DeactivateHud();
-
+                ItemLogoEvent?.Invoke(false, null);
             }
             else
             {
@@ -160,15 +162,19 @@ public class Inventory : MonoBehaviour, IInventory
     }
     #endregion
 
-    #region Change item
+    #region Change Active Item
     public void ScrollActiveItem(InputAction.CallbackContext ctx)
     {
-        float scrollValue = ctx.ReadValue<float>();
-        int indexShift = (int)scrollValue / (_scrollStep * ScrollSensitivity);
-        int newIdx = Utils.MathCalcu.mod(_activeIdx - indexShift, InvenLength);
-        ChangeActiveItem(newIdx);
+        if (ctx.performed)
+        {
+            Vector2 scrollVector = ctx.ReadValue<Vector2>();
+            float scrollValue = scrollVector.y;
+            int indexShift = (int) (scrollValue / GetScrollStep());
+            int newIdx = Utils.MathCalcu.mod(_activeIdx - indexShift, InvenLength);
+            ChangeActiveItem(newIdx);
 
-        //Debug.Log("[INVENTORY] Change active item to " + (activeItem ? activeItem.name : "nothing") + " with index " + activeIdx);
+            //Debug.Log("[INVENTORY] Change active item to " + (activeItem ? activeItem.name : "nothing") + " with index " + activeIdx);
+        }
     }
 
     private void ChangeActiveItem(int newIdx)
@@ -183,8 +189,8 @@ public class Inventory : MonoBehaviour, IInventory
         // Show active item
         _activeItem?.ShowItem();
 
-        if (_activeItem) _itemHud.ActivateHud(_activeItem.GetItemLogo());
-        else _itemHud.DeactivateHud();
+        if(_activeItem) ItemLogoEvent?.Invoke(true, _activeItem.GetItemLogo());
+        else ItemLogoEvent?.Invoke(false, null);
     }
     #endregion
 

@@ -90,7 +90,7 @@
                     "name": "ChangeItem",
                     "type": "Value",
                     "id": "30787200-0281-41d9-8fa9-730c3dd995fb",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -287,11 +287,59 @@
                 {
                     "name": "",
                     "id": "a21c2b5d-e9b4-4b1a-8ca3-611cb075dadf",
-                    "path": "<Mouse>/scroll/y",
+                    "path": "<Mouse>/scroll",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "ChangeItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Dialogue",
+            "id": "32e181d2-cb6a-4123-9e64-4b45ea2cadfe",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "529143e4-1c0d-4543-8a9a-16690e5e2aa1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Next",
+                    "type": "Button",
+                    "id": "8409afe8-676f-43cb-8470-6bcf76f9513c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d0f5a3be-d98b-4e99-818f-1367d4f99586",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5636e756-ae22-4821-a06e-66ab797a230b",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Next",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
