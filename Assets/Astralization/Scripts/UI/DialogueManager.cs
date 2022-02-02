@@ -50,4 +50,5 @@ public interface IDialogueManager
         return _animator;
     }
 
+
 }
