@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using Ink.Runtime;
 
 public interface IDialogueManager
 {
@@ -15,6 +17,10 @@ public interface IDialogueManager
     [SerializeField]
     private Animator _animator;
 
+    private TextAsset _inkFile;
+    private GameObject _dialogueBox;
+
+    
     private void Awake()
     {
         _nameText.text = "Ini Budi";
