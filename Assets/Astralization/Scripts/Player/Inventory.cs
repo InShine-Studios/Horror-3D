@@ -199,7 +199,27 @@ public class Inventory : MonoBehaviour, IInventory
         if (ctx.performed)
         {
             _activeItem?.Use();
+
             if (!_activeItem) Debug.Log("[ITEM] Missing active item");
+            else if (_activeItem.GetDiscardWhenUsed())
+            {
+                // Debug.Log("[INVENTORY] Discard " + _activeItem.name);
+
+                // Activate collider and mesh renderer
+                _activeItem.Discard();
+
+                // Reposition item to world
+                DiscardItemEvent?.Invoke(_activeItem);
+                _activeItem.transform.position -= ActiveItemYOffset + new Vector3(0, this.transform.position.y, 0);
+
+                // Reset active item state
+                _activeItem = null;
+                _items[_activeIdx] = null;
+                _numOfItem--;
+
+                ItemLogoEvent?.Invoke(false, null);
+            }
+
         }
     }
 }

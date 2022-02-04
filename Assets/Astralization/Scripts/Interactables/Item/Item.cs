@@ -16,9 +16,16 @@ public interface IItem: IInteractable
 [RequireComponent(typeof(MeshRenderer))]
 public abstract class Item : Interactable, IItem
 {
+
+    [Header("Item Logo")]
     [SerializeField]
     [Tooltip("The Sprite for the logo")]
     private Sprite _itemLogo;
+
+    [Header("Item Behavior")]
+    [SerializeField]
+    [Tooltip("Determine whether discard after used or not")]
+    private bool _discardWhenUsed = false;
 
     public abstract void Use();
 
@@ -59,5 +66,10 @@ public abstract class Item : Interactable, IItem
     public Sprite GetItemLogo()
     {
         return _itemLogo;
+    }
+
+    public bool GetDiscardWhenUsed()
+    {
+        return _discardWhenUsed;
     }
 }
