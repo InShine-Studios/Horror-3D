@@ -20,7 +20,7 @@ public class DraggablePointDrawer : Editor
     {
         style.fontStyle = FontStyle.Bold;
         style.normal.textColor = Color.white;
-        _roomCoordinates = serializedObject.FindProperty("Room Coordinates");
+        _roomCoordinates = serializedObject.FindProperty("RoomCoordinates");
     }
 
     public void OnSceneGUI()

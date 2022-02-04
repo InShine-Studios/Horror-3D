@@ -37,7 +37,6 @@ public class GhostMovement : MonoBehaviour
         {
             if (RandomWanderTarget(WanderTarget, _wanderRange, out _wanderTarget))
             {
-                Debug.Log("Wander Target: " + _wanderTarget);
                 _navMeshAgent.SetDestination(_wanderTarget);
                 Debug.DrawRay(_wanderTarget, Vector3.up, Color.blue, 1.0f);
             }

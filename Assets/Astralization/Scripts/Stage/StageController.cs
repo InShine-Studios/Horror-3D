@@ -18,8 +18,8 @@ public struct RoomCoordinate
 public class StageController : MonoBehaviour
 {
     public List<RoomCoordinate> RoomCoordinates;
-    private List<string> _roomNames;
-    private Dictionary<string, Vector3> _roomCoordDict = new Dictionary<string, Vector3>();
+    private static List<string> _roomNames;
+    private static Dictionary<string, Vector3> _roomCoordDict = new Dictionary<string, Vector3>();
 
     private void Awake()
     {
@@ -30,14 +30,14 @@ public class StageController : MonoBehaviour
         _roomNames = new List<string>(_roomCoordDict.Keys);
     }
 
-    public Vector3 GetRoomCoordinate(string roomName)
+    public static Vector3 GetRoomCoordinate(string roomName)
     {
         return _roomCoordDict[roomName];
     }
 
-    public Vector3 GetRandomRoomCoordinate()
+    public static Vector3 GetRandomRoomCoordinate()
     {
-        int randomIdx = Utils.Randomizer.Rand.Next(RoomCoordinates.Count);
+        int randomIdx = Utils.Randomizer.Rand.Next(_roomNames.Count);
         string randomKey = _roomNames[randomIdx];
         return GetRoomCoordinate(randomKey);
     }
