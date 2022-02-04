@@ -14,8 +14,12 @@ public abstract class ObjectDetector : MonoBehaviour
     [Header("Input System")]
     protected PlayerInput playerInput;
 
+    [Header("Dependant on Detectors")]
     [Tooltip("Tag to distinguish interactable types")]
     protected string detectionTag;
+
+    [Tooltip("Current closest object to this detector")]
+    protected Interactable closestInteract;
 
     #endregion
 
@@ -42,13 +46,15 @@ public abstract class ObjectDetector : MonoBehaviour
         for (int i = 0; i < colliders.Length; i++)
         {
             Collider cur = colliders[i];
+            // Turn off all icons
             if (cur.CompareTag(detectionTag))
             {
                 Interactable interact = cur.GetComponent<Interactable>();
                 interact.SetInteractableIcon(false);
             }
         }
-        Interactable closestInteract = GetClosestInteractable(colliders);
+        // Turn on closest
+        closestInteract = GetClosestInteractable(colliders);
         if (closestInteract)
         {
             closestInteract.SetInteractableIcon(true);
@@ -86,11 +92,11 @@ public abstract class ObjectDetector : MonoBehaviour
             // Find objects that overlap with collider
             Collider[] colliders = this.FindOverlaps();
 
-            Interactable closest = GetClosestInteractable(colliders);
+            //Interactable closest = GetClosestInteractable(colliders);
 
-            if (closest)
+            if (closestInteract)
             {
-                InteractClosest(closest);
+                InteractClosest(closestInteract);
             }
         }
     }
