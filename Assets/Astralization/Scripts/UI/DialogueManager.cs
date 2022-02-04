@@ -6,7 +6,6 @@ using System.Collections;
 
 public interface IDialogueManager
 {
-    void EnterPressed(InputAction.CallbackContext ctx);
     Animator GetAnimator();
     bool GetDialogBox();
     void ShowDialogBox(bool isInteractWithNpc);
@@ -42,11 +41,13 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     private void OnEnable()
     {
         NpcController.NpcInteractionEvent += ShowDialogBox;
+        DialogueInvoker.DialogueInvoke += Next;
     }
 
     private void OnDisable()
     {
         NpcController.NpcInteractionEvent -= ShowDialogBox;
+        DialogueInvoker.DialogueInvoke -= Next;
     }
     #endregion
 
@@ -62,20 +63,16 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     }
     #endregion
 
-    public void EnterPressed(InputAction.CallbackContext ctx)
+    public void Next()
     {
-        if (ctx.performed)
+        if (_dialogueText.text == lines[_index])
         {
-            //Debug.Log("[DIALOGUE MANAGER] Enter key pressed");
-            if (_dialogueText.text == lines[_index])
-            {
-                NextLine();
-            }
-            else
-            {
-                StopAllCoroutines();
-                _dialogueText.text = lines[_index];
-            }
+            NextLine();
+        }
+        else
+        {
+            StopAllCoroutines();
+            _dialogueText.text = lines[_index];
         }
     }
 
