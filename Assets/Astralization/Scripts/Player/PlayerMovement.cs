@@ -113,11 +113,13 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private void OnEnable()
     {
         NpcController.NpcInteractionEvent += SetPlayerActionMap;
+        DialogueManager.DialogueEvent += SetPlayerActionMap;
     }
 
     private void OnDisable()
     {
         NpcController.NpcInteractionEvent -= SetPlayerActionMap;
+        DialogueManager.DialogueEvent -= SetPlayerActionMap;
     }
     #endregion
 

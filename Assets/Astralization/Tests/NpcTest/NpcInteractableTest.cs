@@ -41,10 +41,43 @@ public class NPCInteractableTest: TestBase
         Assert.AreEqual(playerInput.currentActionMap.ToString().Split(':')[1], "Player");
         Assert.IsFalse(dialogueManager.GetAnimator().GetBool("IsOpen"));
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
+
         yield return new WaitForSeconds(1.0f);
         Assert.IsTrue(npcController.GetState());
         Assert.AreEqual(playerInput.currentActionMap.ToString().Split(':')[1], "Dialogue");
         Assert.IsTrue(dialogueManager.GetAnimator().GetBool("IsOpen"));
+    }
+
+    [UnityTest]
+    public IEnumerator PlayerInteractableDetector_NextLine()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        GameObject player = GameObject.Find("Party/Iris");
+        GameObject npc = GameObject.Find("NPC");
+        GameObject exclamationMark = npc.transform.Find("ExclamationMark").gameObject;
+        GameObject dialogue = GameObject.Find("Dialogue/Dialogue Box");
+
+        //Debug.Log(player + "||" + npc + "||" + exclamationMark + "||" + dialogue);
+        //Debug.Log(npc.transform.position);
+        float moveDuration = GetMovementDurationTowards(npc.transform);
+
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
+
+        INpcController npcController = npc.GetComponent<INpcController>();
+        PlayerInput playerInput = player.GetComponent<PlayerInput>();
+        IDialogueManager dialogueManager = dialogue.GetComponent<IDialogueManager>();
+
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
+
+        yield return new WaitForSeconds(0.3f);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.NextDialogueEnter);
+
+        yield return new WaitForSeconds(0.3f);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.NextDialogueEnter);
+
+        /*yield return new WaitForSeconds(0.3f);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.NextDialogueEnter);*/
+        Assert.IsFalse(dialogueManager.GetDialogBox());
     }
     #endregion
 }
