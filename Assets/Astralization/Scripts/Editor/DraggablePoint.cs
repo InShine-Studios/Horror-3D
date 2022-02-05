@@ -5,7 +5,7 @@ using System.Reflection;
 using UnityEditor;
 #endif
 
-///Handles relative to game object
+//Handles relative to game object
 public class DraggablePoint : PropertyAttribute { }
 
 
@@ -25,28 +25,49 @@ public class DraggablePointDrawer : Editor
 
     public void OnSceneGUI()
     {
-        for (int x = 0; x < _roomCoordinates.arraySize; x++)
+        SerializedProperty property = serializedObject.GetIterator();
+        while (property.Next(true))
         {
-            SerializedProperty element = _roomCoordinates.GetArrayElementAtIndex(x);
-            SerializedProperty _roomCoord = element.FindPropertyRelative("coordinate");
-            handleVectorPropertyInArray(_roomCoord, _roomCoordinates, x);
+            if (property.propertyType == SerializedPropertyType.Vector3)
+            {
+                handleVectorProperty(property);
+            }
+            else
+            {
+                for (int x = 0; x < _roomCoordinates.arraySize; x++)
+                {
+                    SerializedProperty element = _roomCoordinates.GetArrayElementAtIndex(x);
+                    SerializedProperty _roomCoord = element.FindPropertyRelative("coordinate");
+                    SerializedProperty _roomName = element.FindPropertyRelative("name");
+                    handleVectorPropertyInArray(_roomCoord, _roomCoordinates, _roomName.stringValue);
+                }
+            }
         }
+
     }
 
-    void handleVectorPropertyInArray(SerializedProperty property, SerializedProperty parent, int index)
+    void handleVectorProperty(SerializedProperty property)
+    {
+        FieldInfo field = serializedObject.targetObject.GetType().GetField(property.name);
+        if (field == null)
+        {
+            return;
+        }
+        Handles.Label(property.vector3Value, property.name);
+        property.vector3Value = Handles.PositionHandle(property.vector3Value, Quaternion.identity);
+        serializedObject.ApplyModifiedProperties();
+    }
+
+    void handleVectorPropertyInArray(SerializedProperty property, SerializedProperty parent, string name)
     {
         FieldInfo parentfield = serializedObject.targetObject.GetType().GetField(parent.name);
         if (parentfield == null)
         {
             return;
         }
-        var draggablePoints = parentfield.GetCustomAttributes(typeof(DraggablePoint), false);
-        if (draggablePoints.Length > 0)
-        {
-            Handles.Label(property.vector3Value + ((MonoBehaviour)target).transform.position, parent.name + "[" + index + "]");
-            property.vector3Value = Handles.PositionHandle(property.vector3Value + ((MonoBehaviour)target).transform.position, Quaternion.identity) - ((MonoBehaviour)target).transform.position;
-            serializedObject.ApplyModifiedProperties();
-        }
+        Handles.Label(property.vector3Value + ((MonoBehaviour)target).transform.position, parent.name + "[" + name + "]");
+        property.vector3Value = Handles.PositionHandle(property.vector3Value + ((MonoBehaviour)target).transform.position, Quaternion.identity) - ((MonoBehaviour)target).transform.position;
+        serializedObject.ApplyModifiedProperties();
     }
 }
 #endif

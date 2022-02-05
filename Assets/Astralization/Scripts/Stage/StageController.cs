@@ -7,7 +7,8 @@ using UnityEngine;
 public struct RoomCoordinate
 {
     public string name;
-    public Vector3 coordinate;
+    [DraggablePoint] public Vector3 coordinate;
+    public float radius;
 }
 
 /**
