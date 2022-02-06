@@ -52,9 +52,7 @@ public class NPCInteractableTest: TestBase
     public IEnumerator PlayerInteractableDetector_NextLine()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        GameObject player = GameObject.Find("Party/Iris");
         GameObject npc = GameObject.Find("NPC");
-        GameObject exclamationMark = npc.transform.Find("ExclamationMark").gameObject;
         GameObject dialogue = GameObject.Find("Dialogue/Dialogue Box");
 
         //Debug.Log(player + "||" + npc + "||" + exclamationMark + "||" + dialogue);
@@ -64,19 +62,17 @@ public class NPCInteractableTest: TestBase
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
 
         INpcController npcController = npc.GetComponent<INpcController>();
-        PlayerInput playerInput = player.GetComponent<PlayerInput>();
         IDialogueManager dialogueManager = dialogue.GetComponent<IDialogueManager>();
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
 
         yield return new WaitForSeconds(0.3f);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.NextDialogueEnter);
+        Assert.AreEqual(1, dialogueManager.GetIndex());
 
         yield return new WaitForSeconds(0.3f);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.NextDialogueEnter);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.NextDialogueClick);
 
-        /*yield return new WaitForSeconds(0.3f);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.NextDialogueEnter);*/
         Assert.IsFalse(dialogueManager.GetDialogBox());
     }
     #endregion

@@ -8,6 +8,7 @@ public interface IDialogueManager
 {
     Animator GetAnimator();
     bool GetDialogBox();
+    int GetIndex();
     void ShowDialogBox(bool isInteractWithNpc);
 }
 
@@ -28,26 +29,26 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     private InputAction _next;
     private bool _dialogBoxOpen;
 
-    public static event Action<bool> DialogueEvent;
+    public static event Action<bool> FinishDialogue;
 
     private void Awake()
     {
         _nameText.text = "Budi";
         _dialogueText.text = string.Empty;
-        StartDialogue();
+        
     }
 
     #region Enable - Disable
     private void OnEnable()
     {
         NpcController.NpcInteractionEvent += ShowDialogBox;
-        DialogueInvoker.DialogueInvoke += Next;
+        DialogueInvoker.StartDialogue += Next;
     }
 
     private void OnDisable()
     {
         NpcController.NpcInteractionEvent -= ShowDialogBox;
-        DialogueInvoker.DialogueInvoke -= Next;
+        DialogueInvoker.StartDialogue -= Next;
     }
     #endregion
 
@@ -60,6 +61,11 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     public bool GetDialogBox()
     {
         return _dialogBoxOpen;
+    }
+
+    public int GetIndex()
+    {
+        return _index;
     }
     #endregion
 
@@ -80,6 +86,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     {
         if (isInteractWithNpc)
         {
+            SetUpDialogue();
             _animator.SetBool("IsOpen", true);
             _dialogBoxOpen = true;
         }
@@ -91,9 +98,10 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         }
     }
 
-    void StartDialogue()
+    void SetUpDialogue()
     {
         _index = 0;
+        _dialogueText.text = string.Empty;
         StartCoroutine(TypeLine());
     }
 
@@ -104,7 +112,6 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         {
             _dialogueText.text += c;
             yield return new WaitForSeconds(TextSpeed);
-
         }
     }
 
@@ -118,7 +125,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         }
         else
         {
-            DialogueEvent?.Invoke(false);
+            FinishDialogue?.Invoke(false);
             ShowDialogBox(false);
         }
     }

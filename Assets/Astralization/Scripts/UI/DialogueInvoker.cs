@@ -5,12 +5,12 @@ using UnityEngine.InputSystem;
 public class DialogueInvoker : MonoBehaviour
 {
     #region Variable
-    public static event Action DialogueInvoke;
+    public static event Action StartDialogue;
     #endregion
 
     public void InvokeEvent()
     {
-        DialogueInvoke?.Invoke();
+        StartDialogue?.Invoke();
     }
 
     public void EnterPressed(InputAction.CallbackContext ctx)
