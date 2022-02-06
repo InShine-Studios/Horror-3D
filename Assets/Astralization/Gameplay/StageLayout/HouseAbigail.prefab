@@ -39331,10 +39331,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomCoordinates:
-  - name: 
-    coordinate: {x: 0, y: 0, z: 0}
-  - name: 
-    coordinate: {x: 0, y: 0, z: 0}
+  - name: Living Room
+    coordinate: {x: 0.2, y: 4, z: -21}
+    radius: 5
+  - name: Master Room
+    coordinate: {x: -14.75, y: 4, z: -21.2}
+    radius: 5
+  - name: Bath Room
+    coordinate: {x: -18.22, y: 4, z: -11.7}
+    radius: 2
+  - name: Bed Room
+    coordinate: {x: -18.26, y: 4, z: 3.65}
+    radius: 4.5
+  - name: Family Room
+    coordinate: {x: 0.7, y: 4, z: 9.7}
+    radius: 4
+  - name: Dining Room
+    coordinate: {x: -8.75, y: 4, z: -6.7}
+    radius: 4
+  - name: Kitchen Room
+    coordinate: {x: 0.7, y: 4, z: -1.7}
+    radius: 2
+  - name: Garage Room
+    coordinate: {x: 10.72, y: 4, z: -21.2}
+    radius: 3
+  - name: Laundry Room
+    coordinate: {x: 11.7, y: 4, z: -9.2}
+    radius: 4
+  - name: Basement
+    coordinate: {x: 7.2, y: -1, z: -18.7}
+    radius: 6
+  - name: Attic
+    coordinate: {x: 7.7, y: 10, z: -87}
+    radius: 5
 --- !u!1 &5873718965525512810
 GameObject:
   m_ObjectHideFlags: 0
