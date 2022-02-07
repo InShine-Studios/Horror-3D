@@ -1,18 +1,24 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+public interface IGhostMovement
+{
+    bool IsOnRoute();
+    void SetWandering(bool value);
+    void WanderTarget(RoomCoordinate targetRoom, bool randomizePoint);
+}
 
 /*
  * GhostMovement
  * Controls ghost movement's target and delay.
  * Ghost movement target is defined by sampling position from NavMesh.
  */
-public class GhostMovement : MonoBehaviour
+public class GhostMovement : MonoBehaviour, IGhostMovement
 {
     #region Variables
     [SerializeField]
     [Tooltip("Consider ghost is not moving if delta position is less than thresh")]
-    private float _positionThresh = 0.01f;
+    private float _positionThresh = 0f;
     [SerializeField]
     [Tooltip("Cooldown of checking if target position should be updated")]
     private Utils.Range _checkRateRange;
@@ -24,6 +30,8 @@ public class GhostMovement : MonoBehaviour
     private float _wanderRange = 3f;
     [Tooltip("Last position of ghost, updated on every frame")]
     private Vector3 _lastPosition;
+    [Tooltip("True if ghost is able to wander")]
+    private bool _enableWandering = true;
     private NavMeshAgent _navMeshAgent;
     private NavMeshHit _navMeshHit;
 
@@ -47,7 +55,7 @@ public class GhostMovement : MonoBehaviour
 
     void Update()
     {
-        if (Time.time > _nextCheck)
+        if (Time.time > _nextCheck && _enableWandering)
         {
             _nextCheck = Time.time + _checkRate;
             _checkRate = Utils.Randomizer.GetFloat(_checkRateRange.min, _checkRateRange.max);
@@ -63,9 +71,14 @@ public class GhostMovement : MonoBehaviour
         return Mathf.Abs(Utils.GeometryCalcu.GetDistance3D(_lastPosition, transform.position));
     }
 
-    private bool IsOnRoute()
+    public bool IsOnRoute()
     {
         return GetDeltaPosition() > _positionThresh;
+    }
+
+    public void SetWandering(bool value)
+    {
+        _enableWandering = value;
     }
     #endregion
 
@@ -77,9 +90,19 @@ public class GhostMovement : MonoBehaviour
         return target.coordinate + new Vector3(shiftX, 0, shiftZ);
     }
 
-    public bool WanderTarget(Vector3 center, out Vector3 result, RoomCoordinate targetRoom)
+    public void WanderTarget(RoomCoordinate targetRoom, bool randomizePoint)
     {
-        Vector3 targetPoint = RandomShiftTarget(targetRoom);
+        bool valid = WanderTarget(_wanderTarget, out _wanderTarget, targetRoom, randomizePoint);
+        _navMeshAgent.SetDestination(_wanderTarget);
+    }
+
+    private bool WanderTarget(Vector3 center, out Vector3 result, RoomCoordinate targetRoom, bool randomizePoint)
+    {
+        Vector3 targetPoint = targetRoom.coordinate;
+        if (randomizePoint)
+        {
+            targetPoint = RandomShiftTarget(targetRoom);
+        }
         if (NavMesh.SamplePosition(targetPoint, out _navMeshHit, _wanderRange, NavMesh.AllAreas))
         {
             result = _navMeshHit.position;
@@ -97,17 +120,17 @@ public class GhostMovement : MonoBehaviour
     private bool RandomWanderTarget(Vector3 center, out Vector3 result)
     {
         RoomCoordinate targetRoom = StageController.GetRandomRoomCoordinate();
-        return WanderTarget(center,out result, targetRoom);
+        return WanderTarget(center, out result, targetRoom, true);
     }
 
     private void CheckReadyToWander()
     {
         if (!IsOnRoute())
         {
-            if (RandomWanderTarget(_wanderTarget, out _wanderTarget))
+            if (RandomWanderTarget(transform.position, out _wanderTarget))
             {
                 _navMeshAgent.SetDestination(_wanderTarget);
-                Debug.DrawRay(_wanderTarget, Vector3.up, Color.blue, 1.0f);
+                //Debug.DrawRay(_wanderTarget, Vector3.up, Color.blue, 1.0f);
             }
         }
     }

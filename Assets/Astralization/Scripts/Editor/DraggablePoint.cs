@@ -11,6 +11,11 @@ public class DraggablePoint : PropertyAttribute { }
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(StageController), true)]
+/*
+ * DraggablePointDrawer
+ * Draw draggable point for Vector3, so determining position can be done by
+ * dragging points in scene editor.
+ */
 public class DraggablePointDrawer : Editor
 {
     SerializedProperty _roomCoordinates;
@@ -23,6 +28,7 @@ public class DraggablePointDrawer : Editor
         _roomCoordinates = serializedObject.FindProperty("RoomCoordinates");
     }
 
+    // Commented because code is cluttered and computational heavy
     //public void OnSceneGUI()
     //{
     //    SerializedProperty property = serializedObject.GetIterator();
