@@ -12,6 +12,11 @@ public interface IDialogueManager
     void ShowDialogBox(bool isInteractWithNpc);
 }
 
+/*
+ * Class to manage dialogues.
+ * Use Setter and Getter to access the variables.
+ * Is subscribed to NpcController to change action map, and DialogueInvoker to continue the dialogue.
+ */
 public class DialogueManager : MonoBehaviour, IDialogueManager
 {
     [SerializeField]
