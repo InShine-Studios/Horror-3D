@@ -28,9 +28,10 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
     public string[] lines;
     private int _index;
-    public float TextSpeed;
+    
+    [SerializeField]
+    private float _textSpeed;
 
-    private PlayerInput _playerInput;
     private InputAction _next;
     private bool _dialogBoxOpen;
 
@@ -47,13 +48,13 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     private void OnEnable()
     {
         NpcController.NpcInteractionEvent += ShowDialogBox;
-        DialogueInvoker.StartDialogue += Next;
+        PlayerDialogueInvoker.StartDialogue += NextLine;
     }
 
     private void OnDisable()
     {
         NpcController.NpcInteractionEvent -= ShowDialogBox;
-        DialogueInvoker.StartDialogue -= Next;
+        PlayerDialogueInvoker.StartDialogue -= NextLine;
     }
     #endregion
 
@@ -74,19 +75,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     }
     #endregion
 
-    public void Next()
-    {
-        if (_dialogueText.text == lines[_index])
-        {
-            NextLine();
-        }
-        else
-        {
-            StopAllCoroutines();
-            _dialogueText.text = lines[_index];
-        }
-    }
-
+    #region Dialogue Setup/Show
     public void ShowDialogBox(bool isInteractWithNpc)
     {
         if (isInteractWithNpc)
@@ -94,12 +83,12 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
             SetUpDialogue();
             _animator.SetBool("IsOpen", true);
             _dialogBoxOpen = true;
+            NextLine();
         }
         else
         {
             _animator.SetBool("IsOpen", false);
             _dialogBoxOpen = false;
-            //Debug.Log("isInteractWithNpc: " + isInteractWithNpc);
         }
     }
 
@@ -107,31 +96,36 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     {
         _index = 0;
         _dialogueText.text = string.Empty;
-        StartCoroutine(TypeLine());
     }
+    #endregion
 
-    IEnumerator TypeLine()
+    #region TypeLine
+    IEnumerator TypeLine(int idx)
     {
         //To type each character 1 by 1
-        foreach (char c in lines[_index].ToCharArray())
+        foreach (char c in lines[idx].ToCharArray())
         {
             _dialogueText.text += c;
-            yield return new WaitForSeconds(TextSpeed);
+            yield return new WaitForSeconds(_textSpeed);
         }
     }
+    #endregion
 
+    #region Next
     void NextLine()
     {
-        if (_index < lines.Length - 1)
+        if (_index < lines.Length)
         {
-            _index++;
             _dialogueText.text = string.Empty;
-            StartCoroutine(TypeLine());
+            StartCoroutine(TypeLine(_index));
+            _index++;
         }
         else
         {
+            StopAllCoroutines();
             FinishDialogue?.Invoke(false);
             ShowDialogBox(false);
         }
     }
+    #endregion
 }

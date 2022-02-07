@@ -129,7 +129,6 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
             _playerInput.SwitchCurrentActionMap("Dialogue");
         else
             _playerInput.SwitchCurrentActionMap("Player");
-        //Debug.Log("isInteractWithNpc: " + isInteractWithNpc +
-        //    " _playerInput: " + _playerInput.currentActionMap);
+        //Debug.Log("[INPUT MAP] NPC Interaction, New Map: " + playerInput.currentActionMap);
     }
 }

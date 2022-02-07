@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 /*
  * Class to accept player input and continue with the dialogue
  */
-public class DialogueInvoker : MonoBehaviour
+public class PlayerDialogueInvoker : MonoBehaviour
 {
     #region Variable
     public static event Action StartDialogue;
