@@ -5,7 +5,6 @@ public interface INpcController
 {
     bool GetOneFinished();
     bool GetTwoFinished();
-    void OnInteraction();
 }
 
 
