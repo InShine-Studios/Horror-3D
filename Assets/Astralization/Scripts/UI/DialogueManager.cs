@@ -32,7 +32,6 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     [SerializeField]
     private float _textSpeed;
 
-    private InputAction _next;
     private bool _dialogBoxOpen;
 
     public static event Action<bool> FinishDialogue;
