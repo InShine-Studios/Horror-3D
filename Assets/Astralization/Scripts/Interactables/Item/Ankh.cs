@@ -8,9 +8,7 @@ using UnityEngine;
 public class Ankh : Item
 {
     #region Variables
-    private bool _inAstral = false; //TODO: Refactor this to GM
-
-    public static event Action ChangeWorldEvent; //TODO: Refactor this to GM
+    public static event Action ChangeWorldGM;
 
     #endregion
 
@@ -21,17 +19,7 @@ public class Ankh : Item
 
     public override void Use()
     {
-        //Debug.Log("[ITEM] Use " + this.name);
-        ChangeWorldEvent?.Invoke();
-
-        _inAstral = !_inAstral;
-        if (_inAstral)
-        {
-            Color col = Utils.ColorHelper.ParseHex("#5F466A");
-            RenderSettings.fogColor = col;
-        }
-        else RenderSettings.fogColor = Color.black;
-
+        ChangeWorldGM?.Invoke();
         //TODO: Call PlayAudio for Ankh
         //TODO: Implement transition animation
     }
