@@ -11,39 +11,24 @@ public enum EvidenceItemState
 public interface IEvidenceItem : IItem
 {
     void DetermineEvidence();
+    void HandleChange();
     void OnGhostInteraction();
     void SetState(EvidenceItemState state);
 }
 
+/*
+ * EvidenceItem abstract class.
+ * Parent class for all evidence item objects.
+ * Implement DetermineEvidence() and HandleChange() function on each child class.
+ */
 public abstract class EvidenceItem : Item, IEvidenceItem
 {
 
     #region States
     [Header("States")]
-
     [SerializeField]
     [Tooltip("Current state")]
     public EvidenceItemState state = EvidenceItemState.BASE;
-
-    #endregion
-
-    #region State Materials
-    [Header("State Materials")]
-    [SerializeField]
-    [Tooltip("Material for Base evidence")]
-    private Material baseMaterial;
-
-    [SerializeField]
-    [Tooltip("Material for Detect Evidence evidence")]
-    private Material activeMaterial;
-
-    [SerializeField]
-    [Tooltip("Material for Positive evidence")]
-    private Material positiveMaterial;
-
-    [SerializeField]
-    [Tooltip("Material for Negative evidence")]
-    private Material negativeMaterial;
     #endregion
 
     public override void Use()
@@ -51,43 +36,16 @@ public abstract class EvidenceItem : Item, IEvidenceItem
         SetState(EvidenceItemState.ACTIVE);
     }
 
-    public new void Discard()
+    public override void OnInteraction()
     {
-        Debug.Log("[ITEM] Discarded " + this.name);
         SetState(EvidenceItemState.BASE);
-        base.Discard();
-    }
-
-    public void SetStateMaterial(Material stateMaterial)
-    {
-        MeshRenderer[] meshes = InteractableIcon.GetComponentsInChildren<MeshRenderer>();
-        foreach (MeshRenderer mesh in meshes)
-        {
-            mesh.material = stateMaterial;
-        }
+        base.OnInteraction();
     }
 
     public void SetState(EvidenceItemState state)
     {
         this.state = state;
-        switch (this.state)
-        {
-            case EvidenceItemState.BASE:
-                SetStateMaterial(baseMaterial);
-                break;
-            case EvidenceItemState.ACTIVE:
-                SetStateMaterial(activeMaterial);
-                break;
-            case EvidenceItemState.POSITIVE:
-                SetStateMaterial(positiveMaterial);
-                break;
-            case EvidenceItemState.NEGATIVE:
-                SetStateMaterial(negativeMaterial);
-                break;
-            default:
-                SetStateMaterial(baseMaterial);
-                break;
-        }
+        HandleChange();
     }
 
     public void OnGhostInteraction()
@@ -96,5 +54,7 @@ public abstract class EvidenceItem : Item, IEvidenceItem
     }
 
     public abstract void DetermineEvidence();
+
+    public abstract void HandleChange();
 
 }
