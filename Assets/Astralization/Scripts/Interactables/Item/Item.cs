@@ -30,6 +30,7 @@ public abstract class Item : Interactable, IItem
     {
         SetCollider(false);
         SetMeshRenderer(false);
+        SetInteractableIcon(false);
     }
     public void Discard()
     {
@@ -38,7 +39,7 @@ public abstract class Item : Interactable, IItem
     }
     public void SetMeshRenderer(bool enabled)
     {
-        GetComponent<MeshRenderer>().enabled = enabled;
+        transform.Find("Model").gameObject.SetActive(enabled);
     }
 
     #region Show - Hide Item

@@ -41,7 +41,7 @@ public class InteractableTest: TestBase
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveLeft, false, 0.1f);
 
-        IDoorController door = GameObject.Find("WoodenDoor/Rotate").GetComponent<IDoorController>();
+        IDoorController door = GameObject.Find("WoodenDoor/Model/Rotate").GetComponent<IDoorController>();
         float currentRotation = door.GetAngle();
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
@@ -53,6 +53,27 @@ public class InteractableTest: TestBase
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
         yield return new WaitForSeconds(1f);
         Assert.IsFalse(door.GetState());
+    }
+
+    [UnityTest]
+    public IEnumerator PlayerInteractableDetector_ShowClosestInteractableIcon()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        GameObject lightSwitch = GameObject.Find("LightSwitch");
+        GameObject lightSwitch2 = GameObject.Find("LightSwitch(2)");
+        GameObject overworldFlash = GameObject.Find("OverworldItems/DummyFlashlight(2)");
+        Transform markLight1 = lightSwitch.transform.Find("ExclamationMarkSwitch");
+        Transform markLight2 = lightSwitch2.transform.Find("ExclamationMarkSwitch");
+        Transform markFlash = overworldFlash.transform.Find("ExclamationMarkItem");
+        float moveDuration = GetMovementDurationTowards(lightSwitch.transform);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveRight, false, moveDuration);
+        Assert.True(markLight1.gameObject.activeInHierarchy);
+        Assert.False(markLight2.gameObject.activeInHierarchy);
+        Assert.False(markFlash.gameObject.activeInHierarchy);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, 0.4f);
+        Assert.False(markLight1.gameObject.activeInHierarchy);
+        Assert.True(markLight2.gameObject.activeInHierarchy);
+        Assert.True(markFlash.gameObject.activeInHierarchy);
     }
     #endregion
 }
