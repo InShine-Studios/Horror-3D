@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TestBase
+public abstract class TestBase
 {
     protected string sceneName = "SceneBase";
     protected bool sceneLoaded = false;
@@ -43,24 +43,13 @@ public class TestBase
         SceneManager.LoadScene(sceneName);
     }
 
-    protected virtual void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         sceneLoaded = true;
-        GameObject[] gameObjects = scene.GetRootGameObjects();
-        foreach (GameObject gameObject in gameObjects)
-        {
-            if (gameObject.name == "Party")
-            {
-                party = gameObject;
-                player = party.transform.Find("Iris").gameObject;
-                playerMovement = player.GetComponent<IPlayerMovement>();
-            }
-            else if (gameObject.name == "Canvas")
-            {
-                hud = gameObject;
-            }
-        }
+        FindGameObjects(scene);
     }
+
+    protected abstract void FindGameObjects(Scene scene);
 
     [TearDown]
     public virtual void TearDown()
