@@ -27,7 +27,7 @@ public class GhostTest : TestBase
 
         ghostMovement.SetWandering(false);
         ghostMovement.WanderTarget(targetRoom,false);
-        yield return new WaitForSeconds(7f);
+        yield return new WaitWhile(ghostMovement.IsOnRoute);
         float delta = Mathf.Abs(
             Utils.GeometryCalcu.GetDistance3D(
                 targetRoom.coordinate,
@@ -45,7 +45,7 @@ public class GhostTest : TestBase
         IGhostMovement ghostMovement = ghost.GetComponent<IGhostMovement>();
         Vector3 initialPosition = ghost.transform.position;
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitWhile(ghostMovement.IsOnRoute);
         Assert.AreNotEqual(initialPosition, ghost.transform.position);
     }
     #endregion

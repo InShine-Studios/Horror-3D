@@ -103,8 +103,10 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
 
     public void WanderTarget(RoomCoordinate targetRoom, bool randomizePoint)
     {
-        bool valid = WanderTarget(_wanderTarget, out _wanderTarget, targetRoom, randomizePoint);
-        _navMeshAgent.SetDestination(_wanderTarget);
+        if (WanderTarget(_wanderTarget, out _wanderTarget, targetRoom, randomizePoint))
+        {
+            _navMeshAgent.SetDestination(_wanderTarget);
+        }
     }
 
     private bool WanderTarget(Vector3 center, out Vector3 result, RoomCoordinate targetRoom, bool randomizePoint)
