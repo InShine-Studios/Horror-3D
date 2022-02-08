@@ -19,20 +19,22 @@ public class GhostTest : TestBase
     public IEnumerator Ghost_WanderToTargetRoom()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        string targetRoom = "Laundry Room";
         GameObject ghost = GameObject.Find("Ghost");
         IGhostMovement ghostMovement = ghost.GetComponent<IGhostMovement>();
 
+        string targetRoomName = "Laundry Room";
+        RoomCoordinate targetRoom = StageController.GetRoomCoordinate(targetRoomName);
+
         ghostMovement.SetWandering(false);
-        ghostMovement.WanderTarget(StageController.GetRoomCoordinate(targetRoom),false);
-        yield return new WaitForSeconds(4f);
+        ghostMovement.WanderTarget(targetRoom,false);
+        yield return new WaitForSeconds(7f);
         float delta = Mathf.Abs(
             Utils.GeometryCalcu.GetDistance3D(
-                StageController.GetRoomCoordinate(targetRoom).coordinate,
+                targetRoom.coordinate,
                 ghost.transform.position
             )
         );
-        Assert.IsTrue(delta < 5f);
+        Assert.IsTrue(delta < 3f);
     }
 
     [UnityTest]

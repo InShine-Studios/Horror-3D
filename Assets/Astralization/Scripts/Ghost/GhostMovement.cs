@@ -55,13 +55,14 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
 
     void Update()
     {
-        if (Time.time > _nextCheck && _enableWandering)
+        if (Time.time > _nextCheck)
         {
             _nextCheck = Time.time + _checkRate;
             _checkRate = Utils.Randomizer.GetFloat(_checkRateRange.min, _checkRateRange.max);
-            CheckReadyToWander();
+            _lastPosition = transform.position;
+
+            if (_enableWandering) CheckReadyToWander();
         }
-        _lastPosition = transform.position;
     }
     #endregion
 

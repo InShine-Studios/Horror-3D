@@ -23,11 +23,18 @@ public class StageController : MonoBehaviour
 
     private void Awake()
     {
-        foreach (RoomCoordinate roomCoordinate in RoomCoordinates)
+        for (int i = 0; i < RoomCoordinates.Count; i++)
         {
+            RoomCoordinate roomCoordinate = RoomCoordinates[i];
+            roomCoordinate.coordinate += transform.position;
             _roomCoordDict[roomCoordinate.name] = roomCoordinate;
         }
         _roomNames = new List<string>(_roomCoordDict.Keys);
+    }
+
+    public static List<string> GetRoomNames()
+    {
+        return _roomNames;
     }
 
     public static RoomCoordinate GetRoomCoordinate(string roomName)
