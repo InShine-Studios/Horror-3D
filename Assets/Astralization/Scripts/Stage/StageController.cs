@@ -32,6 +32,7 @@ public class StageController : MonoBehaviour
         _roomNames = new List<string>(_roomCoordDict.Keys);
     }
 
+    #region Setter - Getter
     public static List<string> GetRoomNames()
     {
         return _roomNames;
@@ -48,4 +49,5 @@ public class StageController : MonoBehaviour
         string randomKey = _roomNames[randomIdx];
         return GetRoomCoordinate(randomKey);
     }
+    #endregion
 }

@@ -20,6 +20,9 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     [Tooltip("Consider ghost is not moving if delta position is less than thresh")]
     private float _positionThresh = 0f;
     [SerializeField]
+    [Tooltip("Consider ghost is arrive at destination if distance between ghost position and destination is less than thresh")]
+    private float _distanceThresh = 4f;
+    [SerializeField]
     [Tooltip("Cooldown of checking if target position should be updated")]
     private Utils.Range _checkRateRange;
     [Tooltip("Current delay for checking")]
@@ -72,9 +75,16 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         return Mathf.Abs(Utils.GeometryCalcu.GetDistance3D(_lastPosition, transform.position));
     }
 
+    private float GetDistanceFromDestination()
+    {
+        return Mathf.Abs(Utils.GeometryCalcu.GetDistance3D(transform.position,_wanderTarget));
+    }
+
     public bool IsOnRoute()
     {
-        return GetDeltaPosition() > _positionThresh;
+        bool isMoving = GetDeltaPosition() > _positionThresh;
+        bool isArrived = GetDistanceFromDestination() <= _distanceThresh;
+        return isMoving || !isArrived;
     }
 
     public void SetWandering(bool value)
@@ -108,7 +118,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         {
             result = _navMeshHit.position;
             _currentRoom = targetRoom.name;
-            //Debug.Log("[GHOST] Sampling target position. Target Room: " + _currentRoom);
+            //Debug.Log("[GHOST] Sampling target position. Target Room: " + _currentRoom + " with coordinate " + result);
             return true;
         }
         else
@@ -121,7 +131,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     private bool RandomWanderTarget(Vector3 center, out Vector3 result)
     {
         RoomCoordinate targetRoom = StageController.GetRandomRoomCoordinate();
-        return WanderTarget(center, out result, targetRoom, true);
+        return WanderTarget(center, out result, targetRoom, false);
     }
 
     private void CheckReadyToWander()
