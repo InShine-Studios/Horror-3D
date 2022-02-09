@@ -1,5 +1,18 @@
+using System;
+
 namespace Utils
 {
+    /*
+     * Struct for storing ranged value
+     */
+    [Serializable]
+    public struct Range
+    {
+        public float min;
+        public float max;
+    }
+
+
     /*
     * Class that has methods for mathematical calculation
     */
