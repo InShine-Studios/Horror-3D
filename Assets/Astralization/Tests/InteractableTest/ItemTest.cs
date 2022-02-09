@@ -20,6 +20,7 @@ public class ItemTest : TestBase
     public IEnumerator PlayerItemDetector_PlayerInventory_PickUseDiscardDummyFlashlight()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, 0.1f);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
         GameObject flashlight = player.transform.Find("Rotate/InteractZone/DummyFlashlight").gameObject;
         Assert.NotNull(flashlight);
