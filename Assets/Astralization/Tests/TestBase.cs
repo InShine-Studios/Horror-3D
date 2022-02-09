@@ -9,8 +9,7 @@ public abstract class TestBase
     protected string sceneName = "SceneBase";
     protected bool sceneLoaded = false;
     protected GameObject player;
-    protected GameObject hud;
-    protected GameObject party;
+
     protected IPlayerMovement playerMovement;
     protected KeyboardMouseTestFixture inputTestFixture = new KeyboardMouseTestFixture();
 

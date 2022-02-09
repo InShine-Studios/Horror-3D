@@ -12,15 +12,9 @@ public class AstralTest : TestBase
         GameObject[] gameObjects = scene.GetRootGameObjects();
         foreach (GameObject gameObject in gameObjects)
         {
-            if (gameObject.name == "Party")
+            if (gameObject.name == "Iris")
             {
-                party = gameObject;
-                player = party.transform.Find("Iris").gameObject;
-                playerMovement = player.GetComponent<IPlayerMovement>();
-            }
-            else if (gameObject.name == "Canvas")
-            {
-                hud = gameObject;
+                player = gameObject;
             }
         }
     }

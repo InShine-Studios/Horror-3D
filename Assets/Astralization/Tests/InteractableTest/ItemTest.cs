@@ -7,16 +7,16 @@ using UnityEngine.UI;
 
 public class ItemTest : TestBase
 {
+    protected GameObject hud;
+
     protected override void FindGameObjects(Scene scene)
     {
         GameObject[] gameObjects = scene.GetRootGameObjects();
         foreach (GameObject gameObject in gameObjects)
         {
-            if (gameObject.name == "Party")
+            if (gameObject.name == "Iris")
             {
-                party = gameObject;
-                player = party.transform.Find("Iris").gameObject;
-                playerMovement = player.GetComponent<IPlayerMovement>();
+                player = gameObject;
             }
             else if (gameObject.name == "Canvas")
             {
