@@ -47,14 +47,39 @@ public class NPCInteractableTest: TestBase
 
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
 
-        Assert.IsFalse(npcController.GetState());
         Assert.AreEqual(playerInput.currentActionMap.ToString().Split(':')[1], "Player");
         Assert.IsFalse(dialogueManager.GetAnimator().GetBool("IsOpen"));
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
+
         yield return new WaitForSeconds(1.0f);
-        Assert.IsTrue(npcController.GetState());
         Assert.AreEqual(playerInput.currentActionMap.ToString().Split(':')[1], "Dialogue");
         Assert.IsTrue(dialogueManager.GetAnimator().GetBool("IsOpen"));
+    }
+
+    [UnityTest]
+    public IEnumerator PlayerInteractableDetector_NextLine()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        GameObject npc = GameObject.Find("NPC");
+        GameObject dialogue = GameObject.Find("Dialogue/Dialogue Box");
+
+        float moveDuration = GetMovementDurationTowards(npc.transform);
+
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
+
+        INpcController npcController = npc.GetComponent<INpcController>();
+        IDialogueManager dialogueManager = dialogue.GetComponent<IDialogueManager>();
+
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
+
+        yield return new WaitForSeconds(0.3f);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.NextDialogueEnter);
+        Assert.AreEqual(2, dialogueManager.GetIndex());
+
+        yield return new WaitForSeconds(0.3f);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.NextDialogueClick);
+
+        Assert.IsFalse(dialogueManager.GetDialogBox());
     }
     #endregion
 }

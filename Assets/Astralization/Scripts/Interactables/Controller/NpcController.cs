@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
 
-public interface INpcController: IInteractable
+public interface INpcController
 {
-    bool GetState();
+    bool GetOneFinished();
+    bool GetTwoFinished();
 }
+
 
 /*
  * Class to control Npc states.
@@ -13,29 +15,27 @@ public interface INpcController: IInteractable
 public class NpcController : Interactable, INpcController
 {
     #region Variables
-    [Header("NPC state")]
-    [SerializeField]
-    [Tooltip("True if NPC is interacted")]
-    private bool _isInteracted = false;
+    private bool _questOneFinished;
+    private bool _questTwoFinished;
 
     public static event Action<bool> NpcInteractionEvent;
     #endregion
 
-    public override void OnInteraction()
+    public bool GetOneFinished()
     {
-        _isInteracted = !_isInteracted;
-        //Debug.Log("OnInteraction: " + _isInteracted);
-        if (_isInteracted)
-            NpcInteractionEvent?.Invoke(true);
-        else
-            NpcInteractionEvent?.Invoke(false);
-        //Debug.Log(
-        //    ("[INTERACTABLE] "+ this.name + (_isInteracted ? "on" : "off"))
-        //);
+        return _questOneFinished;
     }
 
-    public bool GetState()
+    public bool GetTwoFinished()
     {
-        return _isInteracted;
+        return _questTwoFinished;
+    }
+
+    public override void OnInteraction()
+    {
+        NpcInteractionEvent?.Invoke(true);
+        //Debug.Log(
+        //    ("[INTERACTABLE] "+ this.name)
+        //);
     }
 }

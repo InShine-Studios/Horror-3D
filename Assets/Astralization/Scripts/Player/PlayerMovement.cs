@@ -117,11 +117,13 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private void OnEnable()
     {
         NpcController.NpcInteractionEvent += SetPlayerActionMap;
+        DialogueManager.FinishDialogue += SetPlayerActionMap;
     }
 
     private void OnDisable()
     {
         NpcController.NpcInteractionEvent -= SetPlayerActionMap;
+        DialogueManager.FinishDialogue -= SetPlayerActionMap;
     }
     #endregion
 
@@ -131,7 +133,6 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
             _playerInput.SwitchCurrentActionMap("Dialogue");
         else
             _playerInput.SwitchCurrentActionMap("Player");
-        //Debug.Log("isInteractWithNpc: " + isInteractWithNpc +
-        //    " _playerInput: " + _playerInput.currentActionMap);
+        //Debug.Log("[INPUT MAP] NPC Interaction, New Map: " + playerInput.currentActionMap);
     }
 }
