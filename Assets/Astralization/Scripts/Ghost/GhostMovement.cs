@@ -133,7 +133,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     private bool RandomWanderTarget(Vector3 center, out Vector3 result)
     {
         RoomCoordinate targetRoom = StageController.GetRandomRoomCoordinate();
-        return WanderTarget(center, out result, targetRoom, false);
+        return WanderTarget(center, out result, targetRoom, true);
     }
 
     private void CheckReadyToWander()
