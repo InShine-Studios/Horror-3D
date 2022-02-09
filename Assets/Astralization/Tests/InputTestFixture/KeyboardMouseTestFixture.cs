@@ -15,7 +15,9 @@ public class KeyboardMouseTestFixture: InputTestFixture
         PickItem,
         DiscardItem,
         UseItem,
-        ChangeItem
+        ChangeItem,
+        NextDialogueEnter,
+        NextDialogueClick
     }
     private Keyboard keyboard;
     private Mouse mouse;
@@ -36,10 +38,12 @@ public class KeyboardMouseTestFixture: InputTestFixture
             {RegisteredInput.Sprint, keyboard.leftShiftKey },
             {RegisteredInput.Interact, keyboard.eKey },
             {RegisteredInput.PickItem, keyboard.fKey },
-            {RegisteredInput.DiscardItem, keyboard.gKey }
+            {RegisteredInput.DiscardItem, keyboard.gKey },
+            {RegisteredInput.NextDialogueEnter, keyboard.enterKey },
         };
         buttonInputMap = new Dictionary<RegisteredInput, ButtonControl>(){
             {RegisteredInput.UseItem, mouse.rightButton},
+            {RegisteredInput.NextDialogueClick, mouse.leftButton }
         };
         axisInputMap = new Dictionary<RegisteredInput, AxisControl>() {
             { RegisteredInput.ChangeItem, mouse.scroll.y }
