@@ -2,7 +2,20 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ExorcismItem : Item
+public interface IExorcismItem
+{
+    void ButtonReleased();
+    void ExorcismOngoing();
+    void Use();
+}
+
+/*
+ * Class to use Exorcism Item.
+ * Use Setter and Getter to access the variables.
+ * HUD managed by ExorcismBar.
+ */
+
+public class ExorcismItem : Item, IExorcismItem
 {
     #region Variables
 
@@ -18,7 +31,6 @@ public class ExorcismItem : Item
     #endregion
 
     #region Update - Awake
-
     private void Update()
     {
         if (_isUsed)
@@ -29,7 +41,7 @@ public class ExorcismItem : Item
             _accumulatedTime += Time.deltaTime;
             //Debug.Log("[EXORCISM BAR] Accumulated Time = " + _accumulatedTime);
             _exorcismBar.SetHold(_accumulatedTime);
-            Debug.Log("[EXORCISM BAR] Bar = " + _exorcismBar.slider.value);
+            //Debug.Log("[EXORCISM BAR] Bar = " + _exorcismBar.slider.value);
             if (_accumulatedTime >= _holdTime)
             {
                 _isUsed = false;
@@ -41,7 +53,7 @@ public class ExorcismItem : Item
     protected override void Awake()
     {
         base.Awake();
-        
+
     }
     #endregion
 

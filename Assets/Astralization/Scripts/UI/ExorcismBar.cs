@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+ * Class to show Exorcism channeling on HUD.
+ * Use Setter and Getter to access the variables.
+ * Is referenced in ExorcismItem.
+ */
+
 public class ExorcismBar : MonoBehaviour
 {
     public Slider slider;
