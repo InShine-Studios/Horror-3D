@@ -19,6 +19,7 @@ public interface IDialogueManager
  */
 public class DialogueManager : MonoBehaviour, IDialogueManager
 {
+    #region Variables
     [SerializeField]
     private Text _nameText;
     [SerializeField]
@@ -35,13 +36,16 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     private bool _dialogBoxOpen;
 
     public static event Action<bool> FinishDialogue;
+    #endregion
 
+    #region Awake
     private void Awake()
     {
         _nameText.text = "Budi";
         _dialogueText.text = string.Empty;
         
     }
+    #endregion
 
     #region Enable - Disable
     private void OnEnable()
