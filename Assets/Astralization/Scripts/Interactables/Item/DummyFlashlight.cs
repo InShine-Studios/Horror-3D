@@ -26,4 +26,9 @@ public class DummyFlashlight : Item
         _lightSource.enabled = !_lightSource.enabled;
         PlayAudio("Flashlight_Switch");
     }
+
+    public override void ButtonReleased()
+    {
+        
+    }
 }

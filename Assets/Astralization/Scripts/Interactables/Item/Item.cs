@@ -22,10 +22,13 @@ public abstract class Item : Interactable, IItem
 
     public abstract void Use();
 
+    public abstract void ButtonReleased();
+
     public override void OnInteraction()
     {
         Pick();
     }
+
     private void Pick()
     {
         SetCollider(false);

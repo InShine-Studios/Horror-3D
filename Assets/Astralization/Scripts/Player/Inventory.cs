@@ -202,4 +202,13 @@ public class Inventory : MonoBehaviour, IInventory
             if (!_activeItem) Debug.Log("[ITEM] Missing active item");
         }
     }
+
+    public void ReleaseActiveItem(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            _activeItem?.ButtonReleased();
+            if (!_activeItem) Debug.Log("[ITEM] Missing active item");
+        }
+    }
 }
