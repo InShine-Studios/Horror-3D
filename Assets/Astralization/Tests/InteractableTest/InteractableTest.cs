@@ -1,10 +1,24 @@
 using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
 public class InteractableTest: TestBase
 {
+    protected override void FindGameObjects(Scene scene)
+    {
+        GameObject[] gameObjects = scene.GetRootGameObjects();
+        foreach (GameObject gameObject in gameObjects)
+        {
+            if (gameObject.name == "Iris")
+            {
+                player = gameObject;
+                playerMovement = player.GetComponent<IPlayerMovement>();
+            }
+        }
+    }
+
     #region Setup Teardown
     [SetUp]
     public override void SetUp()

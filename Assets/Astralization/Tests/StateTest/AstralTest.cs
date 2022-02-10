@@ -7,6 +7,18 @@ using UnityEngine.UI;
 
 public class AstralTest : TestBase
 {
+    protected override void FindGameObjects(Scene scene)
+    {
+        GameObject[] gameObjects = scene.GetRootGameObjects();
+        foreach (GameObject gameObject in gameObjects)
+        {
+            if (gameObject.name == "Iris")
+            {
+                player = gameObject;
+            }
+        }
+    }
+
     #region Setup Teardown
     [SetUp]
     public override void SetUp()
