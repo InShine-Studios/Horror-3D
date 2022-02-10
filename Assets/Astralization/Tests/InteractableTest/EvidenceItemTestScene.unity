@@ -312,11 +312,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044410928812, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000021471116
+      value: -0.0000000021471116
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044410928812, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -1.2586666e-10
+      value: 1.2586666e-10
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044410928812, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -699,11 +699,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9216074592991529365, guid: a23e132b031fda71c8eb05c8c78329b9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.093
+      value: 0.085
       objectReference: {fileID: 0}
     - target: {fileID: 9216074592991529365, guid: a23e132b031fda71c8eb05c8c78329b9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.033
+      value: 0.034
       objectReference: {fileID: 0}
     - target: {fileID: 9216074592991529365, guid: a23e132b031fda71c8eb05c8c78329b9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1054,7 +1054,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-52064
+  m_Name: pb_Mesh-7730
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1066,7 +1066,7 @@ Mesh:
     vertexCount: 24
     localAABB:
       m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0.5, y: 0.5, z: 0.5}
   m_Shapes:
     vertices: []
     shapes: []

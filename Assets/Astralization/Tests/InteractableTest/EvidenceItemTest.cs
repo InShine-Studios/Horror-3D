@@ -1,11 +1,31 @@
 using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
 public class EvidenceItemTest : TestBase
 {
+
+    protected GameObject hud;
+
+    protected override void FindGameObjects(Scene scene)
+    {
+        GameObject[] gameObjects = scene.GetRootGameObjects();
+        foreach (GameObject gameObject in gameObjects)
+        {
+            if (gameObject.name == "Iris")
+            {
+                player = gameObject;
+            }
+            else if (gameObject.name == "Canvas")
+            {
+                hud = gameObject;
+            }
+        }
+    }
+
     #region Setup Teardown
     [SetUp]
     public override void SetUp()
@@ -22,7 +42,6 @@ public class EvidenceItemTest : TestBase
         yield return new WaitWhile(() => sceneLoaded == false);
         GameObject thermometer = GameObject.Find("Thermometer");
         float moveDuration = GetMovementDurationTowards(thermometer.transform);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveBack, false, moveDuration);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         GameObject overworldThermometer = GameObject.Find("OverworldItems/Thermometer");
@@ -42,7 +61,6 @@ public class EvidenceItemTest : TestBase
         yield return new WaitWhile(() => sceneLoaded == false);
         GameObject thermometer = GameObject.Find("Thermometer");
         float moveDuration = GetMovementDurationTowards(thermometer.transform);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveBack, false, moveDuration);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         GameObject thermometerModel = GameObject.Find("OverworldItems/Thermometer/Model");
@@ -56,7 +74,6 @@ public class EvidenceItemTest : TestBase
         yield return new WaitWhile(() => sceneLoaded == false);
         GameObject thermometer = GameObject.Find("Thermometer");
         float moveDuration = GetMovementDurationTowards(thermometer.transform);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveBack, false, moveDuration);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.DiscardItem);
         GameObject thermometerModel = GameObject.Find("OverworldItems/Thermometer/Model");
@@ -74,7 +91,6 @@ public class EvidenceItemTest : TestBase
         yield return new WaitWhile(() => sceneLoaded == false);
         GameObject thermometer = GameObject.Find("Thermometer");
         float moveDuration = GetMovementDurationTowards(thermometer.transform);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveBack, false, moveDuration);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.DiscardItem);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.SimulateGhostInteract);
@@ -89,7 +105,6 @@ public class EvidenceItemTest : TestBase
         yield return new WaitWhile(() => sceneLoaded == false);
         GameObject thermometer = GameObject.Find("Thermometer");
         float moveDuration = GetMovementDurationTowards(thermometer.transform);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveBack, false, moveDuration);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.SimulateGhostInteract);
@@ -105,7 +120,6 @@ public class EvidenceItemTest : TestBase
         yield return new WaitWhile(() => sceneLoaded == false);
         GameObject thermometer = GameObject.Find("Thermometer");
         float moveDuration = GetMovementDurationTowards(thermometer.transform);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveBack, false, moveDuration);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.SimulateGhostInteract);
