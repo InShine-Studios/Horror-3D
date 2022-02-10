@@ -1,11 +1,30 @@
 using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
 public class ItemTest : TestBase
 {
+    protected GameObject hud;
+
+    protected override void FindGameObjects(Scene scene)
+    {
+        GameObject[] gameObjects = scene.GetRootGameObjects();
+        foreach (GameObject gameObject in gameObjects)
+        {
+            if (gameObject.name == "Iris")
+            {
+                player = gameObject;
+            }
+            else if (gameObject.name == "Canvas")
+            {
+                hud = gameObject;
+            }
+        }
+    }
+
     #region Setup Teardown
     [SetUp]
     public override void SetUp()
