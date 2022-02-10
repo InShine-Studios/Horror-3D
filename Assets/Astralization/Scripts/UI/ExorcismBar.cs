@@ -3,16 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public interface IExorcismBar
+{
+    float GetSliderValue();
+    void HideBar();
+    void SetHold(float hold);
+    void SetMinHold(float hold);
+    void ShowBar();
+}
+
 /*
  * Class to show Exorcism channeling on HUD.
  * Use Setter and Getter to access the variables.
  * Is referenced in ExorcismItem.
  */
 
-public class ExorcismBar : MonoBehaviour
+public class ExorcismBar : MonoBehaviour, IExorcismBar
 {
-    private Slider _slider;
+    #region Variable
+    public Slider slider;
+    #endregion
 
+    public float GetSliderValue()
+    {
+        return slider.value;
+    }
+    
     public void ShowBar()
     {
         this.gameObject.SetActive(true);
@@ -23,14 +39,14 @@ public class ExorcismBar : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    public void SetMinHold (float hold)
+    public void SetMinHold(float hold)
     {
-        _slider.minValue = hold;
-        _slider.value = hold;
+        slider.minValue = hold;
+        slider.value = hold;
     }
 
-    public void SetHold (float hold)
+    public void SetHold(float hold)
     {
-        _slider.value = hold;
+        slider.value = hold;
     }
 }

@@ -6,6 +6,8 @@ public interface IExorcismItem
 {
     void ButtonReleased();
     void ExorcismOngoing();
+    float GetAccTime();
+    bool GetUsed();
     void Use();
 }
 
@@ -54,6 +56,18 @@ public class ExorcismItem : Item, IExorcismItem
     {
         base.Awake();
 
+    }
+    #endregion
+
+    #region Getter
+    public float GetAccTime()
+    {
+        return _accumulatedTime;
+    }
+
+    public bool GetUsed()
+    {
+        return _isUsed;
     }
     #endregion
 
