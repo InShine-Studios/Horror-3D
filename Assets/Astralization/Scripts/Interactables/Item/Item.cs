@@ -37,10 +37,18 @@ public abstract class Item : Interactable, IItem
         SetCollider(true);
         SetMeshRenderer(true);
     }
+
+    #region Setter Getter
     public void SetMeshRenderer(bool enabled)
     {
         transform.Find("Model").gameObject.SetActive(enabled);
     }
+
+    public Sprite GetItemLogo()
+    {
+        return _itemLogo;
+    }
+    #endregion
 
     #region Show - Hide Item
     public void HideItem()
@@ -55,9 +63,4 @@ public abstract class Item : Interactable, IItem
         this.gameObject.SetActive(true);
     }
     #endregion
-
-    public Sprite GetItemLogo()
-    {
-        return _itemLogo;
-    }
 }

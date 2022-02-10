@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 public interface INpcController
 {
@@ -17,10 +16,12 @@ public class NpcController : Interactable, INpcController
     #region Variables
     private bool _questOneFinished;
     private bool _questTwoFinished;
+    private string _dialogueActionMap = "Dialogue";
 
-    public static event Action<bool> NpcInteractionEvent;
+    public static event Action<string> NpcInteractionEvent;
     #endregion
 
+    #region Setter Getter
     public bool GetOneFinished()
     {
         return _questOneFinished;
@@ -30,12 +31,11 @@ public class NpcController : Interactable, INpcController
     {
         return _questTwoFinished;
     }
+    #endregion
 
     public override void OnInteraction()
     {
-        NpcInteractionEvent?.Invoke(true);
-        //Debug.Log(
-        //    ("[INTERACTABLE] "+ this.name)
-        //);
+        //Debug.Log("[INTERACTABLE] Action map: " + _dialogueActionMap);
+        NpcInteractionEvent?.Invoke(_dialogueActionMap);
     }
 }

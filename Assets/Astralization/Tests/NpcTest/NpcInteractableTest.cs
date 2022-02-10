@@ -37,12 +37,12 @@ public class NPCInteractableTest: TestBase
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
         IDialogueManager dialogueManager = dialogue.GetComponent<IDialogueManager>();
 
-        Assert.AreEqual(playerInput.currentActionMap.ToString().Split(':')[1], "Player");
+        Assert.AreEqual("Player", playerInput.currentActionMap.ToString().Split(':')[1]);
         Assert.IsFalse(dialogueManager.GetAnimator().GetBool("IsOpen"));
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
-
         yield return new WaitForSeconds(1.0f);
-        Assert.AreEqual(playerInput.currentActionMap.ToString().Split(':')[1], "Dialogue");
+
+        Assert.AreEqual("Dialogue", playerInput.currentActionMap.ToString().Split(':')[1]);
         Assert.IsTrue(dialogueManager.GetAnimator().GetBool("IsOpen"));
     }
 
