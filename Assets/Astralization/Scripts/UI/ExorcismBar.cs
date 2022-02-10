@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 public class ExorcismBar : MonoBehaviour
 {
-    public Slider slider;
+    private Slider _slider;
 
     public void ShowBar()
     {
@@ -25,12 +25,12 @@ public class ExorcismBar : MonoBehaviour
 
     public void SetMinHold (float hold)
     {
-        slider.minValue = hold;
-        slider.value = hold;
+        _slider.minValue = hold;
+        _slider.value = hold;
     }
 
     public void SetHold (float hold)
     {
-        slider.value = hold;
+        _slider.value = hold;
     }
 }

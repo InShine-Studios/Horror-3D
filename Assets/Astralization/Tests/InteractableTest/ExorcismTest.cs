@@ -34,7 +34,7 @@ public class ExorcismTest : TestBase
         Assert.NotNull(inventory.GetActiveItem());
         Assert.AreEqual(0, inventory.GetActiveIdx());
 
-        yield return SimulateInput(KeyboardMouseTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.UseItem), false, 5.0f);
+        //yield return SimulateInput(KeyboardMouseTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.UseItem), false, 5.0f);
         Assert.IsTrue(exorcismItem.GetComponentInChildren<Light>().enabled);
         Image img = hud.transform.Find("ItemHud/Logo").GetComponent<Image>();
         Assert.IsTrue(img.enabled);
