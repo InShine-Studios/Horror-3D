@@ -119,7 +119,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         if (NavMesh.SamplePosition(targetPoint, out _navMeshHit, _wanderRange, NavMesh.AllAreas))
         {
             result = _navMeshHit.position;
-            _currentRoom = targetRoom.name;
+            //_currentRoom = targetRoom.name;
             //Debug.Log("[GHOST] Sampling target position. Target Room: " + _currentRoom + " with coordinate " + result);
             return true;
         }
@@ -132,7 +132,8 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
 
     private bool RandomWanderTarget(Vector3 center, out Vector3 result)
     {
-        RoomCoordinate targetRoom = StageController.GetRandomRoomCoordinate();
+        //RoomCoordinate targetRoom = StageManager.GetRandomRoomCoordinate();
+        RoomCoordinate targetRoom = new RoomCoordinate();
         return WanderTarget(center, out result, targetRoom, true);
     }
 

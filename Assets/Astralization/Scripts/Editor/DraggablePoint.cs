@@ -10,7 +10,7 @@ public class DraggablePoint : PropertyAttribute { }
 
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(StageController), true)]
+//CustomEditor(typeof(StageController), true)]
 /*
  * DraggablePointDrawer
  * Draw draggable point for Vector3, so determining position can be done by

@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5213397532925611283
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5752951174658981970}
+  - component: {fileID: 6460553530132300346}
+  m_Layer: 0
+  m_Name: StageManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5752951174658981970
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5213397532925611283}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5873718965461513445}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6460553530132300346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5213397532925611283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7908fc3a9ae6a45a0aadaf79787fbdb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RoomCoordinates: []
+  _roomPoint: {fileID: 6944232682392850989, guid: ce606aa610b38094c9d2020360db057c, type: 3}
 --- !u!1 &5873718963872002885
 GameObject:
   m_ObjectHideFlags: 0
@@ -39315,6 +39360,7 @@ Transform:
   - {fileID: 5873718963891280289}
   - {fileID: 5873718964764071152}
   - {fileID: 5873718965584327027}
+  - {fileID: 5752951174658981970}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -39364,6 +39410,7 @@ MonoBehaviour:
   - name: Attic
     coordinate: {x: 7.7, y: 10, z: -87}
     radius: 5
+  _roomPoint: {fileID: 0}
 --- !u!1 &5873718965525512810
 GameObject:
   m_ObjectHideFlags: 0
@@ -51480,6 +51527,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5873718964309600071}
     m_Modifications:
+    - target: {fileID: 869241908855629186, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154194607803442555, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1669463051518530269, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -21.982327
@@ -51508,6 +51563,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5715611200421966776, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: Ceil 1
@@ -51515,6 +51574,10 @@ PrefabInstance:
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983795845308980813, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6263791439394188818, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -51527,6 +51590,10 @@ PrefabInstance:
     - target: {fileID: 6439302808796392339, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Range
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537151411387981330, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6635260029876825890, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -51576,6 +51643,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8370727761389030495, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8386252938702373718, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: LightSwitch (2)
@@ -51583,6 +51658,14 @@ PrefabInstance:
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051280152741686512, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149376873204106788, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
@@ -51598,6 +51681,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5873718965135150233}
     m_Modifications:
+    - target: {fileID: 869241908855629186, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154194607803442555, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1669463051518530269, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 19.234535
@@ -51626,6 +51717,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5715611200421966776, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: Ceil 1
@@ -51633,6 +51728,10 @@ PrefabInstance:
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983795845308980813, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6263791439394188818, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -51646,9 +51745,17 @@ PrefabInstance:
       propertyPath: m_Range
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6537151411387981330, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6635260029876825890, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328837146981376857, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8237815958022644765, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_RootOrder
@@ -51694,6 +51801,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8370727761389030495, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8386252938702373718, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: LightSwitch
@@ -51701,6 +51816,14 @@ PrefabInstance:
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051280152741686512, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149376873204106788, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
@@ -51716,6 +51839,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5873718965364076536}
     m_Modifications:
+    - target: {fileID: 869241908855629186, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154194607803442555, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1669463051518530269, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -24.730118
@@ -51744,6 +51875,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5715611200421966776, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: Ceil 1
@@ -51751,6 +51886,10 @@ PrefabInstance:
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983795845308980813, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6263791439394188818, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -51764,9 +51903,17 @@ PrefabInstance:
       propertyPath: m_Range
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6537151411387981330, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6635260029876825890, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328837146981376857, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8237815958022644765, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_RootOrder
@@ -51812,6 +51959,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8370727761389030495, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8386252938702373718, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: LightSwitch
@@ -51819,6 +51974,14 @@ PrefabInstance:
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051280152741686512, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149376873204106788, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
@@ -51834,6 +51997,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5873718963872002882}
     m_Modifications:
+    - target: {fileID: 869241908855629186, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154194607803442555, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1669463051518530269, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.243372
@@ -51862,6 +52033,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5715611200421966776, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: Ceil 1
@@ -51869,6 +52044,10 @@ PrefabInstance:
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983795845308980813, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6263791439394188818, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -51886,9 +52065,17 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6537151411387981330, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6635260029876825890, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328837146981376857, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8237815958022644765, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_RootOrder
@@ -51934,6 +52121,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8370727761389030495, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8386252938702373718, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: LightSwitch (2)
@@ -51941,6 +52136,14 @@ PrefabInstance:
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051280152741686512, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149376873204106788, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
@@ -51956,6 +52159,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5873718965257352112}
     m_Modifications:
+    - target: {fileID: 869241908855629186, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154194607803442555, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1669463051518530269, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 27.477913
@@ -51984,6 +52195,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5715611200421966776, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: Ceil 1
@@ -51991,6 +52206,10 @@ PrefabInstance:
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983795845308980813, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6263791439394188818, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -52004,9 +52223,17 @@ PrefabInstance:
       propertyPath: m_Range
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6537151411387981330, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6635260029876825890, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328837146981376857, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8237815958022644765, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_RootOrder
@@ -52052,6 +52279,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8370727761389030495, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8386252938702373718, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: LightSwitch (1)
@@ -52059,6 +52294,14 @@ PrefabInstance:
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051280152741686512, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149376873204106788, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
@@ -52074,6 +52317,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5873718965584327027}
     m_Modifications:
+    - target: {fileID: 869241908855629186, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154194607803442555, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1669463051518530269, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 24.730013
@@ -52102,6 +52353,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5715611200421966776, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: Ceil 1
@@ -52109,6 +52364,10 @@ PrefabInstance:
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983795845308980813, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6263791439394188818, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -52122,9 +52381,17 @@ PrefabInstance:
       propertyPath: m_Range
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6537151411387981330, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6635260029876825890, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328837146981376857, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8237815958022644765, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_RootOrder
@@ -52170,6 +52437,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8370727761389030495, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8386252938702373718, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: LightSwitch (3)
@@ -52177,6 +52452,14 @@ PrefabInstance:
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051280152741686512, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149376873204106788, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
@@ -52192,6 +52475,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5873718965440018129}
     m_Modifications:
+    - target: {fileID: 869241908855629186, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154194607803442555, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1669463051518530269, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -24.730112
@@ -52220,6 +52511,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5715611200421966776, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: Ceil 1
@@ -52227,6 +52522,10 @@ PrefabInstance:
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983795845308980813, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6263791439394188818, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -52240,9 +52539,17 @@ PrefabInstance:
       propertyPath: m_Range
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6537151411387981330, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6635260029876825890, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328837146981376857, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8237815958022644765, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_RootOrder
@@ -52288,6 +52595,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8370727761389030495, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8386252938702373718, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: LightSwitch (1)
@@ -52295,6 +52610,14 @@ PrefabInstance:
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051280152741686512, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149376873204106788, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
@@ -52310,6 +52633,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5873718965614355657}
     m_Modifications:
+    - target: {fileID: 869241908855629186, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154194607803442555, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1669463051518530269, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.738956
@@ -52338,6 +52669,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5715611200421966776, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: Ceil 1
@@ -52345,6 +52680,10 @@ PrefabInstance:
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983795845308980813, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6263791439394188818, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -52357,6 +52696,10 @@ PrefabInstance:
     - target: {fileID: 6439302808796392339, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Range
       value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537151411387981330, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6635260029876825890, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -52406,6 +52749,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8370727761389030495, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8386252938702373718, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: LightSwitch
@@ -52413,6 +52764,14 @@ PrefabInstance:
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051280152741686512, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149376873204106788, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
@@ -52428,6 +52787,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5873718964764071152}
     m_Modifications:
+    - target: {fileID: 869241908855629186, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154194607803442555, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1669463051518530269, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -24.730122
@@ -52456,6 +52823,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5715611200421966776, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: Ceil 1
@@ -52463,6 +52834,10 @@ PrefabInstance:
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983795845308980813, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6263791439394188818, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -52476,9 +52851,17 @@ PrefabInstance:
       propertyPath: m_Range
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6537151411387981330, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6635260029876825890, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328837146981376857, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8237815958022644765, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_RootOrder
@@ -52524,6 +52907,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8370727761389030495, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8386252938702373718, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: LightSwitch (2)
@@ -52531,6 +52922,14 @@ PrefabInstance:
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051280152741686512, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149376873204106788, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
@@ -52546,6 +52945,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5873718965404701005}
     m_Modifications:
+    - target: {fileID: 869241908855629186, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154194607803442555, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1669463051518530269, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.738962
@@ -52574,6 +52981,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5715611200421966776, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: Ceil 1
@@ -52581,6 +52992,10 @@ PrefabInstance:
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983795845308980813, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6263791439394188818, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -52597,6 +53012,10 @@ PrefabInstance:
     - target: {fileID: 6439302808796392339, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Intensity
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537151411387981330, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6635260029876825890, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -52646,6 +53065,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8370727761389030495, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8386252938702373718, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: LightSwitch (4)
@@ -52653,6 +53080,14 @@ PrefabInstance:
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051280152741686512, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149376873204106788, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
@@ -52668,6 +53103,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5873718964532801333}
     m_Modifications:
+    - target: {fileID: 869241908855629186, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154194607803442555, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1669463051518530269, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 35.72128
@@ -52696,6 +53139,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5715611200421966776, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: Ceil 1
@@ -52703,6 +53150,10 @@ PrefabInstance:
     - target: {fileID: 5830996014670573095, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983795845308980813, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6263791439394188818, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -52716,9 +53167,17 @@ PrefabInstance:
       propertyPath: m_Range
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6537151411387981330, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6635260029876825890, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328837146981376857, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8237815958022644765, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_RootOrder
@@ -52764,6 +53223,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8370727761389030495, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8386252938702373718, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_Name
       value: LightSwitch (3)
@@ -52771,6 +53238,14 @@ PrefabInstance:
     - target: {fileID: 8507950114304712787, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051280152741686512, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149376873204106788, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0b03f93bb4c31d48bd90e4b8a29724a, type: 3}
