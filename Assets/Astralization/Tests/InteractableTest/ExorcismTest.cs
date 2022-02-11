@@ -17,6 +17,7 @@ public class ExorcismTest : TestBase
             if (gameObject.name == "Iris")
             {
                 player = gameObject;
+                playerMovement = player.GetComponent<IPlayerMovement>();
             }
             else if (gameObject.name == "Canvas")
             {
@@ -36,10 +37,11 @@ public class ExorcismTest : TestBase
 
     #region Exorcism Item
     [UnityTest]
-    public IEnumerator ExorcismItem_ExorcismRitual()
+    public IEnumerator ExorcismItem_ExorcismRitualSuccess()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
         GameObject exorcismItemOW = GameObject.Find("OverworldItems/ExorcismItem");
+        //Debug.Log("[TEST EXORCISM] Exorcism Overworld Item Found");
         float moveDuration = GetMovementDurationTowards(exorcismItemOW.transform);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveRight, false, moveDuration);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
@@ -64,6 +66,42 @@ public class ExorcismTest : TestBase
         Assert.AreEqual(exorcismItem.GetAccTime(), exorcismBar.GetSliderValue());
 
         yield return new WaitForSeconds(5.0f);
+        inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.UseItem);
+        yield return new WaitForSeconds(0.3f);
+        Assert.IsFalse(exorcismItem.GetUsed());
+        Assert.IsFalse(exorcismBarObj.activeInHierarchy);
+    }
+
+    [UnityTest]
+    public IEnumerator ExorcismItem_ExorcismRitualCancel()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        GameObject exorcismItemOW = GameObject.Find("OverworldItems/ExorcismItem");
+        //Debug.Log("[TEST EXORCISM] Exorcism Overworld Item Found");
+        float moveDuration = GetMovementDurationTowards(exorcismItemOW.transform);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveRight, false, moveDuration);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
+
+        yield return null;
+        GameObject exorcismItemObj = player.transform.Find("Rotate/InteractZone/ExorcismItem").gameObject;
+        GameObject exorcismBarObj = hud.transform.Find("ExorcismHud").gameObject;
+        Assert.NotNull(exorcismItemObj);
+
+        IExorcismItem exorcismItem = exorcismItemObj.GetComponent<IExorcismItem>();
+        IExorcismBar exorcismBar = exorcismBarObj.GetComponent<IExorcismBar>();
+
+        IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
+        Assert.AreEqual(1, inventory.GetNumOfItem());
+        Assert.NotNull(inventory.GetActiveItem());
+        Assert.AreEqual(0, inventory.GetActiveIdx());
+
+        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.UseItem);
+        yield return new WaitForSeconds(0.3f);
+        Assert.IsTrue(exorcismItem.GetUsed());
+        Assert.IsTrue(exorcismBarObj.activeInHierarchy);
+        Assert.AreEqual(exorcismItem.GetAccTime(), exorcismBar.GetSliderValue());
+
+        yield return new WaitForSeconds(2.0f);
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return new WaitForSeconds(0.3f);
         Assert.IsFalse(exorcismItem.GetUsed());
