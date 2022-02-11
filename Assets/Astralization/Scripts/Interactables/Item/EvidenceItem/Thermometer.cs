@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Thermometer : EvidenceItem
 {
@@ -27,35 +28,31 @@ public class Thermometer : EvidenceItem
     [SerializeField]
     [Tooltip("Material for Negative evidence")]
     private Material negativeMaterial;
+
     #endregion
+
+    private Dictionary<EvidenceItemState, Material> stateToMatMapping;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        stateToMatMapping = new Dictionary<EvidenceItemState, Material>() {
+            {EvidenceItemState.BASE, this.baseMaterial},
+            {EvidenceItemState.ACTIVE, this.activeMaterial},
+            {EvidenceItemState.POSITIVE, this.positiveMaterial},
+            {EvidenceItemState.NEGATIVE, this.negativeMaterial},
+        };
+    }
 
     private void SetStateMaterial(Material stateMaterial)
     {
         MeshRenderer mesh = model.GetComponentInChildren<MeshRenderer>(true);
         mesh.material = stateMaterial;
-        Debug.Log("[MAT] " + mesh.material.name);
     }
 
     public override void HandleChange()
     {
-        switch (this.state)
-        {
-            case EvidenceItemState.BASE:
-                SetStateMaterial(baseMaterial);
-                break;
-            case EvidenceItemState.ACTIVE:
-                SetStateMaterial(activeMaterial);
-                break;
-            case EvidenceItemState.POSITIVE:
-                SetStateMaterial(positiveMaterial);
-                break;
-            case EvidenceItemState.NEGATIVE:
-                SetStateMaterial(negativeMaterial);
-                break;
-            default:
-                SetStateMaterial(baseMaterial);
-                break;
-        }
+        SetStateMaterial(stateToMatMapping[this.state]);
     }
 
     public override void DetermineEvidence()
