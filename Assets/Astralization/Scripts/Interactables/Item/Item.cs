@@ -25,7 +25,7 @@ public abstract class Item : Interactable, IItem
     [Header("Item Behavior")]
     [SerializeField]
     [Tooltip("Determine whether discard after used or not")]
-    private bool _discardWhenUsed = false;
+    private bool _discardedWhenUsed = false;
 
     public abstract void Use();
 
@@ -68,8 +68,8 @@ public abstract class Item : Interactable, IItem
         return _itemLogo;
     }
 
-    public bool GetDiscardWhenUsed()
+    public bool IsDiscardedWhenUsed()
     {
-        return _discardWhenUsed;
+        return _discardedWhenUsed;
     }
 }
