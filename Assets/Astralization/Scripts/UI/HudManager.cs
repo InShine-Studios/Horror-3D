@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System;
 
+/*
+ * Class to manage general HUD stuff.
+ * All class related to HUD should be managed by this class.
+ */
 public class HudManager : MonoBehaviour
 {
     #region Variables

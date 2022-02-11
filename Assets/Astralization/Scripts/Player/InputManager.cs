@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
+/*
+ * Class to manage general input.
+ * All undirect input flow should be managed by this class.
+ */
 public class InputManager : MonoBehaviour
 {
 
