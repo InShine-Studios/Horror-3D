@@ -46,20 +46,6 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         
     }
 
-    #region Enable - Disable
-    private void OnEnable()
-    {
-        HudManager.StartDialogueManagerEvent += ShowDialogueBox;
-        HudManager.NextDialogueManagerEvent += NextLine;
-    }
-
-    private void OnDisable()
-    {
-        HudManager.StartDialogueManagerEvent -= ShowDialogueBox;
-        HudManager.NextDialogueManagerEvent -= NextLine;
-    }
-    #endregion
-
     #region Getter
     public Animator GetAnimator()
     {
@@ -114,7 +100,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     #endregion
 
     #region Next
-    void NextLine()
+    public void NextLine()
     {
         if (_index < lines.Length)
         {

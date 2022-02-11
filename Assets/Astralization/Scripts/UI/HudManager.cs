@@ -8,8 +8,8 @@ using System;
 public class HudManager : MonoBehaviour
 {
     #region Variables
-    public static event Action<bool> StartDialogueManagerEvent;
-    public static event Action NextDialogueManagerEvent;
+    [SerializeField]
+    private DialogueManager dialogueManager;
     #endregion
 
     #region Enable - Disable
@@ -29,12 +29,12 @@ public class HudManager : MonoBehaviour
     public void ShowDialogue(bool isShowDialogue)
     {
         //Debug.Log("[START DIALOGUE HUD] isShowDialogue: " + isShowDialogue);
-        StartDialogueManagerEvent?.Invoke(isShowDialogue);
+        dialogueManager.ShowDialogueBox(isShowDialogue);
     }
 
     public void NextDialogue()
     {
-        //Debug.Log("[NEXT DIALOGUE HUD]");  
-        NextDialogueManagerEvent?.Invoke();
+        //Debug.Log("[NEXT DIALOGUE HUD]");
+        dialogueManager.NextLine();
     }
 }
