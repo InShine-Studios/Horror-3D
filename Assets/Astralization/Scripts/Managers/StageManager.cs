@@ -9,10 +9,6 @@ using System.IO;
  */
 public class StageManager : MonoBehaviour
 {
-    public List<RoomCoordinate> RoomCoordinates;
-    private static List<string> _roomNames;
-    private static Dictionary<string, RoomCoordinate> _roomCoordDict = new Dictionary<string, RoomCoordinate>();
-
     [SerializeField]
     private RoomPoint _roomPointPrefab;
     private static Dictionary<string, RoomPoint> _roomPoints = new Dictionary<string, RoomPoint>();
@@ -22,32 +18,26 @@ public class StageManager : MonoBehaviour
 
     private void Awake()
     {
-        //for (int i = 0; i < RoomCoordinates.Count; i++)
-        //{
-        //    RoomCoordinate roomCoordinate = RoomCoordinates[i];
-        //    roomCoordinate.coordinate += transform.position;
-        //    _roomCoordDict[roomCoordinate.name] = roomCoordinate;
-        //}
-        //_roomNames = new List<string>(_roomCoordDict.Keys);
+        if (_roomPoints.Count == transform.childCount) return;
+        foreach (Transform child in transform)
+        {
+            RoomPoint roomPoint = child.GetComponent<RoomPoint>();
+            if(roomPoint) _roomPoints.Add(roomPoint.pointName, roomPoint);
+        }
     }
 
     #region Setter - Getter
-    //public static List<string> GetRoomNames()
-    //{
-    //    return _roomNames;
-    //}
+    public static RoomPoint GetRoomCoordinate(string roomName)
+    {
+        return _roomPoints[roomName];
+    }
 
-    //public static RoomCoordinate GetRoomCoordinate(string roomName)
-    //{
-    //    return _roomCoordDict[roomName];
-    //}
-
-    //public static RoomCoordinate GetRandomRoomCoordinate()
-    //{
-    //    int randomIdx = Utils.Randomizer.Rand.Next(_roomNames.Count);
-    //    string randomKey = _roomNames[randomIdx];
-    //    return GetRoomCoordinate(randomKey);
-    //}
+    public static RoomPoint GetRandomRoomCoordinate()
+    {
+        int randomIdx = Utils.Randomizer.Rand.Next(_roomPoints.Count);
+        RoomPoint randomRoom = Utils.Randomizer.GetRandomValue(_roomPoints);
+        return randomRoom;
+    }
     #endregion
 
     #region RoomPoints Setup

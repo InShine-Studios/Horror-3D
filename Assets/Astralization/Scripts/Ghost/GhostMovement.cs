@@ -5,7 +5,7 @@ public interface IGhostMovement
 {
     bool IsOnRoute();
     void SetWandering(bool value);
-    void WanderTarget(RoomCoordinate targetRoom, bool randomizePoint);
+    void WanderTarget(RoomPoint targetRoom, bool randomizePoint);
 }
 
 /*
@@ -16,9 +16,6 @@ public interface IGhostMovement
 public class GhostMovement : MonoBehaviour, IGhostMovement
 {
     #region Variables
-    [SerializeField]
-    [Tooltip("Consider ghost is not moving if delta position is less than thresh")]
-    private float _positionThresh = 0f;
     [SerializeField]
     [Tooltip("Consider ghost is arrive at destination if distance between ghost position and destination is less than thresh")]
     private float _distanceThresh = 4f;
@@ -31,8 +28,6 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     private float _nextCheck = 0.0f;
     [Tooltip("Wander range for sampling. Should be less than 2x agent height")]
     private float _wanderRange = 3f;
-    [Tooltip("Last position of ghost, updated on every frame")]
-    private Vector3 _lastPosition;
     [Tooltip("True if ghost is able to wander")]
     private bool _enableWandering = true;
     private NavMeshAgent _navMeshAgent;
@@ -52,7 +47,6 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _wanderTarget = transform.position;
-        _lastPosition = transform.position;
         _navMeshAgent.SetDestination(_wanderTarget);
     }
 
@@ -62,7 +56,6 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         {
             _nextCheck = Time.time + _checkRate;
             _checkRate = Utils.Randomizer.GetFloat(_checkRateRange.min, _checkRateRange.max);
-            _lastPosition = transform.position;
 
             if (_enableWandering) CheckReadyToWander();
         }
@@ -70,11 +63,6 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     #endregion
 
     #region Setter - Getter
-    private float GetDeltaPosition()
-    {
-        return Mathf.Abs(Utils.GeometryCalcu.GetDistance3D(_lastPosition, transform.position));
-    }
-
     private float GetDistanceFromDestination()
     {
         return Mathf.Abs(Utils.GeometryCalcu.GetDistance3D(transform.position,_wanderTarget));
@@ -82,9 +70,8 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
 
     public bool IsOnRoute()
     {
-        bool isMoving = GetDeltaPosition() > _positionThresh;
         bool isArrived = GetDistanceFromDestination() <= _distanceThresh;
-        return isMoving || !isArrived;
+        return !isArrived;
     }
 
     public void SetWandering(bool value)
@@ -94,14 +81,14 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     #endregion
 
     #region Wandering Controller
-    private Vector3 RandomShiftTarget(RoomCoordinate target)
+    private Vector3 RandomShiftTarget(RoomPoint target)
     {
         float shiftX = Utils.Randomizer.GetFloat(-target.radius, target.radius);
         float shiftZ = Utils.Randomizer.GetFloat(-target.radius, target.radius);
-        return target.coordinate + new Vector3(shiftX, 0, shiftZ);
+        return target.GetPosition() + new Vector3(shiftX, 0, shiftZ);
     }
 
-    public void WanderTarget(RoomCoordinate targetRoom, bool randomizePoint)
+    public void WanderTarget(RoomPoint targetRoom, bool randomizePoint)
     {
         if (WanderTarget(_wanderTarget, out _wanderTarget, targetRoom, randomizePoint))
         {
@@ -109,9 +96,9 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         }
     }
 
-    private bool WanderTarget(Vector3 center, out Vector3 result, RoomCoordinate targetRoom, bool randomizePoint)
+    private bool WanderTarget(Vector3 center, out Vector3 result, RoomPoint targetRoom, bool randomizePoint)
     {
-        Vector3 targetPoint = targetRoom.coordinate;
+        Vector3 targetPoint = targetRoom.GetPosition();
         if (randomizePoint)
         {
             targetPoint = RandomShiftTarget(targetRoom);
@@ -119,7 +106,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         if (NavMesh.SamplePosition(targetPoint, out _navMeshHit, _wanderRange, NavMesh.AllAreas))
         {
             result = _navMeshHit.position;
-            //_currentRoom = targetRoom.name;
+            _currentRoom = targetRoom.pointName;
             //Debug.Log("[GHOST] Sampling target position. Target Room: " + _currentRoom + " with coordinate " + result);
             return true;
         }
@@ -132,8 +119,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
 
     private bool RandomWanderTarget(Vector3 center, out Vector3 result)
     {
-        //RoomCoordinate targetRoom = StageManager.GetRandomRoomCoordinate();
-        RoomCoordinate targetRoom = new RoomCoordinate();
+        RoomPoint targetRoom = StageManager.GetRandomRoomCoordinate();
         return WanderTarget(center, out result, targetRoom, true);
     }
 

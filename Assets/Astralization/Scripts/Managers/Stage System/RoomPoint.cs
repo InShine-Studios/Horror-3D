@@ -1,13 +1,6 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public struct RoomCoordinate
-{
-    public Vector3 coordinate;
-    public string name;
-    public float radius;
-}
 
 public class RoomPoint : MonoBehaviour
 {
