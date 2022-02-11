@@ -3,9 +3,23 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class NPCInteractableTest: TestBase
 {
+    protected override void FindGameObjects(Scene scene)
+    {
+        GameObject[] gameObjects = scene.GetRootGameObjects();
+        foreach (GameObject gameObject in gameObjects)
+        {
+            if (gameObject.name == "Iris")
+            {
+                player = gameObject;
+                playerMovement = player.GetComponent<IPlayerMovement>();
+            }
+        }
+    }
+
     #region Setup Teardown
     [SetUp]
     public override void SetUp()
@@ -20,22 +34,18 @@ public class NPCInteractableTest: TestBase
     public IEnumerator PlayerInteractableDetector_InteractNPC()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        GameObject player = GameObject.Find("Party/Iris");
         GameObject npc = GameObject.Find("NPC");
+        INpcController npcController = npc.GetComponent<INpcController>();
         GameObject exclamationMark = npc.transform.Find("ExclamationMark").gameObject;
-        GameObject dialogue = GameObject.Find("Dialogue/Dialogue Box");
+        IDialogueManager dialogueManager = GameObject.Find("Dialogue/Dialogue Box").GetComponent<IDialogueManager>();
 
-        //Debug.Log(player + "||" + npc + "||" + exclamationMark + "||" + dialogue);
-        //Debug.Log(npc.transform.position);
         float moveDuration = GetMovementDurationTowards(npc.transform);
 
         Assert.IsFalse(exclamationMark.activeInHierarchy);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
         Assert.IsTrue(exclamationMark.activeInHierarchy);
 
-        INpcController npcController = npc.GetComponent<INpcController>();
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
-        IDialogueManager dialogueManager = dialogue.GetComponent<IDialogueManager>();
 
         Assert.AreEqual("Player", playerInput.currentActionMap.ToString().Split(':')[1]);
         Assert.IsFalse(dialogueManager.GetAnimator().GetBool("IsOpen"));
