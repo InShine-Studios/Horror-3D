@@ -685,6 +685,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 863619178}
+    - target: {fileID: 6788411416412141661, guid: a23e132b031fda71c8eb05c8c78329b9, type: 3}
+      propertyPath: _discardedWhenUsed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8067161170645168918, guid: a23e132b031fda71c8eb05c8c78329b9, type: 3}
       propertyPath: m_Name
       value: Thermometer
@@ -1054,7 +1058,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-80766
+  m_Name: pb_Mesh-31260
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
