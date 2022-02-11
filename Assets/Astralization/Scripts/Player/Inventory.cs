@@ -132,28 +132,30 @@ public class Inventory : MonoBehaviour, IInventory
         }
     }
 
+    private void _DiscardItem()
+    {
+        //Debug.Log("[INVENTORY] Discard " + _activeItem.name);
+
+        // Activate collider and mesh renderer
+        _activeItem.Discard();
+
+        // Reposition item to world
+        DiscardItemEvent?.Invoke(_activeItem);
+        _activeItem.transform.position -= ActiveItemYOffset + new Vector3(0, this.transform.position.y, 0);
+
+        // Reset active item state
+        _activeItem = null;
+        _items[_activeIdx] = null;
+        _numOfItem--;
+
+        ItemLogoEvent?.Invoke(false, null);
+    }
+
     public void DiscardItem(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
         {
-            if (_activeItem)
-            {
-                //Debug.Log("[INVENTORY] Discard " + _activeItem.name);
-
-                // Activate collider and mesh renderer
-                _activeItem.Discard();
-
-                // Reposition item to world
-                DiscardItemEvent?.Invoke(_activeItem);
-                _activeItem.transform.position -= ActiveItemYOffset + new Vector3(0, this.transform.position.y, 0);
-
-                // Reset active item state
-                _activeItem = null;
-                _items[_activeIdx] = null;
-                _numOfItem--;
-
-                ItemLogoEvent?.Invoke(false, null);
-            }
+            if (_activeItem) _DiscardItem();
             else
             {
                 Debug.Log("[INVENTORY] No item to discard, not holding an item");
@@ -201,25 +203,7 @@ public class Inventory : MonoBehaviour, IInventory
             _activeItem?.Use();
 
             if (!_activeItem) Debug.Log("[ITEM] Missing active item");
-            else if (_activeItem.IsDiscardedWhenUsed())
-            {
-                // Debug.Log("[INVENTORY] Discard " + _activeItem.name);
-
-                // Activate collider and mesh renderer
-                _activeItem.Discard();
-
-                // Reposition item to world
-                DiscardItemEvent?.Invoke(_activeItem);
-                _activeItem.transform.position -= ActiveItemYOffset + new Vector3(0, this.transform.position.y, 0);
-
-                // Reset active item state
-                _activeItem = null;
-                _items[_activeIdx] = null;
-                _numOfItem--;
-
-                ItemLogoEvent?.Invoke(false, null);
-            }
-
+            else if (_activeItem.IsDiscardedWhenUsed()) _DiscardItem();
         }
     }
 }
