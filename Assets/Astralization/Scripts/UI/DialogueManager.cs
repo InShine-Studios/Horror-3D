@@ -48,7 +48,12 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         
     }
 
-    #region Getter
+    #region Setter Getter
+    public TextAsset SetDialogJson()
+    {
+        return _dialogueJson;
+    }
+
     public Animator GetAnimator()
     {
         return _animator;
