@@ -677,8 +677,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5185263958987290348}
-        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
-        m_MethodName: DiscardItem
+        m_TargetAssemblyTypeName: Inventory, Scripts
+        m_MethodName: DiscardItemInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -742,6 +742,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8409afe8-676f-43cb-8470-6bcf76f9513c
     m_ActionName: Dialogue/NextDialogue[/Keyboard/enter,/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 23ed480d-0a3a-4541-b9f6-ed571086ebb5
+    m_ActionName: Player/SimulateGhostInteract[/Keyboard/z]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
