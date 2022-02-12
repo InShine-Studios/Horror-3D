@@ -103,8 +103,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5207594482978199625}
   - component: {fileID: 8883768404687337068}
-  - component: {fileID: 2991935041171262245}
   - component: {fileID: 6535461891879500022}
+  - component: {fileID: 3731438860714263295}
   m_Layer: 0
   m_Name: DummyFlashlight
   m_TagString: Item
@@ -171,21 +171,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2991935041171262245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6365649799048422090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78f6f974c8c6bd1479d1d10c6f75d81b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UseIcon: 1
-  InteractableIcon: {fileID: 747712641896153416}
-  _itemLogo: {fileID: 7231765672420922833, guid: 76c058bdb7187bc45bba0328cc1afc28, type: 3}
 --- !u!65 &6535461891879500022
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -199,6 +184,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3731438860714263295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6365649799048422090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b890dc6176d1e49cc9f51f8a577331f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseIcon: 1
+  InteractableIcon: {fileID: 747712641896153416}
+  _itemLogo: {fileID: 7231765672420922833, guid: 76c058bdb7187bc45bba0328cc1afc28, type: 3}
 --- !u!1 &8264933495170502079
 GameObject:
   m_ObjectHideFlags: 0
