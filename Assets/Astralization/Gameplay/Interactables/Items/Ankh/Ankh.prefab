@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6063047795889981902}
   - component: {fileID: 6593686549138201340}
-  - component: {fileID: 4325004604265522027}
   - component: {fileID: 4677953563003800542}
+  - component: {fileID: 5672515474420007418}
   m_Layer: 0
   m_Name: Ankh
   m_TagString: Item
@@ -77,21 +77,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4325004604265522027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 287779311540877956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c61e591e5a6d5f74cb09639479568bd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UseIcon: 1
-  InteractableIcon: {fileID: 745897024223551521}
-  _itemLogo: {fileID: -5692239723208888173, guid: 76c058bdb7187bc45bba0328cc1afc28, type: 3}
 --- !u!65 &4677953563003800542
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -105,6 +90,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5672515474420007418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287779311540877956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe62d5d9b0c2246ceacb240eff5570c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseIcon: 1
+  InteractableIcon: {fileID: 745897024223551521}
+  _itemLogo: {fileID: -5692239723208888173, guid: 76c058bdb7187bc45bba0328cc1afc28, type: 3}
 --- !u!1001 &394329704679431339
 PrefabInstance:
   m_ObjectHideFlags: 0
