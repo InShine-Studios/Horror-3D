@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public interface INpcController
 {
@@ -35,7 +36,7 @@ public class NpcController : Interactable, INpcController
 
     public override void OnInteraction()
     {
-        //Debug.Log("[INTERACTABLE] Action map: " + _dialogueActionMap);
+        //Debug.Log("[INTERACTABLE] Npc interacted: " + this.name);
         NpcInteractionEvent?.Invoke(_dialogueActionMap);
     }
 }
