@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public interface IInventory
 {
-    void DiscardItem(InputAction.CallbackContext ctx);
+    void DiscardItemInput(InputAction.CallbackContext ctx);
     int GetActiveIdx();
     IItem GetActiveItem();
     IItem GetItemByIndex(int idx);
@@ -132,7 +132,7 @@ public class Inventory : MonoBehaviour, IInventory
         }
     }
 
-    private void _DiscardItem()
+    private void DiscardItem()
     {
         //Debug.Log("[INVENTORY] Discard " + _activeItem.name);
 
@@ -151,11 +151,11 @@ public class Inventory : MonoBehaviour, IInventory
         ItemLogoEvent?.Invoke(false, null);
     }
 
-    public void DiscardItem(InputAction.CallbackContext ctx)
+    public void DiscardItemInput(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
         {
-            if (_activeItem) _DiscardItem();
+            if (_activeItem) DiscardItem();
             else
             {
                 Debug.Log("[INVENTORY] No item to discard, not holding an item");
@@ -203,7 +203,7 @@ public class Inventory : MonoBehaviour, IInventory
             _activeItem?.Use();
 
             if (!_activeItem) Debug.Log("[ITEM] Missing active item");
-            else if (_activeItem.IsDiscardedWhenUsed()) _DiscardItem();
+            else if (_activeItem.IsDiscardedWhenUsed()) DiscardItem();
         }
     }
 }
