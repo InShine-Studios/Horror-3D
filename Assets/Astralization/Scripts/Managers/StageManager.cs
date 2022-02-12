@@ -18,7 +18,6 @@ public class StageManager : MonoBehaviour
 
     private void Awake()
     {
-        //if (_roomPoints.Count == transform.childCount) return;
         Load();
     }
 

@@ -90,9 +90,6 @@ public class StageRoomBuilder : MonoBehaviour
     {
         Clear();
 
-        //string fileName = string.Format("Assets/Astralization/Resources/Stages/{0}.asset", name);
-        //StageData stageData = AssetDatabase.LoadAssetAtPath(fileName, typeof(StageData)) as StageData;
-
         if (!_stageData) return;
 
         for (int i = 0; i < _stageData.Positions.Count; i++)
