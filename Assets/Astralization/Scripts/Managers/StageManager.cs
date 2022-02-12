@@ -45,7 +45,6 @@ public class StageManager : MonoBehaviour
     {
         for (int i = transform.childCount - 1; i >= 0; --i)
             DestroyImmediate(transform.GetChild(i).gameObject);
-        // TODO: clear list?
     }
 
     public RoomPoint Create()
@@ -94,7 +93,7 @@ public class StageManager : MonoBehaviour
 
         foreach (RoomPoint r in _roomPoints.Values)
         {
-            stage.Positions.Add(r.GetPosition());
+            stage.Positions.Add(r.GetLocalPosition());
             stage.Names.Add(r.pointName);
             stage.Rads.Add(r.radius);
         }
@@ -118,9 +117,6 @@ public class StageManager : MonoBehaviour
     public void Load()
     {
         Clear();
-
-        //if (stageData == null)
-        //    return;
 
         string fileName = string.Format("Assets/Astralization/Resources/Stages/{0}.asset", name);
         StageData stageData = AssetDatabase.LoadAssetAtPath(fileName, typeof(StageData)) as StageData;

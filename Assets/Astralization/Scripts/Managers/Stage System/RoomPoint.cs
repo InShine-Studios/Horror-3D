@@ -8,6 +8,7 @@ public class RoomPoint : MonoBehaviour
 
     public float radius;
 
+    #region Set Get
     public Vector3 GetPosition()
     {
         return transform.position;
@@ -18,9 +19,20 @@ public class RoomPoint : MonoBehaviour
         transform.position = pos;
     }
 
+    public Vector3 GetLocalPosition()
+    {
+        return transform.localPosition;
+    }
+
+    public void SetLocalPosition(Vector3 pos)
+    {
+        transform.localPosition = pos;
+    }
+    #endregion
+
     public void Load(Vector3 pos, string pointName, float radius)
     {
-        SetPosition(pos);
+        SetLocalPosition(pos);
         this.pointName = pointName;
         this.radius = radius;
     }
