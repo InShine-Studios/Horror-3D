@@ -4,14 +4,14 @@ using UnityEditor;
 /*
  * The editor script to edit rooms of a stage.
  */
-[CustomEditor(typeof(StageManager))]
-public class StageRoomCreator : Editor
+[CustomEditor(typeof(StageRoomBuilder))]
+public class StageRoomInspector : Editor
 {
-    public StageManager current
+    public StageRoomBuilder current
     {
         get
         {
-            return (StageManager)target;
+            return (StageRoomBuilder)target;
         }
     }
 

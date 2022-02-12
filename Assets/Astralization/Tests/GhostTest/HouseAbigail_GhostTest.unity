@@ -13629,6 +13629,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghost
       objectReference: {fileID: 0}
+    - target: {fileID: 1157814030217170335, guid: 4f911ef6b3bda46c08ccddc1ca4cedf6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5196310407557689810, guid: 4f911ef6b3bda46c08ccddc1ca4cedf6, type: 3}
       propertyPath: WanderTarget.y
       value: 8
@@ -17747,11 +17751,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044022937042, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 6.661338e-15
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044022937042, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -8.049117e-16
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044022937043, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_Follow
@@ -17791,11 +17795,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044410928812, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000021471116
+      value: 0.0000000021471156
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044410928812, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -1.2586666e-10
+      value: -1.258669e-10
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044410928812, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -23590,6 +23594,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 680401796}
+    - target: {fileID: 6460553530132300346, guid: 6f0012aa1d5b94ab5bb9bea5cfd7db3d, type: 3}
+      propertyPath: _stageData
+      value: 
+      objectReference: {fileID: 11400000, guid: fa5a0b57232b4d94fb2a5d45cfcbab2c, type: 2}
     - target: {fileID: 6742889945443441839, guid: 6f0012aa1d5b94ab5bb9bea5cfd7db3d, type: 3}
       propertyPath: m_Mesh
       value: 

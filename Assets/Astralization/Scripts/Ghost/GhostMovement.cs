@@ -40,6 +40,9 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     //[SerializeField]
     [Tooltip("Target destination of movement")]
     private Vector3 _wanderTarget;
+
+    [SerializeField]
+    private StageManager _stageManager;
     #endregion
 
     #region Awake - Update
@@ -119,7 +122,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
 
     private bool RandomWanderTarget(Vector3 center, out Vector3 result)
     {
-        RoomPoint targetRoom = StageManager.GetRandomRoomCoordinate();
+        RoomPoint targetRoom = _stageManager.GetRandomRoomCoordinate();
         return WanderTarget(center, out result, targetRoom, true);
     }
 

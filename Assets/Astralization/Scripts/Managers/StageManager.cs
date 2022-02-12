@@ -9,30 +9,26 @@ using System.IO;
  */
 public class StageManager : MonoBehaviour
 {
-    [SerializeField]
-    private RoomPoint _roomPointPrefab;
-    private static Dictionary<string, RoomPoint> _roomPoints = new Dictionary<string, RoomPoint>();
+    private Dictionary<string, RoomPoint> _roomPoints = new Dictionary<string, RoomPoint>();
 
     [SerializeField]
-    StageData stageDataDummy;
+    private RoomPoint _roomPointPrefab;
+    [SerializeField]
+    private StageData _stageData;
 
     private void Awake()
     {
-        if (_roomPoints.Count == transform.childCount) return;
-        foreach (Transform child in transform)
-        {
-            RoomPoint roomPoint = child.GetComponent<RoomPoint>();
-            if(roomPoint) _roomPoints.Add(roomPoint.pointName, roomPoint);
-        }
+        //if (_roomPoints.Count == transform.childCount) return;
+        Load();
     }
 
     #region Setter - Getter
-    public static RoomPoint GetRoomCoordinate(string roomName)
+    public RoomPoint GetRoomCoordinate(string roomName)
     {
         return _roomPoints[roomName];
     }
 
-    public static RoomPoint GetRandomRoomCoordinate()
+    public RoomPoint GetRandomRoomCoordinate()
     {
         int randomIdx = Utils.Randomizer.Rand.Next(_roomPoints.Count);
         RoomPoint randomRoom = Utils.Randomizer.GetRandomValue(_roomPoints);
@@ -40,95 +36,17 @@ public class StageManager : MonoBehaviour
     }
     #endregion
 
-    #region RoomPoints Setup
-    public void Clear()
+    private void Load()
     {
-        for (int i = transform.childCount - 1; i >= 0; --i)
-            DestroyImmediate(transform.GetChild(i).gameObject);
-    }
+        if (!_stageData) return;
 
-    public RoomPoint Create()
-    {
-        RoomPoint instance = Instantiate(_roomPointPrefab);
-        instance.transform.parent = transform;
-        return instance;
-    }
-
-    private void Rename()
-    {
-        for (int i = transform.childCount - 1; i >= 0; --i)
+        for (int i = 0; i < _stageData.Positions.Count; i++)
         {
-            GameObject go = transform.GetChild(i).gameObject;
-            go.name = go.GetComponent<RoomPoint>().pointName;
+            RoomPoint instance = Instantiate(_roomPointPrefab);
+            instance.name = _stageData.Names[i];
+            instance.transform.parent = transform;
+            instance.Load(_stageData.Positions[i], _stageData.Names[i], _stageData.Rads[i]);
+            _roomPoints.Add(instance.pointName, instance);
         }
     }
-
-    private void UpdatePoints()
-    {
-        // Reset dict first
-        _roomPoints = new Dictionary<string, RoomPoint>();
-
-        RoomPoint[] childPoints = transform.GetComponentsInChildren<RoomPoint>();
-        foreach (RoomPoint r in childPoints)
-        {
-            _roomPoints.Add(r.pointName, r);
-        }
-    }
-    #endregion
-
-    #region Save - Load
-    public void Save()
-    {
-        Rename();
-        UpdatePoints();
-
-        string filePath = Application.dataPath + "/Astralization/Resources/Stages";
-        if (!Directory.Exists(filePath))
-            CreateSaveDirectory();
-
-        StageData stage = ScriptableObject.CreateInstance<StageData>();
-        stage.Positions = new List<Vector3>(_roomPoints.Count);
-        stage.Names = new List<string>(_roomPoints.Count);
-        stage.Rads = new List<float>(_roomPoints.Count);
-
-        foreach (RoomPoint r in _roomPoints.Values)
-        {
-            stage.Positions.Add(r.GetLocalPosition());
-            stage.Names.Add(r.pointName);
-            stage.Rads.Add(r.radius);
-        }
-
-        string fileName = string.Format("Assets/Astralization/Resources/Stages/{1}.asset", filePath, name);
-        AssetDatabase.CreateAsset(stage, fileName);
-    }
-
-    private void CreateSaveDirectory()
-    {
-        string filePath = Application.dataPath + "/Astralization/Resources";
-        if (!Directory.Exists(filePath))
-            AssetDatabase.CreateFolder("Assets/Astralization", "Resources");
-
-        filePath += "/Stages";
-        if (!Directory.Exists(filePath))
-            AssetDatabase.CreateFolder("Assets/Astralization/Resources", "Stages");
-        AssetDatabase.Refresh();
-    }
-
-    public void Load()
-    {
-        Clear();
-
-        string fileName = string.Format("Assets/Astralization/Resources/Stages/{0}.asset", name);
-        StageData stageData = AssetDatabase.LoadAssetAtPath(fileName, typeof(StageData)) as StageData;
-
-        for (int i = 0; i < stageData.Positions.Count; i++)
-        {
-            RoomPoint r = Create();
-            r.Load(stageData.Positions[i], stageData.Names[i], stageData.Rads[i]);
-        }
-
-        Rename();
-        UpdatePoints();
-    }
-    #endregion
 }
