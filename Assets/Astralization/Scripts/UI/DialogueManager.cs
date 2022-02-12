@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 using System;
 using System.Collections;
 
@@ -9,7 +8,7 @@ public interface IDialogueManager
     Animator GetAnimator();
     bool GetDialogBox();
     int GetIndex();
-    void ShowDialogBox(bool isInteractWithNpc);
+    void ShowDialogueBox(bool isInteractWithNpc);
 }
 
 /*
@@ -19,6 +18,7 @@ public interface IDialogueManager
  */
 public class DialogueManager : MonoBehaviour, IDialogueManager
 {
+    #region Variable
     [SerializeField]
     private Text _nameText;
     [SerializeField]
@@ -33,8 +33,11 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     private float _textSpeed;
 
     private bool _dialogBoxOpen;
+    private string _playerActionMap = "Player";
+    #endregion
 
-    public static event Action<bool> FinishDialogue;
+
+    public static event Action<string> FinishDialogueEvent;
 
     private void Awake()
     {
@@ -42,20 +45,6 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         _dialogueText.text = string.Empty;
         
     }
-
-    #region Enable - Disable
-    private void OnEnable()
-    {
-        NpcController.NpcInteractionEvent += ShowDialogBox;
-        PlayerDialogueInvoker.StartDialogue += NextLine;
-    }
-
-    private void OnDisable()
-    {
-        NpcController.NpcInteractionEvent -= ShowDialogBox;
-        PlayerDialogueInvoker.StartDialogue -= NextLine;
-    }
-    #endregion
 
     #region Getter
     public Animator GetAnimator()
@@ -75,9 +64,9 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     #endregion
 
     #region Dialogue Setup/Show
-    public void ShowDialogBox(bool isInteractWithNpc)
+    public void ShowDialogueBox(bool isShowDialogue)
     {
-        if (isInteractWithNpc)
+        if (isShowDialogue)
         {
             SetUpDialogue();
             _animator.SetBool("IsOpen", true);
@@ -111,7 +100,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     #endregion
 
     #region Next
-    void NextLine()
+    public void NextLine()
     {
         if (_index < lines.Length)
         {
@@ -122,8 +111,8 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         else
         {
             StopAllCoroutines();
-            FinishDialogue?.Invoke(false);
-            ShowDialogBox(false);
+            FinishDialogueEvent?.Invoke(_playerActionMap);
+            ShowDialogueBox(false);
         }
     }
     #endregion
