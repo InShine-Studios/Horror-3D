@@ -10,8 +10,8 @@ public class HudManager : MonoBehaviour
     #region Variables
     [SerializeField]
     private DialogueManager dialogueManager;
-
-    public static event Action<bool> HidingAnim;
+    [SerializeField]
+    private HidingOverlay hidingManager;
     #endregion
 
     #region Enable - Disable
@@ -20,7 +20,7 @@ public class HudManager : MonoBehaviour
         GameManager.ShowDialogueHudEvent += ShowDialogue;
         GameManager.StartHidingHudEvent += ShowHidingHud;
         DialogueInputHandler.NextDialogueHudEvent += NextDialogue;
-        ClosetsController.StopHidingHudEvent += ShowHidingHud;
+        HideInputHandler.StopHidingHudEvent += ShowHidingHud;
     }
 
     private void OnDisable()
@@ -28,7 +28,7 @@ public class HudManager : MonoBehaviour
         GameManager.ShowDialogueHudEvent -= ShowDialogue;
         GameManager.StartHidingHudEvent -= ShowHidingHud;
         DialogueInputHandler.NextDialogueHudEvent -= NextDialogue;
-        ClosetsController.StopHidingHudEvent -= ShowHidingHud;
+        HideInputHandler.StopHidingHudEvent -= ShowHidingHud;
     }
     #endregion
 
@@ -46,6 +46,6 @@ public class HudManager : MonoBehaviour
 
     public void ShowHidingHud(bool isHiding)
     {
-        HidingAnim?.Invoke(isHiding);
+        hidingManager.StartAnim(isHiding);
     }
 }

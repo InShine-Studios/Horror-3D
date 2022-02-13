@@ -20,18 +20,6 @@ public class HidingOverlay : MonoBehaviour
         _overlay = transform.Find("Overlay").GetComponent<Image>();
     }
 
-    #region Enable - Disable
-    private void OnEnable()
-    {
-        HudManager.HidingAnim += StartAnim;
-    }
-
-    private void OnDisable()
-    {
-        HudManager.HidingAnim -= StartAnim;
-    }
-    #endregion
-
     public void StartAnim(bool isHiding)
     {
         ChangeColor();

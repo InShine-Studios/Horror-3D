@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour, IGameManager
         NpcController.NpcInteractionEvent += InvokePlayerState;
         DialogueManager.FinishDialogueEvent += InvokePlayerState;
         ClosetsController.StartHidingEvent += InvokePlayerState;
-        ClosetsController.StopHidingEvent += InvokePlayerState;
     }
 
     private void OnDisable()
@@ -45,7 +44,6 @@ public class GameManager : MonoBehaviour, IGameManager
         NpcController.NpcInteractionEvent -= InvokePlayerState;
         DialogueManager.FinishDialogueEvent -= InvokePlayerState;
         ClosetsController.StartHidingEvent -= InvokePlayerState;
-        ClosetsController.StopHidingEvent -= InvokePlayerState;
     }
     #endregion
 
