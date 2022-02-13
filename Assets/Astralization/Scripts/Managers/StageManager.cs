@@ -51,5 +51,4 @@ public class StageManager : MonoBehaviour, IStageManager
         return randomRoom;
     }
     #endregion
-
 }
