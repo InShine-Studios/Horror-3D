@@ -2,13 +2,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections;
+using Ink.Runtime;
 
 public interface IDialogueManager
 {
+    void SetDialogJson(TextAsset newDialogueJson);
     Animator GetAnimator();
-    bool GetDialogBox();
-    int GetIndex();
+    bool IsDialogBoxOpen();
     void ShowDialogueBox(bool isInteractWithNpc);
+    Story GetDialogStory();
 }
 
 /*
@@ -26,8 +28,9 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     [SerializeField]
     private Animator _animator;
 
-    public string[] lines;
-    private int _index;
+    [SerializeField]
+    private TextAsset _dialogueJson;
+    private Story _dialogueStory;
     
     [SerializeField]
     private float _textSpeed;
@@ -48,20 +51,25 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     }
     #endregion
 
-    #region Getter
+    #region Setter Getter
+    public void SetDialogJson(TextAsset newDialogueJson)
+    {
+        _dialogueJson = newDialogueJson;
+    }
+
     public Animator GetAnimator()
     {
         return _animator;
     }
 
-    public bool GetDialogBox()
+    public bool IsDialogBoxOpen()
     {
         return _dialogBoxOpen;
     }
 
-    public int GetIndex()
+    public Story GetDialogStory()
     {
-        return _index;
+        return _dialogueStory;
     }
     #endregion
 
@@ -84,16 +92,16 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
     void SetUpDialogue()
     {
-        _index = 0;
         _dialogueText.text = string.Empty;
+        _dialogueStory = new Story(_dialogueJson.text);
     }
     #endregion
 
     #region TypeLine
-    IEnumerator TypeLine(int idx)
+    IEnumerator TypeLine()
     {
         //To type each character 1 by 1
-        foreach (char c in lines[idx].ToCharArray())
+        foreach (char c in _dialogueStory.Continue().ToCharArray())
         {
             _dialogueText.text += c;
             yield return new WaitForSeconds(_textSpeed);
@@ -104,11 +112,10 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     #region Next
     public void NextLine()
     {
-        if (_index < lines.Length)
+        if (_dialogueStory.canContinue)
         {
             _dialogueText.text = string.Empty;
-            StartCoroutine(TypeLine(_index));
-            _index++;
+            StartCoroutine(TypeLine());
         }
         else
         {
