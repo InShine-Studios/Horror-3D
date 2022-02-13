@@ -107,13 +107,15 @@ All project files used are in the "Assets/Astralization" folder.
 
 > 4.5 [Gameplay](#gameplay)
 
-> 4.6 [Scripts](#script)
+> 4.6 [Resources](#resources)
 
-> 4.7 [Tests](#test)
+> 4.7 [Scripts](#script)
 
-> 4.8 [UI](#ui)
+> 4.8 [Tests](#test)
 
-> 4.9 [MaterialLibrary](#material-library)
+> 4.9 [UI](#ui)
+
+> 4.10 [MaterialLibrary](#material-library)
 
 <a name="level"></a>
 ### 4.1 _Levels
@@ -157,8 +159,18 @@ The main folder to keep **ALL gameplay related assets**. This includes objects r
 **[⬆ Back to Top](#table-of-contents)**
 
 
+<a name="resources"></a>
+### 4.6 Resources
+
+This folder is used to keep **ALL the saved data** that will be used inside the project. Saved data is a static data that can be loaded by GameObjects, for example coordinates and dialogue texts.
+
+Store resources data in a **specific** subdirectory of resource and make sure its naming is **easily understandable**.
+
+**[⬆ Back to Top](#table-of-contents)**
+
+
 <a name="script"></a>
-### 4.6 Scripts
+### 4.7 Scripts
 
 This folder is used to keep **ALL the scripts** that will be used inside the project. It also has its own **assembly definition** asset to exclude it from the normal C# assembly for testing purposes.
 
@@ -168,7 +180,7 @@ Each script will be kept in its own subfolder depending on what it is used for. 
 
 
 <a name="test"></a>
-### 4.7 Tests
+### 4.8 Tests
 
 The folder that will be used to run both **unit** (edit mode) and **integration** (play mode) tests. Each test class will be kept under a subfolder specific to the use of that test scenario.
 
@@ -178,7 +190,7 @@ List of All [Test Cases](https://docs.google.com/spreadsheets/d/1G74XV_d05xa5i4_
 
 
 <a name="ui"></a>
-### 4.8 UI
+### 4.9 UI
 
 This folder is used to keep **ALL the assets** used for UI. User interface includes objects in game (marker, objective, etc.) or menu UI.
 
@@ -186,7 +198,7 @@ This folder is used to keep **ALL the assets** used for UI. User interface inclu
 
 
 <a name="material-library"></a>
-### 4.9 MaterialLibrary
+### 4.10 MaterialLibrary
 
 This folder is used to keep **ALL the common materials and its pallete**. Don't put mesh specific material in this directory.
 
