@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 public interface IGhostMovement
 {
+    float GetDistanceThreshold();
     bool IsOnRoute();
     void SetWandering(bool value);
     void WanderTarget(RoomPoint targetRoom, bool randomizePoint);
@@ -18,7 +19,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     #region Variables
     [SerializeField]
     [Tooltip("Consider ghost is arrive at destination if distance between ghost position and destination is less than thresh")]
-    private float _distanceThresh = 4f;
+    private float _distanceThresh = 0.5f;
     [SerializeField]
     [Tooltip("Cooldown of checking if target position should be updated")]
     private Utils.Range _checkRateRange;
@@ -69,6 +70,11 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     private float GetDistanceFromDestination()
     {
         return Mathf.Abs(Utils.GeometryCalcu.GetDistance3D(transform.position,_wanderTarget));
+    }
+
+    public float GetDistanceThreshold()
+    {
+        return _distanceThresh;
     }
 
     public bool IsOnRoute()

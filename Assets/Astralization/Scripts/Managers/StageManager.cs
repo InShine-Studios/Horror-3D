@@ -3,11 +3,17 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
+public interface IStageManager
+{
+    RoomPoint GetRandomRoomCoordinate();
+    RoomPoint GetRoomCoordinate(string roomName);
+}
+
 /*
  * Manages stage related behavior.
  * For example manage room coordinates, etc.
  */
-public class StageManager : MonoBehaviour
+public class StageManager : MonoBehaviour, IStageManager
 {
     private Dictionary<string, RoomPoint> _roomPoints = new Dictionary<string, RoomPoint>();
 
