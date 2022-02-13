@@ -49,9 +49,9 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     }
 
     #region Setter Getter
-    public TextAsset SetDialogJson()
+    public void SetDialogJson(TextAsset newDialogueJson)
     {
-        return _dialogueJson;
+        _dialogueJson = newDialogueJson;
     }
 
     public Animator GetAnimator()
@@ -59,7 +59,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         return _animator;
     }
 
-    public bool GetDialogBox()
+    public bool IsDialogBoxOpen()
     {
         return _dialogBoxOpen;
     }
