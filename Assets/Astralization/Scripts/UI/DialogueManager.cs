@@ -6,8 +6,9 @@ using Ink.Runtime;
 
 public interface IDialogueManager
 {
+    void SetDialogJson(TextAsset newDialogueJson);
     Animator GetAnimator();
-    bool GetDialogBox();
+    bool IsDialogBoxOpen();
     void ShowDialogueBox(bool isInteractWithNpc);
     Story GetDialogStory();
 }
