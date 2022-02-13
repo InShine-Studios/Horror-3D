@@ -39,7 +39,7 @@ public class GhostTest : TestBase
 
         string targetRoomName = "Laundry Room";
         IStageManager stageManager = GameObject.Find("Building/StageManager").GetComponent<IStageManager>();
-        RoomPoint targetRoom = stageManager.GetRoomCoordinate(targetRoomName);
+        WorldPoint targetRoom = stageManager.GetRoomCoordinate(targetRoomName);
 
         ghostMovement.SetWandering(false);
         ghostMovement.WanderTarget(targetRoom, false);
@@ -50,7 +50,6 @@ public class GhostTest : TestBase
                 ghost.transform.position
             )
         );
-
         Assert.IsTrue(delta <= ghostMovement.GetDistanceThreshold());
     }
 

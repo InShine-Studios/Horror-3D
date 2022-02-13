@@ -6,7 +6,7 @@ public interface IGhostMovement
     float GetDistanceThreshold();
     bool IsOnRoute();
     void SetWandering(bool value);
-    void WanderTarget(RoomPoint targetRoom, bool randomizePoint);
+    void WanderTarget(WorldPoint targetRoom, bool randomizePoint);
 }
 
 /*
@@ -90,14 +90,14 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     #endregion
 
     #region Wandering Controller
-    private Vector3 RandomShiftTarget(RoomPoint target)
+    private Vector3 RandomShiftTarget(WorldPoint target)
     {
         float shiftX = Utils.Randomizer.GetFloat(-target.radius, target.radius);
         float shiftZ = Utils.Randomizer.GetFloat(-target.radius, target.radius);
         return target.GetPosition() + new Vector3(shiftX, 0, shiftZ);
     }
 
-    public void WanderTarget(RoomPoint targetRoom, bool randomizePoint)
+    public void WanderTarget(WorldPoint targetRoom, bool randomizePoint)
     {
         if (WanderTarget(_wanderTarget, out _wanderTarget, targetRoom, randomizePoint))
         {
@@ -105,7 +105,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         }
     }
 
-    private bool WanderTarget(Vector3 center, out Vector3 result, RoomPoint targetRoom, bool randomizePoint)
+    private bool WanderTarget(Vector3 center, out Vector3 result, WorldPoint targetRoom, bool randomizePoint)
     {
         Vector3 targetPoint = targetRoom.GetPosition();
         if (randomizePoint)
@@ -128,7 +128,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
 
     private bool RandomWanderTarget(Vector3 center, out Vector3 result)
     {
-        RoomPoint targetRoom = _stageManager.GetRandomRoomCoordinate();
+        WorldPoint targetRoom = _stageManager.GetRandomRoomCoordinate();
         return WanderTarget(center, out result, targetRoom, true);
     }
 

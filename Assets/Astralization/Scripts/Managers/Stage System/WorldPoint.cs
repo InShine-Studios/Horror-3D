@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 
-public class RoomPoint : MonoBehaviour
+public class WorldPoint : MonoBehaviour
 {
     public string pointName;
 

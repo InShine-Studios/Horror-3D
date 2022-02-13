@@ -6,8 +6,8 @@ using System.IO;
 public class StageRoomBuilder : MonoBehaviour
 {
     [SerializeField]
-    private RoomPoint _roomPointPrefab;
-    private static Dictionary<string, RoomPoint> _roomPoints = new Dictionary<string, RoomPoint>();
+    private WorldPoint _roomPointPrefab;
+    private static Dictionary<string, WorldPoint> _roomPoints = new Dictionary<string, WorldPoint>();
 
     [SerializeField]
     private StageData _stageData;
@@ -19,9 +19,9 @@ public class StageRoomBuilder : MonoBehaviour
             DestroyImmediate(transform.GetChild(i).gameObject);
     }
 
-    public RoomPoint Create()
+    public WorldPoint Create()
     {
-        RoomPoint instance = Instantiate(_roomPointPrefab);
+        WorldPoint instance = Instantiate(_roomPointPrefab);
         instance.transform.parent = transform;
         return instance;
     }
@@ -31,17 +31,17 @@ public class StageRoomBuilder : MonoBehaviour
         for (int i = transform.childCount - 1; i >= 0; --i)
         {
             GameObject go = transform.GetChild(i).gameObject;
-            go.name = go.GetComponent<RoomPoint>().pointName;
+            go.name = go.GetComponent<WorldPoint>().pointName;
         }
     }
 
     private void UpdatePoints()
     {
         // Reset dict first
-        _roomPoints = new Dictionary<string, RoomPoint>();
+        _roomPoints = new Dictionary<string, WorldPoint>();
 
-        RoomPoint[] childPoints = transform.GetComponentsInChildren<RoomPoint>();
-        foreach (RoomPoint r in childPoints)
+        WorldPoint[] childPoints = transform.GetComponentsInChildren<WorldPoint>();
+        foreach (WorldPoint r in childPoints)
         {
             _roomPoints.Add(r.pointName, r);
         }
@@ -53,6 +53,7 @@ public class StageRoomBuilder : MonoBehaviour
     {
         Rename();
         UpdatePoints();
+        _stageData = null;
 
         string filePath = Application.dataPath + "/Astralization/Resources/Stages";
         if (!Directory.Exists(filePath))
@@ -63,7 +64,7 @@ public class StageRoomBuilder : MonoBehaviour
         stage.Names = new List<string>(_roomPoints.Count);
         stage.Rads = new List<float>(_roomPoints.Count);
 
-        foreach (RoomPoint r in _roomPoints.Values)
+        foreach (WorldPoint r in _roomPoints.Values)
         {
             stage.Positions.Add(r.GetLocalPosition());
             stage.Names.Add(r.pointName);
@@ -94,7 +95,7 @@ public class StageRoomBuilder : MonoBehaviour
 
         for (int i = 0; i < _stageData.Positions.Count; i++)
         {
-            RoomPoint r = Create();
+            WorldPoint r = Create();
             r.Load(_stageData.Positions[i], _stageData.Names[i], _stageData.Rads[i]);
         }
 
