@@ -16,9 +16,16 @@ public interface IItem: IInteractable
 [RequireComponent(typeof(MeshRenderer))]
 public abstract class Item : Interactable, IItem
 {
+
+    [Header("Item Logo")]
     [SerializeField]
     [Tooltip("The Sprite for the logo")]
     private Sprite _itemLogo;
+
+    [Header("Item Behavior")]
+    [SerializeField]
+    [Tooltip("Determine whether discard after used or not")]
+    private bool _discardedWhenUsed = false;
 
     public abstract void Use();
 
@@ -37,10 +44,18 @@ public abstract class Item : Interactable, IItem
         SetCollider(true);
         SetMeshRenderer(true);
     }
+
+    #region Setter Getter
     public void SetMeshRenderer(bool enabled)
     {
         transform.Find("Model").gameObject.SetActive(enabled);
     }
+
+    public Sprite GetItemLogo()
+    {
+        return _itemLogo;
+    }
+    #endregion
 
     #region Show - Hide Item
     public void HideItem()
@@ -56,8 +71,8 @@ public abstract class Item : Interactable, IItem
     }
     #endregion
 
-    public Sprite GetItemLogo()
+    public bool IsDiscardedWhenUsed()
     {
-        return _itemLogo;
+        return _discardedWhenUsed;
     }
 }

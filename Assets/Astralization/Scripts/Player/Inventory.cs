@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public interface IInventory
 {
-    void DiscardItem(InputAction.CallbackContext ctx);
+    void DiscardItemInput(InputAction.CallbackContext ctx);
     int GetActiveIdx();
     IItem GetActiveItem();
     IItem GetItemByIndex(int idx);
@@ -132,28 +132,30 @@ public class Inventory : MonoBehaviour, IInventory
         }
     }
 
-    public void DiscardItem(InputAction.CallbackContext ctx)
+    private void DiscardItem()
+    {
+        //Debug.Log("[INVENTORY] Discard " + _activeItem.name);
+
+        // Activate collider and mesh renderer
+        _activeItem.Discard();
+
+        // Reposition item to world
+        DiscardItemEvent?.Invoke(_activeItem);
+        _activeItem.transform.position -= ActiveItemYOffset + new Vector3(0, this.transform.position.y, 0);
+
+        // Reset active item state
+        _activeItem = null;
+        _items[_activeIdx] = null;
+        _numOfItem--;
+
+        ItemLogoEvent?.Invoke(false, null);
+    }
+
+    public void DiscardItemInput(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
         {
-            if (_activeItem)
-            {
-                //Debug.Log("[INVENTORY] Discard " + _activeItem.name);
-
-                // Activate collider and mesh renderer
-                _activeItem.Discard();
-
-                // Reposition item to world
-                DiscardItemEvent?.Invoke(_activeItem);
-                _activeItem.transform.position -= ActiveItemYOffset + new Vector3(0, this.transform.position.y, 0);
-
-                // Reset active item state
-                _activeItem = null;
-                _items[_activeIdx] = null;
-                _numOfItem--;
-
-                ItemLogoEvent?.Invoke(false, null);
-            }
+            if (_activeItem) DiscardItem();
             else
             {
                 Debug.Log("[INVENTORY] No item to discard, not holding an item");
@@ -199,7 +201,9 @@ public class Inventory : MonoBehaviour, IInventory
         if (ctx.performed)
         {
             _activeItem?.Use();
+
             if (!_activeItem) Debug.Log("[ITEM] Missing active item");
+            else if (_activeItem.IsDiscardedWhenUsed()) DiscardItem();
         }
     }
 }
