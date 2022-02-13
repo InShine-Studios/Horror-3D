@@ -8,13 +8,14 @@ using UnityEngine;
 public class ClosetsController : Interactable
 {
     #region Variables
-    [Header("Door States")]
-    [SerializeField]
-    [Tooltip("True if door is in open state")]
-    private bool _isHiding = false;
 
-    public static event Action<bool> HidingAnim;
-    public static event Action<Interactable, bool> MovePlayer;
+    public static event Action<string> StartHidingEvent;
+    public static event Action<Interactable, bool> HidePlayer;
+    public static event Action<bool> StopHidingHudEvent;
+    public static event Action<string> StopHidingEvent;
+    private string _hidingActionMap = "Hiding";
+    private string _playerActionMap = "Player";
+    private bool _isHiding = false;
 
     #endregion
 
@@ -27,18 +28,18 @@ public class ClosetsController : Interactable
     private void ChangeState()
     {
         _isHiding = !_isHiding;
-        HidingAnim?.Invoke(_isHiding);
-    }
-
-    private void MovingPlayer(bool state)
-    {
-        MovePlayer?.Invoke(this, state);
+        if(_isHiding) StartHidingEvent?.Invoke(_hidingActionMap);
+        else
+        {
+            StopHidingEvent?.Invoke(_playerActionMap);
+            StopHidingHudEvent?.Invoke(false);
+        }
+        HidePlayer?.Invoke(this, _isHiding);
     }
 
     public override void OnInteraction()
     {
         //Debug.Log("[INTERACTABLE] " + this.name + " interacted");
         ChangeState();
-        MovingPlayer(_isHiding);
     }
 }

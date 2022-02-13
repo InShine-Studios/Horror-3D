@@ -23,12 +23,12 @@ public class HidingOverlay : MonoBehaviour
     #region Enable - Disable
     private void OnEnable()
     {
-        ClosetsController.HidingAnim += StartAnim;
+        HudManager.HidingAnim += StartAnim;
     }
 
     private void OnDisable()
     {
-        ClosetsController.HidingAnim -= StartAnim;
+        HudManager.HidingAnim -= StartAnim;
     }
     #endregion
 
