@@ -24,10 +24,12 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     public Slider slider;
     #endregion
 
+    #region Getter
     public float GetSliderValue()
     {
         return slider.value;
     }
+    #endregion
 
     public void ShowBar(bool _isActive)
     {
