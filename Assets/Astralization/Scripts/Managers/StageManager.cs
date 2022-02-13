@@ -35,7 +35,7 @@ public class StageManager : MonoBehaviour, IStageManager
             instance.name = _stageData.Names[i];
             instance.transform.parent = transform;
             instance.Load(_stageData.Positions[i], _stageData.Names[i], _stageData.Rads[i]);
-            _roomPoints.Add(instance.pointName, instance);
+            _roomPoints.Add(instance.PointName, instance);
         }
     }
 

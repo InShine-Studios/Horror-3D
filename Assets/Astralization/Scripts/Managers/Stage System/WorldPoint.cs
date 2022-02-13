@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
 
-
+/*
+ * A class that can keep data about a world point
+ */
 public class WorldPoint : MonoBehaviour
 {
-    public string pointName;
+    public string PointName;
 
-    public float radius;
+    public float Radius;
 
     #region Set Get
     public Vector3 GetPosition()
@@ -33,7 +35,7 @@ public class WorldPoint : MonoBehaviour
     public void Load(Vector3 pos, string pointName, float radius)
     {
         SetLocalPosition(pos);
-        this.pointName = pointName;
-        this.radius = radius;
+        this.PointName = pointName;
+        this.Radius = radius;
     }
 }

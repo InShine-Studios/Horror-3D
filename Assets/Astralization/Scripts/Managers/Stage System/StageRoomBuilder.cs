@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
+/*
+ * General builder for a stage.
+ * Used with StageRoomInspector class for editor mode.
+ */
 public class StageRoomBuilder : MonoBehaviour
 {
     [SerializeField]
@@ -31,7 +35,7 @@ public class StageRoomBuilder : MonoBehaviour
         for (int i = transform.childCount - 1; i >= 0; --i)
         {
             GameObject go = transform.GetChild(i).gameObject;
-            go.name = go.GetComponent<WorldPoint>().pointName;
+            go.name = go.GetComponent<WorldPoint>().PointName;
         }
     }
 
@@ -43,7 +47,7 @@ public class StageRoomBuilder : MonoBehaviour
         WorldPoint[] childPoints = transform.GetComponentsInChildren<WorldPoint>();
         foreach (WorldPoint r in childPoints)
         {
-            _roomPoints.Add(r.pointName, r);
+            _roomPoints.Add(r.PointName, r);
         }
     }
     #endregion
@@ -67,8 +71,8 @@ public class StageRoomBuilder : MonoBehaviour
         foreach (WorldPoint r in _roomPoints.Values)
         {
             stage.Positions.Add(r.GetLocalPosition());
-            stage.Names.Add(r.pointName);
-            stage.Rads.Add(r.radius);
+            stage.Names.Add(r.PointName);
+            stage.Rads.Add(r.Radius);
         }
 
         string fileName = string.Format("Assets/Astralization/Resources/Stages/{1}.asset", filePath, name);

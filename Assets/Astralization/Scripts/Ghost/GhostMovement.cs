@@ -92,8 +92,8 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     #region Wandering Controller
     private Vector3 RandomShiftTarget(WorldPoint target)
     {
-        float shiftX = Utils.Randomizer.GetFloat(-target.radius, target.radius);
-        float shiftZ = Utils.Randomizer.GetFloat(-target.radius, target.radius);
+        float shiftX = Utils.Randomizer.GetFloat(-target.Radius, target.Radius);
+        float shiftZ = Utils.Randomizer.GetFloat(-target.Radius, target.Radius);
         return target.GetPosition() + new Vector3(shiftX, 0, shiftZ);
     }
 
@@ -115,7 +115,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         if (NavMesh.SamplePosition(targetPoint, out _navMeshHit, _wanderRange, NavMesh.AllAreas))
         {
             result = _navMeshHit.position;
-            _currentRoom = targetRoom.pointName;
+            _currentRoom = targetRoom.PointName;
             //Debug.Log("[GHOST] Sampling target position. Target Room: " + _currentRoom + " with coordinate " + result);
             return true;
         }
