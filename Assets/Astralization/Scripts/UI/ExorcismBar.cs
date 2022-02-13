@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public interface IExorcismBar
 {
     float GetSliderValue();
-    void HideBar();
     void SetHold(float hold);
     void SetMinHold(float hold);
-    void ShowBar();
+    void ShowBar(bool _isActive);
 }
+
 
 /*
  * Class to show Exorcism channeling on HUD.
@@ -28,15 +28,17 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     {
         return slider.value;
     }
-    
-    public void ShowBar()
-    {
-        this.gameObject.SetActive(true);
-    }
 
-    public void HideBar()
+    public void ShowBar(bool _isActive)
     {
-        this.gameObject.SetActive(false);
+        if (_isActive)
+        {
+            slider.gameObject.SetActive(true);
+        }
+        else
+        {
+            slider.gameObject.SetActive(false);
+        }
     }
 
     public void SetMinHold(float hold)

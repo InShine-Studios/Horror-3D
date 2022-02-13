@@ -39,6 +39,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
     public static event Action<string> FinishDialogueEvent;
 
+    #region Awake
     private void Awake()
     {
         _nameText.text = "Budi";

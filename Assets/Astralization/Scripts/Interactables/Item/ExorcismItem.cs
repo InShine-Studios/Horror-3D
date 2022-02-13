@@ -28,8 +28,9 @@ public class ExorcismItem : Item, IExorcismItem
 
     [SerializeField]
     private ExorcismBar _exorcismBar;
-    [SerializeField]
-    private GameObject _exorcismHud;
+    private string _playerActionMap = "Exorcism";
+
+    public static event Action<string> ExorcismChannelingEvent;
     #endregion
 
     #region Update - Awake
@@ -38,7 +39,7 @@ public class ExorcismItem : Item, IExorcismItem
         if (_isUsed)
         {
             /*Debug.Log("[EXORCISM] Item used");*/
-            _exorcismHud.SetActive(true);
+            ExorcismChannelingEvent?.Invoke(_playerActionMap);
             _exorcismBar.SetMinHold(_minHold);
             _accumulatedTime += Time.deltaTime;
             //Debug.Log("[EXORCISM BAR] Accumulated Time = " + _accumulatedTime);
@@ -91,12 +92,14 @@ public class ExorcismItem : Item, IExorcismItem
         if (_accumulatedTime >= _holdTime)
         {
             Debug.Log("[EXORCISM] Exorcism Finished");
-            _exorcismHud.SetActive(false);
+            _exorcismBar.ShowBar(false);
+            ExorcismChannelingEvent?.Invoke("Player");
         }
         else
         {
+            ExorcismChannelingEvent?.Invoke("Player");
             Debug.Log("[EXORCISM] Exorcism Cancelled");
-            _exorcismHud.SetActive(false);
+            _exorcismBar.ShowBar(false);
         }
         _accumulatedTime = 0f;
     }

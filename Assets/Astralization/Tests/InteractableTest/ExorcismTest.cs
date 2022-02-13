@@ -49,6 +49,7 @@ public class ExorcismTest : TestBase
         yield return null;
         GameObject exorcismItemObj = player.transform.Find("Rotate/InteractZone/ExorcismItem").gameObject;
         GameObject exorcismBarObj = hud.transform.Find("ExorcismHud").gameObject;
+        GameObject exorcismSliderObj = hud.transform.Find("ExorcismHud/Slider").gameObject;
         Assert.NotNull(exorcismItemObj);
 
         IExorcismItem exorcismItem = exorcismItemObj.GetComponent<IExorcismItem>();
@@ -62,14 +63,14 @@ public class ExorcismTest : TestBase
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return new WaitForSeconds(0.3f);
         Assert.IsTrue(exorcismItem.GetUsed());
-        Assert.IsTrue(exorcismBarObj.activeInHierarchy);
+        Assert.IsTrue(exorcismSliderObj.activeSelf);
         Assert.AreEqual(exorcismItem.GetAccTime(), exorcismBar.GetSliderValue());
 
         yield return new WaitForSeconds(5.0f);
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return new WaitForSeconds(0.3f);
         Assert.IsFalse(exorcismItem.GetUsed());
-        Assert.IsFalse(exorcismBarObj.activeInHierarchy);
+        Assert.IsFalse(exorcismSliderObj.activeSelf);
     }
 
     [UnityTest]
@@ -85,6 +86,7 @@ public class ExorcismTest : TestBase
         yield return null;
         GameObject exorcismItemObj = player.transform.Find("Rotate/InteractZone/ExorcismItem").gameObject;
         GameObject exorcismBarObj = hud.transform.Find("ExorcismHud").gameObject;
+        GameObject exorcismSliderObj = hud.transform.Find("ExorcismHud/Slider").gameObject;
         Assert.NotNull(exorcismItemObj);
 
         IExorcismItem exorcismItem = exorcismItemObj.GetComponent<IExorcismItem>();
@@ -98,14 +100,14 @@ public class ExorcismTest : TestBase
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return new WaitForSeconds(0.3f);
         Assert.IsTrue(exorcismItem.GetUsed());
-        Assert.IsTrue(exorcismBarObj.activeInHierarchy);
+        Assert.IsTrue(exorcismSliderObj.activeSelf);
         Assert.AreEqual(exorcismItem.GetAccTime(), exorcismBar.GetSliderValue());
 
         yield return new WaitForSeconds(2.0f);
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return new WaitForSeconds(0.3f);
         Assert.IsFalse(exorcismItem.GetUsed());
-        Assert.IsFalse(exorcismBarObj.activeInHierarchy);
+        Assert.IsFalse(exorcismSliderObj.activeSelf);
     }
     #endregion
 }

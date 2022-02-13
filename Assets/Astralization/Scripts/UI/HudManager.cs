@@ -9,7 +9,9 @@ public class HudManager : MonoBehaviour
 {
     #region Variables
     [SerializeField]
-    private DialogueManager dialogueManager;
+    private DialogueManager _dialogueManager;
+    [SerializeField]
+    private ExorcismBar _exorcismBar;
     #endregion
 
     #region Enable - Disable
@@ -17,24 +19,32 @@ public class HudManager : MonoBehaviour
     {
         GameManager.ShowDialogueHudEvent += ShowDialogue;
         DialogueInputHandler.NextDialogueHudEvent += NextDialogue;
+        GameManager.ShowExorcismHudEvent += ShowExorcism;
     }
 
     private void OnDisable()
     {
         GameManager.ShowDialogueHudEvent -= ShowDialogue;
         DialogueInputHandler.NextDialogueHudEvent -= NextDialogue;
+        GameManager.ShowExorcismHudEvent -= ShowExorcism;
     }
     #endregion
 
     public void ShowDialogue(bool isShowDialogue)
     {
         //Debug.Log("[START DIALOGUE HUD] isShowDialogue: " + isShowDialogue);
-        dialogueManager.ShowDialogueBox(isShowDialogue);
+        _dialogueManager.ShowDialogueBox(isShowDialogue);
     }
 
     public void NextDialogue()
     {
         //Debug.Log("[NEXT DIALOGUE HUD]");
-        dialogueManager.NextLine();
+        _dialogueManager.NextLine();
+    }
+
+    public void ShowExorcism(bool isShowExorcism)
+    {
+        //Debug.Log("[START EXORCISM HUD] isShowExorcism: " + isShowExorcism);
+        _exorcismBar.ShowBar(isShowExorcism);
     }
 }

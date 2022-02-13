@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour, IGameManager
     private enum _playerState
     {
         Dialogue,
-        Player
+        Player,
+        Exorcism
     }
     #endregion
 
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour, IGameManager
     public static event Action<bool> ChangeWorldEvent;
     public static event Action<string> PlayerActionMapEvent;
     public static event Action<bool> ShowDialogueHudEvent;
+    public static event Action<bool> ShowExorcismHudEvent;
     #endregion
 
     #region Enable - Disable
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour, IGameManager
         AnkhItem.ChangeWorldGM += InvokeChangeWorld;
         NpcController.NpcInteractionEvent += InvokePlayerState;
         DialogueManager.FinishDialogueEvent += InvokePlayerState;
+        ExorcismItem.ExorcismChannelingEvent += InvokePlayerState;
     }
 
     private void OnDisable()
@@ -40,6 +43,7 @@ public class GameManager : MonoBehaviour, IGameManager
         AnkhItem.ChangeWorldGM -= InvokeChangeWorld;
         NpcController.NpcInteractionEvent -= InvokePlayerState;
         DialogueManager.FinishDialogueEvent -= InvokePlayerState;
+        ExorcismItem.ExorcismChannelingEvent -= InvokePlayerState;
     }
     #endregion
 
@@ -65,6 +69,11 @@ public class GameManager : MonoBehaviour, IGameManager
         else if (state.Equals(_playerState.Player.ToString()))
         {
             PlayerActionMapEvent?.Invoke(_playerState.Player.ToString());
+        }
+        else if (state.Equals(_playerState.Exorcism.ToString()))
+        {
+            ShowExorcismHudEvent?.Invoke(true);
+            PlayerActionMapEvent?.Invoke(_playerState.Exorcism.ToString());
         }
     }
     #endregion

@@ -310,7 +310,7 @@
                     "path": "<Mouse>/rightButton",
                     "interactions": "Press(behavior=1)",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "ExorcismButtonReleased",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -371,6 +371,34 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "NextDialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Exorcism",
+            "id": "d373a07f-06aa-483f-8660-276585384028",
+            "actions": [
+                {
+                    "name": "Channeling Stop",
+                    "type": "Button",
+                    "id": "531e8a8d-46a4-4dca-a869-e3c015b57ab7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b7eecc90-e902-438b-85f4-61f6e4d75f6a",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Channeling Stop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
