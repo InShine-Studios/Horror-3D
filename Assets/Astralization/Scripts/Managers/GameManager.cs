@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour, IGameManager
     public static event Action<bool> ChangeWorldEvent;
     public static event Action<string> PlayerActionMapEvent;
     public static event Action<bool> ShowDialogueHudEvent;
+    // TODO: to be implemented
     public static event Action PlayerAudioDiesEvent;
     #endregion
 

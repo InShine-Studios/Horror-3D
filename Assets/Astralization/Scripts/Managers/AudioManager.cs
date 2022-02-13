@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * The class for managing audio, specifically audio that needs to play globally i.e. ambience etc.
+ */
 public class AudioManager : MonoBehaviour
 {
     [Space]
     [Header("Audio")]
     [Tooltip("Audio Manager")]
-    private AudioPlayer AudioPlayerObj;
+    private AudioPlayer _audioPlayerObj;
 
     protected virtual void Awake()
     {
-        AudioPlayerObj = GetComponentInChildren<AudioPlayer>();
+        _audioPlayerObj = GetComponentInChildren<AudioPlayer>();
     }
 
     #region Enable - Disable
@@ -28,6 +31,6 @@ public class AudioManager : MonoBehaviour
 
     private void PlayAudioDies()
     {
-        AudioPlayerObj.Play("FemaleScream");
+        _audioPlayerObj.Play("FemaleScream");
     }
 }
