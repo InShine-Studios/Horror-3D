@@ -74,12 +74,12 @@ public class NPCInteractableTest: TestBase
 
         yield return new WaitForSeconds(0.3f);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.NextDialogueEnter);
-        Assert.AreEqual(2, dialogueManager.GetIndex());
+        Assert.AreEqual(false, dialogueManager.GetDialogStory().canContinue);
 
         yield return new WaitForSeconds(0.3f);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.NextDialogueClick);
 
-        Assert.IsFalse(dialogueManager.GetDialogBox());
+        Assert.IsFalse(dialogueManager.IsDialogBoxOpen());
     }
     #endregion
 }
