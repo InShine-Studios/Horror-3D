@@ -35,7 +35,6 @@ public class StageManager : MonoBehaviour, IStageManager
 
     public RoomPoint GetRandomRoomCoordinate()
     {
-        int randomIdx = Utils.Randomizer.Rand.Next(_roomPoints.Count);
         RoomPoint randomRoom = Utils.Randomizer.GetRandomValue(_roomPoints);
         return randomRoom;
     }
