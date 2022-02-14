@@ -47,14 +47,9 @@ public class ExorcismItem : Item, IExorcismItem
     {
         if (_isUsed)
         {
-            /*Debug.Log("[EXORCISM] Item used");*/
             ExorcismChannelingEvent?.Invoke(_playerActionMap);
-            
             _accumulatedTime += Time.deltaTime;
-            //Debug.Log("[EXORCISM BAR] Accumulated Time = " + _accumulatedTime);
             ExorcismUpdateSliderEvent?.Invoke(_accumulatedTime);
-
-            //Debug.Log("[EXORCISM BAR] Bar = " + _exorcismBar.slider.value);
             if (_accumulatedTime >= _holdTime)
             {
                 _isUsed = false;
