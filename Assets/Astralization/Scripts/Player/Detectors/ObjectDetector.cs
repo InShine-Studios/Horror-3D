@@ -11,9 +11,6 @@ using UnityEngine.InputSystem;
 public abstract class ObjectDetector : MonoBehaviour
 {
     #region Variables
-    [Header("Input System")]
-    protected PlayerInput playerInput;
-
     [Header("Dependant on Detectors")]
     [Tooltip("Tag to distinguish interactable types")]
     protected string detectionTag;
