@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Utils
 {
@@ -17,6 +19,19 @@ namespace Utils
             double scaled = (sample * range) + min;
             return (float)scaled;
         }
-    }
 
+        public static TValue GetRandomValue<TKey, TValue>(IDictionary<TKey, TValue> dict)
+        {
+            List<TValue> values = Enumerable.ToList(dict.Values);
+            int size = dict.Count;
+            return values[Rand.Next(size)];
+        }
+
+        public static TKey GetRandomKey<TKey, TValue>(IDictionary<TKey, TValue> dict)
+        {
+            List<TKey> values = Enumerable.ToList(dict.Keys);
+            int size = dict.Count;
+            return values[Rand.Next(size)];
+        }
+    }
 }
