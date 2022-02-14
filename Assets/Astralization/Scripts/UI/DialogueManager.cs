@@ -1,15 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 using System;
 using System.Collections;
+using Ink.Runtime;
 
 public interface IDialogueManager
 {
+    void SetDialogJson(TextAsset newDialogueJson);
     Animator GetAnimator();
-    bool GetDialogBox();
-    int GetIndex();
-    void ShowDialogBox(bool isInteractWithNpc);
+    bool IsDialogBoxOpen();
+    void ShowDialogueBox(bool isInteractWithNpc);
+    Story GetDialogStory();
 }
 
 /*
@@ -19,6 +20,7 @@ public interface IDialogueManager
  */
 public class DialogueManager : MonoBehaviour, IDialogueManager
 {
+    #region Variable
     [SerializeField]
     private Text _nameText;
     [SerializeField]
@@ -26,15 +28,19 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     [SerializeField]
     private Animator _animator;
 
-    public string[] lines;
-    private int _index;
+    [SerializeField]
+    private TextAsset _dialogueJson;
+    private Story _dialogueStory;
     
     [SerializeField]
     private float _textSpeed;
 
     private bool _dialogBoxOpen;
+    private string _playerActionMap = "Player";
+    #endregion
 
-    public static event Action<bool> FinishDialogue;
+
+    public static event Action<string> FinishDialogueEvent;
 
     private void Awake()
     {
@@ -43,41 +49,32 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         
     }
 
-    #region Enable - Disable
-    private void OnEnable()
+    #region Setter Getter
+    public void SetDialogJson(TextAsset newDialogueJson)
     {
-        NpcController.NpcInteractionEvent += ShowDialogBox;
-        PlayerDialogueInvoker.StartDialogue += NextLine;
+        _dialogueJson = newDialogueJson;
     }
 
-    private void OnDisable()
-    {
-        NpcController.NpcInteractionEvent -= ShowDialogBox;
-        PlayerDialogueInvoker.StartDialogue -= NextLine;
-    }
-    #endregion
-
-    #region Getter
     public Animator GetAnimator()
     {
         return _animator;
     }
 
-    public bool GetDialogBox()
+    public bool IsDialogBoxOpen()
     {
         return _dialogBoxOpen;
     }
 
-    public int GetIndex()
+    public Story GetDialogStory()
     {
-        return _index;
+        return _dialogueStory;
     }
     #endregion
 
     #region Dialogue Setup/Show
-    public void ShowDialogBox(bool isInteractWithNpc)
+    public void ShowDialogueBox(bool isShowDialogue)
     {
-        if (isInteractWithNpc)
+        if (isShowDialogue)
         {
             SetUpDialogue();
             _animator.SetBool("IsOpen", true);
@@ -93,16 +90,16 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
     void SetUpDialogue()
     {
-        _index = 0;
         _dialogueText.text = string.Empty;
+        _dialogueStory = new Story(_dialogueJson.text);
     }
     #endregion
 
     #region TypeLine
-    IEnumerator TypeLine(int idx)
+    IEnumerator TypeLine()
     {
         //To type each character 1 by 1
-        foreach (char c in lines[idx].ToCharArray())
+        foreach (char c in _dialogueStory.Continue().ToCharArray())
         {
             _dialogueText.text += c;
             yield return new WaitForSeconds(_textSpeed);
@@ -111,19 +108,18 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     #endregion
 
     #region Next
-    void NextLine()
+    public void NextLine()
     {
-        if (_index < lines.Length)
+        if (_dialogueStory.canContinue)
         {
             _dialogueText.text = string.Empty;
-            StartCoroutine(TypeLine(_index));
-            _index++;
+            StartCoroutine(TypeLine());
         }
         else
         {
             StopAllCoroutines();
-            FinishDialogue?.Invoke(false);
-            ShowDialogBox(false);
+            FinishDialogueEvent?.Invoke(_playerActionMap);
+            ShowDialogueBox(false);
         }
     }
     #endregion

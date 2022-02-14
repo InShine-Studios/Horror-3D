@@ -13,19 +13,35 @@ public class GameManager : MonoBehaviour, IGameManager
     [Tooltip("Bool flag to check if the player is in Real World or Astral World")]
     [SerializeField]
     private bool _isInAstralWorld = false;
+    // For further player state storage
+    private enum _playerState
+    {
+        Dialogue,
+        Player
+    }
     #endregion
 
+    #region Event
     public static event Action<bool> ChangeWorldEvent;
+    public static event Action<string> PlayerActionMapEvent;
+    public static event Action<bool> ShowDialogueHudEvent;
+    // TODO: to be implemented
+    public static event Action PlayerAudioDiesEvent;
+    #endregion
 
     #region Enable - Disable
     private void OnEnable()
     {
-        Ankh.ChangeWorldGM += InvokeChangeWorld;
+        AnkhItem.ChangeWorldGM += InvokeChangeWorld;
+        NpcController.NpcInteractionEvent += InvokePlayerState;
+        DialogueManager.FinishDialogueEvent += InvokePlayerState;
     }
 
     private void OnDisable()
     {
-        Ankh.ChangeWorldGM -= InvokeChangeWorld;
+        AnkhItem.ChangeWorldGM -= InvokeChangeWorld;
+        NpcController.NpcInteractionEvent -= InvokePlayerState;
+        DialogueManager.FinishDialogueEvent -= InvokePlayerState;
     }
     #endregion
 
@@ -33,9 +49,25 @@ public class GameManager : MonoBehaviour, IGameManager
     public bool IsInAstralWorld() { return _isInAstralWorld; }
     #endregion
 
+    #region Invoker
     public void InvokeChangeWorld()
     {
         _isInAstralWorld = !_isInAstralWorld;
         ChangeWorldEvent?.Invoke(_isInAstralWorld);
     }
+
+    public void InvokePlayerState(String state)
+    {
+        //Debug.Log("[INVOKE PLAYER STATE] Player state: " + state);
+        if (state.Equals(_playerState.Dialogue.ToString()))
+        {
+            ShowDialogueHudEvent?.Invoke(true);
+            PlayerActionMapEvent?.Invoke(_playerState.Dialogue.ToString());
+        }
+        else if (state.Equals(_playerState.Player.ToString()))
+        {
+            PlayerActionMapEvent?.Invoke(_playerState.Player.ToString());
+        }
+    }
+    #endregion
 }
