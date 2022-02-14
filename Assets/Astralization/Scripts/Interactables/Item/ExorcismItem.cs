@@ -33,11 +33,13 @@ public class ExorcismItem : Item, IExorcismItem
 
     public static event Action<string> ExorcismChannelingEvent;
     public static event Action<float> ExorcismUpdateSliderEvent;
+    public static event Action<float> ExorcismSetMinSliderEvent;
     #endregion
 
     protected override void Awake()
     {
         base.Awake();
+        ExorcismSetMinSliderEvent?.Invoke(_sliderMinValue);
     }
 
     #region Update
@@ -47,7 +49,7 @@ public class ExorcismItem : Item, IExorcismItem
         {
             /*Debug.Log("[EXORCISM] Item used");*/
             ExorcismChannelingEvent?.Invoke(_playerActionMap);
-            _exorcismBar.SetSliderMinValue(_sliderMinValue);
+            
             _accumulatedTime += Time.deltaTime;
             //Debug.Log("[EXORCISM BAR] Accumulated Time = " + _accumulatedTime);
             ExorcismUpdateSliderEvent?.Invoke(_accumulatedTime);

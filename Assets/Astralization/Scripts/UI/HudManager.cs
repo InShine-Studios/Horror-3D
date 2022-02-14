@@ -21,6 +21,7 @@ public class HudManager : MonoBehaviour
         DialogueInputHandler.NextDialogueHudEvent += NextDialogue;
         GameManager.ShowExorcismHudEvent += ShowExorcism;
         ExorcismItem.ExorcismUpdateSliderEvent += UpdateSlider;
+        ExorcismItem.ExorcismSetMinSliderEvent += SetMinValue;
     }
 
     private void OnDisable()
@@ -29,6 +30,7 @@ public class HudManager : MonoBehaviour
         DialogueInputHandler.NextDialogueHudEvent -= NextDialogue;
         GameManager.ShowExorcismHudEvent -= ShowExorcism;
         ExorcismItem.ExorcismUpdateSliderEvent -= UpdateSlider;
+        ExorcismItem.ExorcismSetMinSliderEvent -= SetMinValue;
     }
     #endregion
 
@@ -53,5 +55,10 @@ public class HudManager : MonoBehaviour
     public void UpdateSlider(float holdTime)
     {
         _exorcismBar.SetSliderValue(holdTime);
+    }
+
+    public void SetMinValue(float minValue)
+    {
+        _exorcismBar.SetSliderMinValue(minValue);
     }
 }
