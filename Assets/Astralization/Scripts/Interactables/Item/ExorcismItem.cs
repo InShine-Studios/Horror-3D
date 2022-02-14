@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public interface IExorcismItem
 {
-    void ButtonReleased();
+    void StopUse();
     void ProcessExorcism();
     float GetAccumulatedTime();
     bool IsUsed();
@@ -81,7 +81,7 @@ public class ExorcismItem : Item, IExorcismItem
         _isUsed = true;
     }
 
-    public override void ButtonReleased()
+    public override void StopUse()
     {
         if (_isUsed)
         {
