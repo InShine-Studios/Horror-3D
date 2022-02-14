@@ -211,7 +211,10 @@ public class Inventory : MonoBehaviour, IInventory
     {
         if (ctx.performed)
         {
-            _activeItem?.ButtonReleased();
+            if (_activeItem is ExorcismItem)
+            {
+                _activeItem?.ButtonReleased();
+            }
             if (!_activeItem) Debug.Log("[ITEM] Missing active item");
         }
     }

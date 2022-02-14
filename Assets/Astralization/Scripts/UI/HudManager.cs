@@ -20,6 +20,7 @@ public class HudManager : MonoBehaviour
         GameManager.ShowDialogueHudEvent += ShowDialogue;
         DialogueInputHandler.NextDialogueHudEvent += NextDialogue;
         GameManager.ShowExorcismHudEvent += ShowExorcism;
+        ExorcismItem.ExorcismUpdateSliderEvent += UpdateSlider;
     }
 
     private void OnDisable()
@@ -27,6 +28,7 @@ public class HudManager : MonoBehaviour
         GameManager.ShowDialogueHudEvent -= ShowDialogue;
         DialogueInputHandler.NextDialogueHudEvent -= NextDialogue;
         GameManager.ShowExorcismHudEvent -= ShowExorcism;
+        ExorcismItem.ExorcismUpdateSliderEvent -= UpdateSlider;
     }
     #endregion
 
@@ -46,5 +48,10 @@ public class HudManager : MonoBehaviour
     {
         //Debug.Log("[START EXORCISM HUD] isShowExorcism: " + isShowExorcism);
         _exorcismBar.ShowBar(isShowExorcism);
+    }
+
+    public void UpdateSlider(float holdTime)
+    {
+        _exorcismBar.SetSliderValue(holdTime);
     }
 }

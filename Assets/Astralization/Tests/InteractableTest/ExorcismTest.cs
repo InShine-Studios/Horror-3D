@@ -41,7 +41,6 @@ public class ExorcismTest : TestBase
     {
         yield return new WaitWhile(() => sceneLoaded == false);
         GameObject exorcismItemOW = GameObject.Find("OverworldItems/ExorcismItem");
-        //Debug.Log("[TEST EXORCISM] Exorcism Overworld Item Found");
         float moveDuration = GetMovementDurationTowards(exorcismItemOW.transform);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveRight, false, moveDuration);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
@@ -64,7 +63,7 @@ public class ExorcismTest : TestBase
         yield return new WaitForSeconds(0.3f);
         Assert.IsTrue(exorcismItem.GetUsed());
         Assert.IsTrue(exorcismSliderObj.activeSelf);
-        Assert.AreEqual(exorcismItem.GetAccTime(), exorcismBar.GetSliderValue());
+        Assert.AreEqual(exorcismItem.GetAccumulatedTime(), exorcismBar.GetSliderValue());
 
         yield return new WaitForSeconds(5.0f);
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.UseItem);
@@ -78,7 +77,6 @@ public class ExorcismTest : TestBase
     {
         yield return new WaitWhile(() => sceneLoaded == false);
         GameObject exorcismItemOW = GameObject.Find("OverworldItems/ExorcismItem");
-        //Debug.Log("[TEST EXORCISM] Exorcism Overworld Item Found");
         float moveDuration = GetMovementDurationTowards(exorcismItemOW.transform);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveRight, false, moveDuration);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
@@ -101,7 +99,7 @@ public class ExorcismTest : TestBase
         yield return new WaitForSeconds(0.3f);
         Assert.IsTrue(exorcismItem.GetUsed());
         Assert.IsTrue(exorcismSliderObj.activeSelf);
-        Assert.AreEqual(exorcismItem.GetAccTime(), exorcismBar.GetSliderValue());
+        Assert.AreEqual(exorcismItem.GetAccumulatedTime(), exorcismBar.GetSliderValue());
 
         yield return new WaitForSeconds(2.0f);
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.UseItem);

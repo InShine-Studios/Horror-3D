@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public interface IExorcismBar
 {
     float GetSliderValue();
-    void SetHold(float hold);
-    void SetMinHold(float hold);
+    void SetSliderValue(float hold);
+    void SetSliderMinValue(float hold);
     void ShowBar(bool _isActive);
 }
 
@@ -31,9 +31,9 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     }
     #endregion
 
-    public void ShowBar(bool _isActive)
+    public void ShowBar(bool isActive)
     {
-        if (_isActive)
+        if (isActive)
         {
             slider.gameObject.SetActive(true);
         }
@@ -43,13 +43,13 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
         }
     }
 
-    public void SetMinHold(float hold)
+    public void SetSliderMinValue(float hold)
     {
         slider.minValue = hold;
         slider.value = hold;
     }
 
-    public void SetHold(float hold)
+    public void SetSliderValue(float hold)
     {
         slider.value = hold;
     }
