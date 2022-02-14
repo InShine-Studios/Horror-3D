@@ -29,7 +29,7 @@ public abstract class Item : Interactable, IItem
 
     public abstract void Use();
 
-    public abstract void ButtonReleased();
+    public virtual void ButtonReleased() { ; }
 
     public override void OnInteraction()
     {

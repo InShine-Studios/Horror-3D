@@ -59,7 +59,6 @@ public class ExorcismItem : Item, IExorcismItem
                 _isExorcised = true;
                 ProcessExorcism();
             }
-            //ButtonReleased();
         }
     }
     #endregion

@@ -23,9 +23,4 @@ public class AnkhItem : Item
         //TODO: Call PlayAudio for Ankh
         //TODO: Implement transition animation
     }
-
-    public override void ButtonReleased()
-    {
-        
-    }
 }

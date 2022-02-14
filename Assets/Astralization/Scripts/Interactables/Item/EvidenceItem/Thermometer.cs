@@ -61,9 +61,4 @@ public class Thermometer : EvidenceItem
         if (state == EvidenceItemState.NEGATIVE) SetState(EvidenceItemState.POSITIVE);
         else SetState(EvidenceItemState.NEGATIVE);
     }
-
-    public override void ButtonReleased()
-    {
-
-    }
 }
