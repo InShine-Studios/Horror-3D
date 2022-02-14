@@ -14,9 +14,8 @@ public interface IExorcismBar
 
 /*
  * Class to show Exorcism channeling on HUD.
- * Use Setter and Getter to access the variables.
- * Is referenced in ExorcismItem.
- */
+ * Slider will show on screen during exorcism channeling.
+*/
 
 public class ExorcismBar : MonoBehaviour, IExorcismBar
 {

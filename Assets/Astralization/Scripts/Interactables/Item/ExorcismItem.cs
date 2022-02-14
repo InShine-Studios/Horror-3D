@@ -7,7 +7,7 @@ public interface IExorcismItem
     void ButtonReleased();
     void ProcessExorcism();
     float GetAccumulatedTime();
-    bool GetUsed();
+    bool IsUsed();
     void Use();
 }
 
@@ -51,6 +51,7 @@ public class ExorcismItem : Item, IExorcismItem
             _accumulatedTime += Time.deltaTime;
             //Debug.Log("[EXORCISM BAR] Accumulated Time = " + _accumulatedTime);
             ExorcismUpdateSliderEvent?.Invoke(_accumulatedTime);
+
             //Debug.Log("[EXORCISM BAR] Bar = " + _exorcismBar.slider.value);
             if (_accumulatedTime >= _holdTime)
             {
@@ -68,7 +69,7 @@ public class ExorcismItem : Item, IExorcismItem
         return _accumulatedTime;
     }
 
-    public bool GetUsed()
+    public bool IsUsed()
     {
         return _isUsed;
     }

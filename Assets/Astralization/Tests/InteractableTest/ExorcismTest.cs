@@ -56,19 +56,19 @@ public class ExorcismTest : TestBase
 
         IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
         Assert.AreEqual(1, inventory.GetNumOfItem());
-        Assert.NotNull(inventory.GetActiveItem());
+        Assert.AreEqual("ExorcismItem", inventory.GetActiveItemName());
         Assert.AreEqual(0, inventory.GetActiveIdx());
 
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return new WaitForSeconds(0.3f);
-        Assert.IsTrue(exorcismItem.GetUsed());
+        Assert.IsTrue(exorcismItem.IsUsed());
         Assert.IsTrue(exorcismSliderObj.activeSelf);
         Assert.AreEqual(exorcismItem.GetAccumulatedTime(), exorcismBar.GetSliderValue());
 
         yield return new WaitForSeconds(5.0f);
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return new WaitForSeconds(0.3f);
-        Assert.IsFalse(exorcismItem.GetUsed());
+        Assert.IsFalse(exorcismItem.IsUsed());
         Assert.IsFalse(exorcismSliderObj.activeSelf);
     }
 
@@ -92,19 +92,19 @@ public class ExorcismTest : TestBase
 
         IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
         Assert.AreEqual(1, inventory.GetNumOfItem());
-        Assert.NotNull(inventory.GetActiveItem());
+        Assert.AreEqual("ExorcismItem", inventory.GetActiveItemName());
         Assert.AreEqual(0, inventory.GetActiveIdx());
 
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return new WaitForSeconds(0.3f);
-        Assert.IsTrue(exorcismItem.GetUsed());
+        Assert.IsTrue(exorcismItem.IsUsed());
         Assert.IsTrue(exorcismSliderObj.activeSelf);
         Assert.AreEqual(exorcismItem.GetAccumulatedTime(), exorcismBar.GetSliderValue());
 
         yield return new WaitForSeconds(2.0f);
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return new WaitForSeconds(0.3f);
-        Assert.IsFalse(exorcismItem.GetUsed());
+        Assert.IsFalse(exorcismItem.IsUsed());
         Assert.IsFalse(exorcismSliderObj.activeSelf);
     }
     #endregion
