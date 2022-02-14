@@ -38,18 +38,19 @@ public class GhostTest : TestBase
         yield return new WaitWhile(() => sceneLoaded == false);
 
         string targetRoomName = "Laundry Room";
-        RoomCoordinate targetRoom = StageController.GetRoomCoordinate(targetRoomName);
+        IStageManager stageManager = GameObject.Find("Building/StageManager").GetComponent<IStageManager>();
+        WorldPoint targetRoom = stageManager.GetRoomCoordinate(targetRoomName);
 
         ghostMovement.SetWandering(false);
-        ghostMovement.WanderTarget(targetRoom,false);
+        ghostMovement.WanderTarget(targetRoom, false);
         yield return new WaitWhile(ghostMovement.IsOnRoute);
         float delta = Mathf.Abs(
             Utils.GeometryCalcu.GetDistance3D(
-                targetRoom.coordinate,
+                targetRoom.GetPosition(),
                 ghost.transform.position
             )
         );
-        Assert.IsTrue(delta < 3f);
+        Assert.IsTrue(delta <= ghostMovement.GetDistanceThreshold());
     }
 
     [UnityTest]
