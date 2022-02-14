@@ -25,6 +25,7 @@ public class ExorcismItem : Item, IExorcismItem
     private float _sliderMinValue = 0f;
     private float _holdTime = 5.0f;
     private bool _isUsed = false;
+    private bool _isExorcised = false;
 
     [SerializeField]
     private ExorcismBar _exorcismBar;
@@ -37,7 +38,6 @@ public class ExorcismItem : Item, IExorcismItem
     protected override void Awake()
     {
         base.Awake();
-
     }
 
     #region Update
@@ -56,6 +56,7 @@ public class ExorcismItem : Item, IExorcismItem
             if (_accumulatedTime >= _holdTime)
             {
                 _isUsed = false;
+                _isExorcised = true;
                 ProcessExorcism();
             }
             //ButtonReleased();
@@ -92,7 +93,7 @@ public class ExorcismItem : Item, IExorcismItem
 
     public void ProcessExorcism()
     {
-        if (_accumulatedTime >= _holdTime)
+        if (_isExorcised)
         {
             Debug.Log("[EXORCISM] Exorcism Finished");
             _exorcismBar.ShowBar(false);
