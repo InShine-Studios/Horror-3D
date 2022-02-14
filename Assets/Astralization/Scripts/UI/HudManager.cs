@@ -9,9 +9,9 @@ public class HudManager : MonoBehaviour
 {
     #region Variables
     [SerializeField]
-    private DialogueManager dialogueManager;
+    private DialogueManager _dialogueManager;
     [SerializeField]
-    private HidingOverlay hidingManager;
+    private HidingOverlay _hidingManager;
     #endregion
 
     #region Enable - Disable
@@ -35,17 +35,17 @@ public class HudManager : MonoBehaviour
     public void ShowDialogue(bool isShowDialogue)
     {
         //Debug.Log("[START DIALOGUE HUD] isShowDialogue: " + isShowDialogue);
-        dialogueManager.ShowDialogueBox(isShowDialogue);
+        _dialogueManager.ShowDialogueBox(isShowDialogue);
     }
 
     public void NextDialogue()
     {
         //Debug.Log("[NEXT DIALOGUE HUD]");
-        dialogueManager.NextLine();
+        _dialogueManager.NextLine();
     }
 
     public void ShowHidingHud(bool isHiding)
     {
-        hidingManager.StartAnim(isHiding);
+        _hidingManager.StartAnim(isHiding);
     }
 }

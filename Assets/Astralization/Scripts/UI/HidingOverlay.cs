@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+ * Class to control Hiding Overlay
+ */
 public class HidingOverlay : MonoBehaviour
 {
-    // Start is called before the first frame update
     #region Variables
     private const string _animParam = "isHiding";
 
-    [Space]
     [SerializeField]
     [Header("Animation")]
     private Animator _animator;

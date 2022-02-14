@@ -14,7 +14,7 @@ public class HideInputHandler : MonoBehaviour
     private string _playerActionMap = "Player";
     #endregion
 
-    public void UnHidePlayer(InputAction.CallbackContext ctx)
+    public void UnhidePlayer(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
         {

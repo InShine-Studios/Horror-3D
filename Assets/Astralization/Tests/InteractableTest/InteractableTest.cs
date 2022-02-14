@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class InteractableTest: TestBase
 {
-    protected GameObject hud;
+    private GameObject _hud;
 
     protected override void FindGameObjects(Scene scene)
     {
@@ -21,7 +21,7 @@ public class InteractableTest: TestBase
             }
             else if (gameObject.name == "Canvas")
             {
-                hud = gameObject;
+                _hud = gameObject;
             }
         }
     }
@@ -85,7 +85,7 @@ public class InteractableTest: TestBase
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
 
         PlayerInput _playerInput = player.GetComponent<PlayerInput>();
-        Animator anim = hud.transform.Find("HidingOverlay").GetComponent<Animator>();
+        Animator anim = _hud.transform.Find("HidingOverlay").GetComponent<Animator>();
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
         Assert.True(anim.GetBool("isHiding"));
         Assert.AreEqual(_playerInput.currentActionMap.name, "Hiding");
