@@ -8,15 +8,19 @@ public interface IAstralMeterLogic
     float GetAstralMeter();
     float GetConstantRate();
     bool IsOnSight();
-    void NPCWrongAnswer();
+    void NpcWrongAnswer();
     void PlayerKilled();
 }
 
 public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
 {
+    [SerializeField]
     private float _astralMeter = 0.0f;
+    [SerializeField]
     private float _maxMeter = 100.0f;
+    [SerializeField]
     private float _constantRate = 0.05f;
+    [SerializeField]
     private float _sightAmount = 1.0f;
     private bool _isOnSight = false;
 
@@ -68,11 +72,6 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     #region World State
     private void ChangeWorld(bool state)
     {
-        ToggleWorldRate(state);
-    }
-
-    private void ToggleWorldRate(bool state)
-    {
         if (state)
         {
             _constantRate = 0.083f;
@@ -95,7 +94,7 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     #endregion
 
     #region NPC
-    public void NPCWrongAnswer()
+    public void NpcWrongAnswer()
     {
         int randAnswerAmount = Random.Range(10, 15);
         _astralMeter += (float)randAnswerAmount;

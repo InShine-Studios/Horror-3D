@@ -22,7 +22,8 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     public bool UseIcon;
 
     [Tooltip("The Game Object for the icon")]
-    public GameObject InteractableIcon;
+    [SerializeField]
+    private GameObject InteractableIcon;
 
     [Space]
     [Header("Audio")]
