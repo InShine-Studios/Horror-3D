@@ -7,7 +7,7 @@ public class Thermometer : EvidenceItem
     #region Model
     [Header("Model reference")]
     [SerializeField]
-    [Tooltip("Material for Base evidence")]
+    [Tooltip("Model reference")]
     private GameObject model;
     #endregion
 
