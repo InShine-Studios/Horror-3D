@@ -26,14 +26,6 @@ public class PlayerBase : IPlayerBase
     [Header("Sprint Constants")]
     [Tooltip("Sprint Speed")]
     [SerializeField] private float _sprintSpeed;
-
-    /*private enum _playerState
-    {
-        idle,
-        moving,
-        sprinting,
-        channeling
-    }*/
     #endregion
 
     public float GetPlayerMovementSpeed()

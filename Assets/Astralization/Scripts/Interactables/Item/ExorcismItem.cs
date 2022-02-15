@@ -91,14 +91,14 @@ public class ExorcismItem : Item, IExorcismItem
     {
         if (_isExorcised)
         {
-            Debug.Log("[EXORCISM] Exorcism Finished");
+            //Debug.Log("[EXORCISM] Exorcism Finished");
             _exorcismBar.ShowBar(false);
             ExorcismChannelingEvent?.Invoke("Player");
         }
         else
         {
             ExorcismChannelingEvent?.Invoke("Player");
-            Debug.Log("[EXORCISM] Exorcism Cancelled");
+            //Debug.Log("[EXORCISM] Exorcism Cancelled");
             _exorcismBar.ShowBar(false);
         }
         _accumulatedTime = 0f;

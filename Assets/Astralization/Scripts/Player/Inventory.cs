@@ -213,11 +213,7 @@ public class Inventory : MonoBehaviour, IInventory
     {
         if (ctx.performed)
         {
-            if (_activeItem is ExorcismItem)
-            {
-                _activeItem?.StopUse();
-            }
-            if (!_activeItem) Debug.Log("[ITEM] Missing active item");
+            _activeItem?.StopUse();
         }
     }
 }
