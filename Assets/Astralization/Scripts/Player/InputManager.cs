@@ -19,11 +19,13 @@ public class InputManager : MonoBehaviour
     private void OnEnable()
     {
         GameManager.PlayerActionMapEvent += SetPlayerActionMap;
+        HideInputHandler.StopHidingEvent += SetPlayerActionMap;
     }
 
     private void OnDisable()
     {
         GameManager.PlayerActionMapEvent -= SetPlayerActionMap;
+        HideInputHandler.StopHidingEvent -= SetPlayerActionMap;
     }
 
     public void SetPlayerActionMap(string actionMap)

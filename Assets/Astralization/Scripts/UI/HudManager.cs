@@ -11,6 +11,8 @@ public class HudManager : MonoBehaviour
     [SerializeField]
     private DialogueManager _dialogueManager;
     [SerializeField]
+    private HidingOverlay _hidingManager;
+    [SerializeField]
     private ExorcismBar _exorcismBar;
     #endregion
 
@@ -18,7 +20,9 @@ public class HudManager : MonoBehaviour
     private void OnEnable()
     {
         GameManager.ShowDialogueHudEvent += ShowDialogue;
+        GameManager.StartHidingHudEvent += ShowHidingHud;
         DialogueInputHandler.NextDialogueHudEvent += NextDialogue;
+        HideInputHandler.StopHidingHudEvent += ShowHidingHud;
         GameManager.ShowExorcismHudEvent += ShowExorcism;
         ExorcismItem.ExorcismUpdateSliderEvent += UpdateSlider;
         ExorcismItem.ExorcismSetMinSliderEvent += SetMinValue;
@@ -27,7 +31,9 @@ public class HudManager : MonoBehaviour
     private void OnDisable()
     {
         GameManager.ShowDialogueHudEvent -= ShowDialogue;
+        GameManager.StartHidingHudEvent -= ShowHidingHud;
         DialogueInputHandler.NextDialogueHudEvent -= NextDialogue;
+        HideInputHandler.StopHidingHudEvent -= ShowHidingHud;
         GameManager.ShowExorcismHudEvent -= ShowExorcism;
         ExorcismItem.ExorcismUpdateSliderEvent -= UpdateSlider;
         ExorcismItem.ExorcismSetMinSliderEvent -= SetMinValue;
@@ -44,6 +50,11 @@ public class HudManager : MonoBehaviour
     {
         //Debug.Log("[NEXT DIALOGUE HUD]");
         _dialogueManager.NextLine();
+    }
+
+    public void ShowHidingHud(bool isHiding)
+    {
+        _hidingManager.StartAnim(isHiding);
     }
 
     public void ShowExorcism(bool isShowExorcism)

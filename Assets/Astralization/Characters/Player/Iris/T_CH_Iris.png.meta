@@ -1,0 +1,624 @@
+fileFormatVersion: 2
+guid: 54f13f68bde38164d9826d26423321f2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2762090392597500839
+    second: Iris_Idle_S
+  - first:
+      213: 1750114890588715735
+    second: Iris_Walk_S_1
+  - first:
+      213: -2859805241022969283
+    second: Iris_Walk_S_2
+  - first:
+      213: -5075469079216474781
+    second: Iris_Walk_S_3
+  - first:
+      213: 3788099229274205984
+    second: Iris_Walk_S_4
+  - first:
+      213: -2274722635950148253
+    second: Iris_Idle_W
+  - first:
+      213: 8058100071692831564
+    second: Iris_Walk_W_1
+  - first:
+      213: -5933367349575647330
+    second: Iris_Walk_W_2
+  - first:
+      213: 2799779409974673524
+    second: Iris_Walk_W_3
+  - first:
+      213: 7108747446145009248
+    second: Iris_Walk_W_4
+  - first:
+      213: -3867007719872533840
+    second: Iris_Idle_N
+  - first:
+      213: 4290809868943643366
+    second: Iris_Walk_N_1
+  - first:
+      213: -1579511259143518391
+    second: Iris_Walk_N_2
+  - first:
+      213: -8053532685904637835
+    second: Iris_Walk_N_3
+  - first:
+      213: 6546096912459702245
+    second: Iris_Walk_N_4
+  - first:
+      213: 8056438600732892827
+    second: Iris_Idle_E
+  - first:
+      213: -1465232239126492999
+    second: Iris_Walk_E_1
+  - first:
+      213: 8294919119271670447
+    second: Iris_Walk_E_2
+  - first:
+      213: -5168448283608330390
+    second: Iris_Walk_E_3
+  - first:
+      213: -1303490584651202289
+    second: Iris_Walk_E_4
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 2
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Iris_Idle_S
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 576
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95ce4bf0c651ba9d0800000000000000
+      internalID: -2762090392597500839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Walk_S_1
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 576
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7da79a17838a94810800000000000000
+      internalID: 1750114890588715735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Walk_S_2
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 576
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3a8602094eef48d0800000000000000
+      internalID: -2859805241022969283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Walk_S_3
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 576
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 365b2d073cf4099b0800000000000000
+      internalID: -5075469079216474781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Walk_S_4
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 576
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02fe1d6cd28029430800000000000000
+      internalID: 3788099229274205984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Idle_W
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 384
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 365b6a980df8e60e0800000000000000
+      internalID: -2274722635950148253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Walk_W_1
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 385
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4b0dc1525f14df60800000000000000
+      internalID: 8058100071692831564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Walk_W_2
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 384
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9f74a6f4d178ada0800000000000000
+      internalID: -5933367349575647330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Walk_W_3
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 384
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4704efc1a80dad620800000000000000
+      internalID: 2799779409974673524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Walk_W_4
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 384
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0664075732857a260800000000000000
+      internalID: 7108747446145009248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Idle_N
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 192
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0baed4197f0a55ac0800000000000000
+      internalID: -3867007719872533840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Walk_N_1
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 192
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e2502597d40c8b30800000000000000
+      internalID: 4290809868943643366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Walk_N_2
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 192
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9474500e0e2741ae0800000000000000
+      internalID: -1579511259143518391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Walk_N_3
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 192
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57018ad01ba1c3090800000000000000
+      internalID: -8053532685904637835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Walk_N_4
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 192
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ef117c857868da50800000000000000
+      internalID: 6546096912459702245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Idle_E
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 0
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9edd67f8383ecf60800000000000000
+      internalID: 8056438600732892827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Walk_E_1
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 0
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b84a69aa037aabe0800000000000000
+      internalID: -1465232239126492999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Walk_E_2
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 0
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa2b8c89df87d1370800000000000000
+      internalID: 8294919119271670447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Walk_E_3
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 0
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6f4c8f6babf548b0800000000000000
+      internalID: -5168448283608330390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Iris_Walk_E_4
+      rect:
+        serializedVersion: 2
+        x: 822
+        y: 0
+        width: 88
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f018ccd283219ede0800000000000000
+      internalID: -1303490584651202289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 1df45aedff3dce54e94d11191ad48ac7
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

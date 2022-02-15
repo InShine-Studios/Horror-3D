@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private enum _playerState
     {
         Dialogue,
+        Hiding,
         Player,
         Exorcism
     }
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour, IGameManager
     public static event Action<bool> ChangeWorldEvent;
     public static event Action<string> PlayerActionMapEvent;
     public static event Action<bool> ShowDialogueHudEvent;
+    public static event Action<bool> StartHidingHudEvent;
     // TODO: to be implemented
     public static event Action PlayerAudioDiesEvent;
     public static event Action<bool> ShowExorcismHudEvent;
@@ -37,6 +39,7 @@ public class GameManager : MonoBehaviour, IGameManager
         AnkhItem.ChangeWorldGM += InvokeChangeWorld;
         NpcController.NpcInteractionEvent += InvokePlayerState;
         DialogueManager.FinishDialogueEvent += InvokePlayerState;
+        ClosetsController.StartHidingEvent += InvokePlayerState;
         ExorcismItem.ExorcismChannelingEvent += InvokePlayerState;
     }
 
@@ -45,6 +48,7 @@ public class GameManager : MonoBehaviour, IGameManager
         AnkhItem.ChangeWorldGM -= InvokeChangeWorld;
         NpcController.NpcInteractionEvent -= InvokePlayerState;
         DialogueManager.FinishDialogueEvent -= InvokePlayerState;
+        ClosetsController.StartHidingEvent -= InvokePlayerState;
         ExorcismItem.ExorcismChannelingEvent -= InvokePlayerState;
     }
     #endregion
@@ -67,6 +71,11 @@ public class GameManager : MonoBehaviour, IGameManager
         {
             ShowDialogueHudEvent?.Invoke(true);
             PlayerActionMapEvent?.Invoke(_playerState.Dialogue.ToString());
+        }
+        else if (state.Equals(_playerState.Hiding.ToString()))
+        {
+            StartHidingHudEvent?.Invoke(true);
+            PlayerActionMapEvent?.Invoke(_playerState.Hiding.ToString());
         }
         else if (state.Equals(_playerState.Player.ToString()))
         {

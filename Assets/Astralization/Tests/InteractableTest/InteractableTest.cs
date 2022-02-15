@@ -3,9 +3,12 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using UnityEngine.InputSystem;
 
 public class InteractableTest: TestBase
 {
+    private GameObject _hud;
+
     protected override void FindGameObjects(Scene scene)
     {
         GameObject[] gameObjects = scene.GetRootGameObjects();
@@ -15,6 +18,10 @@ public class InteractableTest: TestBase
             {
                 player = gameObject;
                 playerMovement = player.GetComponent<IPlayerMovement>();
+            }
+            else if (gameObject.name == "Canvas")
+            {
+                _hud = gameObject;
             }
         }
     }
@@ -67,6 +74,25 @@ public class InteractableTest: TestBase
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
         yield return new WaitForSeconds(1f);
         Assert.IsFalse(door.GetState());
+    }
+
+    [UnityTest]
+    public IEnumerator PlayerInteractableDetector_InteractClosets()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        float moveDuration = GetMovementDurationTowards(GameObject.Find("Closets").transform);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveLeft, false, 0.5f);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
+
+        PlayerInput _playerInput = player.GetComponent<PlayerInput>();
+        Animator anim = _hud.transform.Find("HidingOverlay").GetComponent<Animator>();
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
+        Assert.True(anim.GetBool("isHiding"));
+        Assert.AreEqual(_playerInput.currentActionMap.name, "Hiding");
+
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
+        Assert.False(anim.GetBool("isHiding"));
+        Assert.AreEqual(_playerInput.currentActionMap.name, "Player");
     }
 
     [UnityTest]
