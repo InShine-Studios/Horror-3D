@@ -23,7 +23,7 @@ public abstract class Interactable : MonoBehaviour, IInteractable
 
     [Tooltip("The Game Object for the icon")]
     [SerializeField]
-    private GameObject InteractableIcon;
+    private GameObject _InteractableIcon;
 
     [Space]
     [Header("Audio")]
@@ -58,7 +58,7 @@ public abstract class Interactable : MonoBehaviour, IInteractable
         if (UseIcon)
         {
             //Debug.Log("[INTERACTABLE] Setting icon " + this.name + " to " + state);
-            InteractableIcon.SetActive(state);
+            _InteractableIcon.SetActive(state);
         }
     }
 
