@@ -3,7 +3,7 @@ using UnityEngine;
 /*
  * Class to keep the state of the real world volume settings.
  */
-public class VolumeReal : MonoBehaviour
+public class VolumeReal : Volume
 {
     #region Enable - Disable
     private void OnEnable()
@@ -17,7 +17,7 @@ public class VolumeReal : MonoBehaviour
     }
     #endregion
 
-    private void SetState(bool state)
+    public override void SetState(bool state)
     {
         //Debug.Log("[VOLUME REAL] Toggle " + this.name);
         state = !state;
@@ -26,5 +26,16 @@ public class VolumeReal : MonoBehaviour
             GameObject go = transform.GetChild(i).gameObject;
             go.SetActive(state);
         }
+        ToggleFogColor(state);
+    }
+
+    public override void ToggleFogColor(bool state)
+    {
+        if (!state)
+        {
+            Color col = Utils.ColorHelper.ParseHex("#5F466A");
+            RenderSettings.fogColor = col;
+        }
+        else RenderSettings.fogColor = Color.black;
     }
 }

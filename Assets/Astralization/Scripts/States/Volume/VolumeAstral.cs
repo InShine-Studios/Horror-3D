@@ -3,7 +3,7 @@ using UnityEngine;
 /*
  * Class to keep the state of the astral volume settings.
  */
-public class VolumeAstral : MonoBehaviour
+public class VolumeAstral : Volume
 {
     #region Enable - Disable
     private void OnEnable()
@@ -17,7 +17,7 @@ public class VolumeAstral : MonoBehaviour
     }
     #endregion
 
-    private void SetState(bool state)
+    public override void SetState(bool state)
     {
         //Debug.Log("[VOLUME ASTRAL] Toggle " + this.name);
 
@@ -29,7 +29,7 @@ public class VolumeAstral : MonoBehaviour
         ToggleFogColor(state);
     }
 
-    private void ToggleFogColor(bool state)
+    public override void ToggleFogColor(bool state)
     {
         if (state)
         {
