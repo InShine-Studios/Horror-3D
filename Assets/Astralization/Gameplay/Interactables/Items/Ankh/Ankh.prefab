@@ -103,8 +103,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseIcon: 1
-  InteractableIcon: {fileID: 745897024223551521}
+  _InteractableIcon: {fileID: 745897024223551521}
   _itemLogo: {fileID: -5692239723208888173, guid: 76c058bdb7187bc45bba0328cc1afc28, type: 3}
+  _discardedWhenUsed: 0
 --- !u!1001 &394329704679431339
 PrefabInstance:
   m_ObjectHideFlags: 0
