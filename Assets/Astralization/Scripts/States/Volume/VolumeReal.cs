@@ -21,21 +21,14 @@ public class VolumeReal : Volume
     {
         //Debug.Log("[VOLUME REAL] Toggle " + this.name);
         state = !state;
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            GameObject go = transform.GetChild(i).gameObject;
-            go.SetActive(state);
-        }
-        ToggleFogColor(state);
+        base.SetState(state);
     }
 
     public override void ToggleFogColor(bool state)
     {
-        if (!state)
+        if (state)
         {
-            Color col = Utils.ColorHelper.ParseHex("#5F466A");
-            RenderSettings.fogColor = col;
+            RenderSettings.fogColor = Color.black;
         }
-        else RenderSettings.fogColor = Color.black;
     }
 }

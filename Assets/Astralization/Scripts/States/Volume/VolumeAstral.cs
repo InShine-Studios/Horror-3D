@@ -20,13 +20,7 @@ public class VolumeAstral : Volume
     public override void SetState(bool state)
     {
         //Debug.Log("[VOLUME ASTRAL] Toggle " + this.name);
-
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            GameObject go = transform.GetChild(i).gameObject;
-            go.SetActive(state);
-        }
-        ToggleFogColor(state);
+        base.SetState(state);
     }
 
     public override void ToggleFogColor(bool state)
@@ -36,6 +30,6 @@ public class VolumeAstral : Volume
             Color col = Utils.ColorHelper.ParseHex("#5F466A");
             RenderSettings.fogColor = col;
         }
-        else RenderSettings.fogColor = Color.black;
+
     }
 }

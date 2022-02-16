@@ -4,6 +4,14 @@ using UnityEngine;
 
 public abstract class Volume : MonoBehaviour
 {
-    public abstract void SetState(bool state);
+    public virtual void SetState(bool state)
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            GameObject go = transform.GetChild(i).gameObject;
+            go.SetActive(state);
+        }
+        ToggleFogColor(state);
+    }
     public abstract void ToggleFogColor(bool state);
 }
