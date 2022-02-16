@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5697087657061699056}
   - component: {fileID: 7247314394087510423}
   m_Layer: 0
-  m_Name: M_HO_DiningTable
+  m_Name: M_HD_DiningTable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2973,7 +2973,7 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 2dc5b3580dcd4e06cab82e8e683c5ccf, type: 2}
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3027,7 +3027,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7191173731885230856}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 2dc5b3580dcd4e06cab82e8e683c5ccf, type: 2}
 --- !u!1 &7191173732094863529
 GameObject:
   m_ObjectHideFlags: 0
@@ -3272,7 +3272,7 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 1dcb532a22e1720348e53b5640ccd0cc, type: 2}
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3325,4 +3325,4 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7191173732094863529}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 1dcb532a22e1720348e53b5640ccd0cc, type: 2}
