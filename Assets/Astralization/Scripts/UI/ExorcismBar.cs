@@ -103,14 +103,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     #region Exorcism Logic
     public void ShowBar(bool isActive)
     {
-        if (isActive)
-        {
-            slider.gameObject.SetActive(true);
-        }
-        else
-        {
-            slider.gameObject.SetActive(false);
-        }
+        slider.gameObject.SetActive(isActive);
     }
 
     public void StopExorcism()
