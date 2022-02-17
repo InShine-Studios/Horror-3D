@@ -1,6 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+/*
+ * SilhouetteBowl class.
+ * Override DetermineEvidence and HandleChange from base EvidenceItem class according to murder silhouette evidence mechanics.
+ */
 public class SilhouetteBowl : EvidenceItem
 {
 
@@ -8,33 +12,34 @@ public class SilhouetteBowl : EvidenceItem
     [Header("Model reference")]
     [SerializeField]
     [Tooltip("Positive model game object reference")]
-    private GameObject positiveModel;
+    private GameObject _positiveModel;
     
+    [Space]
     [SerializeField]
     [Tooltip("Positive model game object reference")]
-    private GameObject negativeModel;
+    private GameObject _negativeModel;
     #endregion
     
     public override void HandleChange()
     {
         if (this.state == EvidenceItemState.POSITIVE)
         {
-            positiveModel.SetActive(true);
-            negativeModel.SetActive(false);
+            _positiveModel.SetActive(true);
+            _negativeModel.SetActive(false);
         } else if (this.state == EvidenceItemState.NEGATIVE)
         {
-            positiveModel.SetActive(false);
-            negativeModel.SetActive(true);
+            _positiveModel.SetActive(false);
+            _negativeModel.SetActive(true);
         } else
         {
-            positiveModel.SetActive(false);
-            negativeModel.SetActive(false);
+            _positiveModel.SetActive(false);
+            _negativeModel.SetActive(false);
         }
     }
 
     public override void DetermineEvidence()
     {
-        // NOTE this dummy behavior at the moment, wait for Ghost Implementation
+        // TODO this dummy behavior at the moment, wait for Ghost Implementation
         if (state == EvidenceItemState.NEGATIVE) SetState(EvidenceItemState.POSITIVE);
         else SetState(EvidenceItemState.NEGATIVE);
     }

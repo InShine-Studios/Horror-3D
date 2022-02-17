@@ -1,6 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+
+/*
+ * Thermometer class.
+ * Override DetermineEvidence and HandleChange from base EvidenceItem class according to murder environment temperature evidence mechanics.
+ */
 public class Thermometer : EvidenceItem
 {
 
@@ -8,26 +13,29 @@ public class Thermometer : EvidenceItem
     [Header("Model reference")]
     [SerializeField]
     [Tooltip("Model reference")]
-    private GameObject model;
+    private GameObject _model;
     #endregion
 
     #region State Materials
     [Header("State Materials")]
     [SerializeField]
     [Tooltip("Material for Base evidence")]
-    private Material baseMaterial;
+    private Material _baseMaterial;
 
+    [Space]
     [SerializeField]
     [Tooltip("Material for Detect Evidence evidence")]
-    private Material activeMaterial;
+    private Material _activeMaterial;
 
+    [Space]
     [SerializeField]
     [Tooltip("Material for Positive evidence")]
-    private Material positiveMaterial;
+    private Material _positiveMaterial;
 
+    [Space]
     [SerializeField]
     [Tooltip("Material for Negative evidence")]
-    private Material negativeMaterial;
+    private Material _negativeMaterial;
 
     #endregion
 
@@ -37,16 +45,16 @@ public class Thermometer : EvidenceItem
     {
         base.Awake();
         stateToMatMapping = new Dictionary<EvidenceItemState, Material>() {
-            {EvidenceItemState.BASE, this.baseMaterial},
-            {EvidenceItemState.ACTIVE, this.activeMaterial},
-            {EvidenceItemState.POSITIVE, this.positiveMaterial},
-            {EvidenceItemState.NEGATIVE, this.negativeMaterial},
+            {EvidenceItemState.BASE, this._baseMaterial},
+            {EvidenceItemState.ACTIVE, this._activeMaterial},
+            {EvidenceItemState.POSITIVE, this._positiveMaterial},
+            {EvidenceItemState.NEGATIVE, this._negativeMaterial},
         };
     }
 
     private void SetStateMaterial(Material stateMaterial)
     {
-        MeshRenderer mesh = model.GetComponentInChildren<MeshRenderer>(true);
+        MeshRenderer mesh = _model.GetComponentInChildren<MeshRenderer>(true);
         mesh.material = stateMaterial;
     }
 
@@ -57,7 +65,7 @@ public class Thermometer : EvidenceItem
 
     public override void DetermineEvidence()
     {
-        // NOTE this dummy behavior at the moment, wait for Ghost Implementation
+        // TODO this dummy behavior at the moment, wait for Ghost Implementation
         if (state == EvidenceItemState.NEGATIVE) SetState(EvidenceItemState.POSITIVE);
         else SetState(EvidenceItemState.NEGATIVE);
     }
