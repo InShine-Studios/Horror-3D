@@ -9,5 +9,5 @@ public abstract class PlayerState : State
         owner = GetComponent<InputManager>();
     }
 
-    protected abstract void HandleInput(InputAction input, InputAction.CallbackContext ctx);
+    public abstract void HandleInput(InputAction.CallbackContext ctx);
 }

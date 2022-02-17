@@ -9,8 +9,8 @@ public interface IPlayerMovement
     bool GetSprintBool();
     float GetCurMoveSpeed();
     void OnMovementInput(InputAction.CallbackContext inputVal);
-    void SprintPressed(InputAction.CallbackContext ctx);
-    void SprintReleased(InputAction.CallbackContext ctx);
+    void SprintPressed();
+    void SprintReleased();
 }
 
 /*
@@ -74,22 +74,16 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     }
 
     //TODO Sprint with cooldown?
-    public void SprintPressed(InputAction.CallbackContext ctx)
+    public void SprintPressed()
     {
-        if (ctx.performed)
-        {
-            _isSprinting = true;
-            //Debug.Log(this.name + " started sprinting " + isSprinting);
-        }
+        _isSprinting = true;
+        //Debug.Log(this.name + " started sprinting " + isSprinting);
     }
 
-    public void SprintReleased(InputAction.CallbackContext ctx)
+    public void SprintReleased()
     {
-        if (ctx.performed)
-        {
-            _isSprinting = false;
-            //Debug.Log(this.name + " no longer sprinting " + isSprinting);
-        }
+        _isSprinting = false;
+        //Debug.Log(this.name + " no longer sprinting " + isSprinting);
     }
     #endregion
 

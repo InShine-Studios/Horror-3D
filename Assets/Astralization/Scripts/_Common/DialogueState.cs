@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class DialogueState : PlayerState
@@ -9,14 +10,17 @@ public class DialogueState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        _dialogueInputHandler = GetComponent<DialogueInputHandler>();
+        _dialogueInputHandler = GetComponentInChildren<DialogueInputHandler>();
     }
 
-    protected override void HandleInput(InputAction input, InputAction.CallbackContext ctx)
+    public override void HandleInput(InputAction.CallbackContext ctx)
     {
-        switch (input.name)
+        if (ctx.performed)
         {
-            case "NextDialogue": _dialogueInputHandler.NextDialogue(ctx); break;
+            switch (ctx.action.name)
+            {
+                case "NextDialogue": _dialogueInputHandler.NextDialogue(); break;
+            }
         }
     }
 }

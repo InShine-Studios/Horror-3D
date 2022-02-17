@@ -54,6 +54,7 @@ public class NPCInteractableTest: TestBase
 
         Assert.AreEqual("Dialogue", playerInput.currentActionMap.ToString().Split(':')[1]);
         Assert.IsTrue(dialogueManager.GetAnimator().GetBool("IsOpen"));
+        Debug.Log("success 1");
     }
 
     [UnityTest]

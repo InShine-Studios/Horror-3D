@@ -28,9 +28,18 @@ public class InputManager : StateMachine
     }
 
     public void SetPlayerActionMap(string actionMap)
-    {
-        // TODO ChangeState<MovementState>();
+    { 
+        Debug.Log("[INPUT MAP] actionMap: " + actionMap);
+        if (actionMap.Equals("Player"))
+        {
+
+            ChangeState<MovementState>();
+        }
+        else if (actionMap.Equals("Dialogue"))
+        {
+            ChangeState<DialogueState>();
+        }
         _playerInput.SwitchCurrentActionMap(actionMap);
-        //Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);
+        Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);
     }
 }

@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class MovementState : PlayerState
@@ -7,29 +8,47 @@ public class MovementState : PlayerState
     private InteractableDetector _interactableDetector;
     private ItemDetector _itemDetector;
     private Inventory _inventory;
+    private PlayerRotation _playerRotation;
+    private GhostSimulationInteractableDetector _ghostSimulationInteractableDetector;
     #endregion
 
     public override void Enter()
     {
         base.Enter();
         _playerMovement = GetComponent<PlayerMovement>();
-        _interactableDetector = GetComponent<InteractableDetector>();
-        _itemDetector = GetComponent<ItemDetector>();
-        _inventory = GetComponent<Inventory>();
+        _interactableDetector = GetComponentInChildren<InteractableDetector>();
+        _itemDetector = GetComponentInChildren<ItemDetector>();
+        _inventory = GetComponentInChildren<Inventory>();
+        _playerRotation = GetComponentInChildren<PlayerRotation>();
+        _ghostSimulationInteractableDetector = GetComponentInChildren<GhostSimulationInteractableDetector>();
     }
 
-    protected override void HandleInput(InputAction input, InputAction.CallbackContext ctx)
+    public override void HandleInput(InputAction.CallbackContext ctx)
     {
-        switch (input.name)
+        if (ctx.action.name.Equals("Movement"))
         {
-            case "Movement": _playerMovement.OnMovementInput(ctx); break;
-            case "SprintStart": _playerMovement.SprintPressed(ctx); break;
-            case "SprintEnd": _playerMovement.SprintReleased(ctx); break;
-            case "Interact": _interactableDetector.CheckInteraction(ctx); break;
-            case "PickItem": _itemDetector.CheckInteraction(ctx); break;
-            case "ChangeItem": _inventory.ScrollActiveItem(ctx); break;
-            case "UseItem": _inventory.UseActiveItem(ctx); break;
-            case "DiscardItem": _inventory.DiscardItemInput(ctx); break;
+            _playerMovement.OnMovementInput(ctx);
+        }
+        else if (ctx.action.name.Equals("MousePosition"))
+        {
+            _playerRotation.OnMousePosition(ctx);
+        }
+        else if (ctx.action.name.Equals("ChangeItem"))
+        {
+            _inventory.ScrollActiveItem(ctx);
+        }
+        else if (ctx.performed)
+        {
+            switch (ctx.action.name)
+            {
+                case "SprintStart": _playerMovement.SprintPressed(); break;
+                case "SprintEnd": _playerMovement.SprintReleased(); break;
+                case "Interact": _interactableDetector.CheckInteraction(); break;
+                case "PickItem": _itemDetector.CheckInteraction(); break;
+                case "UseItem": _inventory.UseActiveItem(); break;
+                case "DiscardItem": _inventory.DiscardItemInput(); break;
+                case "SimulateGhostInteract": _ghostSimulationInteractableDetector.CheckInteraction(); break;
+            }
         }
     }
 }

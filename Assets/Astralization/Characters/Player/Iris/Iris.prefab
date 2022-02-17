@@ -495,6 +495,8 @@ GameObject:
   - component: {fileID: 8193939564536706077}
   - component: {fileID: -2560991310140210103}
   - component: {fileID: 873121507167454745}
+  - component: {fileID: 4729053972475736410}
+  - component: {fileID: 8252548488472921556}
   m_Layer: 0
   m_Name: Iris
   m_TagString: Player
@@ -565,9 +567,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8057739223163586148}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: OnMovementInput
+      - m_Target: {fileID: 8252548488472921556}
+        m_TargetAssemblyTypeName: MovementState, Scripts
+        m_MethodName: HandleInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -581,9 +583,9 @@ MonoBehaviour:
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8057739222434694633}
-        m_TargetAssemblyTypeName: PlayerRotation, Assembly-CSharp
-        m_MethodName: OnMousePosition
+      - m_Target: {fileID: 8252548488472921556}
+        m_TargetAssemblyTypeName: MovementState, Scripts
+        m_MethodName: HandleInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -597,25 +599,9 @@ MonoBehaviour:
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8057739223163586147}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: e18275dd-0199-4b73-8c87-a3cc91c20f61
-    m_ActionName: Player/Fire[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7587431485049714996}
-        m_TargetAssemblyTypeName: ObjectDetector, Assembly-CSharp
-        m_MethodName: CheckInteraction
+      - m_Target: {fileID: 8252548488472921556}
+        m_TargetAssemblyTypeName: MovementState, Scripts
+        m_MethodName: HandleInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -629,9 +615,9 @@ MonoBehaviour:
     m_ActionName: Player/Interact[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8057739223163586148}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: SprintPressed
+      - m_Target: {fileID: 8252548488472921556}
+        m_TargetAssemblyTypeName: MovementState, Scripts
+        m_MethodName: HandleInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -645,9 +631,9 @@ MonoBehaviour:
     m_ActionName: Player/SprintStart[/Keyboard/leftShift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8057739223163586148}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: SprintReleased
+      - m_Target: {fileID: 8252548488472921556}
+        m_TargetAssemblyTypeName: MovementState, Scripts
+        m_MethodName: HandleInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -661,9 +647,9 @@ MonoBehaviour:
     m_ActionName: Player/SprintEnd[/Keyboard/leftShift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1105417087990013444}
-        m_TargetAssemblyTypeName: ObjectDetector, Assembly-CSharp
-        m_MethodName: CheckInteraction
+      - m_Target: {fileID: 8252548488472921556}
+        m_TargetAssemblyTypeName: MovementState, Scripts
+        m_MethodName: HandleInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -677,9 +663,9 @@ MonoBehaviour:
     m_ActionName: Player/PickItem[/Keyboard/f]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5185263958987290348}
-        m_TargetAssemblyTypeName: Inventory, Scripts
-        m_MethodName: DiscardItemInput
+      - m_Target: {fileID: 8252548488472921556}
+        m_TargetAssemblyTypeName: MovementState, Scripts
+        m_MethodName: HandleInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -693,9 +679,9 @@ MonoBehaviour:
     m_ActionName: Player/DiscardItem[/Keyboard/g]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5185263958987290348}
-        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
-        m_MethodName: UseActiveItem
+      - m_Target: {fileID: 8252548488472921556}
+        m_TargetAssemblyTypeName: MovementState, Scripts
+        m_MethodName: HandleInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -709,9 +695,9 @@ MonoBehaviour:
     m_ActionName: Player/UseItem[/Mouse/rightButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5185263958987290348}
-        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
-        m_MethodName: ScrollActiveItem
+      - m_Target: {fileID: 8252548488472921556}
+        m_TargetAssemblyTypeName: MovementState, Scripts
+        m_MethodName: HandleInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -724,14 +710,26 @@ MonoBehaviour:
     m_ActionId: 30787200-0281-41d9-8fa9-730c3dd995fb
     m_ActionName: Player/ChangeItem[/Mouse/scroll]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4729053972475736410}
+        m_TargetAssemblyTypeName: DialogueState, Scripts
+        m_MethodName: HandleInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 529143e4-1c0d-4543-8a9a-16690e5e2aa1
     m_ActionName: Dialogue/Click[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1804307803709109356}
-        m_TargetAssemblyTypeName: DialogueInputHandler, Scripts
-        m_MethodName: NextDialogue
+      - m_Target: {fileID: 4729053972475736410}
+        m_TargetAssemblyTypeName: DialogueState, Scripts
+        m_MethodName: HandleInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -818,5 +816,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 199f011bb37f44529bddbf74b35e55c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4729053972475736410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8057739223163586147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad88645f6682f4ac0b5c34af4916cdbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8252548488472921556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8057739223163586147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d12ea1620cc4557b82fc07628e5b38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

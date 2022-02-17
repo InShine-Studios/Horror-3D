@@ -11,11 +11,8 @@ public class DialogueInputHandler : MonoBehaviour
     public static event Action NextDialogueHudEvent;
     #endregion
 
-    public void NextDialogue(InputAction.CallbackContext ctx)
+    public void NextDialogue()
     {
-        if (ctx.performed)
-        {
-            NextDialogueHudEvent?.Invoke();
-        }
+        NextDialogueHudEvent?.Invoke();
     }
 }

@@ -10,7 +10,7 @@ public class HidingState : PlayerState
         base.Enter();
     }
 
-    protected override void HandleInput(InputAction input, InputAction.CallbackContext ctx)
+    public override void HandleInput(InputAction.CallbackContext ctx)
     {
 
     }

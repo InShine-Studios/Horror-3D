@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public interface IInventory
 {
-    void DiscardItemInput(InputAction.CallbackContext ctx);
+    void DiscardItemInput();
     int GetActiveIdx();
     IItem GetActiveItem();
     IItem GetItemByIndex(int idx);
@@ -13,7 +13,7 @@ public interface IInventory
     float GetScrollStep();
     void PickItem(Item item);
     void ScrollActiveItem(InputAction.CallbackContext ctx);
-    void UseActiveItem(InputAction.CallbackContext ctx);
+    void UseActiveItem();
 }
 
 /*
@@ -151,15 +151,12 @@ public class Inventory : MonoBehaviour, IInventory
         ItemLogoEvent?.Invoke(false, null);
     }
 
-    public void DiscardItemInput(InputAction.CallbackContext ctx)
+    public void DiscardItemInput()
     {
-        if (ctx.performed)
+        if (_activeItem) DiscardItem();
+        else
         {
-            if (_activeItem) DiscardItem();
-            else
-            {
-                Debug.Log("[INVENTORY] No item to discard, not holding an item");
-            }
+            Debug.Log("[INVENTORY] No item to discard, not holding an item");
         }
     }
     #endregion
@@ -196,14 +193,11 @@ public class Inventory : MonoBehaviour, IInventory
     }
     #endregion
 
-    public void UseActiveItem(InputAction.CallbackContext ctx)
+    public void UseActiveItem()
     {
-        if (ctx.performed)
-        {
-            _activeItem?.Use();
+        _activeItem?.Use();
 
-            if (!_activeItem) Debug.Log("[ITEM] Missing active item");
-            else if (_activeItem.IsDiscardedWhenUsed()) DiscardItem();
-        }
+        if (!_activeItem) Debug.Log("[ITEM] Missing active item");
+        else if (_activeItem.IsDiscardedWhenUsed()) DiscardItem();
     }
 }

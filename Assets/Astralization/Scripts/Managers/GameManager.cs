@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void InvokePlayerState(String state)
     {
-        //Debug.Log("[INVOKE PLAYER STATE] Player state: " + state);
+        Debug.Log("[INVOKE PLAYER STATE] Player state: " + state);
         if (state.Equals(_playerState.Dialogue.ToString()))
         {
             ShowDialogueHudEvent?.Invoke(true);
