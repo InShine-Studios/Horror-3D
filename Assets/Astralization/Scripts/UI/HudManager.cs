@@ -24,7 +24,7 @@ public class HudManager : MonoBehaviour
         DialogueInputHandler.NextDialogueHudEvent += NextDialogue;
         HideInputHandler.StopHidingHudEvent += ShowHidingHud;
         GameManager.ShowExorcismHudEvent += ShowExorcism;
-        ExorcismItem.ExorcismUpdateSliderEvent += UpdateSlider;
+        ExorcismBar.ExorcismUpdateSliderEvent += UpdateSlider;
         ExorcismItem.ExorcismSetMinSliderEvent += SetMinValue;
     }
 
@@ -35,7 +35,7 @@ public class HudManager : MonoBehaviour
         DialogueInputHandler.NextDialogueHudEvent -= NextDialogue;
         HideInputHandler.StopHidingHudEvent -= ShowHidingHud;
         GameManager.ShowExorcismHudEvent -= ShowExorcism;
-        ExorcismItem.ExorcismUpdateSliderEvent -= UpdateSlider;
+        ExorcismBar.ExorcismUpdateSliderEvent -= UpdateSlider;
         ExorcismItem.ExorcismSetMinSliderEvent -= SetMinValue;
     }
     #endregion

@@ -61,14 +61,14 @@ public class ExorcismTest : TestBase
 
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return new WaitForSeconds(0.3f);
-        Assert.IsTrue(exorcismItem.IsUsed());
+        Assert.IsTrue(exorcismBar.IsUsed());
         Assert.IsTrue(exorcismSliderObj.activeSelf);
-        Assert.AreEqual(exorcismItem.GetAccumulatedTime(), exorcismBar.GetSliderValue());
+        Assert.AreEqual(exorcismBar.GetAccumulatedTime(), exorcismBar.GetSliderValue());
 
         yield return new WaitForSeconds(5.0f);
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return new WaitForSeconds(0.3f);
-        Assert.IsFalse(exorcismItem.IsUsed());
+        Assert.IsFalse(exorcismBar.IsUsed());
         Assert.IsFalse(exorcismSliderObj.activeSelf);
     }
 
@@ -97,14 +97,14 @@ public class ExorcismTest : TestBase
 
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return new WaitForSeconds(0.3f);
-        Assert.IsTrue(exorcismItem.IsUsed());
+        Assert.IsTrue(exorcismBar.IsUsed());
         Assert.IsTrue(exorcismSliderObj.activeSelf);
-        Assert.AreEqual(exorcismItem.GetAccumulatedTime(), exorcismBar.GetSliderValue());
+        Assert.AreEqual(exorcismBar.GetAccumulatedTime(), exorcismBar.GetSliderValue());
 
         yield return new WaitForSeconds(2.0f);
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return new WaitForSeconds(0.3f);
-        Assert.IsFalse(exorcismItem.IsUsed());
+        Assert.IsFalse(exorcismBar.IsUsed());
         Assert.IsFalse(exorcismSliderObj.activeSelf);
     }
     #endregion

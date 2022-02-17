@@ -29,7 +29,10 @@ public abstract class Item : Interactable, IItem
 
     public abstract void Use();
 
-    public virtual void StopUse() { ; }
+    public virtual void StopUse() 
+    { 
+    
+    }
 
     public override void OnInteraction()
     {

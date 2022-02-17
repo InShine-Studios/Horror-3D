@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour, IGameManager
         DialogueManager.FinishDialogueEvent += InvokePlayerState;
         ClosetsController.StartHidingEvent += InvokePlayerState;
         ExorcismItem.ExorcismChannelingEvent += InvokePlayerState;
+        ExorcismBar.FinishExorcismChannelingEvent += InvokePlayerState;
     }
 
     private void OnDisable()
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour, IGameManager
         DialogueManager.FinishDialogueEvent -= InvokePlayerState;
         ClosetsController.StartHidingEvent -= InvokePlayerState;
         ExorcismItem.ExorcismChannelingEvent -= InvokePlayerState;
+        ExorcismBar.FinishExorcismChannelingEvent -= InvokePlayerState;
     }
     #endregion
 
