@@ -208,7 +208,6 @@ public class Inventory : MonoBehaviour, IInventory
             else if (_activeItem.IsDiscardedWhenUsed()) DiscardItem();
         }
     }
-
     public void ReleaseActiveItem(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)

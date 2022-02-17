@@ -8,20 +8,19 @@ public interface IExorcismBar
 {
     float GetAccumulatedTime();
     float GetSliderValue();
+    bool IsExorcised();
     bool IsUsed();
     void ProcessExorcism();
-    void SetSliderMinValue(float hold);
-    void SetSliderValue(float hold);
+    void SetSliderMinValue(float sliderValue);
+    void SetSliderValue(float sliderValue);
     void ShowBar(bool isActive);
     void StopExorcism();
 }
-
 
 /*
  * Class to show Exorcism channeling on HUD.
  * Slider will show on screen during exorcism channeling.
 */
-
 public class ExorcismBar : MonoBehaviour, IExorcismBar
 {
     #region Variable
@@ -83,6 +82,22 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     {
         return slider.value;
     }
+
+    public bool IsExorcised()
+    {
+        return _isExorcised;
+    }
+
+    public void SetSliderMinValue(float sliderValue)
+    {
+        slider.minValue = sliderValue;
+        slider.value = sliderValue;
+    }
+
+    public void SetSliderValue(float sliderValue)
+    {
+        slider.value = sliderValue;
+    }
     #endregion
 
     #region Exorcism Logic
@@ -98,24 +113,10 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
         }
     }
 
-    public void SetSliderMinValue(float hold)
-    {
-        slider.minValue = hold;
-        slider.value = hold;
-    }
-
-    public void SetSliderValue(float hold)
-    {
-        slider.value = hold;
-    }
-
     public void StopExorcism()
     {
-        if (slider.gameObject.activeSelf)
-        {
-            _isUsed = false;
-            ProcessExorcism();
-        }
+        _isUsed = false;
+        ProcessExorcism();
     }
 
     public void ProcessExorcism()
@@ -125,17 +126,12 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
             //Debug.Log("[EXORCISM] Exorcism Finished");
             ShowBar(false);
             FinishExorcismChannelingEvent?.Invoke("Player");
-            //Debug.Log("[EXORCISM FINISH] IsUsed is " + _isUsed);
-            //Debug.Log("[EXORCISM FINISH] Slider is " + slider.gameObject.activeSelf);
         }
         else
         {
-            FinishExorcismChannelingEvent?.Invoke("Player");
             //Debug.Log("[EXORCISM] Exorcism Cancelled");
             ShowBar(false);
-            //_isUsed = false;
-            //Debug.Log("[EXORCISM FINISH] IsUsed is " + _isUsed);
-            //Debug.Log("[EXORCISM FINISH] Slider is " + slider.gameObject.activeSelf);
+            FinishExorcismChannelingEvent?.Invoke("Player");
         }
         _accumulatedTime = 0f;
     }

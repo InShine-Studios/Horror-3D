@@ -12,16 +12,16 @@ public interface IExorcismItem
  * Use Setter and Getter to access the variables.
  * HUD managed by ExorcismBar.
  */
-
 public class ExorcismItem : Item, IExorcismItem
 {
     #region Variables
-
     [SerializeField]
     private float _sliderMinValue = 0f;
 
     private string _playerActionMap = "Exorcism";
+    #endregion
 
+    #region Events
     public static event Action<string> ExorcismChannelingEvent;
     public static event Action<float> ExorcismSetMinSliderEvent;
     #endregion

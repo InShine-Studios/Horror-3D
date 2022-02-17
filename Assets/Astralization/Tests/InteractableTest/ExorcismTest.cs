@@ -51,7 +51,6 @@ public class ExorcismTest : TestBase
         GameObject exorcismSliderObj = hud.transform.Find("ExorcismHud/Slider").gameObject;
         Assert.NotNull(exorcismItemObj);
 
-        IExorcismItem exorcismItem = exorcismItemObj.GetComponent<IExorcismItem>();
         IExorcismBar exorcismBar = exorcismBarObj.GetComponent<IExorcismBar>();
 
         IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
@@ -70,6 +69,7 @@ public class ExorcismTest : TestBase
         yield return new WaitForSeconds(0.3f);
         Assert.IsFalse(exorcismBar.IsUsed());
         Assert.IsFalse(exorcismSliderObj.activeSelf);
+        Assert.IsTrue(exorcismBar.IsExorcised());
     }
 
     [UnityTest]
@@ -87,7 +87,6 @@ public class ExorcismTest : TestBase
         GameObject exorcismSliderObj = hud.transform.Find("ExorcismHud/Slider").gameObject;
         Assert.NotNull(exorcismItemObj);
 
-        IExorcismItem exorcismItem = exorcismItemObj.GetComponent<IExorcismItem>();
         IExorcismBar exorcismBar = exorcismBarObj.GetComponent<IExorcismBar>();
 
         IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
@@ -106,6 +105,7 @@ public class ExorcismTest : TestBase
         yield return new WaitForSeconds(0.3f);
         Assert.IsFalse(exorcismBar.IsUsed());
         Assert.IsFalse(exorcismSliderObj.activeSelf);
+        Assert.IsFalse(exorcismBar.IsExorcised());
     }
     #endregion
 }

@@ -59,7 +59,6 @@ public class HudManager : MonoBehaviour
 
     public void ShowExorcism(bool isShowExorcism)
     {
-        //Debug.Log("[START EXORCISM HUD] isShowExorcism: " + isShowExorcism);
         _exorcismBar.ShowBar(isShowExorcism);
     }
 
