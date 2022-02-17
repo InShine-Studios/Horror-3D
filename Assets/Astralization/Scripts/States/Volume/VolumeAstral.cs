@@ -17,19 +17,18 @@ public class VolumeAstral : Volume
     }
     #endregion
 
-    public override void SetState(bool state)
+    protected override void SetState(bool state)
     {
         //Debug.Log("[VOLUME ASTRAL] Toggle " + this.name);
         base.SetState(state);
     }
 
-    public override void ToggleFogColor(bool state)
+    protected override void ToggleFogColor(bool state)
     {
         if (state)
         {
             Color col = Utils.ColorHelper.ParseHex("#5F466A");
             RenderSettings.fogColor = col;
         }
-
     }
 }

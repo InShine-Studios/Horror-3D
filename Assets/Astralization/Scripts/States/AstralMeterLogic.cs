@@ -14,15 +14,21 @@ public interface IAstralMeterLogic
 
 public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
 {
+    #region Variables
+    [Header("Current Astral Meter")]
     [SerializeField]
     private float _astralMeter = 0.0f;
+    [Header("Max Astral Meter")]
     [SerializeField]
     private float _maxMeter = 100.0f;
+    [Header("Astral Meter Rate")]
     [SerializeField]
     private float _constantRate = 0.05f;
+    [Header("Astral Meter increment amount when seen by Ghost")]
     [SerializeField]
     private float _sightAmount = 1.0f;
     private bool _isOnSight = false;
+    #endregion
 
     void Start()
     {

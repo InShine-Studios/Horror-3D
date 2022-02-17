@@ -17,14 +17,14 @@ public class VolumeReal : Volume
     }
     #endregion
 
-    public override void SetState(bool state)
+    protected override void SetState(bool state)
     {
         //Debug.Log("[VOLUME REAL] Toggle " + this.name);
         state = !state;
         base.SetState(state);
     }
 
-    public override void ToggleFogColor(bool state)
+    protected override void ToggleFogColor(bool state)
     {
         if (state)
         {
