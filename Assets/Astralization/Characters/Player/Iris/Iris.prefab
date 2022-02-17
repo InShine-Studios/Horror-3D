@@ -856,7 +856,19 @@ MonoBehaviour:
     m_ActionId: d256b422-a6c7-4d0d-b23c-58c06ddf35fe
     m_ActionName: Player/ExorcismButtonReleased[/Mouse/rightButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6235038391716557646}
+        m_TargetAssemblyTypeName: ExorcismInputHandler, Scripts
+        m_MethodName: UseReleased
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 531e8a8d-46a4-4dca-a869-e3c015b57ab7
     m_ActionName: Exorcism/Channeling Stop[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0

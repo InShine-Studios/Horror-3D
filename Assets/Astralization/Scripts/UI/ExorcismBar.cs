@@ -62,7 +62,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
             {
                 _isUsed = false;
                 _isExorcised = true;
-                ProcessExorcism();
+                StopExorcism();
             }
         }
     }
@@ -113,6 +113,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     {
         if (slider.gameObject.activeSelf)
         {
+            _isUsed = false;
             ProcessExorcism();
         }
     }
@@ -124,12 +125,17 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
             //Debug.Log("[EXORCISM] Exorcism Finished");
             ShowBar(false);
             FinishExorcismChannelingEvent?.Invoke("Player");
+            //Debug.Log("[EXORCISM FINISH] IsUsed is " + _isUsed);
+            //Debug.Log("[EXORCISM FINISH] Slider is " + slider.gameObject.activeSelf);
         }
         else
         {
             FinishExorcismChannelingEvent?.Invoke("Player");
             //Debug.Log("[EXORCISM] Exorcism Cancelled");
             ShowBar(false);
+            //_isUsed = false;
+            //Debug.Log("[EXORCISM FINISH] IsUsed is " + _isUsed);
+            //Debug.Log("[EXORCISM FINISH] Slider is " + slider.gameObject.activeSelf);
         }
         _accumulatedTime = 0f;
     }
