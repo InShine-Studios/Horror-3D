@@ -5,6 +5,17 @@ using UnityEngine;
  */
 public abstract class Volume : MonoBehaviour
 {
+    #region Enable - Disable
+    private void OnEnable()
+    {
+        GameManager.ChangeWorldEvent += SetState;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.ChangeWorldEvent -= SetState;
+    }
+    #endregion
     protected virtual void SetState(bool state)
     {
         for (int i = 0; i < transform.childCount; i++)

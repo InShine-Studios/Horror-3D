@@ -5,18 +5,6 @@ using UnityEngine;
  */
 public class VolumeReal : Volume
 {
-    #region Enable - Disable
-    private void OnEnable()
-    {
-        GameManager.ChangeWorldEvent += SetState;
-    }
-
-    private void OnDisable()
-    {
-        GameManager.ChangeWorldEvent -= SetState;
-    }
-    #endregion
-
     protected override void SetState(bool state)
     {
         //Debug.Log("[VOLUME REAL] Toggle " + this.name);
