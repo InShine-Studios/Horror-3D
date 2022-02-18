@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private enum _playerState
     {
         Dialogue,
-        Player
+        Default
     }
     #endregion
 
@@ -58,15 +58,15 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void InvokePlayerState(String state)
     {
-        Debug.Log("[INVOKE PLAYER STATE] Player state: " + state);
+        //Debug.Log("[INVOKE PLAYER STATE] Player state: " + state);
         if (state.Equals(_playerState.Dialogue.ToString()))
         {
             ShowDialogueHudEvent?.Invoke(true);
             PlayerActionMapEvent?.Invoke(_playerState.Dialogue.ToString());
         }
-        else if (state.Equals(_playerState.Player.ToString()))
+        else if (state.Equals(_playerState.Default.ToString()))
         {
-            PlayerActionMapEvent?.Invoke(_playerState.Player.ToString());
+            PlayerActionMapEvent?.Invoke(_playerState.Default.ToString());
         }
     }
     #endregion

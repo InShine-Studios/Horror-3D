@@ -51,9 +51,9 @@ public class PlayerRotation : MonoBehaviour
 
     #region Input System
     // Read mouse position to change player direction
-    public void OnMousePosition(InputAction.CallbackContext mousePos)
+    public void OnMousePosition(Vector2 mousePosition)
     {
-        _mousePosition = mousePos.ReadValue<Vector2>();
+        _mousePosition = mousePosition;
         //Debug.Log("[PLAYER] Movement direction: " + mousePosition);
     }
     #endregion

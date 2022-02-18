@@ -47,14 +47,13 @@ public class NPCInteractableTest: TestBase
 
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
 
-        Assert.AreEqual("Player", playerInput.currentActionMap.ToString().Split(':')[1]);
+        Assert.AreEqual("Default", playerInput.currentActionMap.ToString().Split(':')[1]);
         Assert.IsFalse(dialogueManager.GetAnimator().GetBool("IsOpen"));
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
         yield return new WaitForSeconds(1.0f);
 
         Assert.AreEqual("Dialogue", playerInput.currentActionMap.ToString().Split(':')[1]);
         Assert.IsTrue(dialogueManager.GetAnimator().GetBool("IsOpen"));
-        Debug.Log("success 1");
     }
 
     [UnityTest]

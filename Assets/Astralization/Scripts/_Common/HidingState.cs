@@ -5,13 +5,8 @@ public class HidingState : PlayerState
     #region Movement Variables
     #endregion
 
-    public override void Enter()
+    protected override void Awake()
     {
-        base.Enter();
-    }
-
-    public override void HandleInput(InputAction.CallbackContext ctx)
-    {
-
+        base.Awake();
     }
 }

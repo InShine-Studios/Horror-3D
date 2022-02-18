@@ -28,13 +28,13 @@ public class HudManager : MonoBehaviour
 
     public void ShowDialogue(bool isShowDialogue)
     {
-        Debug.Log("[START DIALOGUE HUD] isShowDialogue: " + isShowDialogue);
+        //Debug.Log("[START DIALOGUE HUD] isShowDialogue: " + isShowDialogue);
         dialogueManager.ShowDialogueBox(isShowDialogue);
     }
 
     public void NextDialogue()
     {
-        Debug.Log("[NEXT DIALOGUE HUD]");
+        //Debug.Log("[NEXT DIALOGUE HUD]");
         dialogueManager.NextLine();
     }
 }

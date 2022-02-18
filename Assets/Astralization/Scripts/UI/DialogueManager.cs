@@ -36,7 +36,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     private float _textSpeed;
 
     private bool _dialogBoxOpen;
-    private string _playerActionMap = "Player";
+    private string _defaultActionMap = "Default";
     #endregion
 
 
@@ -118,7 +118,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         else
         {
             StopAllCoroutines();
-            FinishDialogueEvent?.Invoke(_playerActionMap);
+            FinishDialogueEvent?.Invoke(_defaultActionMap);
             ShowDialogueBox(false);
         }
     }

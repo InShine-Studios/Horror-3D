@@ -7,20 +7,24 @@ public class DialogueState : PlayerState
     private DialogueInputHandler _dialogueInputHandler;
     #endregion
 
-    public override void Enter()
+    protected override void Awake()
     {
-        base.Enter();
+        base.Awake();
         _dialogueInputHandler = GetComponentInChildren<DialogueInputHandler>();
     }
 
-    public override void HandleInput(InputAction.CallbackContext ctx)
+    #region Input Handler
+    public override void NextDialogue(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
         {
-            switch (ctx.action.name)
-            {
-                case "NextDialogue": _dialogueInputHandler.NextDialogue(); break;
-            }
+            _dialogueInputHandler.NextDialogue();
         }
     }
+
+    public override void CheckInteractionInteractable(InputAction.CallbackContext ctx)
+    {
+        Debug.Log("aaaa");
+    }
+    #endregion
 }

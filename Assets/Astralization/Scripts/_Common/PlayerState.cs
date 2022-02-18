@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public abstract class PlayerState : State
@@ -8,6 +9,4 @@ public abstract class PlayerState : State
     {
         owner = GetComponent<InputManager>();
     }
-
-    public abstract void HandleInput(InputAction.CallbackContext ctx);
 }

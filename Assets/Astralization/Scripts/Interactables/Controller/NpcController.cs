@@ -36,7 +36,7 @@ public class NpcController : Interactable, INpcController
 
     public override void OnInteraction()
     {
-        Debug.Log("[INTERACTABLE] Npc interacted: " + this.name);
+        //Debug.Log("[INTERACTABLE] Npc interacted: " + this.name);
         NpcInteractionEvent?.Invoke(_dialogueActionMap);
     }
 }
