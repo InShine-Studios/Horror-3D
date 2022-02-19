@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour, IGameManager
     {
         Dialogue,
         Hiding,
-        Player
+        Player,
+        Exorcism
     }
     #endregion
 
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour, IGameManager
     public static event Action<bool> StartHidingHudEvent;
     // TODO: to be implemented
     public static event Action PlayerAudioDiesEvent;
+    public static event Action<bool> ShowExorcismHudEvent;
     #endregion
 
     #region Enable - Disable
@@ -38,6 +40,8 @@ public class GameManager : MonoBehaviour, IGameManager
         NpcController.NpcInteractionEvent += InvokePlayerState;
         DialogueManager.FinishDialogueEvent += InvokePlayerState;
         ClosetsController.StartHidingEvent += InvokePlayerState;
+        ExorcismItem.ExorcismChannelingEvent += InvokePlayerState;
+        ExorcismBar.FinishExorcismChannelingEvent += InvokePlayerState;
     }
 
     private void OnDisable()
@@ -46,6 +50,8 @@ public class GameManager : MonoBehaviour, IGameManager
         NpcController.NpcInteractionEvent -= InvokePlayerState;
         DialogueManager.FinishDialogueEvent -= InvokePlayerState;
         ClosetsController.StartHidingEvent -= InvokePlayerState;
+        ExorcismItem.ExorcismChannelingEvent -= InvokePlayerState;
+        ExorcismBar.FinishExorcismChannelingEvent -= InvokePlayerState;
     }
     #endregion
 
@@ -76,6 +82,11 @@ public class GameManager : MonoBehaviour, IGameManager
         else if (state.Equals(_playerState.Player.ToString()))
         {
             PlayerActionMapEvent?.Invoke(_playerState.Player.ToString());
+        }
+        else if (state.Equals(_playerState.Exorcism.ToString()))
+        {
+            ShowExorcismHudEvent?.Invoke(true);
+            PlayerActionMapEvent?.Invoke(_playerState.Exorcism.ToString());
         }
     }
     #endregion
