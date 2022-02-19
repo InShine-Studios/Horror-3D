@@ -56,7 +56,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
         {
             _isUsed = true;
             _accumulatedTime += Time.deltaTime;
-            ExorcismUpdateSliderEvent?.Invoke(_accumulatedTime);
+            SetSliderValue(_accumulatedTime);
             if (_accumulatedTime >= _holdTime)
             {
                 _isExorcised = true;
