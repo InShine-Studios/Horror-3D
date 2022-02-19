@@ -9,7 +9,6 @@ public interface IExorcismItem
 
 /*
  * Class to use Exorcism Item.
- * Use Setter and Getter to access the variables.
  * HUD managed by ExorcismBar.
  */
 public class ExorcismItem : Item, IExorcismItem

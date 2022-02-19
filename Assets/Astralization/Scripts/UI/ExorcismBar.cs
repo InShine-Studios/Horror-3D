@@ -59,7 +59,6 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
             ExorcismUpdateSliderEvent?.Invoke(_accumulatedTime);
             if (_accumulatedTime >= _holdTime)
             {
-                _isUsed = false;
                 _isExorcised = true;
                 StopExorcism();
             }
@@ -109,6 +108,8 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     public void StopExorcism()
     {
         _isUsed = false;
+        ShowBar(false);
+        FinishExorcismChannelingEvent?.Invoke("Player");
         ProcessExorcism();
     }
 
@@ -117,14 +118,10 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
         if (_isExorcised)
         {
             //Debug.Log("[EXORCISM] Exorcism Finished");
-            ShowBar(false);
-            FinishExorcismChannelingEvent?.Invoke("Player");
         }
         else
         {
             //Debug.Log("[EXORCISM] Exorcism Cancelled");
-            ShowBar(false);
-            FinishExorcismChannelingEvent?.Invoke("Player");
         }
         _accumulatedTime = 0f;
     }
