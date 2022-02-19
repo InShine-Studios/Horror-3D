@@ -9,32 +9,43 @@ public class HudManager : MonoBehaviour
 {
     #region Variables
     [SerializeField]
-    private DialogueManager dialogueManager;
+    private DialogueManager _dialogueManager;
+    [SerializeField]
+    private HidingOverlay _hidingManager;
     #endregion
 
     #region Enable - Disable
     private void OnEnable()
     {
         GameManager.ShowDialogueHudEvent += ShowDialogue;
+        GameManager.StartHidingHudEvent += ShowHidingHud;
         DialogueInputHandler.NextDialogueHudEvent += NextDialogue;
+        HideInputHandler.StopHidingHudEvent += ShowHidingHud;
     }
 
     private void OnDisable()
     {
         GameManager.ShowDialogueHudEvent -= ShowDialogue;
+        GameManager.StartHidingHudEvent -= ShowHidingHud;
         DialogueInputHandler.NextDialogueHudEvent -= NextDialogue;
+        HideInputHandler.StopHidingHudEvent -= ShowHidingHud;
     }
     #endregion
 
     public void ShowDialogue(bool isShowDialogue)
     {
         //Debug.Log("[START DIALOGUE HUD] isShowDialogue: " + isShowDialogue);
-        dialogueManager.ShowDialogueBox(isShowDialogue);
+        _dialogueManager.ShowDialogueBox(isShowDialogue);
     }
 
     public void NextDialogue()
     {
         //Debug.Log("[NEXT DIALOGUE HUD]");
-        dialogueManager.NextLine();
+        _dialogueManager.NextLine();
+    }
+
+    public void ShowHidingHud(bool isHiding)
+    {
+        _hidingManager.StartAnim(isHiding);
     }
 }

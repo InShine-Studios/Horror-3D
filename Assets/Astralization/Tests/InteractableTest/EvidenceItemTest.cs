@@ -41,18 +41,30 @@ public class EvidenceItemTest : TestBase
     public IEnumerator EvidenceItem_DiscardWhenUsedEvidenceItem()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        GameObject thermometer = GameObject.Find("Thermometer");
-        float moveDuration = GetMovementDurationTowards(thermometer.transform);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveBack, false, moveDuration);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
-        GameObject overworldThermometer = GameObject.Find("OverworldItems/Thermometer");
-        Image img = hud.transform.Find("ItemHud/Logo").GetComponent<Image>();
-        IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
-        Assert.NotNull(overworldThermometer);
-        Assert.IsFalse(img.enabled);
-        Assert.AreEqual(0, inventory.GetNumOfItem());
-        Assert.IsNull(inventory.GetActiveItem());
+
+        foreach (string gameObjectName in 
+            new ArrayList() {
+                "Thermometer",
+                "SilhouetteBowl",
+                "Clock",
+        })
+        {
+            GameObject gameObject = GameObject.Find(gameObjectName);
+            float moveDuration = GetMovementDurationTowards(gameObject.transform);
+
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
+
+            gameObject = GameObject.Find("OverworldItems/" + gameObjectName);
+            Image img = hud.transform.Find("ItemHud/Logo").GetComponent<Image>();
+            IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
+
+            Assert.NotNull(gameObject);
+            Assert.IsFalse(img.enabled);
+            Assert.AreEqual(0, inventory.GetNumOfItem());
+            Assert.IsNull(inventory.GetActiveItem());
+        }
     }
     #endregion
 
@@ -61,38 +73,88 @@ public class EvidenceItemTest : TestBase
     public IEnumerator EvidenceItem_ActivatedWhenUsed()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        GameObject thermometer = GameObject.Find("Thermometer");
-        float moveDuration = GetMovementDurationTowards(thermometer.transform);
 
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveBack, false, moveDuration);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
+        foreach (string gameObjectName in 
+            new ArrayList() {
+                "Thermometer",
+                "SilhouetteBowl",
+                "Clock",
+        })
+        {
+            GameObject gameObject = GameObject.Find(gameObjectName);
+            float moveDuration = GetMovementDurationTowards(gameObject.transform);
 
-        GameObject thermometerModel = GameObject.Find("OverworldItems/Thermometer/Model");
-        Material stateMaterial = thermometerModel.GetComponent<MeshRenderer>().material;
-        Assert.AreEqual("MAT_Thermometer_Active (Instance)", stateMaterial.name);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
 
-        EvidenceItem script = (EvidenceItem) GameObject.Find("OverworldItems/Thermometer").GetComponent<Thermometer>();
-        Assert.AreEqual(script.state, EvidenceItemState.ACTIVE);
+            gameObject = GameObject.Find("OverworldItems/" + gameObjectName);
+
+            if (gameObjectName == "Thermometer")
+            {
+                GameObject thermometerModel = GameObject.Find("OverworldItems/Thermometer/Model");
+                Material stateMaterial = thermometerModel.GetComponent<MeshRenderer>().material;
+                Assert.AreEqual("MAT_Thermometer_Active (Instance)", stateMaterial.name);
+            } else if (gameObjectName == "Clock")
+            {
+                GameObject clockAudioSourceRef = GameObject.Find("OverworldItems/Clock/AudioPlayer/StateAudio");
+                AudioClip stateAudioClip = clockAudioSourceRef.GetComponent<AudioSource>().clip;
+                Assert.AreEqual("SFX_PlayerGameplay_PlayerBehavior_Heartbeat_3_Loop", stateAudioClip.name);
+            } else if  (gameObjectName == "SilhouetteBowl")
+            {
+                GameObject headless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Headless");
+                GameObject heartless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Heartless");
+                Assert.IsFalse(headless.activeInHierarchy);
+                Assert.IsFalse(heartless.activeInHierarchy);
+            }
+
+            EvidenceItem script = gameObject.GetComponent<EvidenceItem>();
+            Assert.AreEqual(script.state, EvidenceItemState.ACTIVE);
+        }
     }    
     
     [UnityTest]
     public IEnumerator EvidenceItem_NotActivatedWhenDiscarded()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        GameObject thermometer = GameObject.Find("Thermometer");
-        float moveDuration = GetMovementDurationTowards(thermometer.transform);
 
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveBack, false, moveDuration);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.DiscardItem);
+        foreach (string gameObjectName in 
+            new ArrayList() {
+                "Thermometer",
+                "SilhouetteBowl",
+                "Clock",
+        })
+        {
+            GameObject gameObject = GameObject.Find(gameObjectName);
+            float moveDuration = GetMovementDurationTowards(gameObject.transform);
 
-        GameObject thermometerModel = GameObject.Find("OverworldItems/Thermometer/Model");
-        Material stateMaterial = thermometerModel.GetComponent<MeshRenderer>().material;
-        Assert.AreEqual("MAT_Thermometer_Base (Instance)", stateMaterial.name);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.DiscardItem);
 
-        EvidenceItem script = (EvidenceItem) GameObject.Find("OverworldItems/Thermometer").GetComponent<Thermometer>();
-        Assert.AreEqual(script.state, EvidenceItemState.BASE);
+            gameObject = GameObject.Find("OverworldItems/" + gameObjectName);
+
+            if (gameObjectName == "Thermometer")
+            {
+                GameObject thermometerModel = GameObject.Find("OverworldItems/Thermometer/Model");
+                Material stateMaterial = thermometerModel.GetComponent<MeshRenderer>().material;
+                Assert.AreEqual("MAT_Thermometer_Base (Instance)", stateMaterial.name);
+            } else if (gameObjectName == "Clock")
+            {
+                GameObject clockAudioSourceRef = GameObject.Find("OverworldItems/Clock/AudioPlayer/StateAudio");
+                AudioClip stateAudioClip = clockAudioSourceRef.GetComponent<AudioSource>().clip;
+                Assert.IsNull(stateAudioClip);
+            } else if  (gameObjectName == "SilhouetteBowl")
+            {
+                GameObject headless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Headless");
+                GameObject heartless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Heartless");
+                Assert.IsFalse(headless.activeInHierarchy);
+                Assert.IsFalse(heartless.activeInHierarchy);
+            }
+
+            EvidenceItem script = gameObject.GetComponent<EvidenceItem>();
+            Assert.AreEqual(script.state, EvidenceItemState.BASE);
+        }
     }    
     #endregion
     
@@ -103,61 +165,136 @@ public class EvidenceItemTest : TestBase
     public IEnumerator EvidenceItem_SimulateGhostInteractionWhenNotActivated()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        GameObject thermometer = GameObject.Find("Thermometer");
-        float moveDuration = GetMovementDurationTowards(thermometer.transform);
 
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveBack, false, moveDuration);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.DiscardItem);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.SimulateGhostInteract);
+        foreach (string gameObjectName in 
+            new ArrayList() {
+                "Thermometer",
+                "SilhouetteBowl",
+                "Clock",
+        })
+        {
+            GameObject gameObject = GameObject.Find(gameObjectName);
+            float moveDuration = GetMovementDurationTowards(gameObject.transform);
 
-        GameObject thermometerModel = GameObject.Find("OverworldItems/Thermometer/Model");
-        Material stateMaterial = thermometerModel.GetComponent<MeshRenderer>().material;
-        Assert.AreEqual("MAT_Thermometer_Base (Instance)", stateMaterial.name);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.DiscardItem);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.SimulateGhostInteract);
 
-        EvidenceItem script = (EvidenceItem) GameObject.Find("OverworldItems/Thermometer").GetComponent<Thermometer>();
-        Assert.AreEqual(script.state, EvidenceItemState.BASE);
+            gameObject = GameObject.Find("OverworldItems/" + gameObjectName);
+
+            if (gameObjectName == "Thermometer")
+            {
+                GameObject thermometerModel = GameObject.Find("OverworldItems/Thermometer/Model");
+                Material stateMaterial = thermometerModel.GetComponent<MeshRenderer>().material;
+                Assert.AreEqual("MAT_Thermometer_Base (Instance)", stateMaterial.name);
+            } else if (gameObjectName == "Clock")
+            {
+                GameObject clockAudioSourceRef = GameObject.Find("OverworldItems/Clock/AudioPlayer/StateAudio");
+                AudioClip stateAudioClip = clockAudioSourceRef.GetComponent<AudioSource>().clip;
+                Assert.IsNull(stateAudioClip);
+            } else if  (gameObjectName == "SilhouetteBowl")
+            {
+                GameObject headless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Headless");
+                GameObject heartless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Heartless");
+                Assert.IsFalse(headless.activeInHierarchy);
+                Assert.IsFalse(heartless.activeInHierarchy);
+            }
+
+            EvidenceItem script = gameObject.GetComponent<EvidenceItem>();
+            Assert.AreEqual(script.state, EvidenceItemState.BASE);
+        }
     }      
     
     [UnityTest]
     public IEnumerator EvidenceItem_SimulateGhostInteractionPositive()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        GameObject thermometer = GameObject.Find("Thermometer");
-        float moveDuration = GetMovementDurationTowards(thermometer.transform);
 
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveBack, false, moveDuration);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.SimulateGhostInteract);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.SimulateGhostInteract);
+        foreach (string gameObjectName in 
+            new ArrayList() {
+                "Thermometer",
+                "SilhouetteBowl",
+                "Clock",
+        })
+        {
+            GameObject gameObject = GameObject.Find(gameObjectName);
+            float moveDuration = GetMovementDurationTowards(gameObject.transform);
 
-        GameObject thermometerModel = GameObject.Find("OverworldItems/Thermometer/Model");
-        Material stateMaterial = thermometerModel.GetComponent<MeshRenderer>().material;
-        Assert.AreEqual("MAT_Thermometer_Positive (Instance)", stateMaterial.name);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.SimulateGhostInteract);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.SimulateGhostInteract);
 
-        EvidenceItem script = (EvidenceItem) GameObject.Find("OverworldItems/Thermometer").GetComponent<Thermometer>();
-        Assert.AreEqual(script.state, EvidenceItemState.POSITIVE);
+            gameObject = GameObject.Find("OverworldItems/" + gameObjectName);
+
+            if (gameObjectName == "Thermometer")
+            {
+                GameObject thermometerModel = GameObject.Find("OverworldItems/Thermometer/Model");
+                Material stateMaterial = thermometerModel.GetComponent<MeshRenderer>().material;
+                Assert.AreEqual("MAT_Thermometer_Positive (Instance)", stateMaterial.name);
+            } else if (gameObjectName == "Clock")
+            {
+                GameObject clockAudioSourceRef = GameObject.Find("OverworldItems/Clock/AudioPlayer/StateAudio");
+                AudioClip stateAudioClip = clockAudioSourceRef.GetComponent<AudioSource>().clip;
+                Assert.AreEqual("SFX_PlayerGameplay_PlayerBehavior_Heartbeat_2_Loop", stateAudioClip.name);
+            } else if  (gameObjectName == "SilhouetteBowl")
+            {
+                GameObject headless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Headless");
+                GameObject heartless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Heartless");
+                Assert.IsTrue(headless.activeInHierarchy);
+                Assert.IsFalse(heartless.activeInHierarchy);
+            }
+
+            EvidenceItem script = gameObject.GetComponent<EvidenceItem>();
+            Assert.AreEqual(script.state, EvidenceItemState.POSITIVE);
+        }
     }    
     
     [UnityTest]
     public IEnumerator EvidenceItem_SimulateGhostInteractionNegative()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        GameObject thermometer = GameObject.Find("Thermometer");
-        float moveDuration = GetMovementDurationTowards(thermometer.transform);
 
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveBack, false, moveDuration);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.SimulateGhostInteract);
+        foreach (string gameObjectName in 
+            new ArrayList() {
+                "Thermometer",
+                "SilhouetteBowl",
+                "Clock",
+        })
+        {
+            GameObject gameObject = GameObject.Find(gameObjectName);
+            float moveDuration = GetMovementDurationTowards(gameObject.transform);
 
-        GameObject thermometerModel = GameObject.Find("OverworldItems/Thermometer/Model");
-        Material stateMaterial = thermometerModel.GetComponent<MeshRenderer>().material;
-        Assert.AreEqual("MAT_Thermometer_Negative (Instance)", stateMaterial.name);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
+            yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.SimulateGhostInteract);
 
-        EvidenceItem script = (EvidenceItem) GameObject.Find("OverworldItems/Thermometer").GetComponent<Thermometer>();
-        Assert.AreEqual(script.state, EvidenceItemState.NEGATIVE);
+            gameObject = GameObject.Find("OverworldItems/" + gameObjectName);
+
+            if (gameObjectName == "Thermometer")
+            {
+                GameObject thermometerModel = GameObject.Find("OverworldItems/Thermometer/Model");
+                Material stateMaterial = thermometerModel.GetComponent<MeshRenderer>().material;
+                Assert.AreEqual("MAT_Thermometer_Negative (Instance)", stateMaterial.name);
+            } else if (gameObjectName == "Clock")
+            {
+                GameObject clockAudioSourceRef = GameObject.Find("OverworldItems/Clock/AudioPlayer/StateAudio");
+                AudioClip stateAudioClip = clockAudioSourceRef.GetComponent<AudioSource>().clip;
+                Assert.AreEqual("SFX_PlayerGameplay_PlayerBehavior_Heartbeat_1_Loop", stateAudioClip.name);
+            } else if  (gameObjectName == "SilhouetteBowl")
+            {
+                GameObject headless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Headless");
+                GameObject heartless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Heartless");
+                Assert.IsFalse(headless.activeInHierarchy);
+                Assert.IsTrue(heartless.activeInHierarchy);
+            }
+
+            EvidenceItem script = gameObject.GetComponent<EvidenceItem>();
+            Assert.AreEqual(script.state, EvidenceItemState.NEGATIVE);
+        }
     }
 
     #endregion
