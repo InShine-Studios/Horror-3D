@@ -14,6 +14,7 @@ public interface IInventory
     void PickItem(Item item);
     void ScrollActiveItem(Vector2 scrollVector);
     void UseActiveItem();
+    string GetActiveItemName();
 }
 
 /*
@@ -80,6 +81,7 @@ public class Inventory : MonoBehaviour, IInventory
     public IItem GetActiveItem() { return _activeItem; }
     public IItem GetItemByIndex(int idx) { return _items[idx]; }
     public float GetScrollStep() { return _scrollStep * ScrollSensitivity; }
+    public string GetActiveItemName() { return _activeItem.name; }
 
     #endregion
 
@@ -151,7 +153,7 @@ public class Inventory : MonoBehaviour, IInventory
         ItemLogoEvent?.Invoke(false, null);
     }
 
-    public void DiscardItemInput()
+    public void DiscardItemInput()
     {
         if (_activeItem) DiscardItem();
         else
