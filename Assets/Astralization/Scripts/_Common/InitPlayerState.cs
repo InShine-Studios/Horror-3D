@@ -3,9 +3,6 @@ using UnityEngine.InputSystem;
 
 public class InitPlayerState : PlayerState
 {
-    #region Movement Variables
-    #endregion
-
     protected override void Awake()
     {
         base.Awake();
