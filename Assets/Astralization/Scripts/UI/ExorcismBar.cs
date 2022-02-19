@@ -33,7 +33,6 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     private bool _isUsed = false;
     private bool _isExorcised = false;
 
-    public static event Action<float> ExorcismUpdateSliderEvent;
     public static event Action<string> FinishExorcismChannelingEvent;
     #endregion
 

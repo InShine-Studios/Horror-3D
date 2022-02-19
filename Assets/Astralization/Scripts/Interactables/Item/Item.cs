@@ -31,7 +31,6 @@ public abstract class Item : Interactable, IItem
 
     public virtual void StopUse() 
     { 
-    
     }
 
     public override void OnInteraction()
