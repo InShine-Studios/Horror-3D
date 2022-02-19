@@ -30,6 +30,8 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     private float _accumulatedTime = 0f;
     [SerializeField]
     private float _holdTime = 5.0f;
+    [SerializeField]
+    private float _minValue = 0.0f;
     private bool _isUsed = false;
     private bool _isExorcised = false;
 
@@ -47,6 +49,11 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
         ExorcismInputHandler.UseReleasedEvent -= StopExorcism;
     }
     #endregion
+
+    private void Awake()
+    {
+        SetSliderMinValue(_minValue);
+    }
 
     #region Update
     private void Update()

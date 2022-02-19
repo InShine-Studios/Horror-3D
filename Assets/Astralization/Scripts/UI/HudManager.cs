@@ -36,11 +36,6 @@ public class HudManager : MonoBehaviour
     }
     #endregion
 
-    private void Awake()
-    {
-        _exorcismBar.SetSliderMinValue(0);
-    }
-
     public void ShowDialogue(bool isShowDialogue)
     {
         //Debug.Log("[START DIALOGUE HUD] isShowDialogue: " + isShowDialogue);
