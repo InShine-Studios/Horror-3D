@@ -11,6 +11,7 @@ public class InputManager : StateMachine
     [Tooltip("The Player Input component")]
     [SerializeField]
     private PlayerInput _playerInput;
+    private PlayerState tempCurrentState;
     #endregion
 
     private void Awake()
@@ -45,33 +46,39 @@ public class InputManager : StateMachine
         //Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);
     }
 
-    #region Dialogue Input Handler
+    #region Input Handler
+    private bool CanHandleInput ()
+    {
+        tempCurrentState = (PlayerState)CurrentState;
+        if (tempCurrentState == null) return false;
+        if (_inTransition) return false;
+        return true;
+    }
 
     public void HandleInputDefault(InputAction.CallbackContext ctx)
     {
-
-        if (_inTransition) return;
+        if (!CanHandleInput()) return;
         switch (ctx.action.name)
         {
-            case "Movement": CurrentState.OnMovementInput(ctx); break;
-            case "MousePosition": CurrentState.OnMousePosition(ctx); break;
-            case "ChangeItem": CurrentState.ScrollActiveItem(ctx); break;
-            case "SprintStart": CurrentState.SprintPressed(ctx); break;
-            case "SprintEnd": CurrentState.SprintReleased(ctx); break;
-            case "Interact": CurrentState.CheckInteractionInteractable(ctx); break;
-            case "PickItem": CurrentState.CheckInteractionItem(ctx); break;
-            case "UseItem": CurrentState.UseActiveItem(ctx); break;
-            case "DiscardItem": CurrentState.DiscardItemInput(ctx); break;
-            case "SimulateGhostInteract": CurrentState.CheckInteractionGhost(ctx); break;
+            case "Movement": tempCurrentState.OnMovementInput(ctx); break;
+            case "MousePosition": tempCurrentState.OnMousePosition(ctx); break;
+            case "ChangeItem": tempCurrentState.ScrollActiveItem(ctx); break;
+            case "SprintStart": tempCurrentState.SprintPressed(ctx); break;
+            case "SprintEnd": tempCurrentState.SprintReleased(ctx); break;
+            case "Interact": tempCurrentState.CheckInteractionInteractable(ctx); break;
+            case "PickItem": tempCurrentState.CheckInteractionItem(ctx); break;
+            case "UseItem": tempCurrentState.UseActiveItem(ctx); break;
+            case "DiscardItem": tempCurrentState.DiscardItemInput(ctx); break;
+            case "SimulateGhostInteract": tempCurrentState.CheckInteractionGhost(ctx); break;
         }  
     }
 
     public void HandleInputDialogue(InputAction.CallbackContext ctx)
     {
-        if (_inTransition) return;
+        if (!CanHandleInput()) return;
         switch (ctx.action.name)
         {
-            case "NextDialogue": CurrentState.NextDialogue(ctx); break;
+            case "NextDialogue": tempCurrentState.NextDialogue(ctx); break;
         }
     }
     #endregion
