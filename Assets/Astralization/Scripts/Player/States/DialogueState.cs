@@ -21,10 +21,5 @@ public class DialogueState : PlayerState
             _dialogueInputHandler.NextDialogue();
         }
     }
-
-    public override void CheckInteractionInteractable(InputAction.CallbackContext ctx)
-    {
-        Debug.Log("aaaa");
-    }
     #endregion
 }
