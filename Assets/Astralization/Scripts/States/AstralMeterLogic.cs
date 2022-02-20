@@ -8,17 +8,30 @@ public interface IAstralMeterLogic
     float GetAstralMeter();
     float GetConstantRate();
     bool IsOnSight();
-    void NPCWrongAnswer();
+    void NpcWrongAnswer();
     void PlayerKilled();
 }
 
 public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
 {
+    #region Variables
+    [Header("Astral Meter")]
+    [SerializeField]
+    [Tooltip("Current Astral Meter")]
     private float _astralMeter = 0.0f;
+    [SerializeField]
+    [Tooltip("Max Astral Meter")]
     private float _maxMeter = 100.0f;
+
+    [Header("Astral Meter Incrementation")]
+    [SerializeField]
+    [Tooltip("Rate of Astral Meter")]
     private float _constantRate = 0.05f;
+    [SerializeField]
+    [Tooltip("Astral Meter increase amount when seen by ghost")]
     private float _sightAmount = 1.0f;
     private bool _isOnSight = false;
+    #endregion
 
     void Start()
     {
@@ -68,11 +81,6 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     #region World State
     private void ChangeWorld(bool state)
     {
-        ToggleWorldRate(state);
-    }
-
-    private void ToggleWorldRate(bool state)
-    {
         if (state)
         {
             _constantRate = 0.083f;
@@ -95,7 +103,7 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     #endregion
 
     #region NPC
-    public void NPCWrongAnswer()
+    public void NpcWrongAnswer()
     {
         int randAnswerAmount = Random.Range(10, 15);
         _astralMeter += (float)randAnswerAmount;

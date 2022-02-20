@@ -19,10 +19,12 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     #region Variables
     [Header("Interactable Icons")]
     [Tooltip("True if there is an icon to be used")]
-    public bool UseIcon;
+    [SerializeField]
+    private bool _useIcon;
 
     [Tooltip("The Game Object for the icon")]
-    public GameObject InteractableIcon;
+    [SerializeField]
+    private GameObject _interactableIcon;
 
     [Space]
     [Header("Audio")]
@@ -54,10 +56,10 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     // Function to set Icon state
     public void SetInteractableIcon(bool state)
     {
-        if (UseIcon)
+        if (_useIcon)
         {
             //Debug.Log("[INTERACTABLE] Setting icon " + this.name + " to " + state);
-            InteractableIcon.SetActive(state);
+            _interactableIcon.SetActive(state);
         }
     }
 

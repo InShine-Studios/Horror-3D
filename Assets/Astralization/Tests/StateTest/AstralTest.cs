@@ -34,7 +34,7 @@ public class AstralTest : TestBase
     {
         yield return new WaitWhile(() => sceneLoaded == false);
         IAstralMeterLogic astralMeterLogic = GameObject.Find("AstralMeter").GetComponent<IAstralMeterLogic>();
-        astralMeterLogic.NPCWrongAnswer();
+        astralMeterLogic.NpcWrongAnswer();
 
         Assert.IsTrue(astralMeterLogic.GetAstralMeter() >= 10.0f);
         Assert.IsTrue(astralMeterLogic.GetAstralMeter() <= 15.0f);
