@@ -13,6 +13,8 @@ public class HudManager : MonoBehaviour
     [SerializeField]
     private HidingOverlay _hidingManager;
     [SerializeField]
+    private ItemLogo _itemLogo;
+    [SerializeField]
     private ExorcismBar _exorcismBar;
     #endregion
 
@@ -23,6 +25,7 @@ public class HudManager : MonoBehaviour
         GameManager.StartHidingHudEvent += ShowHidingHud;
         DialogueInputHandler.NextDialogueHudEvent += NextDialogue;
         HideInputHandler.StopHidingHudEvent += ShowHidingHud;
+        Inventory.ItemLogoEvent += UpdateLogo;
         GameManager.ShowExorcismHudEvent += ShowExorcism;
     }
 
@@ -32,6 +35,7 @@ public class HudManager : MonoBehaviour
         GameManager.StartHidingHudEvent -= ShowHidingHud;
         DialogueInputHandler.NextDialogueHudEvent -= NextDialogue;
         HideInputHandler.StopHidingHudEvent -= ShowHidingHud;
+        Inventory.ItemLogoEvent -= UpdateLogo;
         GameManager.ShowExorcismHudEvent -= ShowExorcism;
     }
     #endregion
@@ -51,6 +55,11 @@ public class HudManager : MonoBehaviour
     public void ShowHidingHud(bool isHiding)
     {
         _hidingManager.StartAnim(isHiding);
+    }
+
+    public void UpdateLogo(bool state, Sprite logo)
+    {
+        _itemLogo.UpdateLogo(state, logo);
     }
 
     public void ShowExorcism(bool isShowExorcism)
