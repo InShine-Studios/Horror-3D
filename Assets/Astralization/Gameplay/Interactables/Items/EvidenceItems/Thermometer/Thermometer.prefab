@@ -106,11 +106,11 @@ MonoBehaviour:
   _itemLogo: {fileID: 7403073595886107718, guid: 76c058bdb7187bc45bba0328cc1afc28, type: 3}
   _discardedWhenUsed: 1
   state: 0
-  model: {fileID: 7376206032017376481}
-  baseMaterial: {fileID: 2100000, guid: 40d48c34dd1762321aa0439bd84fb7f8, type: 2}
-  activeMaterial: {fileID: 2100000, guid: 062116c317e6f29d88d48f9609e7db10, type: 2}
-  positiveMaterial: {fileID: 2100000, guid: 2fb4d7f5de93b10f9967eb3170f689ba, type: 2}
-  negativeMaterial: {fileID: 2100000, guid: b467fd4452de9777abe114a393b42921, type: 2}
+  _model: {fileID: 7376206032017376481}
+  _baseMaterial: {fileID: 2100000, guid: 40d48c34dd1762321aa0439bd84fb7f8, type: 2}
+  _activeMaterial: {fileID: 2100000, guid: 062116c317e6f29d88d48f9609e7db10, type: 2}
+  _positiveMaterial: {fileID: 2100000, guid: 2fb4d7f5de93b10f9967eb3170f689ba, type: 2}
+  _negativeMaterial: {fileID: 2100000, guid: b467fd4452de9777abe114a393b42921, type: 2}
 --- !u!1001 &4362038348730103685
 PrefabInstance:
   m_ObjectHideFlags: 0

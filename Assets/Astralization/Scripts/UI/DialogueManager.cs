@@ -42,12 +42,14 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
     public static event Action<string> FinishDialogueEvent;
 
+    #region Awake
     private void Awake()
     {
         _nameText.text = "Budi";
         _dialogueText.text = string.Empty;
         
     }
+    #endregion
 
     #region Setter Getter
     public void SetDialogJson(TextAsset newDialogueJson)

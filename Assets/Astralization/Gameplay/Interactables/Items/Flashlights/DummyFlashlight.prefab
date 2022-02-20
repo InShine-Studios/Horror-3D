@@ -196,9 +196,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b890dc6176d1e49cc9f51f8a577331f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseIcon: 1
-  InteractableIcon: {fileID: 747712641896153416}
+  _useIcon: 1
+  _interactableIcon: {fileID: 747712641896153416}
   _itemLogo: {fileID: 7231765672420922833, guid: 76c058bdb7187bc45bba0328cc1afc28, type: 3}
+  _discardedWhenUsed: 0
 --- !u!1 &8264933495170502079
 GameObject:
   m_ObjectHideFlags: 0

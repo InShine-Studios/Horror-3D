@@ -14,6 +14,7 @@ public interface IInventory
     void PickItem(Item item);
     void ScrollActiveItem(InputAction.CallbackContext ctx);
     void UseActiveItem(InputAction.CallbackContext ctx);
+    string GetActiveItemName();
 }
 
 /*
@@ -80,6 +81,7 @@ public class Inventory : MonoBehaviour, IInventory
     public IItem GetActiveItem() { return _activeItem; }
     public IItem GetItemByIndex(int idx) { return _items[idx]; }
     public float GetScrollStep() { return _scrollStep * ScrollSensitivity; }
+    public string GetActiveItemName() { return _activeItem.name; }
 
     #endregion
 
