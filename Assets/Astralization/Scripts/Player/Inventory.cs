@@ -153,7 +153,8 @@ public class Inventory : MonoBehaviour, IInventory
         ItemLogoEvent?.Invoke(false, null);
     }
 
-    public void DiscardItemInput()
+    public void DiscardItemInput()
+
     {
         if (_activeItem) DiscardItem();
         else
