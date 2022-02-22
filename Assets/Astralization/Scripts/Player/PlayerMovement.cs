@@ -8,9 +8,9 @@ public interface IPlayerMovement
     Vector3 GetMoveDirection();
     bool GetSprintBool();
     float GetCurMoveSpeed();
-    void OnMovementInput(InputAction.CallbackContext inputVal);
-    void SprintPressed(InputAction.CallbackContext ctx);
-    void SprintReleased(InputAction.CallbackContext ctx);
+    void OnMovementInput(Vector2 moveInput);
+    void SprintPressed();
+    void SprintReleased();
 }
 
 /*
@@ -66,30 +66,24 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
 
     #region Input System
     // Read movement input and set move direction
-    public void OnMovementInput(InputAction.CallbackContext inputVal)
+    public void OnMovementInput(Vector2 moveInput)
     {
-        _moveInput = inputVal.ReadValue<Vector2>();
+        _moveInput = moveInput;
         _moveDirection = new Vector3(0, 0) { x = _moveInput.x, z = _moveInput.y };
         //Debug.Log("[PLAYER] Movement direction: " + moveDirection);
     }
 
     //TODO Sprint with cooldown?
-    public void SprintPressed(InputAction.CallbackContext ctx)
+    public void SprintPressed()
     {
-        if (ctx.performed)
-        {
-            _isSprinting = true;
-            //Debug.Log(this.name + " started sprinting " + isSprinting);
-        }
+        _isSprinting = true;
+        //Debug.Log(this.name + " started sprinting " + isSprinting);
     }
 
-    public void SprintReleased(InputAction.CallbackContext ctx)
+    public void SprintReleased()
     {
-        if (ctx.performed)
-        {
-            _isSprinting = false;
-            //Debug.Log(this.name + " no longer sprinting " + isSprinting);
-        }
+        _isSprinting = false;
+        //Debug.Log(this.name + " no longer sprinting " + isSprinting);
     }
     #endregion
 

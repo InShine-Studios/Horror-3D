@@ -11,9 +11,6 @@ using UnityEngine.InputSystem;
 public abstract class ObjectDetector : MonoBehaviour
 {
     #region Variables
-    [Header("Input System")]
-    protected PlayerInput playerInput;
-
     [Header("Dependant on Detectors")]
     [Tooltip("Tag to distinguish interactable types")]
     protected string detectionTag;
@@ -83,21 +80,17 @@ public abstract class ObjectDetector : MonoBehaviour
         return closest;
     }
 
-    public void CheckInteraction(InputAction.CallbackContext ctx)
+    public void CheckInteraction()
     {
-        if (ctx.performed)
+
+        //Debug.Log("[INTERACTABLE] Player pressed");
+
+        // Find objects that overlap with collider
+        Collider[] colliders = this.FindOverlaps();
+
+        if (closestInteract)
         {
-            //Debug.Log("[INTERACTABLE] Player pressed " + ctx.action.name);
-
-            // Find objects that overlap with collider
-            Collider[] colliders = this.FindOverlaps();
-
-            //Interactable closest = GetClosestInteractable(colliders);
-
-            if (closestInteract)
-            {
-                InteractClosest(closestInteract);
-            }
+            InteractClosest(closestInteract);
         }
     }
 }

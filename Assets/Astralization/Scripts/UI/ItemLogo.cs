@@ -13,18 +13,6 @@ public class ItemLogo : MonoBehaviour
         _img = transform.Find("Logo").GetComponent<Image>();
     }
 
-    #region Enable - Disable
-    private void OnEnable()
-    {
-        Inventory.ItemLogoEvent += UpdateLogo;
-    }
-
-    private void OnDisable()
-    {
-        Inventory.ItemLogoEvent -= UpdateLogo;
-    }
-    #endregion
-
     public void UpdateLogo(bool state, Sprite logo)
     {
         _img.sprite = logo;

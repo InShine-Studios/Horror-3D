@@ -2,7 +2,7 @@
     "name": "PlayerInputActions",
     "maps": [
         {
-            "name": "Player",
+            "name": "Default",
             "id": "0e8cb880-42cf-43b5-aae1-6ae91eafbbfc",
             "actions": [
                 {
@@ -22,15 +22,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "ActivateItem",
-                    "type": "Button",
-                    "id": "e18275dd-0199-4b73-8c87-a3cc91c20f61",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 },
                 {
                     "name": "Interact",
@@ -99,6 +90,15 @@
                     "name": "SimulateGhostInteract",
                     "type": "Button",
                     "id": "23ed480d-0a3a-4541-b9f6-ed571086ebb5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ExorcismButtonReleased",
+                    "type": "Button",
+                    "id": "d256b422-a6c7-4d0d-b23c-58c06ddf35fe",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -218,17 +218,6 @@
                 },
                 {
                     "name": "",
-                    "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "ActivateItem",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "eafca13d-dcc4-4c2b-9311-3cfed7fcf1dc",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -314,6 +303,17 @@
                     "action": "SimulateGhostInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f8c61814-dd94-48da-b65c-739adbf7deda",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ExorcismButtonReleased",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -371,6 +371,62 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "NextDialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Hiding",
+            "id": "6b786aa6-feda-40ae-a3b8-834d6468adb6",
+            "actions": [
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "8a6b2f5b-c2a4-41bc-a977-55ce12bdd266",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a718495d-3b28-4481-8b3e-e30f4769f6fa",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Exorcism",
+            "id": "d373a07f-06aa-483f-8660-276585384028",
+            "actions": [
+                {
+                    "name": "Channeling Stop",
+                    "type": "Button",
+                    "id": "531e8a8d-46a4-4dca-a869-e3c015b57ab7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b7eecc90-e902-438b-85f4-61f6e4d75f6a",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Channeling Stop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

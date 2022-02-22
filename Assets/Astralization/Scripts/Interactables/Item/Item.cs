@@ -29,10 +29,15 @@ public abstract class Item : Interactable, IItem
 
     public abstract void Use();
 
+    public virtual void StopUse() 
+    { 
+    }
+
     public override void OnInteraction()
     {
         Pick();
     }
+
     private void Pick()
     {
         SetCollider(false);
