@@ -4,9 +4,11 @@ using UnityEngine.InputSystem;
 public class DefaultPlayerState : PlayerState
 {
     #region Handler Variables
-    [Header("Movement and rotation should be first, then inventory system and detectors last")]
+    [Header("Movement and Rotation")]
     private PlayerMovement _playerMovement;
     private PlayerRotation _playerRotation;
+
+    [Header("Inventory and Detector")]
     private Inventory _inventory;
     private InteractableDetector _interactableDetector;
     private ItemDetector _itemDetector;
