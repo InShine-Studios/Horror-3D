@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour, IGameManager
     {
         Dialogue,
         Hiding,
-        Player,
-        Exorcism
+        Exorcism,
+        Default
     }
     #endregion
 
@@ -79,9 +79,9 @@ public class GameManager : MonoBehaviour, IGameManager
             StartHidingHudEvent?.Invoke(true);
             PlayerActionMapEvent?.Invoke(_playerState.Hiding.ToString());
         }
-        else if (state.Equals(_playerState.Player.ToString()))
+        else if (state.Equals(_playerState.Default.ToString()))
         {
-            PlayerActionMapEvent?.Invoke(_playerState.Player.ToString());
+            PlayerActionMapEvent?.Invoke(_playerState.Default.ToString());
         }
         else if (state.Equals(_playerState.Exorcism.ToString()))
         {

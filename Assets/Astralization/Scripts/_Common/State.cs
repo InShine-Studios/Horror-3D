@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 // State base class for all states in the game
 public abstract class State : MonoBehaviour
