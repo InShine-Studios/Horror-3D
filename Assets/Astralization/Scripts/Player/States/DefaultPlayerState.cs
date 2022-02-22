@@ -4,11 +4,12 @@ using UnityEngine.InputSystem;
 public class DefaultPlayerState : PlayerState
 {
     #region Handler Variables
+    [Header("Movement and rotation should be first, then inventory system and detectors last")]
     private PlayerMovement _playerMovement;
+    private PlayerRotation _playerRotation;
+    private Inventory _inventory;
     private InteractableDetector _interactableDetector;
     private ItemDetector _itemDetector;
-    private Inventory _inventory;
-    private PlayerRotation _playerRotation;
     private GhostSimulationInteractableDetector _ghostSimulationInteractableDetector;
     #endregion
 
@@ -16,10 +17,10 @@ public class DefaultPlayerState : PlayerState
     {
         base.Awake();
         _playerMovement = GetComponent<PlayerMovement>();
+        _playerRotation = GetComponentInChildren<PlayerRotation>();
+        _inventory = GetComponentInChildren<Inventory>();
         _interactableDetector = GetComponentInChildren<InteractableDetector>();
         _itemDetector = GetComponentInChildren<ItemDetector>();
-        _inventory = GetComponentInChildren<Inventory>();
-        _playerRotation = GetComponentInChildren<PlayerRotation>();
         _ghostSimulationInteractableDetector = GetComponentInChildren<GhostSimulationInteractableDetector>();
     }
 

@@ -88,8 +88,6 @@ public abstract class ObjectDetector : MonoBehaviour
         // Find objects that overlap with collider
         Collider[] colliders = this.FindOverlaps();
 
-        //Interactable closest = GetClosestInteractable(colliders);
-
         if (closestInteract)
         {
             InteractClosest(closestInteract);

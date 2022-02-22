@@ -154,7 +154,6 @@ public class Inventory : MonoBehaviour, IInventory
     }
 
     public void DiscardItemInput()
-
     {
         if (_activeItem) DiscardItem();
         else
