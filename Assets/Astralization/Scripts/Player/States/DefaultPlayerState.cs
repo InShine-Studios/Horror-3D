@@ -27,6 +27,7 @@ public class DefaultPlayerState : PlayerState
     }
 
     #region Input Handler
+    #region Movement
     public override void OnMovementInput(InputAction.CallbackContext ctx)
     {
         _playerMovement.OnMovementInput(ctx.ReadValue<Vector2>());
@@ -35,14 +36,6 @@ public class DefaultPlayerState : PlayerState
     public override void OnMousePosition(InputAction.CallbackContext ctx)
     {
         _playerRotation.OnMousePosition(ctx.ReadValue<Vector2>());
-    }
-
-    public override void ScrollActiveItem(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
-        {
-            _inventory.ScrollActiveItem(ctx.ReadValue<Vector2>());
-        }
     }
 
     public override void SprintPressed(InputAction.CallbackContext ctx)
@@ -60,23 +53,9 @@ public class DefaultPlayerState : PlayerState
             _playerMovement.SprintReleased();
         }
     }
+    #endregion
 
-    public override void CheckInteractionInteractable(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
-        {
-            _interactableDetector.CheckInteraction();
-        }
-    }
-
-    public override void CheckInteractionItem(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
-        {
-            _itemDetector.CheckInteraction();
-        }
-    }
-
+    #region Inventory
     public override void UseActiveItem(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
@@ -93,6 +72,32 @@ public class DefaultPlayerState : PlayerState
         }
     }
 
+    public override void ScrollActiveItem(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            _inventory.ScrollActiveItem(ctx.ReadValue<Vector2>());
+        }
+    }
+    #endregion
+
+    #region Detector
+    public override void CheckInteractionInteractable(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            _interactableDetector.CheckInteraction();
+        }
+    }
+
+    public override void CheckInteractionItem(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            _itemDetector.CheckInteraction();
+        }
+    }
+
     public override void CheckInteractionGhost(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
@@ -100,5 +105,6 @@ public class DefaultPlayerState : PlayerState
             _ghostSimulationInteractableDetector.CheckInteraction();
         }
     }
+    #endregion
     #endregion
 }
