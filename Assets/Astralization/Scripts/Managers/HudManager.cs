@@ -21,7 +21,7 @@ public class HudManager : MonoBehaviour
     #region Enable - Disable
     private void OnEnable()
     {
-        GameManager.HudMapEvent += SetActiveHud;
+        GameManager.HudEvent += SetHudState;
         DialogueInputHandler.NextDialogueHudEvent += NextDialogue;
         HideInputHandler.StopHidingHudEvent += ShowHidingHud;
         Inventory.ItemLogoEvent += UpdateLogo;
@@ -29,22 +29,21 @@ public class HudManager : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.HudMapEvent -= SetActiveHud;
+        GameManager.HudEvent -= SetHudState;
         DialogueInputHandler.NextDialogueHudEvent -= NextDialogue;
         HideInputHandler.StopHidingHudEvent -= ShowHidingHud;
         Inventory.ItemLogoEvent -= UpdateLogo;
     }
     #endregion
 
-    public void SetActiveHud(string hudMap, bool state)
+    public void SetHudState(string hudKey, bool condition)
     {
-        switch (hudMap) // RACE CONDITION
+        switch (hudKey)
         {
-            case "Exorcism": ShowExorcism(state); break;
-            case "Hiding": ShowHidingHud(state); break;
-            case "Dialogue": ShowDialogue(state); break;
+            case "Exorcism": ShowExorcism(condition); break;
+            case "Hiding": ShowHidingHud(condition); break;
+            case "Dialogue": ShowDialogue(condition); break;
         }
-        //Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);
     }
 
     #region HUDfunction
