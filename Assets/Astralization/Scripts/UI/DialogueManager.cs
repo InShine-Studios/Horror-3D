@@ -36,11 +36,10 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     private float _textSpeed;
 
     private bool _dialogBoxOpen;
-    private string _defaultActionMap = "Default";
     #endregion
 
 
-    public static event Action<string> FinishDialogueEvent;
+    public static event Action FinishDialogueEvent;
 
     #region Awake
     private void Awake()
@@ -120,7 +119,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         else
         {
             StopAllCoroutines();
-            FinishDialogueEvent?.Invoke(_defaultActionMap);
+            FinishDialogueEvent?.Invoke();
             ShowDialogueBox(false);
         }
     }
