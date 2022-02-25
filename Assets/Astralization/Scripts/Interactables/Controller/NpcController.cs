@@ -14,15 +14,20 @@ public interface INpcController
  */
 public class NpcController : Interactable, INpcController
 {
-    #region Variables
-    private bool _questOneFinished;
-    private bool _questTwoFinished;
+    #region Constants
     private string _dialogueActionMap = "Dialogue";
+    #endregion
 
+    #region Events
     public static event Action<string> NpcInteractionEvent;
     #endregion
 
-    #region Setter Getter
+    #region Variables
+    private bool _questOneFinished;
+    private bool _questTwoFinished;
+    #endregion
+
+    #region SetGet
     public bool GetOneFinished()
     {
         return _questOneFinished;

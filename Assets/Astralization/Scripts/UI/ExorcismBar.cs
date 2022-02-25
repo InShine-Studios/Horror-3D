@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,7 +36,12 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     public static event Action<string> FinishExorcismChannelingEvent;
     #endregion
 
-    #region Enable - Disable
+    #region MonoBehaviour
+    private void Awake()
+    {
+        SetSliderMinValue(_minValue);
+    }
+
     private void OnEnable()
     {
         ExorcismInputHandler.UseReleasedEvent += StopExorcism;
@@ -48,14 +51,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     {
         ExorcismInputHandler.UseReleasedEvent -= StopExorcism;
     }
-    #endregion
 
-    private void Awake()
-    {
-        SetSliderMinValue(_minValue);
-    }
-
-    #region Update
     private void Update()
     {
         if (slider.gameObject.activeSelf)
@@ -72,7 +68,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     }
     #endregion
 
-    #region Setter Getter
+    #region SetGet
     public float GetAccumulatedTime()
     {
         return _accumulatedTime;
@@ -103,14 +99,14 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     {
         slider.value = sliderValue;
     }
-    #endregion
 
-    #region Exorcism Logic
     public void ShowBar(bool isActive)
     {
         slider.gameObject.SetActive(isActive);
     }
+    #endregion
 
+    #region Handler
     public void StopExorcism()
     {
         _isUsed = false;

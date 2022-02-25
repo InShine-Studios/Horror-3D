@@ -6,16 +6,22 @@ using UnityEngine.UI;
  */
 public class ItemLogo : MonoBehaviour
 {
+    #region Variables
     private Image _img;
+    #endregion
 
-    private void Awake()
-    {
-        _img = transform.Find("Logo").GetComponent<Image>();
-    }
-
+    #region SetGet
     public void UpdateLogo(bool state, Sprite logo)
     {
         _img.sprite = logo;
         _img.enabled = state;
     }
+    #endregion
+
+    #region MonoBehaviour
+    private void Awake()
+    {
+        _img = transform.Find("Logo").GetComponent<Image>();
+    }
+    #endregion
 }

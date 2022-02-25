@@ -30,22 +30,9 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     [Header("Audio")]
     [Tooltip("Audio Manager")]
     protected AudioPlayer AudioPlayerObj;
-
     #endregion
 
-    protected virtual void Awake()
-    {
-        AudioPlayerObj = GetComponentInChildren<AudioPlayer>();
-    }
-
-    private void Reset()
-    {
-        GetComponent<Collider>().isTrigger = true;
-    }
-
-    public abstract void OnInteraction();
-
-    // Function to set Icon state
+    #region SetGet
     public void ShowGuideIcon(bool state)
     {
         if (_useIcon)
@@ -61,6 +48,21 @@ public abstract class Interactable : MonoBehaviour, IInteractable
         //Debug.Log("[INTERACTABLE] Setting collider " + this.name + " to " + state);
         GetComponent<Collider>().enabled = state;
     }
+    #endregion
+
+    #region MonoBehaviour
+    protected virtual void Awake()
+    {
+        AudioPlayerObj = GetComponentInChildren<AudioPlayer>();
+    }
+
+    private void Reset()
+    {
+        GetComponent<Collider>().isTrigger = true;
+    }
+    #endregion
+
+    public abstract void OnInteraction();
 
     protected void PlayAudio(string name)
     {

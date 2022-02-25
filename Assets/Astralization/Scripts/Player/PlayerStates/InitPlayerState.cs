@@ -3,11 +3,13 @@ using UnityEngine.InputSystem;
 
 public class InitPlayerState : PlayerState
 {
+    #region MonoBehaviour
     protected override void Awake()
     {
         base.Awake();
         StartCoroutine(Init());
     }
+    #endregion
 
     private IEnumerator Init()
     {

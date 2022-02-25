@@ -33,24 +33,7 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     private bool _isOnSight = false;
     #endregion
 
-    void Start()
-    {
-        InvokeRepeating("Increment", 0.0f, 1.0f);
-    }
-
-    #region Enable - Disable
-    private void OnEnable()
-    {
-        GameManager.ChangeWorldEvent += ChangeWorld;
-    }
-
-    private void OnDisable()
-    {
-        GameManager.ChangeWorldEvent -= ChangeWorld;
-    }
-    #endregion
-
-    #region Getter
+    #region SetGet
     public float GetAstralMeter()
     {
         return _astralMeter;
@@ -64,6 +47,23 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     public bool IsOnSight()
     {
         return _isOnSight;
+    }
+    #endregion
+
+    #region MonoBehaviour
+    void Awake()
+    {
+        InvokeRepeating("Increment", 0.0f, 1.0f);
+    }
+
+    private void OnEnable()
+    {
+        GameManager.ChangeWorldEvent += ChangeWorld;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.ChangeWorldEvent -= ChangeWorld;
     }
     #endregion
 

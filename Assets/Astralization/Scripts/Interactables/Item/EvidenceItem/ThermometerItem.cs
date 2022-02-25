@@ -6,17 +6,14 @@ using System.Collections.Generic;
  * Thermometer class.
  * Override DetermineEvidence and HandleChange from base EvidenceItem class according to murder environment temperature evidence mechanics.
  */
-public class Thermometer : EvidenceItem
+public class ThermometerItem : EvidenceItem
 {
-
-    #region Model
+    #region Variables
     [Header("Model reference")]
     [SerializeField]
     [Tooltip("Model reference")]
     private GameObject _model;
-    #endregion
 
-    #region State Materials
     [Header("State Materials")]
     [SerializeField]
     [Tooltip("Material for Base evidence")]
@@ -37,10 +34,18 @@ public class Thermometer : EvidenceItem
     [Tooltip("Material for Negative evidence")]
     private Material _negativeMaterial;
 
+    private Dictionary<EvidenceItemState, Material> stateToMatMapping;
     #endregion
 
-    private Dictionary<EvidenceItemState, Material> stateToMatMapping;
+    #region SetGet
+    private void SetStateMaterial(Material stateMaterial)
+    {
+        MeshRenderer mesh = _model.GetComponentInChildren<MeshRenderer>(true);
+        mesh.material = stateMaterial;
+    }
+    #endregion
 
+    #region MonoBehaviour
     protected override void Awake()
     {
         base.Awake();
@@ -51,12 +56,7 @@ public class Thermometer : EvidenceItem
             {EvidenceItemState.NEGATIVE, this._negativeMaterial},
         };
     }
-
-    private void SetStateMaterial(Material stateMaterial)
-    {
-        MeshRenderer mesh = _model.GetComponentInChildren<MeshRenderer>(true);
-        mesh.material = stateMaterial;
-    }
+    #endregion
 
     public override void HandleChange()
     {

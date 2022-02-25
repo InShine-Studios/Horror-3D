@@ -9,11 +9,13 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider))]
 public class GhostSimulationInteractableDetector : ObjectDetector
 {
-    protected override void Start()
+    #region MonoBehaviour
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         detectionTag = "Item";
     }
+    #endregion
 
     protected override void InteractClosest(Interactable closest)
     {

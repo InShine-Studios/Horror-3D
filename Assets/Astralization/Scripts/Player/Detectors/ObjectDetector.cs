@@ -23,7 +23,9 @@ public abstract class ObjectDetector : MonoBehaviour
     #endregion
 
     protected abstract void InteractClosest(Interactable closest);
-    protected virtual void Start()
+
+    #region MonoBehaviour
+    protected virtual void Awake()
     {
         nearbyInteractables = new List<Interactable>();
     }
@@ -45,6 +47,7 @@ public abstract class ObjectDetector : MonoBehaviour
             Interactable interactable = other.GetComponent<Interactable>();
             // Remove interactable from list
             nearbyInteractables.Remove(interactable);
+
             if (interactable.Equals(closestInteractable))
             {
                 // Turn off icon
@@ -54,7 +57,6 @@ public abstract class ObjectDetector : MonoBehaviour
         }
     }
 
-    #region Enable - Disable
     private void OnEnable()
     {
         PlayerMovement.FindClosest += SetClosestInteractable;
@@ -66,6 +68,7 @@ public abstract class ObjectDetector : MonoBehaviour
     }
     #endregion
 
+    #region SetGet
     private void SetClosestInteractable()
     {
         Interactable newClosest = GetClosestInteractable();
@@ -78,7 +81,7 @@ public abstract class ObjectDetector : MonoBehaviour
         closestInteractable?.ShowGuideIcon(true);
     }
 
-    protected Interactable GetClosestInteractable()
+    private Interactable GetClosestInteractable()
     {
         float minDist = Mathf.Infinity;
         Interactable newClosest = null;
@@ -98,6 +101,7 @@ public abstract class ObjectDetector : MonoBehaviour
 
         return newClosest;
     }
+    #endregion
 
     public void CheckInteraction()
     {

@@ -13,12 +13,12 @@ public interface IExorcismItem
  */
 public class ExorcismItem : Item, IExorcismItem
 {
-    #region Variables
-    private string _playerActionMap = "Exorcism";
-    #endregion
-
     #region Events
     public static event Action<string> ExorcismChannelingEvent;
+    #endregion
+
+    #region Variables
+    private string _playerActionMap = "Exorcism";
     #endregion
 
     public override void Use()

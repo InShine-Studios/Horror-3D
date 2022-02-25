@@ -5,17 +5,16 @@ using System.Collections.Generic;
  * Clock class.
  * Override DetermineEvidence and HandleChange from base EvidenceItem class according to murder time stamp evidence mechanics.
  */
-public class Clock : EvidenceItem
+public class ClockItem : EvidenceItem
 {
-
-    #region Audio Source
+    #region Variables - Audio Source
     [Header("Audio Source reference")]
     [SerializeField]
     [Tooltip("Audio Source reference")]
     private GameObject _audioSourceReference;
     #endregion
 
-    #region State AudioClips
+    #region Variables - State AudioClips
     [Header("State AudioClips")]
     [SerializeField]
     [Tooltip("AudioClip for Base evidence")]
@@ -37,8 +36,19 @@ public class Clock : EvidenceItem
     private AudioClip _negativeAudioClip;
     #endregion
 
+    #region Variables
     private Dictionary<EvidenceItemState, AudioClip> _stateToAudioClipMapping;
+    #endregion
 
+    #region SetGet
+    private void SetStateAudioClip(AudioClip stateAudioClip)
+    {
+        AudioSource audioSource = _audioSourceReference.GetComponent<AudioSource>();
+        audioSource.clip = stateAudioClip;
+    }
+    #endregion
+
+    #region MonoBehaviour
     protected override void Awake()
     {
         base.Awake();
@@ -49,12 +59,7 @@ public class Clock : EvidenceItem
             {EvidenceItemState.NEGATIVE, _negativeAudioClip},
         };
     }
-
-    private void SetStateAudioClip(AudioClip stateAudioClip) 
-    {
-        AudioSource audioSource = _audioSourceReference.GetComponent<AudioSource>();
-        audioSource.clip = stateAudioClip;
-    }
+    #endregion
 
     public override void HandleChange()
     {

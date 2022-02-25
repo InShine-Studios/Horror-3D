@@ -13,8 +13,11 @@ public interface IDoorController: IInteractable
  */
 public class DoorController : Interactable, IDoorController
 {
-    #region Variables
+    #region Constants
     private const string _animParam = "isOpen";
+    #endregion
+
+    #region Variables
     [Header("Door States")]
     [SerializeField]
     [Tooltip("True if door is in open state")]
@@ -26,11 +29,7 @@ public class DoorController : Interactable, IDoorController
     private Animator _animator;
     #endregion
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
+    #region SetGet
     public bool GetState()
     {
         return _isOpen;
@@ -48,6 +47,14 @@ public class DoorController : Interactable, IDoorController
         _isOpen = !_isOpen;
         _animator.SetBool(_animParam, _isOpen);
     }
+    #endregion
+
+    #region MonoBehaviour
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+    #endregion
 
     public override void OnInteraction()
     {

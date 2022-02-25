@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
  */
 public class DialogueInputHandler : MonoBehaviour
 {
-    #region Variable
+    #region Events
     public static event Action NextDialogueHudEvent;
     #endregion
 

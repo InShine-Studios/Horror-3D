@@ -12,8 +12,11 @@ public interface ILightSwitchController: IInteractable
  */
 public class LightSwitchController : Interactable, ILightSwitchController
 {
-    #region Variables
+    #region Constants
     private const string _animParam = "isOn";
+    #endregion
+
+    #region Variables
     [Header("Light switch state")]
     [SerializeField]
     [Tooltip("True if light switch is on")]
@@ -30,22 +33,7 @@ public class LightSwitchController : Interactable, ILightSwitchController
     private Animator _animator;
     #endregion
 
-    protected override void Awake()
-    {
-        base.Awake();
-        _lightSources = GetComponentsInChildren<Light>();
-    }
-    public override void OnInteraction()
-    {
-        //Debug.Log(
-        //    String.Format("[INTERACTABLE] Turning \"{0}\" {1}", this.name, (isOn ? "on" : "off"))
-        //);
-        ChangeState();
-        SetLightSources(_isOn);
-        if(_isOn) PlayAudio("Switch_On");
-        else PlayAudio("Switch_Off");
-    }
-
+    #region SetGet
     private void SetLightSources(bool value)
     {
         foreach (Light lightSource in _lightSources)
@@ -64,5 +52,25 @@ public class LightSwitchController : Interactable, ILightSwitchController
     public bool GetState()
     {
         return _isOn;
+    }
+    #endregion
+
+    #region MonoBehaviour
+    protected override void Awake()
+    {
+        base.Awake();
+        _lightSources = GetComponentsInChildren<Light>();
+    }
+    #endregion
+
+    public override void OnInteraction()
+    {
+        //Debug.Log(
+        //    String.Format("[INTERACTABLE] Turning \"{0}\" {1}", this.name, (isOn ? "on" : "off"))
+        //);
+        ChangeState();
+        SetLightSources(_isOn);
+        if(_isOn) PlayAudio("Switch_On");
+        else PlayAudio("Switch_Off");
     }
 }

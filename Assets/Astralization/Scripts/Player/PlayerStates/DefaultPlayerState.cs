@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class DefaultPlayerState : PlayerState
 {
-    #region Handler Variables
+    #region Variables
     [Header("Movement and Rotation")]
     private PlayerMovement _playerMovement;
     private PlayerRotation _playerRotation;
@@ -15,6 +15,7 @@ public class DefaultPlayerState : PlayerState
     private GhostSimulationInteractableDetector _ghostSimulationInteractableDetector;
     #endregion
 
+    #region MonoBehaviour
     protected override void Awake()
     {
         base.Awake();
@@ -25,24 +26,24 @@ public class DefaultPlayerState : PlayerState
         _itemDetector = GetComponentInChildren<ItemDetector>();
         _ghostSimulationInteractableDetector = GetComponentInChildren<GhostSimulationInteractableDetector>();
     }
+    #endregion
 
-    #region Input Handler
-    #region Movement
+    #region Movement Input Handler
     public override void OnMovementInput(InputAction.CallbackContext ctx)
     {
-        _playerMovement.OnMovementInput(ctx.ReadValue<Vector2>());
+        _playerMovement.GenerateMoveVector(ctx.ReadValue<Vector2>());
     }
 
     public override void OnMousePosition(InputAction.CallbackContext ctx)
     {
-        _playerRotation.OnMousePosition(ctx.ReadValue<Vector2>());
+        _playerRotation.SetMousePosition(ctx.ReadValue<Vector2>());
     }
 
     public override void SprintPressed(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
         {
-            _playerMovement.SprintPressed();
+            _playerMovement.SetSprinting(true);
         }
     }
 
@@ -50,12 +51,12 @@ public class DefaultPlayerState : PlayerState
     {
         if (ctx.performed)
         {
-            _playerMovement.SprintReleased();
+            _playerMovement.SetSprinting(false);
         }
     }
     #endregion
 
-    #region Inventory
+    #region Inventory Input Handler
     public override void UseActiveItem(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
@@ -81,7 +82,7 @@ public class DefaultPlayerState : PlayerState
     }
     #endregion
 
-    #region Detector
+    #region Detector Input Handler
     public override void CheckInteractionInteractable(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
@@ -105,6 +106,5 @@ public class DefaultPlayerState : PlayerState
             _ghostSimulationInteractableDetector.CheckInteraction();
         }
     }
-    #endregion
     #endregion
 }

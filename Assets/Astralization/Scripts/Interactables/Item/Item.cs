@@ -2,9 +2,7 @@ using UnityEngine;
 
 public interface IItem: IInteractable
 {
-    void HideItem();
     void SetMeshRenderer(bool enabled);
-    void ShowItem();
     void Use();
 }
 
@@ -16,7 +14,7 @@ public interface IItem: IInteractable
 [RequireComponent(typeof(MeshRenderer))]
 public abstract class Item : Interactable, IItem
 {
-
+    #region Variables
     [Header("Item Logo")]
     [SerializeField]
     [Tooltip("The Sprite for the logo")]
@@ -26,12 +24,34 @@ public abstract class Item : Interactable, IItem
     [SerializeField]
     [Tooltip("Determine whether discard after used or not")]
     private bool _discardedWhenUsed = false;
+    #endregion
+
+    #region SetGet
+    public void SetMeshRenderer(bool enabled)
+    {
+        transform.Find("Model").gameObject.SetActive(enabled);
+    }
+
+    public void ShowItem(bool isShown)
+    {
+        //Debug.Log("[ITEM] Show item " + this.name + " visibility to:" + isShown);
+        this.gameObject.SetActive(isShown);
+    }
+
+    public Sprite GetItemLogo()
+    {
+        return _itemLogo;
+    }
+
+    public bool IsDiscardedWhenUsed()
+    {
+        return _discardedWhenUsed;
+    }
+    #endregion
 
     public abstract void Use();
 
-    public virtual void StopUse() 
-    { 
-    }
+    public virtual void StopUse() { }
 
     public override void OnInteraction()
     {
@@ -48,36 +68,5 @@ public abstract class Item : Interactable, IItem
     {
         SetCollider(true);
         SetMeshRenderer(true);
-    }
-
-    #region Setter Getter
-    public void SetMeshRenderer(bool enabled)
-    {
-        transform.Find("Model").gameObject.SetActive(enabled);
-    }
-
-    public Sprite GetItemLogo()
-    {
-        return _itemLogo;
-    }
-    #endregion
-
-    #region Show - Hide Item
-    public void HideItem()
-    {
-        //Debug.Log("[ITEM] Hiding item " + this.name);
-        this.gameObject.SetActive(false);
-    }
-
-    public void ShowItem()
-    {
-        //Debug.Log("[ITEM] Showing item " + this.name);
-        this.gameObject.SetActive(true);
-    }
-    #endregion
-
-    public bool IsDiscardedWhenUsed()
-    {
-        return _discardedWhenUsed;
     }
 }

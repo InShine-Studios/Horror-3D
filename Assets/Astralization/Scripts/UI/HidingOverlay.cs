@@ -6,9 +6,11 @@ using UnityEngine.UI;
  */
 public class HidingOverlay : MonoBehaviour
 {
-    #region Variables
+    #region Constants
     private const string _animParam = "isHiding";
+    #endregion
 
+    #region Variables
     [SerializeField]
     [Header("Animation")]
     private Animator _animator;
@@ -16,10 +18,12 @@ public class HidingOverlay : MonoBehaviour
     private Image _overlay;
     #endregion
 
+    #region MonoBehaviour
     private void Awake()
     {
         _overlay = transform.Find("Overlay").GetComponent<Image>();
     }
+    #endregion
 
     public void StartAnim(bool isHiding)
     {

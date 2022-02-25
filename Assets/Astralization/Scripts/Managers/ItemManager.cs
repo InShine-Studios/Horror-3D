@@ -6,7 +6,7 @@ using UnityEngine;
  */
 public class OverworldItem : MonoBehaviour
 {
-    #region Enable - Disable
+    #region MonoBehaviour
     private void OnEnable()
     {
         Inventory.DiscardItemEvent += ReceiveDiscardedItem;

@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
  */
 public class PlayerRotation : MonoBehaviour
 {
-    #region Rotation Variables
+    #region Variables
     [Header("External Variables")]
     [Tooltip("Current mouse position")]
     private Vector2 _mousePosition = new Vector2(0, 0);
@@ -28,6 +28,15 @@ public class PlayerRotation : MonoBehaviour
     private float _rotationSpeed;
     #endregion
 
+    #region SetGet
+    public void SetMousePosition(Vector2 mousePosition)
+    {
+        _mousePosition = mousePosition;
+        //Debug.Log("[PLAYER] Movement direction: " + mousePosition);
+    }
+    #endregion
+
+    #region MonoBehaviour
     private void Awake()
     {
         _playerBase = GetComponentInParent<PlayerMovement>().GetPlayerBase();
@@ -48,16 +57,9 @@ public class PlayerRotation : MonoBehaviour
         _playerMovementPlane.Translate(_posPrev - this.transform.position);
         _posPrev = this.transform.position;
     }
-
-    #region Input System
-    // Read mouse position to change player direction
-    public void OnMousePosition(Vector2 mousePosition)
-    {
-        _mousePosition = mousePosition;
-        //Debug.Log("[PLAYER] Movement direction: " + mousePosition);
-    }
     #endregion
 
+    #region Handler
     private void RotatePlayer()
     {
         Vector3 cursorScenePosition = _mousePosition;
@@ -67,6 +69,7 @@ public class PlayerRotation : MonoBehaviour
         Quaternion newRotation = Quaternion.LookRotation(_playerToMouse);
         transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, _rotationSpeed * Time.deltaTime);
     }
+    #endregion
 
     #region Screen to World
     // Convert a screenpoint on camera to plane

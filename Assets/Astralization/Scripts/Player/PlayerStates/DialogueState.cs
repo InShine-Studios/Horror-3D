@@ -3,15 +3,17 @@ using UnityEngine.InputSystem;
 
 public class DialogueState : PlayerState
 {
-    #region Handler Variables
+    #region Variables
     private DialogueInputHandler _dialogueInputHandler;
     #endregion
 
+    #region MonoBehaviour
     protected override void Awake()
     {
         base.Awake();
         _dialogueInputHandler = GetComponentInChildren<DialogueInputHandler>();
     }
+    #endregion
 
     #region Input Handler
     public override void NextDialogue(InputAction.CallbackContext ctx)

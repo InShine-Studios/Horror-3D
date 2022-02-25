@@ -11,14 +11,15 @@ public class DummyFlashlightItem : Item
     #region Variables
     [Header("Light")]
     private Light _lightSource;
-
     #endregion
 
+    #region MonoBehaviour
     protected override void Awake()
     {
         base.Awake();
         _lightSource = GetComponentInChildren<Light>();
     }
+    #endregion
 
     public override void Use()
     {

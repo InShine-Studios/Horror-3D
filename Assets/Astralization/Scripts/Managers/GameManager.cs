@@ -9,11 +9,7 @@ public interface IGameManager
 
 public class GameManager : MonoBehaviour, IGameManager
 {
-    #region Variables
-    [Tooltip("Bool flag to check if the player is in Real World or Astral World")]
-    [SerializeField]
-    private bool _isInAstralWorld = false;
-    // For further player state storage
+    #region Enums
     private enum _playerState
     {
         Dialogue,
@@ -33,7 +29,17 @@ public class GameManager : MonoBehaviour, IGameManager
     public static event Action<bool> ShowExorcismHudEvent;
     #endregion
 
-    #region Enable - Disable
+    #region Variables
+    [Tooltip("Bool flag to check if the player is in Real World or Astral World")]
+    [SerializeField]
+    private bool _isInAstralWorld = false;
+    #endregion
+
+    #region SetGet
+    public bool IsInAstralWorld() { return _isInAstralWorld; }
+    #endregion
+
+    #region MonoBehaviour
     private void OnEnable()
     {
         AnkhItem.ChangeWorldGM += InvokeChangeWorld;
@@ -53,10 +59,6 @@ public class GameManager : MonoBehaviour, IGameManager
         ExorcismItem.ExorcismChannelingEvent -= InvokePlayerState;
         ExorcismBar.FinishExorcismChannelingEvent -= InvokePlayerState;
     }
-    #endregion
-
-    #region Setter Getter
-    public bool IsInAstralWorld() { return _isInAstralWorld; }
     #endregion
 
     #region Invoker

@@ -7,11 +7,11 @@ using UnityEngine.InputSystem;
  */
 public class HideInputHandler : MonoBehaviour
 {
-    #region Variable
+    private string _playerActionMap = "Player";
+
+    #region Events
     public static event Action<bool> StopHidingHudEvent;
     public static event Action<string> StopHidingEvent;
-
-    private string _playerActionMap = "Player";
     #endregion
 
     public void UnhidePlayer(InputAction.CallbackContext ctx)

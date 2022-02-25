@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /*
@@ -7,17 +5,19 @@ using UnityEngine;
  */
 public class AudioManager : MonoBehaviour
 {
+    #region Variables
     [Space]
     [Header("Audio")]
     [Tooltip("Audio Manager")]
     private AudioPlayer _audioPlayerObj;
+    #endregion
 
+    #region MonoBehaviour
     protected virtual void Awake()
     {
         _audioPlayerObj = GetComponentInChildren<AudioPlayer>();
     }
 
-    #region Enable - Disable
     private void OnEnable()
     {
         GameManager.PlayerAudioDiesEvent += PlayAudioDies;

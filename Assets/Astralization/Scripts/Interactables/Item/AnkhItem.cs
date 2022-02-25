@@ -7,15 +7,16 @@ using UnityEngine;
  */
 public class AnkhItem : Item
 {
-    #region Variables
+    #region Events
     public static event Action ChangeWorldGM;
-
     #endregion
 
+    #region MonoBehaviour
     protected override void Awake()
     {
         base.Awake();
     }
+    #endregion
 
     public override void Use()
     {

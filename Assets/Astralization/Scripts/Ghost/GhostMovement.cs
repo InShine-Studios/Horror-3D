@@ -34,11 +34,6 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     private NavMeshAgent _navMeshAgent;
     private NavMeshHit _navMeshHit;
 
-    [Tooltip("Ghost current room")]
-    private string _currentRoom = "Living Room";
-
-    //Uncomment SerializeField for Debug Purpose
-    //[SerializeField]
     [Tooltip("Target destination of movement")]
     private Vector3 _wanderTarget;
 
@@ -46,30 +41,10 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     private StageManager _stageManager;
     #endregion
 
-    #region Awake - Update
-    void Awake()
-    {
-        _navMeshAgent = GetComponent<NavMeshAgent>();
-        _wanderTarget = transform.position;
-        _navMeshAgent.SetDestination(_wanderTarget);
-    }
-
-    void Update()
-    {
-        if (Time.time > _nextCheck)
-        {
-            _nextCheck = Time.time + _checkRate;
-            _checkRate = Utils.Randomizer.GetFloat(_checkRateRange.min, _checkRateRange.max);
-
-            if (_enableWandering) CheckReadyToWander();
-        }
-    }
-    #endregion
-
-    #region Setter - Getter
+    #region SetGet
     private float GetDistanceFromDestination()
     {
-        return Mathf.Abs(Utils.GeometryCalcu.GetDistance3D(transform.position,_wanderTarget));
+        return Mathf.Abs(Utils.GeometryCalcu.GetDistance3D(transform.position, _wanderTarget));
     }
 
     public float GetDistanceThreshold()
@@ -86,6 +61,26 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     public void SetWandering(bool value)
     {
         _enableWandering = value;
+    }
+    #endregion
+
+    #region MonoBehaviour
+    void Awake()
+    {
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+        _wanderTarget = transform.position;
+        _navMeshAgent.SetDestination(_wanderTarget);
+    }
+
+    void Update()
+    {
+        if (Time.time > _nextCheck)
+        {
+            _nextCheck = Time.time + _checkRate;
+            _checkRate = Utils.Randomizer.GetFloat(_checkRateRange.min, _checkRateRange.max);
+
+            if (_enableWandering) CheckReadyToWander();
+        }
     }
     #endregion
 

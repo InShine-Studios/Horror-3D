@@ -14,12 +14,11 @@ public class InputManager : StateMachine
     private PlayerState tempCurrentState;
     #endregion
 
+    #region MonoBehaviour
     private void Awake()
     {
         ChangeState<InitPlayerState>();
     }
-
-    #region Enable Disable
     private void OnEnable()
     {
         GameManager.PlayerActionMapEvent += SetPlayerActionMap;
@@ -31,7 +30,6 @@ public class InputManager : StateMachine
         GameManager.PlayerActionMapEvent -= SetPlayerActionMap;
         HideInputHandler.StopHidingEvent -= SetPlayerActionMap;
     }
-
     #endregion
 
     public void SetPlayerActionMap(string actionMap)

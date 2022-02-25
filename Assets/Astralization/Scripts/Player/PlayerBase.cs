@@ -17,7 +17,7 @@ public class PlayerBase : IPlayerBase
     #region Variables
     [Header("Movement Constants")]
     [Tooltip("Walk Speed")]
-    [SerializeField] private float _playerMovementSpeed;
+    [SerializeField] private float _movementSpeed;
 
     [Header("Rotation Constants")]
     [Tooltip("Rotation Speed")]
@@ -28,9 +28,10 @@ public class PlayerBase : IPlayerBase
     [SerializeField] private float _sprintSpeed;
     #endregion
 
+    #region SetGet
     public float GetPlayerMovementSpeed()
     {
-        return _playerMovementSpeed;
+        return _movementSpeed;
     }
 
     public float GetRotationSpeed()
@@ -42,4 +43,5 @@ public class PlayerBase : IPlayerBase
     {
         return _sprintSpeed;
     }
+    #endregion
 }

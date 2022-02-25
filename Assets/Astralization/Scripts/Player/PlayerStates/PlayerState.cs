@@ -3,11 +3,16 @@ using UnityEngine.InputSystem;
 
 public abstract class PlayerState : State
 {
+    #region Variables
     protected InputManager owner;
+    #endregion
+
+    #region MonoBehaviour
     protected virtual void Awake()
     {
         owner = GetComponent<InputManager>();
     }
+    #endregion
 
     #region Default Input Handler
     public virtual void OnMovementInput(InputAction.CallbackContext ctx)

@@ -9,11 +9,13 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider))]
 public class InteractableDetector : ObjectDetector
 {
-    protected override void Start()
+    #region Variables
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         detectionTag = "Interactable";
     }
+    #endregion
 
     protected override void InteractClosest(Interactable closest)
     {

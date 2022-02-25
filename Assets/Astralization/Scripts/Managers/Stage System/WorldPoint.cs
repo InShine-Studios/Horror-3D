@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /*
@@ -6,11 +5,13 @@ using UnityEngine;
  */
 public class WorldPoint : MonoBehaviour
 {
+    #region Variables
     public string PointName;
 
     public float Radius;
+    #endregion
 
-    #region Set Get
+    #region SetGet
     public Vector3 GetPosition()
     {
         return transform.position;

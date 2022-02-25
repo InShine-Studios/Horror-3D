@@ -18,28 +18,7 @@ public class HudManager : MonoBehaviour
     private ExorcismBar _exorcismBar;
     #endregion
 
-    #region Enable - Disable
-    private void OnEnable()
-    {
-        GameManager.ShowDialogueHudEvent += ShowDialogue;
-        GameManager.StartHidingHudEvent += ShowHidingHud;
-        DialogueInputHandler.NextDialogueHudEvent += NextDialogue;
-        HideInputHandler.StopHidingHudEvent += ShowHidingHud;
-        Inventory.ItemLogoEvent += UpdateLogo;
-        GameManager.ShowExorcismHudEvent += ShowExorcism;
-    }
-
-    private void OnDisable()
-    {
-        GameManager.ShowDialogueHudEvent -= ShowDialogue;
-        GameManager.StartHidingHudEvent -= ShowHidingHud;
-        DialogueInputHandler.NextDialogueHudEvent -= NextDialogue;
-        HideInputHandler.StopHidingHudEvent -= ShowHidingHud;
-        Inventory.ItemLogoEvent -= UpdateLogo;
-        GameManager.ShowExorcismHudEvent -= ShowExorcism;
-    }
-    #endregion
-
+    #region SetGet
     public void ShowDialogue(bool isShowDialogue)
     {
         //Debug.Log("[START DIALOGUE HUD] isShowDialogue: " + isShowDialogue);
@@ -66,4 +45,27 @@ public class HudManager : MonoBehaviour
     {
         _exorcismBar.ShowBar(isShowExorcism);
     }
+    #endregion
+
+    #region MonoBehaviour
+    private void OnEnable()
+    {
+        GameManager.ShowDialogueHudEvent += ShowDialogue;
+        GameManager.StartHidingHudEvent += ShowHidingHud;
+        DialogueInputHandler.NextDialogueHudEvent += NextDialogue;
+        HideInputHandler.StopHidingHudEvent += ShowHidingHud;
+        Inventory.ItemLogoEvent += UpdateLogo;
+        GameManager.ShowExorcismHudEvent += ShowExorcism;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.ShowDialogueHudEvent -= ShowDialogue;
+        GameManager.StartHidingHudEvent -= ShowHidingHud;
+        DialogueInputHandler.NextDialogueHudEvent -= NextDialogue;
+        HideInputHandler.StopHidingHudEvent -= ShowHidingHud;
+        Inventory.ItemLogoEvent -= UpdateLogo;
+        GameManager.ShowExorcismHudEvent -= ShowExorcism;
+    }
+    #endregion
 }

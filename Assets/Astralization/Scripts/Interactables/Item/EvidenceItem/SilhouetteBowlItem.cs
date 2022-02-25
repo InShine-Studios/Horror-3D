@@ -5,10 +5,9 @@ using System.Collections.Generic;
  * SilhouetteBowl class.
  * Override DetermineEvidence and HandleChange from base EvidenceItem class according to murder silhouette evidence mechanics.
  */
-public class SilhouetteBowl : EvidenceItem
+public class SilhouetteBowlItem : EvidenceItem
 {
-
-    #region Model
+    #region Variables
     [Header("Model reference")]
     [SerializeField]
     [Tooltip("Positive model game object reference")]

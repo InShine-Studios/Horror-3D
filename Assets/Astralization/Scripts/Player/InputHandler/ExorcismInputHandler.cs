@@ -9,7 +9,9 @@ using UnityEngine.InputSystem;
  */
 public class ExorcismInputHandler : MonoBehaviour
 {
+    #region Events
     public static event Action UseReleasedEvent;
+    #endregion
 
     public void UseReleased(InputAction.CallbackContext ctx)
     {

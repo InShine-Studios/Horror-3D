@@ -13,17 +13,34 @@ public interface IStageManager
  */
 public class StageManager : MonoBehaviour, IStageManager
 {
+    #region Variables
     private Dictionary<string, WorldPoint> _roomPoints = new Dictionary<string, WorldPoint>();
 
     [SerializeField]
     private WorldPoint _roomPointPrefab;
     [SerializeField]
     private StageData _stageData;
+    #endregion
 
+    #region SetGet
+    public WorldPoint GetRoomCoordinate(string roomName)
+    {
+        return _roomPoints[roomName];
+    }
+
+    public WorldPoint GetRandomRoomCoordinate()
+    {
+        WorldPoint randomRoom = Utils.Randomizer.GetRandomValue(_roomPoints);
+        return randomRoom;
+    }
+    #endregion
+
+    #region MonoBehaviour
     private void Awake()
     {
         Load();
     }
+    #endregion
 
     private void Load()
     {
@@ -38,17 +55,4 @@ public class StageManager : MonoBehaviour, IStageManager
             _roomPoints.Add(instance.PointName, instance);
         }
     }
-
-    #region Setter - Getter
-    public WorldPoint GetRoomCoordinate(string roomName)
-    {
-        return _roomPoints[roomName];
-    }
-
-    public WorldPoint GetRandomRoomCoordinate()
-    {
-        WorldPoint randomRoom = Utils.Randomizer.GetRandomValue(_roomPoints);
-        return randomRoom;
-    }
-    #endregion
 }

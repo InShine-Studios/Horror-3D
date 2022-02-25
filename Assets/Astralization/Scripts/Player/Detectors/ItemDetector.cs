@@ -9,15 +9,19 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider))]
 public class ItemDetector : ObjectDetector
 {
+    #region Variables
     [Tooltip("The inventory of the player for this item detector")]
     private Inventory _inventory;
+    #endregion
 
-    protected override void Start()
+    #region MonoBehaviour
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         detectionTag = "Item";
         _inventory = GetComponent<Inventory>();
     }
+    #endregion
 
     protected override void InteractClosest(Interactable closest)
     {
