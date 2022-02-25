@@ -69,13 +69,13 @@ public abstract class ObjectDetector : MonoBehaviour
     private void SetClosestInteractable()
     {
         Interactable newClosest = GetClosestInteractable();
-        if (!newClosest.Equals(closestInteractable))
+        if (closestInteractable && !newClosest.Equals(closestInteractable))
         {
             closestInteractable.ShowGuideIcon(false);
-            closestInteractable = newClosest;
-            closestInteractable.ShowGuideIcon(true);
             //Debug.Log("[INTERACTABLE] Updated closest interactable to " + closestInteractable.name);
         }
+        closestInteractable = newClosest; // newClosest can be null when no nearby
+        closestInteractable?.ShowGuideIcon(true);
     }
 
     protected Interactable GetClosestInteractable()
@@ -101,7 +101,6 @@ public abstract class ObjectDetector : MonoBehaviour
 
     public void CheckInteraction()
     {
-
         //Debug.Log("[INTERACTABLE] Player pressed");
         if (closestInteractable)
         {

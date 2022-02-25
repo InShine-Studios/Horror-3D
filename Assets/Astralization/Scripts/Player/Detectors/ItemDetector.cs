@@ -12,9 +12,6 @@ public class ItemDetector : ObjectDetector
     [Tooltip("The inventory of the player for this item detector")]
     private Inventory _inventory;
 
-    [Tooltip("Detector zone for item")]
-    private CapsuleCollider _detectorZone;
-
     protected override void Start()
     {
         base.Start();
