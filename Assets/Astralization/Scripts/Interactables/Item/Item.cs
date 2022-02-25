@@ -42,7 +42,7 @@ public abstract class Item : Interactable, IItem
     {
         SetCollider(false);
         SetMeshRenderer(false);
-        SetInteractableIcon(false);
+        ShowGuideIcon(false);
     }
     public void Discard()
     {

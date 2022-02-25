@@ -9,8 +9,9 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider))]
 public class GhostSimulationInteractableDetector : ObjectDetector
 {
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         detectionTag = "Item";
     }
 
@@ -22,11 +23,5 @@ public class GhostSimulationInteractableDetector : ObjectDetector
             EvidenceItem castedClosest = (EvidenceItem) closest;
             castedClosest.OnGhostInteraction();
         }
-    }
-
-    protected override Collider[] FindOverlaps()
-    {
-        CapsuleCollider interactZone = GetComponent<CapsuleCollider>();
-        return Utils.GeometryCalcu.FindOverlapsFromCollider(transform, interactZone);
     }
 }

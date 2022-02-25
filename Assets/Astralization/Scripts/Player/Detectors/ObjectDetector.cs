@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 /*
  * Class to detect objects close to player.
@@ -16,81 +16,96 @@ public abstract class ObjectDetector : MonoBehaviour
     protected string detectionTag;
 
     [Tooltip("Current closest object to this detector")]
-    protected Interactable closestInteract;
+    protected List<Interactable> nearbyInteractables;
 
+    [Tooltip("Current closest object to this detector")]
+    protected Interactable closestInteractable;
     #endregion
 
     protected abstract void InteractClosest(Interactable closest);
+    protected virtual void Start()
+    {
+        nearbyInteractables = new List<Interactable>();
+    }
 
-    protected abstract Collider[] FindOverlaps();
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(detectionTag))
+        {
+            Interactable interactable = other.GetComponent<Interactable>();
+            // Add interactable to list
+            nearbyInteractables.Add(interactable);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag(detectionTag))
+        {
+            Interactable interactable = other.GetComponent<Interactable>();
+            // Remove interactable from list
+            nearbyInteractables.Remove(interactable);
+            if (interactable.Equals(closestInteractable))
+            {
+                // Turn off icon
+                closestInteractable.ShowGuideIcon(false);
+                closestInteractable = null;
+            }
+        }
+    }
 
     #region Enable - Disable
     private void OnEnable()
     {
-        PlayerMovement.FindClosest += SetClosestItemInteractable;
+        PlayerMovement.FindClosest += SetClosestInteractable;
     }
 
     private void OnDisable()
     {
-        PlayerMovement.FindClosest -= SetClosestItemInteractable;
+        PlayerMovement.FindClosest -= SetClosestInteractable;
     }
     #endregion
 
-    private void SetClosestItemInteractable()
+    private void SetClosestInteractable()
     {
-        Collider[] colliders = this.FindOverlaps();
-        if (colliders.Length == 0) return;
-        for (int i = 0; i < colliders.Length; i++)
+        Interactable newClosest = GetClosestInteractable();
+        if (!newClosest.Equals(closestInteractable))
         {
-            Collider cur = colliders[i];
-            // Turn off all icons
-            if (cur.CompareTag(detectionTag))
-            {
-                Interactable interact = cur.GetComponent<Interactable>();
-                interact.SetInteractableIcon(false);
-            }
-        }
-        // Turn on closest
-        closestInteract = GetClosestInteractable(colliders);
-        if (closestInteract)
-        {
-            closestInteract.SetInteractableIcon(true);
+            closestInteractable.ShowGuideIcon(false);
+            closestInteractable = newClosest;
+            closestInteractable.ShowGuideIcon(true);
+            //Debug.Log("[INTERACTABLE] Updated closest interactable to " + closestInteractable.name);
         }
     }
 
-    protected Interactable GetClosestInteractable(Collider[] colliders)
+    protected Interactable GetClosestInteractable()
     {
         float minDist = Mathf.Infinity;
-        Interactable closest = null;
+        Interactable newClosest = null;
 
-        for (int i = 0; i < colliders.Length; i++)
+        for (int i = 0; i < nearbyInteractables.Count; i++)
         {
-            Collider cur = colliders[i];
+            Interactable cur = nearbyInteractables[i];
 
             // Calculate minimum distance and update closest interactable
             float curDist = Utils.GeometryCalcu.GetDistance3D(transform.position, cur.transform.position);
-            if (cur.CompareTag(detectionTag) && curDist < minDist)
+            if (curDist < minDist)
             {
-                //Debug.Log("[INTERACTABLE] Updated closest interactable to " + cur.name);
                 minDist = curDist;
-                closest = cur.GetComponent<Interactable>();
+                newClosest = cur;
             }
         }
 
-        return closest;
+        return newClosest;
     }
 
     public void CheckInteraction()
     {
 
         //Debug.Log("[INTERACTABLE] Player pressed");
-
-        // Find objects that overlap with collider
-        Collider[] colliders = this.FindOverlaps();
-
-        if (closestInteract)
+        if (closestInteractable)
         {
-            InteractClosest(closestInteract);
+            InteractClosest(closestInteractable);
         }
     }
 }

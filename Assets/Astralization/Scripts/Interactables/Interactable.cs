@@ -5,7 +5,7 @@ public interface IInteractable
 {
     void OnInteraction();
     void SetCollider(bool state);
-    void SetInteractableIcon(bool state);
+    void ShowGuideIcon(bool state);
 }
 
 /*
@@ -45,16 +45,8 @@ public abstract class Interactable : MonoBehaviour, IInteractable
 
     public abstract void OnInteraction();
 
-    protected void OnTriggerExit(Collider collision)
-    {
-        if (Utils.PlayerHelper.CheckIsInteractZone(collision))
-        {
-            SetInteractableIcon(false);
-        }
-    }
-
     // Function to set Icon state
-    public void SetInteractableIcon(bool state)
+    public void ShowGuideIcon(bool state)
     {
         if (_useIcon)
         {

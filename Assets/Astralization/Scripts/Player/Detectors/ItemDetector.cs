@@ -15,10 +15,10 @@ public class ItemDetector : ObjectDetector
     [Tooltip("Detector zone for item")]
     private CapsuleCollider _detectorZone;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         detectionTag = "Item";
-        _detectorZone = GetComponent<CapsuleCollider>();
         _inventory = GetComponent<Inventory>();
     }
 
@@ -26,10 +26,5 @@ public class ItemDetector : ObjectDetector
     {
         //Debug.Log("[ITEM] Player picked " + closest.name);
         _inventory.PickItem((Item)closest);
-    }
-
-    protected override Collider[] FindOverlaps()
-    {
-        return Utils.GeometryCalcu.FindOverlapsFromCollider(transform, _detectorZone);
     }
 }

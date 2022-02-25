@@ -9,8 +9,9 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider))]
 public class InteractableDetector : ObjectDetector
 {
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         detectionTag = "Interactable";
     }
 
@@ -18,11 +19,5 @@ public class InteractableDetector : ObjectDetector
     {
         //Debug.Log("[INTERACTABLE] Player interacted with " + closest.name);
         closest.OnInteraction();
-    }
-
-    protected override Collider[] FindOverlaps()
-    {
-        CapsuleCollider interactZone = GetComponent<CapsuleCollider>();
-        return Utils.GeometryCalcu.FindOverlapsFromCollider(transform, interactZone);
     }
 }
