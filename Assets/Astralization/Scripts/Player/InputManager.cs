@@ -23,13 +23,11 @@ public class InputManager : StateMachine
     private void OnEnable()
     {
         GameManager.PlayerStateEvent += SetPlayerActionMap;
-        HideInputHandler.StopHidingEvent += SetPlayerActionMap;
     }
 
     private void OnDisable()
     {
         GameManager.PlayerStateEvent -= SetPlayerActionMap;
-        HideInputHandler.StopHidingEvent -= SetPlayerActionMap;
     }
 
     #endregion
@@ -42,6 +40,7 @@ public class InputManager : StateMachine
             case "Default": ChangeState<DefaultPlayerState>(); break;
             case "Hiding": ChangeState<HidingState>(); break;
             case "Dialogue": ChangeState<DialogueState>(); break;
+            case "Exorcism": ChangeState<ExorcismState>(); break;
         }
         //Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);
     }
@@ -79,6 +78,24 @@ public class InputManager : StateMachine
         switch (ctx.action.name)
         {
             case "NextDialogue": tempCurrentState.NextDialogue(ctx); break;
+        }
+    }
+
+    public void HandleInputHiding(InputAction.CallbackContext ctx)
+    {
+        if (!CanHandleInput()) return;
+        switch (ctx.action.name)
+        {
+            case "Interact": tempCurrentState.UnhidePlayer(ctx); break;
+        }
+    }
+
+    public void HandleInputExorcism(InputAction.CallbackContext ctx)
+    {
+        if (!CanHandleInput()) return;
+        switch (ctx.action.name)
+        {
+            case "Channeling Stop": tempCurrentState.UseReleased(ctx); break;
         }
     }
     #endregion

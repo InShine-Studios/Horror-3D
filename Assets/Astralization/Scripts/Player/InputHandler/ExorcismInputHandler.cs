@@ -11,11 +11,8 @@ public class ExorcismInputHandler : MonoBehaviour
 {
     public static event Action UseReleasedEvent;
 
-    public void UseReleased(InputAction.CallbackContext ctx)
+    public void UseReleased()
     {
-        if (ctx.performed)
-        {
-            UseReleasedEvent?.Invoke();
-        }
+        UseReleasedEvent?.Invoke();
     }
 }

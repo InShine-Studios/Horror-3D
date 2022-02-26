@@ -9,17 +9,12 @@ public class HideInputHandler : MonoBehaviour
 {
     #region Variable
     public static event Action<bool> StopHidingHudEvent;
-    public static event Action<string> StopHidingEvent;
-
-    private string _playerActionMap = "Player";
+    public static event Action StopHidingEvent;
     #endregion
 
-    public void UnhidePlayer(InputAction.CallbackContext ctx)
+    public void UnhidePlayer()
     {
-        if (ctx.performed)
-        {
-            StopHidingEvent?.Invoke(_playerActionMap);
-            StopHidingHudEvent?.Invoke(false);
-        }
+        StopHidingEvent?.Invoke();
+        StopHidingHudEvent?.Invoke(false);
     }
 }
