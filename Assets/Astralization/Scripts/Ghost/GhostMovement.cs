@@ -34,6 +34,8 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     private NavMeshAgent _navMeshAgent;
     private NavMeshHit _navMeshHit;
 
+    [Tooltip("Ghost current room")]
+    private string _currentRoom = "Living Room";
     [Tooltip("Target destination of movement")]
     private Vector3 _wanderTarget;
 
