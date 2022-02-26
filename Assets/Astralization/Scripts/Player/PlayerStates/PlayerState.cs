@@ -66,7 +66,7 @@ public abstract class PlayerState : State
 
     private void PrintDefaultLog(string methodName)
     {
-        Debug.Log("[STATE INPUT HANDLER] this is default message, " +
+        Debug.Log("[PLAYER STATE] this is default message, " +
             "either there is no state override this func, " +
             "or you are in the wrong state " + methodName);
     }

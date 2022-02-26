@@ -34,7 +34,7 @@ public abstract class Item : Interactable, IItem
 
     public void ShowItem(bool isShown)
     {
-        //Debug.Log("[ITEM] Show item " + this.name + " visibility to:" + isShown);
+        //Debug.Log("[ITEM] Show " + this.name + " visibility to:" + isShown);
         this.gameObject.SetActive(isShown);
     }
 

@@ -111,7 +111,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         {
             result = _navMeshHit.position;
             _currentRoom = targetRoom.PointName;
-            //Debug.Log("[GHOST] Sampling target position. Target Room: " + _currentRoom + " with coordinate " + result);
+            //Debug.Log("[GHOST MOVEMENT] Sampling target position. Target Room: " + _currentRoom + " with coordinate " + result);
             return true;
         }
         else

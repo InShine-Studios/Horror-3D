@@ -32,7 +32,7 @@ public class PlayerRotation : MonoBehaviour
     public void SetMousePosition(Vector2 mousePosition)
     {
         _mousePosition = mousePosition;
-        //Debug.Log("[PLAYER] Movement direction: " + mousePosition);
+        //Debug.Log("[PLAYER ROTATION] Direction: " + mousePosition);
     }
     #endregion
 

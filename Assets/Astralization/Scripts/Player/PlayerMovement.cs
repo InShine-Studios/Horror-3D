@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     public void GenerateMoveVector(Vector2 moveInput)
     {
         _moveDirection = new Vector3(0, 0) { x = moveInput.x, z = moveInput.y };
-        //Debug.Log("[PLAYER] Movement direction: " + moveDirection);
+        //Debug.Log("[PLAYER MOVEMENT] Direction: " + moveDirection);
     }
 
     private void ForceGrounding()

@@ -41,7 +41,7 @@ public class InputManager : StateMachine
             case "Hiding": ChangeState<HidingState>(); break;
             case "Dialogue": ChangeState<DialogueState>(); break;
         }
-        //Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);
+        //Debug.Log("[PLAYER STATES] New Input Map: " + _playerInput.currentActionMap);
     }
 
     #region Input Handler

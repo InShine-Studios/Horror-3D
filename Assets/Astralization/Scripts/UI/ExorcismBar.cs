@@ -119,11 +119,11 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     {
         if (_isExorcised)
         {
-            //Debug.Log("[EXORCISM] Exorcism Finished");
+            //Debug.Log("[HUD SYSTEM] Exorcism Finished");
         }
         else
         {
-            //Debug.Log("[EXORCISM] Exorcism Cancelled");
+            //Debug.Log("[HUD SYSTEM] Exorcism Cancelled");
         }
         _accumulatedTime = 0f;
     }

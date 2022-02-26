@@ -58,7 +58,6 @@ public class DoorController : Interactable, IDoorController
 
     public override void OnInteraction()
     {
-        //Debug.Log("[INTERACTABLE] Door interacted");
         ChangeState();
         if (_isOpen) PlayAudio("Door_Open");
         else PlayAudio("Door_Close");

@@ -21,13 +21,13 @@ public class HudManager : MonoBehaviour
     #region SetGet
     public void ShowDialogue(bool isShowDialogue)
     {
-        //Debug.Log("[START DIALOGUE HUD] isShowDialogue: " + isShowDialogue);
+        //Debug.Log("[HUD SYSTEM] Set dialogue box visibility to " + isShowDialogue);
         _dialogueManager.ShowDialogueBox(isShowDialogue);
     }
 
     public void NextDialogue()
     {
-        //Debug.Log("[NEXT DIALOGUE HUD]");
+        //Debug.Log("[HUD SYSTEM] Dialogue Next Line");
         _dialogueManager.NextLine();
     }
 

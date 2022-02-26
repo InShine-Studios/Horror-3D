@@ -25,7 +25,7 @@ public class ItemDetector : ObjectDetector
 
     protected override void InteractClosest(Interactable closest)
     {
-        //Debug.Log("[ITEM] Player picked " + closest.name);
+        //Debug.Log("[PLAYER INTERACTION] Picked " + closest.name);
         _inventory.PickItem((Item)closest);
     }
 }

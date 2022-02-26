@@ -8,7 +8,7 @@ public class VolumeAstral : Volume
     #region SetGet
     protected override void SetState(bool state)
     {
-        //Debug.Log("[VOLUME ASTRAL] Toggle " + this.name);
+        //Debug.Log("[WORLD STATE SYSTEM] Toggle " + this.name);
         base.SetState(state);
     }
 

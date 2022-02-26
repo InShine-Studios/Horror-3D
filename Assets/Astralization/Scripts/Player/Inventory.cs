@@ -196,7 +196,7 @@ public class Inventory : MonoBehaviour, IInventory
     {
         _activeItem?.Use();
 
-        if (!_activeItem) Debug.Log("[ITEM] Missing active item");
+        if (!_activeItem) Debug.Log("[INVENTORY] Missing active item");
         else if (_activeItem.IsDiscardedWhenUsed()) DiscardItem();
     }
 }

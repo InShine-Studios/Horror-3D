@@ -11,7 +11,7 @@ public class AudioPlayer : MonoBehaviour
         Transform sound = transform.Find(name);
         if (sound == null)
         {
-            Debug.LogWarning("Sound: " + name + " not found!");
+            Debug.LogWarning("[AUDIO SYSTEM] Sound: " + name + " not found!");
             return;
         }
         sound.GetComponent<AudioSource>().Play();

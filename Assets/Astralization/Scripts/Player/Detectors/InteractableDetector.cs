@@ -19,7 +19,7 @@ public class InteractableDetector : ObjectDetector
 
     protected override void InteractClosest(Interactable closest)
     {
-        //Debug.Log("[INTERACTABLE] Player interacted with " + closest.name);
+        //Debug.Log("[PLAYER INTERACTION] Interacted with " + closest.name);
         closest.OnInteraction();
     }
 }
