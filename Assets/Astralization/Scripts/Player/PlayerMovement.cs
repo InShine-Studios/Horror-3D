@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     public void GenerateMoveVector(Vector2 moveInput)
     {
         _moveDirection = new Vector3(0, 0) { x = moveInput.x, z = moveInput.y };
-        //Debug.Log("[PLAYER MOVEMENT] Direction: " + moveDirection);
+        //Debug.Log("[PLAYER MOVEMENT] Direction: " + _moveDirection);
     }
 
     private void ForceGrounding()
@@ -83,9 +83,8 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
 
     private bool MovePlayer()
     {
-        _curMoveSpeed = _playerBase.GetPlayerMovementSpeed();
-        if (_isSprinting)
-            _curMoveSpeed = _playerBase.GetSprintSpeed();
+        if (_isSprinting) _curMoveSpeed = _playerBase.GetSprintSpeed();
+        else _curMoveSpeed = _playerBase.GetPlayerMovementSpeed();
         _controller.SimpleMove(_curMoveSpeed * Time.deltaTime * _moveDirection);
         return _moveDirection.magnitude != 0;
     }

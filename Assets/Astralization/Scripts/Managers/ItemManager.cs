@@ -4,7 +4,7 @@ using UnityEngine;
  * Class to keep all items in the overworld.
  * AddItemChild() to add a new items as child of the OverworldItem.
  */
-public class OverworldItem : MonoBehaviour
+public class ItemManager : MonoBehaviour
 {
     #region MonoBehaviour
     private void OnEnable()
