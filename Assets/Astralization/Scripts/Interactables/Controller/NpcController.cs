@@ -17,9 +17,8 @@ public class NpcController : Interactable, INpcController
     #region Variables
     private bool _questOneFinished;
     private bool _questTwoFinished;
-    private string _dialogueActionMap = "Dialogue";
 
-    public static event Action<string> NpcInteractionEvent;
+    public static event Action NpcInteractionEvent;
     #endregion
 
     #region Setter Getter
@@ -37,6 +36,6 @@ public class NpcController : Interactable, INpcController
     public override void OnInteraction()
     {
         //Debug.Log("[INTERACTABLE] Npc interacted: " + this.name);
-        NpcInteractionEvent?.Invoke(_dialogueActionMap);
+        NpcInteractionEvent?.Invoke();
     }
 }

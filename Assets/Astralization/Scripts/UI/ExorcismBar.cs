@@ -13,7 +13,7 @@ public interface IExorcismBar
     void ProcessExorcism();
     void SetSliderMinValue(float sliderValue);
     void SetSliderValue(float sliderValue);
-    void ShowBar(bool isActive);
+    void SetExorcismBar(bool isActive);
     void StopExorcism();
 }
 
@@ -35,7 +35,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     private bool _isUsed = false;
     private bool _isExorcised = false;
 
-    public static event Action<string> FinishExorcismChannelingEvent;
+    public static event Action FinishExorcismChannelingEvent;
     #endregion
 
     #region Enable - Disable
@@ -106,7 +106,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     #endregion
 
     #region Exorcism Logic
-    public void ShowBar(bool isActive)
+    public void SetExorcismBar(bool isActive)
     {
         slider.gameObject.SetActive(isActive);
     }
@@ -114,8 +114,8 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     public void StopExorcism()
     {
         _isUsed = false;
-        ShowBar(false);
-        FinishExorcismChannelingEvent?.Invoke("Player");
+        SetExorcismBar(false);
+        FinishExorcismChannelingEvent?.Invoke();
         ProcessExorcism();
     }
 

@@ -9,8 +9,7 @@ public class ClosetsController : Interactable
 {
     #region Variables
 
-    public static event Action<string> StartHidingEvent;
-    private string _hidingActionMap = "Hiding";
+    public static event Action StartHidingEvent;
 
     #endregion
 
@@ -22,6 +21,6 @@ public class ClosetsController : Interactable
     public override void OnInteraction()
     {
         //Debug.Log("[INTERACTABLE] " + this.name + " interacted");
-        StartHidingEvent?.Invoke(_hidingActionMap);
+        StartHidingEvent?.Invoke();
     }
 }

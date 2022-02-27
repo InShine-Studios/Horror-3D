@@ -22,13 +22,13 @@ public class InputManager : StateMachine
     #region Enable Disable
     private void OnEnable()
     {
-        GameManager.PlayerActionMapEvent += SetPlayerActionMap;
+        GameManager.PlayerStateEvent += SetPlayerActionMap;
         HideInputHandler.StopHidingEvent += SetPlayerActionMap;
     }
 
     private void OnDisable()
     {
-        GameManager.PlayerActionMapEvent -= SetPlayerActionMap;
+        GameManager.PlayerStateEvent -= SetPlayerActionMap;
         HideInputHandler.StopHidingEvent -= SetPlayerActionMap;
     }
 

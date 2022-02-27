@@ -21,25 +21,32 @@ public class HudManager : MonoBehaviour
     #region Enable - Disable
     private void OnEnable()
     {
-        GameManager.ShowDialogueHudEvent += ShowDialogue;
-        GameManager.StartHidingHudEvent += ShowHidingHud;
+        GameManager.HudEvent += SetHudState;
         DialogueInputHandler.NextDialogueHudEvent += NextDialogue;
         HideInputHandler.StopHidingHudEvent += ShowHidingHud;
         Inventory.ItemLogoEvent += UpdateLogo;
-        GameManager.ShowExorcismHudEvent += ShowExorcism;
     }
 
     private void OnDisable()
     {
-        GameManager.ShowDialogueHudEvent -= ShowDialogue;
-        GameManager.StartHidingHudEvent -= ShowHidingHud;
+        GameManager.HudEvent -= SetHudState;
         DialogueInputHandler.NextDialogueHudEvent -= NextDialogue;
         HideInputHandler.StopHidingHudEvent -= ShowHidingHud;
         Inventory.ItemLogoEvent -= UpdateLogo;
-        GameManager.ShowExorcismHudEvent -= ShowExorcism;
     }
     #endregion
 
+    public void SetHudState(string hudKey, bool condition)
+    {
+        switch (hudKey)
+        {
+            case "Exorcism": ShowExorcism(condition); break;
+            case "Hiding": ShowHidingHud(condition); break;
+            case "Dialogue": ShowDialogue(condition); break;
+        }
+    }
+
+    #region HUDfunction
     public void ShowDialogue(bool isShowDialogue)
     {
         //Debug.Log("[START DIALOGUE HUD] isShowDialogue: " + isShowDialogue);
@@ -64,6 +71,7 @@ public class HudManager : MonoBehaviour
 
     public void ShowExorcism(bool isShowExorcism)
     {
-        _exorcismBar.ShowBar(isShowExorcism);
+        _exorcismBar.SetExorcismBar(isShowExorcism);
     }
+    #endregion
 }
