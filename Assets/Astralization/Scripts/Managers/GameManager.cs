@@ -13,19 +13,12 @@ public class GameManager : MonoBehaviour, IGameManager
     [Tooltip("Bool flag to check if the player is in Real World or Astral World")]
     [SerializeField]
     private bool _isInAstralWorld = false;
-    private enum _playerState
-    {
-        Dialogue,
-        Hiding,
-        Exorcism,
-        Default
-    }
     #endregion
 
     #region Event
     public static event Action<bool> ChangeWorldEvent;
-    public static event Action<string> PlayerStateEvent;
-    public static event Action<string, bool> HudEvent;
+    public static event Action<InputManager.States> PlayerStateEvent;
+    public static event Action<HudManager.States, bool> HudEvent;
     // TODO: to be implemented
     public static event Action PlayerAudioDiesEvent;
     #endregion
@@ -59,12 +52,12 @@ public class GameManager : MonoBehaviour, IGameManager
     #endregion
 
     #region SendEvents
-    public void SendHudEvent(string hudKey, bool conditions)
+    public void SendHudEvent(HudManager.States hudKey, bool conditions)
     {
         HudEvent?.Invoke(hudKey, conditions);
     }
 
-    public void SendPlayerStateEvent(string actionMapKey)
+    public void SendPlayerStateEvent(InputManager.States actionMapKey)
     {
         PlayerStateEvent?.Invoke(actionMapKey);
     }
@@ -79,26 +72,26 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void InvokeDialogueState()
     {
-        SendHudEvent(_playerState.Dialogue.ToString(), true);
-        SendPlayerStateEvent(_playerState.Dialogue.ToString());
+        SendHudEvent(HudManager.States.Dialogue, true);
+        SendPlayerStateEvent(InputManager.States.Dialogue);
     }
 
     public void InvokeHidingState()
     {
-        SendHudEvent(_playerState.Hiding.ToString(), true);
-        SendPlayerStateEvent(_playerState.Hiding.ToString());
+        SendHudEvent(HudManager.States.Hiding, true);
+        SendPlayerStateEvent(InputManager.States.Hiding);
     }
 
     public void InvokeExorcismState()
     {
-        SendHudEvent(_playerState.Exorcism.ToString(), true);
-        SendPlayerStateEvent(_playerState.Exorcism.ToString());
+        SendHudEvent(HudManager.States.Exorcism, true);
+        SendPlayerStateEvent(InputManager.States.Exorcism);
     }
 
     public void ResetPlayerState()
     {
         //Debug.Log("[INVOKE PLAYER STATE] Player state: " + state);
-        SendPlayerStateEvent(_playerState.Default.ToString());
+        SendPlayerStateEvent(InputManager.States.Default);
     }
     #endregion
 }

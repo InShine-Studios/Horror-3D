@@ -12,6 +12,13 @@ public class InputManager : StateMachine
     [SerializeField]
     private PlayerInput _playerInput;
     private PlayerState tempCurrentState;
+    public enum States
+    {
+        Dialogue,
+        Hiding,
+        Exorcism,
+        Default
+    }
     #endregion
 
     private void Awake()
@@ -32,15 +39,15 @@ public class InputManager : StateMachine
 
     #endregion
 
-    public void SetPlayerActionMap(string actionMap)
+    public void SetPlayerActionMap(States actionMap)
     {
-        _playerInput.SwitchCurrentActionMap(actionMap);
+        _playerInput.SwitchCurrentActionMap(actionMap.ToString());
         switch (actionMap) // RACE CONDITION
         {
-            case "Default": ChangeState<DefaultPlayerState>(); break;
-            case "Hiding": ChangeState<HidingState>(); break;
-            case "Dialogue": ChangeState<DialogueState>(); break;
-            case "Exorcism": ChangeState<ExorcismState>(); break;
+            case States.Default: ChangeState<DefaultPlayerState>(); break;
+            case States.Hiding: ChangeState<HidingState>(); break;
+            case States.Dialogue: ChangeState<DialogueState>(); break;
+            case States.Exorcism: ChangeState<ExorcismState>(); break;
         }
         //Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);
     }
