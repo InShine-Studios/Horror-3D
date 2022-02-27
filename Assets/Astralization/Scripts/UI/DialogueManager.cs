@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 using Ink.Runtime;
+using System.Collections.Generic;
 
 public interface IDialogueManager
 {
@@ -37,6 +38,9 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
     private bool _dialogBoxOpen;
     private string _defaultActionMap = "Default";
+    private string _choiceOne = "Choice1";
+    private string _choiceTwo = "Choice2";
+    private string _continue = "Continue";
     #endregion
 
 
@@ -47,7 +51,6 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     {
         _nameText.text = "Budi";
         _dialogueText.text = string.Empty;
-        
     }
     #endregion
 
@@ -112,6 +115,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     #region Next
     public void NextLine()
     {
+        Debug.Log("masuk next line");
         if (_dialogueStory.canContinue)
         {
             _dialogueText.text = string.Empty;
@@ -123,6 +127,61 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
             FinishDialogueEvent?.Invoke(_defaultActionMap);
             ShowDialogueBox(false);
         }
+
+        if (_dialogueStory.currentChoices.Count != 0)
+        {
+            ShowChoices();
+        }
     }
+    #endregion
+
+    #region Choice
+    // Create then show the choices on the screen until one got selected
+    private void ShowChoices()
+    {
+        List<Choice> _choices = _dialogueStory.currentChoices;
+
+        //foreach(Choice choice in _choices)
+        //{
+        //    Debug.Log("[DIALOGUE CHOICE] " + choice.text);
+        //}
+
+        GameObject _buttonChoiceOne = transform.Find(_choiceOne).gameObject;
+        GameObject _buttonChoiceTwo = transform.Find(_choiceTwo).gameObject;
+        GameObject _buttonContinue = transform.Find(_continue).gameObject;
+
+        _buttonChoiceOne.GetComponentInChildren<Text>().text = _choices[0].text;
+        _buttonChoiceTwo.GetComponentInChildren<Text>().text = _choices[1].text;
+
+        _buttonChoiceOne.SetActive(true);
+        _buttonChoiceTwo.SetActive(true);
+        _buttonContinue.SetActive(false);
+
+        Debug.Log("Button active");
+    }
+
+    public void ChoiceOnePressed()
+    {
+        Debug.Log("[CHOICE 1] Pressed");
+        _dialogueStory.ChooseChoiceIndex(0);
+        HideChoiceAndNextLine();
+    }
+
+    public void ChoicetTwoPressed()
+    {
+        Debug.Log("[CHOICE 2] Pressed");
+        _dialogueStory.ChooseChoiceIndex(1);
+        HideChoiceAndNextLine();
+    }
+
+    private void HideChoiceAndNextLine()
+    {
+        transform.Find(_choiceOne).gameObject.SetActive(false);
+        transform.Find(_choiceTwo).gameObject.SetActive(false);
+        transform.Find(_continue).gameObject.SetActive(true);
+
+        NextLine();
+    }
+
     #endregion
 }
