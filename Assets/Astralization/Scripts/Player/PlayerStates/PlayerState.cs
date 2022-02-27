@@ -67,7 +67,7 @@ public abstract class PlayerState : State
     #region Logger
     private void PrintDefaultLog(string methodName)
     {
-        Debug.Log("[PLAYER STATE] Error: " + methodName +
+        Debug.Log("[PLAYER STATE] NotImplementedWarning: " + methodName +
             " is not implemented in this state");
     }
     #endregion

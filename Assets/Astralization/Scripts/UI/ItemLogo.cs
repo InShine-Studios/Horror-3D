@@ -11,10 +11,14 @@ public class ItemLogo : MonoBehaviour
     #endregion
 
     #region SetGet
-    public void UpdateLogo(bool state, Sprite logo)
+    public void SetSpriteLogo(Sprite logo)
     {
         _img.sprite = logo;
-        _img.enabled = state;
+    }
+    
+    public void ShowLogo(bool isShowing)
+    {
+        _img.enabled = isShowing;
     }
     #endregion
 
@@ -22,6 +26,14 @@ public class ItemLogo : MonoBehaviour
     private void Awake()
     {
         _img = transform.Find("Logo").GetComponent<Image>();
+    }
+    #endregion
+
+    #region Updater
+    public void UpdateLogo(bool state, Sprite logo)
+    {
+        SetSpriteLogo(logo);
+        ShowLogo(state);
     }
     #endregion
 }
