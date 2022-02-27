@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void ResetPlayerState()
     {
-        //Debug.Log("[INVOKE PLAYER STATE] Player state: " + state);
+        //Debug.Log("[INVOKE PLAYER STATE] Player state");
         SendPlayerStateEvent(InputManager.States.Default);
     }
     #endregion
