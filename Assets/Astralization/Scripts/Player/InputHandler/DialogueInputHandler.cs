@@ -11,8 +11,10 @@ public class DialogueInputHandler : MonoBehaviour
     public static event Action NextDialogueHudEvent;
     #endregion
 
+    #region Handler
     public void NextDialogue()
     {
         NextDialogueHudEvent?.Invoke();
     }
+    #endregion
 }

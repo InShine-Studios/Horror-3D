@@ -11,10 +11,12 @@ public class InitPlayerState : PlayerState
     }
     #endregion
 
+    #region Handler
     private IEnumerator Init()
     {
         // set up here for future use
         yield return null;
         owner.ChangeState<DefaultPlayerState>();
     }
+    #endregion
 }

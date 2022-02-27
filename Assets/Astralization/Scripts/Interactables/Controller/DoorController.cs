@@ -56,12 +56,14 @@ public class DoorController : Interactable, IDoorController
     }
     #endregion
 
+    #region Handler
     public override void OnInteraction()
     {
         ChangeState();
         if (_isOpen) PlayAudio("Door_Open");
         else PlayAudio("Door_Close");
     }
+    #endregion
 
     //TODO: Half Open for Ghost Interaction
 }

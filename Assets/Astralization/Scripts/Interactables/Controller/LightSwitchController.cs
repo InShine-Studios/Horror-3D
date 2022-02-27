@@ -63,6 +63,7 @@ public class LightSwitchController : Interactable, ILightSwitchController
     }
     #endregion
 
+    #region Handler
     public override void OnInteraction()
     {
         //Debug.Log(
@@ -73,4 +74,5 @@ public class LightSwitchController : Interactable, ILightSwitchController
         if(_isOn) PlayAudio("Switch_On");
         else PlayAudio("Switch_Off");
     }
+    #endregion
 }

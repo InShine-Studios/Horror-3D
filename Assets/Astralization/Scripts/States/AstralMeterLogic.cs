@@ -53,7 +53,7 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     #region MonoBehaviour
     void Awake()
     {
-        InvokeRepeating("Increment", 0.0f, 1.0f);
+        InvokeRepeating(nameof(Increment), 0.0f, 1.0f);
     }
 
     private void OnEnable()
@@ -67,7 +67,8 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     }
     #endregion
 
-    void Increment()
+    #region Incrementer
+    private void Increment()
     {
         float currentMeter = 0.0f;
         if (_isOnSight)
@@ -77,6 +78,7 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
         currentMeter += _constantRate;
         _astralMeter = System.Math.Min(_maxMeter, _astralMeter + currentMeter);
     }
+    #endregion
 
     #region World State
     private void ChangeWorld(bool state)

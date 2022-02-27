@@ -39,9 +39,11 @@ public class NpcController : Interactable, INpcController
     }
     #endregion
 
+    #region Handler
     public override void OnInteraction()
     {
         //Debug.Log("[INTERACTABLE] Npc interacted: " + this.name);
         NpcInteractionEvent?.Invoke(_dialogueActionMap);
     }
+    #endregion
 }

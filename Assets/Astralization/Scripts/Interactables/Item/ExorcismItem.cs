@@ -1,6 +1,4 @@
 using System;
-using UnityEngine;
-using UnityEngine.InputSystem;
 
 public interface IExorcismItem
 {
@@ -21,8 +19,10 @@ public class ExorcismItem : Item, IExorcismItem
     private string _playerActionMap = "Exorcism";
     #endregion
 
+    #region Use
     public override void Use()
     {
         ExorcismChannelingEvent?.Invoke(_playerActionMap);
     }
+    #endregion
 }

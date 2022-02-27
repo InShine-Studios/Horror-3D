@@ -64,10 +64,11 @@ public abstract class PlayerState : State
     }
     #endregion
 
+    #region Logger
     private void PrintDefaultLog(string methodName)
     {
-        Debug.Log("[PLAYER STATE] this is default message, " +
-            "either there is no state override this func, " +
-            "or you are in the wrong state " + methodName);
+        Debug.Log("[PLAYER STATE] Error: " + methodName +
+            " is not implemented in this state");
     }
+    #endregion
 }

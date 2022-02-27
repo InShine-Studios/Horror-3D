@@ -25,6 +25,7 @@ public class HidingOverlay : MonoBehaviour
     }
     #endregion
 
+    #region Handler
     public void StartAnim(bool isHiding)
     {
         ChangeColor();
@@ -35,4 +36,5 @@ public class HidingOverlay : MonoBehaviour
     {
         _overlay.color = RenderSettings.fogColor;
     }
+    #endregion
 }

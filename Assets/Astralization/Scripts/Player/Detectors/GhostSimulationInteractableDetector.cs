@@ -17,6 +17,7 @@ public class GhostSimulationInteractableDetector : ObjectDetector
     }
     #endregion
 
+    #region Handler
     protected override void InteractClosest(Interactable closest)
     {
         //Debug.Log("[PLAYER INTERACTION] Interacted with " + closest.name);
@@ -26,4 +27,5 @@ public class GhostSimulationInteractableDetector : ObjectDetector
             castedClosest.OnGhostInteraction();
         }
     }
+    #endregion
 }

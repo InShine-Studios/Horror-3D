@@ -7,7 +7,7 @@ using System.Collections.Generic;
  */
 public class SilhouetteBowlItem : EvidenceItem
 {
-    #region Variables
+    #region Variables - StateModel
     [Header("Model reference")]
     [SerializeField]
     [Tooltip("Positive model game object reference")]
@@ -18,7 +18,8 @@ public class SilhouetteBowlItem : EvidenceItem
     [Tooltip("Positive model game object reference")]
     private GameObject _negativeModel;
     #endregion
-    
+
+    #region Handler
     public override void HandleChange()
     {
         if (this.state == EvidenceItemState.POSITIVE)
@@ -35,11 +36,14 @@ public class SilhouetteBowlItem : EvidenceItem
             _negativeModel.SetActive(false);
         }
     }
+    #endregion
 
+    #region Evidence related
     public override void DetermineEvidence()
     {
         // TODO this dummy behavior at the moment, wait for Ghost Implementation
         if (state == EvidenceItemState.NEGATIVE) SetState(EvidenceItemState.POSITIVE);
         else SetState(EvidenceItemState.NEGATIVE);
     }
+    #endregion
 }

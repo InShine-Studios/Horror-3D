@@ -33,7 +33,6 @@ public class Inventory : MonoBehaviour, IInventory
     public static event Action<bool, Sprite> ItemLogoEvent;
 
     public static event Action<Item> DiscardItemEvent;
-
     #endregion
 
     #region Variables - Item List
@@ -192,6 +191,7 @@ public class Inventory : MonoBehaviour, IInventory
     }
     #endregion
 
+    #region Use Active Item
     public void UseActiveItem()
     {
         _activeItem?.Use();
@@ -199,4 +199,5 @@ public class Inventory : MonoBehaviour, IInventory
         if (!_activeItem) Debug.Log("[INVENTORY] Missing active item");
         else if (_activeItem.IsDiscardedWhenUsed()) DiscardItem();
     }
+    #endregion
 }

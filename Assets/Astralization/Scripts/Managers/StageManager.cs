@@ -42,6 +42,7 @@ public class StageManager : MonoBehaviour, IStageManager
     }
     #endregion
 
+    #region Loader
     private void Load()
     {
         if (!_stageData) return;
@@ -55,4 +56,5 @@ public class StageManager : MonoBehaviour, IStageManager
             _roomPoints.Add(instance.PointName, instance);
         }
     }
+    #endregion
 }

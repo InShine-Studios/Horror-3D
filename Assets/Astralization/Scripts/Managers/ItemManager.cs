@@ -18,6 +18,7 @@ public class ItemManager : MonoBehaviour
     }
     #endregion
 
+    #region Item Handler
     private void ReceiveDiscardedItem(Item discardedItem)
     {
         AddItemChild(discardedItem);
@@ -27,4 +28,5 @@ public class ItemManager : MonoBehaviour
     {
         item.gameObject.transform.parent = this.transform;
     }
+    #endregion
 }

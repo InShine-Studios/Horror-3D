@@ -9,7 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider))]
 public class InteractableDetector : ObjectDetector
 {
-    #region Variables
+    #region MonoBehaviour
     protected override void Awake()
     {
         base.Awake();
@@ -17,9 +17,11 @@ public class InteractableDetector : ObjectDetector
     }
     #endregion
 
+    #region Handler
     protected override void InteractClosest(Interactable closest)
     {
         //Debug.Log("[PLAYER INTERACTION] Interacted with " + closest.name);
         closest.OnInteraction();
     }
+    #endregion
 }

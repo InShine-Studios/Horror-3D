@@ -7,13 +7,14 @@ using UnityEngine.InputSystem;
  */
 public class HideInputHandler : MonoBehaviour
 {
-    private string _playerActionMap = "Player";
+    private string _playerActionMap = "Player"; // TODO Refactor from #213
 
     #region Events
     public static event Action<bool> StopHidingHudEvent;
     public static event Action<string> StopHidingEvent;
     #endregion
 
+    #region Handler
     public void UnhidePlayer(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
@@ -22,4 +23,5 @@ public class HideInputHandler : MonoBehaviour
             StopHidingHudEvent?.Invoke(false);
         }
     }
+    #endregion
 }

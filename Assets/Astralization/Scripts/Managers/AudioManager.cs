@@ -6,7 +6,6 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     #region Variables
-    [Space]
     [Header("Audio")]
     [Tooltip("Audio Manager")]
     private AudioPlayer _audioPlayerObj;
@@ -29,8 +28,10 @@ public class AudioManager : MonoBehaviour
     }
     #endregion
 
+    #region Handler
     private void PlayAudioDies()
     {
         _audioPlayerObj.Play("FemaleScream");
     }
+    #endregion
 }

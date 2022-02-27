@@ -22,7 +22,40 @@ public abstract class ObjectDetector : MonoBehaviour
     protected Interactable closestInteractable;
     #endregion
 
-    protected abstract void InteractClosest(Interactable closest);
+    #region SetGet
+    private void SetClosestInteractable()
+    {
+        Interactable newClosest = GetClosestInteractable();
+        if (closestInteractable && !newClosest.Equals(closestInteractable))
+        {
+            closestInteractable.ShowGuideIcon(false);
+            //Debug.Log("[PLAYER INTERACTION] Updated closest interactable to " + closestInteractable.name);
+        }
+        closestInteractable = newClosest; // newClosest can be null when no nearby
+        closestInteractable?.ShowGuideIcon(true);
+    }
+
+    private Interactable GetClosestInteractable()
+    {
+        float minDist = Mathf.Infinity;
+        Interactable newClosest = null;
+
+        for (int i = 0; i < nearbyInteractables.Count; i++)
+        {
+            Interactable cur = nearbyInteractables[i];
+
+            // Calculate minimum distance and update closest interactable
+            float curDist = Utils.GeometryCalcu.GetDistance3D(transform.position, cur.transform.position);
+            if (curDist < minDist)
+            {
+                minDist = curDist;
+                newClosest = cur;
+            }
+        }
+
+        return newClosest;
+    }
+    #endregion
 
     #region MonoBehaviour
     protected virtual void Awake()
@@ -68,41 +101,7 @@ public abstract class ObjectDetector : MonoBehaviour
     }
     #endregion
 
-    #region SetGet
-    private void SetClosestInteractable()
-    {
-        Interactable newClosest = GetClosestInteractable();
-        if (closestInteractable && !newClosest.Equals(closestInteractable))
-        {
-            closestInteractable.ShowGuideIcon(false);
-            //Debug.Log("[PLAYER INTERACTION] Updated closest interactable to " + closestInteractable.name);
-        }
-        closestInteractable = newClosest; // newClosest can be null when no nearby
-        closestInteractable?.ShowGuideIcon(true);
-    }
-
-    private Interactable GetClosestInteractable()
-    {
-        float minDist = Mathf.Infinity;
-        Interactable newClosest = null;
-
-        for (int i = 0; i < nearbyInteractables.Count; i++)
-        {
-            Interactable cur = nearbyInteractables[i];
-
-            // Calculate minimum distance and update closest interactable
-            float curDist = Utils.GeometryCalcu.GetDistance3D(transform.position, cur.transform.position);
-            if (curDist < minDist)
-            {
-                minDist = curDist;
-                newClosest = cur;
-            }
-        }
-
-        return newClosest;
-    }
-    #endregion
-
+    #region Handler
     public void CheckInteraction()
     {
         //Debug.Log("[PLAYER INTERACTION] Initiate interaction");
@@ -111,4 +110,7 @@ public abstract class ObjectDetector : MonoBehaviour
             InteractClosest(closestInteractable);
         }
     }
+
+    protected abstract void InteractClosest(Interactable closest);
+    #endregion
 }

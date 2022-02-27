@@ -38,15 +38,14 @@ public abstract class EvidenceItem : Item, IEvidenceItem
     }
     #endregion
 
-    public abstract void DetermineEvidence();
-
-    public abstract void HandleChange();
-
+    #region Use
     public override void Use()
     {
         SetState(EvidenceItemState.ACTIVE);
     }
+    #endregion
 
+    #region Handler
     public override void OnInteraction()
     {
         SetState(EvidenceItemState.BASE);
@@ -57,4 +56,12 @@ public abstract class EvidenceItem : Item, IEvidenceItem
     {
         if (state != EvidenceItemState.BASE) DetermineEvidence();
     }
+
+    public abstract void HandleChange();
+
+    #endregion
+
+    #region Evidence related
+    public abstract void DetermineEvidence();
+    #endregion
 }

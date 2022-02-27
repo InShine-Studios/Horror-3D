@@ -7,14 +7,12 @@ using System.Collections.Generic;
  */
 public class ClockItem : EvidenceItem
 {
-    #region Variables - Audio Source
+    #region Variables - AudioStates
     [Header("Audio Source reference")]
     [SerializeField]
     [Tooltip("Audio Source reference")]
     private GameObject _audioSourceReference;
-    #endregion
 
-    #region Variables - State AudioClips
     [Header("State AudioClips")]
     [SerializeField]
     [Tooltip("AudioClip for Base evidence")]
@@ -61,16 +59,20 @@ public class ClockItem : EvidenceItem
     }
     #endregion
 
+    #region Handler
     public override void HandleChange()
     {
         SetStateAudioClip(_stateToAudioClipMapping[this.state]);
         PlayAudio("StateAudio");
     }
+    #endregion
 
+    #region Evidence Related
     public override void DetermineEvidence()
     {
         // TODO this dummy behavior at the moment, wait for Ghost Implementation
         if (state == EvidenceItemState.NEGATIVE) SetState(EvidenceItemState.POSITIVE);
         else SetState(EvidenceItemState.NEGATIVE);
     }
+    #endregion
 }

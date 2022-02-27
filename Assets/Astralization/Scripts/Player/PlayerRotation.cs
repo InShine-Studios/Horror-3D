@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 /*
  * Class to enable parts of player to rotate.
@@ -19,7 +18,7 @@ public class PlayerRotation : MonoBehaviour
     [Tooltip("The PlayerBase for constants")]
     private PlayerBase _playerBase;
 
-    [Space][Header("Rotation Constants")]
+    [Space][Header("Rotation Variables")]
     [Tooltip("The last position of this object")]
     private Vector3 _posPrev;
     [Tooltip("Direction from player to cursor position")]
@@ -73,14 +72,14 @@ public class PlayerRotation : MonoBehaviour
 
     #region Screen to World
     // Convert a screenpoint on camera to plane
-    Vector3 ScreenPointToWorldPlane(Vector3 screenPoint, Plane plane, Camera camera)
+    private Vector3 ScreenPointToWorldPlane(Vector3 screenPoint, Plane plane, Camera camera)
     {
         Ray ray = camera.ScreenPointToRay(screenPoint);
         return PlaneRayIntersection(plane, ray);
     }
 
     // Cast a ray to the plane and find the intersection point
-    Vector3 PlaneRayIntersection(Plane plane, Ray ray)
+    private Vector3 PlaneRayIntersection(Plane plane, Ray ray)
     {
         plane.Raycast(ray, out float dist);
         Vector3 worldPos = ray.GetPoint(dist);

@@ -23,9 +23,11 @@ public class ItemDetector : ObjectDetector
     }
     #endregion
 
+    #region Handler
     protected override void InteractClosest(Interactable closest)
     {
         //Debug.Log("[PLAYER INTERACTION] Picked " + closest.name);
         _inventory.PickItem((Item)closest);
     }
+    #endregion
 }

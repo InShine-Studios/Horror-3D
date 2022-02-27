@@ -42,7 +42,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     private bool _dialogBoxOpen;
     #endregion
 
-    private string _defaultActionMap = "Default"; // To be deleted
+    private string _defaultActionMap = "Default"; // TODO adjust with #212
 
     #region SetGet
     public void SetDialogJson(TextAsset newDialogueJson)

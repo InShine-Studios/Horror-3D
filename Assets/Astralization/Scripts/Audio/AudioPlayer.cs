@@ -6,6 +6,7 @@ using UnityEngine;
  */
 public class AudioPlayer : MonoBehaviour
 {
+    #region Handler
     public void Play(string name)
     {
         Transform sound = transform.Find(name);
@@ -16,4 +17,5 @@ public class AudioPlayer : MonoBehaviour
         }
         sound.GetComponent<AudioSource>().Play();
     }
+    #endregion
 }

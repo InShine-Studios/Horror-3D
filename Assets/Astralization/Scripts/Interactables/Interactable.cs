@@ -22,9 +22,9 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     [SerializeField]
     private bool _useIcon;
 
-    [Tooltip("The Game Object for the icon")]
+    [Tooltip("The icon mark for guidance")]
     [SerializeField]
-    private GameObject _interactableIcon;
+    private GameObject _guideIcon;
 
     [Space]
     [Header("Audio")]
@@ -38,7 +38,7 @@ public abstract class Interactable : MonoBehaviour, IInteractable
         if (_useIcon)
         {
             //Debug.Log("[INTERACTABLE] Setting icon " + this.name + " to " + state);
-            _interactableIcon.SetActive(state);
+            _guideIcon.SetActive(state);
         }
     }
 
@@ -62,10 +62,12 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     }
     #endregion
 
+    #region Handler
     public abstract void OnInteraction();
 
     protected void PlayAudio(string name)
     {
         AudioPlayerObj.Play(name);
     }
+    #endregion
 }

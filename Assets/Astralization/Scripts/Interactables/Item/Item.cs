@@ -17,8 +17,8 @@ public abstract class Item : Interactable, IItem
     #region Variables
     [Header("Item Logo")]
     [SerializeField]
-    [Tooltip("The Sprite for the logo")]
-    private Sprite _itemLogo;
+    [Tooltip("The item logo for HUD")]
+    private Sprite _HudLogo;
 
     [Header("Item Behavior")]
     [SerializeField]
@@ -40,7 +40,7 @@ public abstract class Item : Interactable, IItem
 
     public Sprite GetItemLogo()
     {
-        return _itemLogo;
+        return _HudLogo;
     }
 
     public bool IsDiscardedWhenUsed()
@@ -49,15 +49,20 @@ public abstract class Item : Interactable, IItem
     }
     #endregion
 
+    #region Use
     public abstract void Use();
 
     public virtual void StopUse() { }
+    #endregion
 
+    #region Handler
     public override void OnInteraction()
     {
         Pick();
     }
+    #endregion
 
+    #region Pick - Discard
     private void Pick()
     {
         SetCollider(false);
@@ -69,4 +74,5 @@ public abstract class Item : Interactable, IItem
         SetCollider(true);
         SetMeshRenderer(true);
     }
+    #endregion
 }

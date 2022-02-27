@@ -13,6 +13,7 @@ public class ExorcismInputHandler : MonoBehaviour
     public static event Action UseReleasedEvent;
     #endregion
 
+    #region Handler
     public void UseReleased(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
@@ -20,4 +21,5 @@ public class ExorcismInputHandler : MonoBehaviour
             UseReleasedEvent?.Invoke();
         }
     }
+    #endregion
 }

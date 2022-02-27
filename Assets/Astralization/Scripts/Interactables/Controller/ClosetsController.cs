@@ -22,9 +22,11 @@ public class ClosetsController : Interactable
     }
     #endregion
 
+    #region Handler
     public override void OnInteraction()
     {
         //Debug.Log("[INTERACTABLE] " + this.name + " interacted");
         StartHidingEvent?.Invoke(_hidingActionMap);
     }
+    #endregion
 }

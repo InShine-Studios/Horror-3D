@@ -8,12 +8,7 @@ using System.Collections.Generic;
  */
 public class ThermometerItem : EvidenceItem
 {
-    #region Variables
-    [Header("Model reference")]
-    [SerializeField]
-    [Tooltip("Model reference")]
-    private GameObject _model;
-
+    #region Variables - StateMaterial
     [Header("State Materials")]
     [SerializeField]
     [Tooltip("Material for Base evidence")]
@@ -40,7 +35,7 @@ public class ThermometerItem : EvidenceItem
     #region SetGet
     private void SetStateMaterial(Material stateMaterial)
     {
-        MeshRenderer mesh = _model.GetComponentInChildren<MeshRenderer>(true);
+        MeshRenderer mesh = transform.Find("Model").GetComponentInChildren<MeshRenderer>(true);
         mesh.material = stateMaterial;
     }
     #endregion
@@ -58,15 +53,19 @@ public class ThermometerItem : EvidenceItem
     }
     #endregion
 
+    #region Handler
     public override void HandleChange()
     {
         SetStateMaterial(stateToMatMapping[this.state]);
     }
+    #endregion
 
+    #region Evidence related
     public override void DetermineEvidence()
     {
         // TODO this dummy behavior at the moment, wait for Ghost Implementation
         if (state == EvidenceItemState.NEGATIVE) SetState(EvidenceItemState.POSITIVE);
         else SetState(EvidenceItemState.NEGATIVE);
     }
+    #endregion
 }

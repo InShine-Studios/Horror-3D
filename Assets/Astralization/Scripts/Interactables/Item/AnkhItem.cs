@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 /*
  * Ankh class.
@@ -18,10 +17,12 @@ public class AnkhItem : Item
     }
     #endregion
 
+    #region Use
     public override void Use()
     {
         ChangeWorldGM?.Invoke();
         //TODO: Call PlayAudio for Ankh
         //TODO: Implement transition animation
     }
+    #endregion
 }
