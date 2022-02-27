@@ -99,7 +99,7 @@ public class EvidenceItemTest : TestBase
             {
                 GameObject clockAudioSourceRef = GameObject.Find("OverworldItems/Clock/AudioPlayer/StateAudio");
                 AudioClip stateAudioClip = clockAudioSourceRef.GetComponent<AudioSource>().clip;
-                Assert.AreEqual("SFX_PlayerGameplay_PlayerBehavior_Heartbeat_3_Loop", stateAudioClip.name);
+                Assert.AreEqual("SFX_Heartbeat_3_Loop", stateAudioClip.name);
             } else if  (gameObjectName == "SilhouetteBowl")
             {
                 GameObject headless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Headless");
@@ -238,7 +238,7 @@ public class EvidenceItemTest : TestBase
             {
                 GameObject clockAudioSourceRef = GameObject.Find("OverworldItems/Clock/AudioPlayer/StateAudio");
                 AudioClip stateAudioClip = clockAudioSourceRef.GetComponent<AudioSource>().clip;
-                Assert.AreEqual("SFX_PlayerGameplay_PlayerBehavior_Heartbeat_2_Loop", stateAudioClip.name);
+                Assert.AreEqual("SFX_Heartbeat_2_Loop", stateAudioClip.name);
             } else if  (gameObjectName == "SilhouetteBowl")
             {
                 GameObject headless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Headless");
@@ -283,7 +283,7 @@ public class EvidenceItemTest : TestBase
             {
                 GameObject clockAudioSourceRef = GameObject.Find("OverworldItems/Clock/AudioPlayer/StateAudio");
                 AudioClip stateAudioClip = clockAudioSourceRef.GetComponent<AudioSource>().clip;
-                Assert.AreEqual("SFX_PlayerGameplay_PlayerBehavior_Heartbeat_1_Loop", stateAudioClip.name);
+                Assert.AreEqual("SFX_Heartbeat_1_Loop", stateAudioClip.name);
             } else if  (gameObjectName == "SilhouetteBowl")
             {
                 GameObject headless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Headless");
