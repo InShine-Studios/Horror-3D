@@ -16,13 +16,6 @@ public class HudManager : MonoBehaviour
     private ItemLogo _itemLogo;
     [SerializeField]
     private ExorcismBar _exorcismBar;
-    public enum States
-    {
-        Dialogue,
-        Hiding,
-        Exorcism,
-        Default
-    }
     #endregion
 
     #region Enable - Disable
@@ -43,13 +36,13 @@ public class HudManager : MonoBehaviour
     }
     #endregion
 
-    public void SetHudState(States hudKey, bool condition)
+    public void SetHudState(Utils.PlayerStatesEnum.States hudKey, bool condition)
     {
         switch (hudKey)
         {
-            case States.Exorcism: ShowExorcism(condition); break;
-            case States.Hiding: ShowHidingHud(condition); break;
-            case States.Dialogue: ShowDialogue(condition); break;
+            case Utils.PlayerStatesEnum.States.Exorcism: ShowExorcism(condition); break;
+            case Utils.PlayerStatesEnum.States.Hiding: ShowHidingHud(condition); break;
+            case Utils.PlayerStatesEnum.States.Dialogue: ShowDialogue(condition); break;
         }
     }
 
