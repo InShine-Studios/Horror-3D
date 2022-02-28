@@ -1,24 +1,31 @@
+using System;
 using UnityEngine.InputSystem;
 
 public class ExorcismState : PlayerState
 {
-    #region Handler Variables
-    private ExorcismInputHandler _exorcismInputHandler;
+    #region Events
+    public static event Action UseReleasedEvent;
     #endregion
 
     protected override void Awake()
     {
         base.Awake();
-        _exorcismInputHandler = GetComponentInChildren<ExorcismInputHandler>();
     }
 
-    #region Input Handler
+    #region InputHandler
     public override void UseReleased(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
         {
-            _exorcismInputHandler.UseReleased();
+            SendUseReleasedEvent();
         }
+    }
+    #endregion
+
+    #region SendEvents
+    public void SendUseReleasedEvent()
+    {
+        UseReleasedEvent?.Invoke();
     }
     #endregion
 }

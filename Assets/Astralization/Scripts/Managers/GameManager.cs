@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour, IGameManager
         ClosetsController.StartHidingEvent += InvokeHidingState;
         ExorcismItem.ExorcismChannelingEvent += InvokeExorcismState;
         ExorcismBar.FinishExorcismChannelingEvent += ResetPlayerState;
-        HideInputHandler.StopHidingEvent += ResetPlayerState;
+        HidingState.StopHidingEvent += ResetPlayerState;
     }
 
     private void OnDisable()
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour, IGameManager
         ClosetsController.StartHidingEvent -= InvokeHidingState;
         ExorcismItem.ExorcismChannelingEvent -= InvokeExorcismState;
         ExorcismBar.FinishExorcismChannelingEvent -= ResetPlayerState;
-        HideInputHandler.StopHidingEvent -= ResetPlayerState;
+        HidingState.StopHidingEvent -= ResetPlayerState;
     }
     #endregion
 

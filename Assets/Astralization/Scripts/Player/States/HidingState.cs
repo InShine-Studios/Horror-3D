@@ -1,24 +1,38 @@
+using System;
 using UnityEngine.InputSystem;
 
 public class HidingState : PlayerState
 {
-    #region Handler Variables
-    private HideInputHandler _hideInputHandler;
+    #region Events
+    public static event Action<bool> StopHidingHudEvent;
+    public static event Action StopHidingEvent;
     #endregion
 
     protected override void Awake()
     {
         base.Awake();
-        _hideInputHandler = GetComponentInChildren<HideInputHandler>();
     }
 
-    #region Input Handler
+    #region InputHandler
     public override void UnhidePlayer(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
         {
-            _hideInputHandler.UnhidePlayer();
+            SendStopHidingEvent();
+            SendStopHidingHudEvent(false);
         }
+    }
+    #endregion
+
+    #region SendEvents
+    public void SendStopHidingEvent()
+    {
+        StopHidingEvent?.Invoke();
+    }
+
+    public void SendStopHidingHudEvent(bool condition)
+    {
+        StopHidingHudEvent?.Invoke(condition);
     }
     #endregion
 }

@@ -22,16 +22,16 @@ public class HudManager : MonoBehaviour
     private void OnEnable()
     {
         GameManager.HudEvent += SetHudState;
-        DialogueInputHandler.NextDialogueHudEvent += NextDialogue;
-        HideInputHandler.StopHidingHudEvent += ShowHidingHud;
+        DialogueState.NextDialogueHudEvent += NextDialogue;
+        HidingState.StopHidingHudEvent += ShowHidingHud;
         Inventory.ItemLogoEvent += UpdateLogo;
     }
 
     private void OnDisable()
     {
         GameManager.HudEvent -= SetHudState;
-        DialogueInputHandler.NextDialogueHudEvent -= NextDialogue;
-        HideInputHandler.StopHidingHudEvent -= ShowHidingHud;
+        DialogueState.NextDialogueHudEvent -= NextDialogue;
+        HidingState.StopHidingHudEvent -= ShowHidingHud;
         Inventory.ItemLogoEvent -= UpdateLogo;
     }
     #endregion
