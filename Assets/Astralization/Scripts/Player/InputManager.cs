@@ -24,15 +24,31 @@ public class InputManager : StateMachine
     {
         GameManager.PlayerActionMapEvent += SetPlayerActionMap;
         HideInputHandler.StopHidingEvent += SetPlayerActionMap;
+        DialogueManager.DialogueChoiceSetInputEvent += SetEnablePlayerInput;
     }
 
     private void OnDisable()
     {
         GameManager.PlayerActionMapEvent -= SetPlayerActionMap;
         HideInputHandler.StopHidingEvent -= SetPlayerActionMap;
+        DialogueManager.DialogueChoiceSetInputEvent -= SetEnablePlayerInput;
     }
 
     #endregion
+
+    #region SetterGetter
+    public void SetEnablePlayerInput(bool isEnable)
+    {
+        //Debug.Log("[INPUT MANAGER] SetEnablePlayerInput " + isEnable);
+        if (isEnable)
+        {
+            _playerInput.currentActionMap.Enable();
+        }
+        else
+        {
+            _playerInput.currentActionMap.Disable();
+        }
+    }
 
     public void SetPlayerActionMap(string actionMap)
     {
@@ -45,6 +61,7 @@ public class InputManager : StateMachine
         }
         //Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);
     }
+    #endregion
 
     #region Input Handler
     private bool CanHandleInput ()

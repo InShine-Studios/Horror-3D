@@ -43,8 +43,8 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     private string _continue = "Continue";
     #endregion
 
-
     public static event Action<string> FinishDialogueEvent;
+    public static event Action<bool> DialogueChoiceSetInputEvent;
 
     #region Awake
     private void Awake()
@@ -115,7 +115,6 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     #region Next
     public void NextLine()
     {
-        Debug.Log("masuk next line");
         if (_dialogueStory.canContinue)
         {
             _dialogueText.text = string.Empty;
@@ -139,12 +138,8 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     // Create then show the choices on the screen until one got selected
     private void ShowChoices()
     {
+        DialogueChoiceSetInputEvent?.Invoke(false);
         List<Choice> _choices = _dialogueStory.currentChoices;
-
-        //foreach(Choice choice in _choices)
-        //{
-        //    Debug.Log("[DIALOGUE CHOICE] " + choice.text);
-        //}
 
         GameObject _buttonChoiceOne = transform.Find(_choiceOne).gameObject;
         GameObject _buttonChoiceTwo = transform.Find(_choiceTwo).gameObject;
@@ -156,30 +151,28 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         _buttonChoiceOne.SetActive(true);
         _buttonChoiceTwo.SetActive(true);
         _buttonContinue.SetActive(false);
-
-        Debug.Log("Button active");
     }
 
     public void ChoiceOnePressed()
     {
-        Debug.Log("[CHOICE 1] Pressed");
-        _dialogueStory.ChooseChoiceIndex(0);
-        HideChoiceAndNextLine();
+        //Debug.Log("[CHOICE 1] Pressed");
+        HideChoiceAndNextLine(0);
     }
 
     public void ChoicetTwoPressed()
     {
-        Debug.Log("[CHOICE 2] Pressed");
-        _dialogueStory.ChooseChoiceIndex(1);
-        HideChoiceAndNextLine();
+        //Debug.Log("[CHOICE 2] Pressed");
+        HideChoiceAndNextLine(1);
     }
 
-    private void HideChoiceAndNextLine()
+    private void HideChoiceAndNextLine(int _index)
     {
+        _dialogueStory.ChooseChoiceIndex(_index);
         transform.Find(_choiceOne).gameObject.SetActive(false);
         transform.Find(_choiceTwo).gameObject.SetActive(false);
         transform.Find(_continue).gameObject.SetActive(true);
 
+        DialogueChoiceSetInputEvent?.Invoke(true);
         NextLine();
     }
 

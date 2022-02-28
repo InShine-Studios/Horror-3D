@@ -27,6 +27,8 @@ public class HudManager : MonoBehaviour
         HideInputHandler.StopHidingHudEvent += ShowHidingHud;
         Inventory.ItemLogoEvent += UpdateLogo;
         GameManager.ShowExorcismHudEvent += ShowExorcism;
+        UiInputHandler.DialogueChoiceOneHudEvent += DialogueChoiceOnePressed;
+        UiInputHandler.DialogueChoiceTwoHudEvent += DialogueChoiceTwoPressed;
     }
 
     private void OnDisable()
@@ -65,5 +67,17 @@ public class HudManager : MonoBehaviour
     public void ShowExorcism(bool isShowExorcism)
     {
         _exorcismBar.ShowBar(isShowExorcism);
+    }
+
+    public void DialogueChoiceOnePressed()
+    {
+        //Debug.Log("[CHOICE 1 DIALOGUE HUD]");
+        _dialogueManager.ChoiceOnePressed();
+    }
+
+    public void DialogueChoiceTwoPressed()
+    {
+        //Debug.Log("[CHOICE 2 DIALOGUE HUD]");
+        _dialogueManager.ChoicetTwoPressed();
     }
 }
