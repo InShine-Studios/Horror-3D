@@ -14,6 +14,13 @@ namespace Utils
             Right,
             Left
         }
+        public enum States
+        {
+            Dialogue,
+            Hiding,
+            Exorcism,
+            Default
+        }
         public static int FixedUpdateCallsPerSecond = 50;
 
         public static bool CheckIsInteractZone(Collider target)

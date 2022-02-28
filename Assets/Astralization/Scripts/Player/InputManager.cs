@@ -32,15 +32,15 @@ public class InputManager : StateMachine
 
     #endregion
 
-    public void SetPlayerActionMap(Utils.PlayerStatesEnum.States actionMap)
+    public void SetPlayerActionMap(Utils.PlayerHelper.States actionMap)
     {
         _playerInput.SwitchCurrentActionMap(actionMap.ToString());
         switch (actionMap) // RACE CONDITION
         {
-            case Utils.PlayerStatesEnum.States.Default: ChangeState<DefaultPlayerState>(); break;
-            case Utils.PlayerStatesEnum.States.Hiding: ChangeState<HidingState>(); break;
-            case Utils.PlayerStatesEnum.States.Dialogue: ChangeState<DialogueState>(); break;
-            case Utils.PlayerStatesEnum.States.Exorcism: ChangeState<ExorcismState>(); break;
+            case Utils.PlayerHelper.States.Default: ChangeState<DefaultPlayerState>(); break;
+            case Utils.PlayerHelper.States.Hiding: ChangeState<HidingState>(); break;
+            case Utils.PlayerHelper.States.Dialogue: ChangeState<DialogueState>(); break;
+            case Utils.PlayerHelper.States.Exorcism: ChangeState<ExorcismState>(); break;
         }
         //Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);
     }

@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour, IGameManager
 
     #region Event
     public static event Action<bool> ChangeWorldEvent;
-    public static event Action<Utils.PlayerStatesEnum.States> PlayerStateEvent;
-    public static event Action<Utils.PlayerStatesEnum.States, bool> HudEvent;
+    public static event Action<Utils.PlayerHelper.States> PlayerStateEvent;
+    public static event Action<Utils.PlayerHelper.States, bool> HudEvent;
     // TODO: to be implemented
     public static event Action PlayerAudioDiesEvent;
     #endregion
@@ -52,12 +52,12 @@ public class GameManager : MonoBehaviour, IGameManager
     #endregion
 
     #region SendEvents
-    public void SendHudEvent(Utils.PlayerStatesEnum.States hudKey, bool conditions)
+    public void SendHudEvent(Utils.PlayerHelper.States hudKey, bool conditions)
     {
         HudEvent?.Invoke(hudKey, conditions);
     }
 
-    public void SendPlayerStateEvent(Utils.PlayerStatesEnum.States actionMapKey)
+    public void SendPlayerStateEvent(Utils.PlayerHelper.States actionMapKey)
     {
         PlayerStateEvent?.Invoke(actionMapKey);
     }
@@ -72,26 +72,26 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void InvokeDialogueState()
     {
-        SendHudEvent(Utils.PlayerStatesEnum.States.Dialogue, true);
-        SendPlayerStateEvent(Utils.PlayerStatesEnum.States.Dialogue);
+        SendHudEvent(Utils.PlayerHelper.States.Dialogue, true);
+        SendPlayerStateEvent(Utils.PlayerHelper.States.Dialogue);
     }
 
     public void InvokeHidingState()
     {
-        SendHudEvent(Utils.PlayerStatesEnum.States.Hiding, true);
-        SendPlayerStateEvent(Utils.PlayerStatesEnum.States.Hiding);
+        SendHudEvent(Utils.PlayerHelper.States.Hiding, true);
+        SendPlayerStateEvent(Utils.PlayerHelper.States.Hiding);
     }
 
     public void InvokeExorcismState()
     {
-        SendHudEvent(Utils.PlayerStatesEnum.States.Exorcism, true);
-        SendPlayerStateEvent(Utils.PlayerStatesEnum.States.Exorcism);
+        SendHudEvent(Utils.PlayerHelper.States.Exorcism, true);
+        SendPlayerStateEvent(Utils.PlayerHelper.States.Exorcism);
     }
 
     public void ResetPlayerState()
     {
         //Debug.Log("[INVOKE PLAYER STATE] Player state");
-        SendPlayerStateEvent(Utils.PlayerStatesEnum.States.Default);
+        SendPlayerStateEvent(Utils.PlayerHelper.States.Default);
     }
     #endregion
 }

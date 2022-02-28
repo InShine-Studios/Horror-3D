@@ -36,13 +36,13 @@ public class HudManager : MonoBehaviour
     }
     #endregion
 
-    public void SetHudState(Utils.PlayerStatesEnum.States hudKey, bool condition)
+    public void SetHudState(Utils.PlayerHelper.States hudKey, bool condition)
     {
         switch (hudKey)
         {
-            case Utils.PlayerStatesEnum.States.Exorcism: ShowExorcism(condition); break;
-            case Utils.PlayerStatesEnum.States.Hiding: ShowHidingHud(condition); break;
-            case Utils.PlayerStatesEnum.States.Dialogue: ShowDialogue(condition); break;
+            case Utils.PlayerHelper.States.Exorcism: ShowExorcism(condition); break;
+            case Utils.PlayerHelper.States.Hiding: ShowHidingHud(condition); break;
+            case Utils.PlayerHelper.States.Dialogue: ShowDialogue(condition); break;
         }
     }
 
