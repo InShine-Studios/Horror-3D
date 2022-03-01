@@ -37,12 +37,12 @@ public class MovementTest: TestBase
 
         inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.Sprint);
         yield return new WaitForSeconds(0.3f);
-        Assert.IsTrue(playerMovement.GetSprintBool());
+        Assert.IsTrue(playerMovement.IsSprinting());
         Assert.AreEqual(playerBase.GetSprintSpeed(), playerMovement.GetCurMoveSpeed());
 
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.Sprint);
         yield return new WaitForSeconds(0.3f);
-        Assert.IsFalse(playerMovement.GetSprintBool());
+        Assert.IsFalse(playerMovement.IsSprinting());
         Assert.AreEqual(playerBase.GetPlayerMovementSpeed(), playerMovement.GetCurMoveSpeed());
     }
     #endregion

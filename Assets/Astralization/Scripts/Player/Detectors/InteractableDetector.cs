@@ -9,20 +9,19 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider))]
 public class InteractableDetector : ObjectDetector
 {
-    private void Start()
+    #region MonoBehaviour
+    protected override void Awake()
     {
+        base.Awake();
         detectionTag = "Interactable";
     }
+    #endregion
 
+    #region Handler
     protected override void InteractClosest(Interactable closest)
     {
-        //Debug.Log("[INTERACTABLE] Player interacted with " + closest.name);
+        //Debug.Log("[PLAYER INTERACTION] Interacted with " + closest.name);
         closest.OnInteraction();
     }
-
-    protected override Collider[] FindOverlaps()
-    {
-        CapsuleCollider interactZone = GetComponent<CapsuleCollider>();
-        return Utils.GeometryCalcu.FindOverlapsFromCollider(transform, interactZone);
-    }
+    #endregion
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /*
@@ -7,17 +5,18 @@ using UnityEngine;
  */
 public class AudioManager : MonoBehaviour
 {
-    [Space]
+    #region Variables
     [Header("Audio")]
     [Tooltip("Audio Manager")]
     private AudioPlayer _audioPlayerObj;
+    #endregion
 
+    #region MonoBehaviour
     protected virtual void Awake()
     {
         _audioPlayerObj = GetComponentInChildren<AudioPlayer>();
     }
 
-    #region Enable - Disable
     private void OnEnable()
     {
         GameManager.PlayerAudioDiesEvent += PlayAudioDies;
@@ -29,8 +28,10 @@ public class AudioManager : MonoBehaviour
     }
     #endregion
 
+    #region Handler
     private void PlayAudioDies()
     {
         _audioPlayerObj.Play("FemaleScream");
     }
+    #endregion
 }

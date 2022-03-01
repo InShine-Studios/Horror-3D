@@ -1,0 +1,83 @@
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
+
+/*
+ * Class to manage general input.
+ * All undirect input flow should be managed by this class.
+ */
+public class InputManager : StateMachine
+{
+    #region Variables
+    [Tooltip("The Player Input component")]
+    [SerializeField]
+    private PlayerInput _playerInput;
+    private PlayerState _currentPlayerState;
+    #endregion
+
+    #region MonoBehaviour
+    private void Awake()
+    {
+        ChangeState<InitPlayerState>();
+    }
+
+    private void OnEnable()
+    {
+        GameManager.PlayerStateEvent += SetPlayerActionMap;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.PlayerStateEvent -= SetPlayerActionMap;
+    }
+    #endregion
+
+    public void SetPlayerActionMap(Utils.PlayerHelper.States actionMap)
+    {
+        _playerInput.SwitchCurrentActionMap(actionMap.ToString());
+        switch (actionMap) // RACE CONDITION
+        {
+            case Utils.PlayerHelper.States.Default: ChangeState<DefaultPlayerState>(); break;
+            case Utils.PlayerHelper.States.Hiding: ChangeState<HidingState>(); break;
+            case Utils.PlayerHelper.States.Dialogue: ChangeState<DialogueState>(); break;
+            case Utils.PlayerHelper.States.Exorcism: ChangeState<ExorcismState>(); break;
+        }
+        //Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);
+    }
+
+    #region Input Handler
+    private bool CanHandleInput()
+    {
+        _currentPlayerState = (PlayerState)CurrentState;
+        if (_currentPlayerState == null) return false;
+        if (_inTransition) return false;
+        return true;
+    }
+
+    public void HandleInputDefault(InputAction.CallbackContext ctx)
+    {
+        if (!CanHandleInput()) return;
+        switch (ctx.action.name)
+        {
+            case "Movement": _currentPlayerState.OnMovementInput(ctx); break;
+            case "MousePosition": _currentPlayerState.OnMousePosition(ctx); break;
+            case "ChangeItem": _currentPlayerState.ScrollActiveItem(ctx); break;
+            case "SprintStart": _currentPlayerState.SprintPressed(ctx); break;
+            case "SprintEnd": _currentPlayerState.SprintReleased(ctx); break;
+            case "Interact": _currentPlayerState.CheckInteractionInteractable(ctx); break;
+            case "PickItem": _currentPlayerState.CheckInteractionItem(ctx); break;
+            case "UseItem": _currentPlayerState.UseActiveItem(ctx); break;
+            case "DiscardItem": _currentPlayerState.DiscardItemInput(ctx); break;
+            case "SimulateGhostInteract": _currentPlayerState.CheckInteractionGhost(ctx); break;
+        }  
+    }
+
+    public void HandleInputDialogue(InputAction.CallbackContext ctx)
+    {
+        if (!CanHandleInput()) return;
+        switch (ctx.action.name)
+        {
+            case "NextDialogue": _currentPlayerState.NextDialogue(ctx); break;
+        }
+    }
+    #endregion
+}
