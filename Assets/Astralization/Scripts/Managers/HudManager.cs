@@ -19,6 +19,16 @@ public class HudManager : MonoBehaviour
     #endregion
 
     #region SetGet
+    public void SetHudState(Utils.PlayerHelper.States hudKey, bool condition)
+    {
+        switch (hudKey)
+        {
+            case Utils.PlayerHelper.States.Exorcism: ShowExorcism(condition); break;
+            case Utils.PlayerHelper.States.Hiding: ShowHidingHud(condition); break;
+            case Utils.PlayerHelper.States.Dialogue: ShowDialogue(condition); break;
+        }
+    }
+
     public void ShowDialogue(bool isShowDialogue)
     {
         //Debug.Log("[HUD SYSTEM] Set dialogue box visibility to " + isShowDialogue);
@@ -50,22 +60,18 @@ public class HudManager : MonoBehaviour
     #region MonoBehaviour
     private void OnEnable()
     {
-        GameManager.ShowDialogueHudEvent += ShowDialogue;
-        GameManager.StartHidingHudEvent += ShowHidingHud;
-        DialogueInputHandler.NextDialogueHudEvent += NextDialogue;
-        HideInputHandler.StopHidingHudEvent += ShowHidingHud;
+        GameManager.HudEvent += SetHudState;
+        DialogueState.NextDialogueHudEvent += NextDialogue;
+        HidingState.StopHidingHudEvent += ShowHidingHud;
         Inventory.ItemLogoEvent += UpdateLogo;
-        GameManager.ShowExorcismHudEvent += ShowExorcism;
     }
 
     private void OnDisable()
     {
-        GameManager.ShowDialogueHudEvent -= ShowDialogue;
-        GameManager.StartHidingHudEvent -= ShowHidingHud;
-        DialogueInputHandler.NextDialogueHudEvent -= NextDialogue;
-        HideInputHandler.StopHidingHudEvent -= ShowHidingHud;
+        GameManager.HudEvent -= SetHudState;
+        DialogueState.NextDialogueHudEvent -= NextDialogue;
+        HidingState.StopHidingHudEvent -= ShowHidingHud;
         Inventory.ItemLogoEvent -= UpdateLogo;
-        GameManager.ShowExorcismHudEvent -= ShowExorcism;
     }
     #endregion
 }

@@ -9,24 +9,12 @@ public interface IGameManager
 
 public class GameManager : MonoBehaviour, IGameManager
 {
-    #region Enums
-    private enum _playerState
-    {
-        Dialogue,
-        Hiding,
-        Exorcism,
-        Default
-    }
-    #endregion
-
     #region Event
     public static event Action<bool> ChangeWorldEvent;
-    public static event Action<string> PlayerActionMapEvent;
-    public static event Action<bool> ShowDialogueHudEvent;
-    public static event Action<bool> StartHidingHudEvent;
+    public static event Action<Utils.PlayerHelper.States> PlayerStateEvent;
+    public static event Action<Utils.PlayerHelper.States, bool> HudEvent;
     // TODO: to be implemented
     public static event Action PlayerAudioDiesEvent;
-    public static event Action<bool> ShowExorcismHudEvent;
     #endregion
 
     #region Variables
@@ -43,21 +31,35 @@ public class GameManager : MonoBehaviour, IGameManager
     private void OnEnable()
     {
         AnkhItem.ChangeWorldGM += InvokeChangeWorld;
-        NpcController.NpcInteractionEvent += InvokePlayerState;
-        DialogueManager.FinishDialogueEvent += InvokePlayerState;
-        ClosetsController.StartHidingEvent += InvokePlayerState;
-        ExorcismItem.ExorcismChannelingEvent += InvokePlayerState;
-        ExorcismBar.FinishExorcismChannelingEvent += InvokePlayerState;
+        NpcController.NpcInteractionEvent += InvokeDialogueState;
+        DialogueManager.FinishDialogueEvent += ResetPlayerState;
+        ClosetsController.StartHidingEvent += InvokeHidingState;
+        ExorcismItem.ExorcismChannelingEvent += InvokeExorcismState;
+        ExorcismBar.FinishExorcismChannelingEvent += ResetPlayerState;
+        HidingState.StopHidingEvent += ResetPlayerState;
     }
 
     private void OnDisable()
     {
         AnkhItem.ChangeWorldGM -= InvokeChangeWorld;
-        NpcController.NpcInteractionEvent -= InvokePlayerState;
-        DialogueManager.FinishDialogueEvent -= InvokePlayerState;
-        ClosetsController.StartHidingEvent -= InvokePlayerState;
-        ExorcismItem.ExorcismChannelingEvent -= InvokePlayerState;
-        ExorcismBar.FinishExorcismChannelingEvent -= InvokePlayerState;
+        NpcController.NpcInteractionEvent -= InvokeDialogueState;
+        DialogueManager.FinishDialogueEvent -= ResetPlayerState;
+        ClosetsController.StartHidingEvent -= InvokeHidingState;
+        ExorcismItem.ExorcismChannelingEvent -= InvokeExorcismState;
+        ExorcismBar.FinishExorcismChannelingEvent -= ResetPlayerState;
+        HidingState.StopHidingEvent -= ResetPlayerState;
+    }
+    #endregion
+
+    #region SendEvents
+    public void SendHudEvent(Utils.PlayerHelper.States hudKey, bool conditions)
+    {
+        HudEvent?.Invoke(hudKey, conditions);
+    }
+
+    public void SendPlayerStateEvent(Utils.PlayerHelper.States actionMapKey)
+    {
+        PlayerStateEvent?.Invoke(actionMapKey);
     }
     #endregion
 
@@ -68,28 +70,28 @@ public class GameManager : MonoBehaviour, IGameManager
         ChangeWorldEvent?.Invoke(_isInAstralWorld);
     }
 
-    public void InvokePlayerState(String state)
+    public void InvokeDialogueState()
     {
-        //Debug.Log("[INVOKE PLAYER STATE] Player state: " + state);
-        if (state.Equals(_playerState.Dialogue.ToString()))
-        {
-            ShowDialogueHudEvent?.Invoke(true);
-            PlayerActionMapEvent?.Invoke(_playerState.Dialogue.ToString());
-        }
-        else if (state.Equals(_playerState.Hiding.ToString()))
-        {
-            StartHidingHudEvent?.Invoke(true);
-            PlayerActionMapEvent?.Invoke(_playerState.Hiding.ToString());
-        }
-        else if (state.Equals(_playerState.Default.ToString()))
-        {
-            PlayerActionMapEvent?.Invoke(_playerState.Default.ToString());
-        }
-        else if (state.Equals(_playerState.Exorcism.ToString()))
-        {
-            ShowExorcismHudEvent?.Invoke(true);
-            PlayerActionMapEvent?.Invoke(_playerState.Exorcism.ToString());
-        }
+        SendHudEvent(Utils.PlayerHelper.States.Dialogue, true);
+        SendPlayerStateEvent(Utils.PlayerHelper.States.Dialogue);
+    }
+
+    public void InvokeHidingState()
+    {
+        SendHudEvent(Utils.PlayerHelper.States.Hiding, true);
+        SendPlayerStateEvent(Utils.PlayerHelper.States.Hiding);
+    }
+
+    public void InvokeExorcismState()
+    {
+        SendHudEvent(Utils.PlayerHelper.States.Exorcism, true);
+        SendPlayerStateEvent(Utils.PlayerHelper.States.Exorcism);
+    }
+
+    public void ResetPlayerState()
+    {
+        //Debug.Log("[INVOKE PLAYER STATE] Player state");
+        SendPlayerStateEvent(Utils.PlayerHelper.States.Default);
     }
     #endregion
 }

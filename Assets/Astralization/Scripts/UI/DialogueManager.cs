@@ -21,7 +21,7 @@ public interface IDialogueManager
 public class DialogueManager : MonoBehaviour, IDialogueManager
 {
     #region Events
-    public static event Action<string> FinishDialogueEvent;
+    public static event Action FinishDialogueEvent;
     #endregion
 
     #region Variables
@@ -41,8 +41,6 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
     private bool _dialogBoxOpen;
     #endregion
-
-    private string _defaultActionMap = "Default"; // TODO adjust with #212
 
     #region SetGet
     public void SetDialogJson(TextAsset newDialogueJson)
@@ -118,7 +116,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         else
         {
             StopAllCoroutines();
-            FinishDialogueEvent?.Invoke(_defaultActionMap);
+            FinishDialogueEvent?.Invoke();
             ShowDialogueBox(false);
         }
     }

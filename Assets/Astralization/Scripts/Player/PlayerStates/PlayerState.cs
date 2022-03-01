@@ -64,6 +64,20 @@ public abstract class PlayerState : State
     }
     #endregion
 
+    #region Hiding Input Handler
+    public virtual void UnhidePlayer(InputAction.CallbackContext ctx)
+    {
+        PrintDefaultLog("UnhidePlayer");
+    }
+    #endregion
+
+    #region Exorcism Input Handler
+    public virtual void UseReleased(InputAction.CallbackContext ctx)
+    {
+        PrintDefaultLog("UseReleasedExorcism");
+    }
+    #endregion
+
     #region Logger
     private void PrintDefaultLog(string methodName)
     {

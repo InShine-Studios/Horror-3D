@@ -92,7 +92,7 @@ public class InteractableTest: TestBase
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
         Assert.False(anim.GetBool("isHiding"));
-        Assert.AreEqual(_playerInput.currentActionMap.name, "Player");
+        Assert.AreEqual(_playerInput.currentActionMap.name, "Default");
     }
 
     [UnityTest]

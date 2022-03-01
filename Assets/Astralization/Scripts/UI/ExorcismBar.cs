@@ -33,7 +33,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     private bool _isUsed = false;
     private bool _isExorcised = false;
 
-    public static event Action<string> FinishExorcismChannelingEvent;
+    public static event Action FinishExorcismChannelingEvent;
     #endregion
 
     #region MonoBehaviour
@@ -44,12 +44,12 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
 
     private void OnEnable()
     {
-        ExorcismInputHandler.UseReleasedEvent += StopExorcism;
+        ExorcismState.UseReleasedEvent += StopExorcism;
     }
 
     private void OnDisable()
     {
-        ExorcismInputHandler.UseReleasedEvent -= StopExorcism;
+        ExorcismState.UseReleasedEvent -= StopExorcism;
     }
 
     private void Update()
@@ -111,7 +111,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     {
         _isUsed = false;
         ShowBar(false);
-        FinishExorcismChannelingEvent?.Invoke("Player");
+        FinishExorcismChannelingEvent?.Invoke();
         ProcessExorcism();
     }
 

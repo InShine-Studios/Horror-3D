@@ -14,12 +14,8 @@ public interface INpcController
  */
 public class NpcController : Interactable, INpcController
 {
-    #region Constants
-    private string _dialogueActionMap = "Dialogue";
-    #endregion
-
     #region Events
-    public static event Action<string> NpcInteractionEvent;
+    public static event Action NpcInteractionEvent;
     #endregion
 
     #region Variables
@@ -43,7 +39,7 @@ public class NpcController : Interactable, INpcController
     public override void OnInteraction()
     {
         //Debug.Log("[INTERACTABLE] Npc interacted: " + this.name);
-        NpcInteractionEvent?.Invoke(_dialogueActionMap);
+        NpcInteractionEvent?.Invoke();
     }
     #endregion
 }

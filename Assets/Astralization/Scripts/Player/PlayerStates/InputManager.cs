@@ -19,33 +19,33 @@ public class InputManager : StateMachine
     {
         ChangeState<InitPlayerState>();
     }
+
     private void OnEnable()
     {
-        GameManager.PlayerActionMapEvent += SetPlayerActionMap;
-        HideInputHandler.StopHidingEvent += SetPlayerActionMap;
+        GameManager.PlayerStateEvent += SetPlayerActionMap;
     }
 
     private void OnDisable()
     {
-        GameManager.PlayerActionMapEvent -= SetPlayerActionMap;
-        HideInputHandler.StopHidingEvent -= SetPlayerActionMap;
+        GameManager.PlayerStateEvent -= SetPlayerActionMap;
     }
     #endregion
 
-    public void SetPlayerActionMap(string actionMap)
+    public void SetPlayerActionMap(Utils.PlayerHelper.States actionMap)
     {
-        _playerInput.SwitchCurrentActionMap(actionMap);
+        _playerInput.SwitchCurrentActionMap(actionMap.ToString());
         switch (actionMap) // RACE CONDITION
         {
-            case "Default": ChangeState<DefaultPlayerState>(); break;
-            case "Hiding": ChangeState<HidingState>(); break;
-            case "Dialogue": ChangeState<DialogueState>(); break;
+            case Utils.PlayerHelper.States.Default: ChangeState<DefaultPlayerState>(); break;
+            case Utils.PlayerHelper.States.Hiding: ChangeState<HidingState>(); break;
+            case Utils.PlayerHelper.States.Dialogue: ChangeState<DialogueState>(); break;
+            case Utils.PlayerHelper.States.Exorcism: ChangeState<ExorcismState>(); break;
         }
-        //Debug.Log("[PLAYER STATES] New Input Map: " + _playerInput.currentActionMap);
+        //Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);
     }
 
     #region Input Handler
-    private bool CanHandleInput ()
+    private bool CanHandleInput()
     {
         _currentPlayerState = (PlayerState)CurrentState;
         if (_currentPlayerState == null) return false;

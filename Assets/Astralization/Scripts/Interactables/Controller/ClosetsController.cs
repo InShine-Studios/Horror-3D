@@ -7,12 +7,8 @@ using UnityEngine;
  */
 public class ClosetsController : Interactable
 {
-    #region Constants
-    private string _hidingActionMap = "Hiding";
-    #endregion
-
     #region Events
-    public static event Action<string> StartHidingEvent;
+    public static event Action StartHidingEvent;
     #endregion
 
     #region MonoBehaviour
@@ -26,7 +22,7 @@ public class ClosetsController : Interactable
     public override void OnInteraction()
     {
         //Debug.Log("[INTERACTABLE] " + this.name + " interacted");
-        StartHidingEvent?.Invoke(_hidingActionMap);
+        StartHidingEvent?.Invoke();
     }
     #endregion
 }
