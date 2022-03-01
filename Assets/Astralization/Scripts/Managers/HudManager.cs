@@ -22,27 +22,27 @@ public class HudManager : MonoBehaviour
     private void OnEnable()
     {
         GameManager.HudEvent += SetHudState;
-        DialogueInputHandler.NextDialogueHudEvent += NextDialogue;
-        HideInputHandler.StopHidingHudEvent += ShowHidingHud;
+        DialogueState.NextDialogueHudEvent += NextDialogue;
+        HidingState.StopHidingHudEvent += ShowHidingHud;
         Inventory.ItemLogoEvent += UpdateLogo;
     }
 
     private void OnDisable()
     {
         GameManager.HudEvent -= SetHudState;
-        DialogueInputHandler.NextDialogueHudEvent -= NextDialogue;
-        HideInputHandler.StopHidingHudEvent -= ShowHidingHud;
+        DialogueState.NextDialogueHudEvent -= NextDialogue;
+        HidingState.StopHidingHudEvent -= ShowHidingHud;
         Inventory.ItemLogoEvent -= UpdateLogo;
     }
     #endregion
 
-    public void SetHudState(string hudKey, bool condition)
+    public void SetHudState(Utils.PlayerHelper.States hudKey, bool condition)
     {
         switch (hudKey)
         {
-            case "Exorcism": ShowExorcism(condition); break;
-            case "Hiding": ShowHidingHud(condition); break;
-            case "Dialogue": ShowDialogue(condition); break;
+            case Utils.PlayerHelper.States.Exorcism: ShowExorcism(condition); break;
+            case Utils.PlayerHelper.States.Hiding: ShowHidingHud(condition); break;
+            case Utils.PlayerHelper.States.Dialogue: ShowDialogue(condition); break;
         }
     }
 

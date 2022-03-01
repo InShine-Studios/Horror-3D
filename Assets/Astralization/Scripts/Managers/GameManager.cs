@@ -13,19 +13,12 @@ public class GameManager : MonoBehaviour, IGameManager
     [Tooltip("Bool flag to check if the player is in Real World or Astral World")]
     [SerializeField]
     private bool _isInAstralWorld = false;
-    private enum _playerState
-    {
-        Dialogue,
-        Hiding,
-        Exorcism,
-        Default
-    }
     #endregion
 
     #region Event
     public static event Action<bool> ChangeWorldEvent;
-    public static event Action<string> PlayerStateEvent;
-    public static event Action<string, bool> HudEvent;
+    public static event Action<Utils.PlayerHelper.States> PlayerStateEvent;
+    public static event Action<Utils.PlayerHelper.States, bool> HudEvent;
     // TODO: to be implemented
     public static event Action PlayerAudioDiesEvent;
     #endregion
@@ -39,6 +32,7 @@ public class GameManager : MonoBehaviour, IGameManager
         ClosetsController.StartHidingEvent += InvokeHidingState;
         ExorcismItem.ExorcismChannelingEvent += InvokeExorcismState;
         ExorcismBar.FinishExorcismChannelingEvent += ResetPlayerState;
+        HidingState.StopHidingEvent += ResetPlayerState;
     }
 
     private void OnDisable()
@@ -49,6 +43,7 @@ public class GameManager : MonoBehaviour, IGameManager
         ClosetsController.StartHidingEvent -= InvokeHidingState;
         ExorcismItem.ExorcismChannelingEvent -= InvokeExorcismState;
         ExorcismBar.FinishExorcismChannelingEvent -= ResetPlayerState;
+        HidingState.StopHidingEvent -= ResetPlayerState;
     }
     #endregion
 
@@ -57,12 +52,12 @@ public class GameManager : MonoBehaviour, IGameManager
     #endregion
 
     #region SendEvents
-    public void SendHudEvent(string hudKey, bool conditions)
+    public void SendHudEvent(Utils.PlayerHelper.States hudKey, bool conditions)
     {
         HudEvent?.Invoke(hudKey, conditions);
     }
 
-    public void SendPlayerStateEvent(string actionMapKey)
+    public void SendPlayerStateEvent(Utils.PlayerHelper.States actionMapKey)
     {
         PlayerStateEvent?.Invoke(actionMapKey);
     }
@@ -77,26 +72,26 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void InvokeDialogueState()
     {
-        SendHudEvent(_playerState.Dialogue.ToString(), true);
-        SendPlayerStateEvent(_playerState.Dialogue.ToString());
+        SendHudEvent(Utils.PlayerHelper.States.Dialogue, true);
+        SendPlayerStateEvent(Utils.PlayerHelper.States.Dialogue);
     }
 
     public void InvokeHidingState()
     {
-        SendHudEvent(_playerState.Hiding.ToString(), true);
-        SendPlayerStateEvent(_playerState.Hiding.ToString());
+        SendHudEvent(Utils.PlayerHelper.States.Hiding, true);
+        SendPlayerStateEvent(Utils.PlayerHelper.States.Hiding);
     }
 
     public void InvokeExorcismState()
     {
-        SendHudEvent(_playerState.Exorcism.ToString(), true);
-        SendPlayerStateEvent(_playerState.Exorcism.ToString());
+        SendHudEvent(Utils.PlayerHelper.States.Exorcism, true);
+        SendPlayerStateEvent(Utils.PlayerHelper.States.Exorcism);
     }
 
     public void ResetPlayerState()
     {
-        //Debug.Log("[INVOKE PLAYER STATE] Player state: " + state);
-        SendPlayerStateEvent(_playerState.Default.ToString());
+        //Debug.Log("[INVOKE PLAYER STATE] Player state");
+        SendPlayerStateEvent(Utils.PlayerHelper.States.Default);
     }
     #endregion
 }

@@ -1,10 +1,10 @@
 using System;
 using UnityEngine.InputSystem;
 
-public class DialogueState : PlayerState
+public class ExorcismState : PlayerState
 {
     #region Events
-    public static event Action NextDialogueHudEvent;
+    public static event Action UseReleasedEvent;
     #endregion
 
     protected override void Awake()
@@ -13,19 +13,19 @@ public class DialogueState : PlayerState
     }
 
     #region InputHandler
-    public override void NextDialogue(InputAction.CallbackContext ctx)
+    public override void UseReleased(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
         {
-            SendNextDialogueHudEvent();
+            SendUseReleasedEvent();
         }
     }
     #endregion
 
     #region SendEvents
-    public void SendNextDialogueHudEvent()
+    public void SendUseReleasedEvent()
     {
-        NextDialogueHudEvent?.Invoke();
+        UseReleasedEvent?.Invoke();
     }
     #endregion
 }

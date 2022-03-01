@@ -41,12 +41,12 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     #region Enable - Disable
     private void OnEnable()
     {
-        ExorcismInputHandler.UseReleasedEvent += StopExorcism;
+        ExorcismState.UseReleasedEvent += StopExorcism;
     }
 
     private void OnDisable()
     {
-        ExorcismInputHandler.UseReleasedEvent -= StopExorcism;
+        ExorcismState.UseReleasedEvent -= StopExorcism;
     }
     #endregion
 
