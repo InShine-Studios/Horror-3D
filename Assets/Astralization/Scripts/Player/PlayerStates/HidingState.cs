@@ -20,21 +20,9 @@ public class HidingState : PlayerState
     {
         if (ctx.performed)
         {
-            InvokeStopHidingEvent();
-            InvokeStopHidingHudEvent(false);
+            StopHidingEvent?.Invoke();
+            StopHidingHudEvent?.Invoke(false);
         }
-    }
-    #endregion
-
-    #region InvokeEvents
-    public void InvokeStopHidingEvent()
-    {
-        StopHidingEvent?.Invoke();
-    }
-
-    public void InvokeStopHidingHudEvent(bool isShown)
-    {
-        StopHidingHudEvent?.Invoke(isShown);
     }
     #endregion
 }

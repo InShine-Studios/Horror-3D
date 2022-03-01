@@ -52,9 +52,9 @@ public class GameManager : MonoBehaviour, IGameManager
     #endregion
 
     #region SendEvents
-    public void SendHudEvent(Utils.PlayerHelper.States hudKey, bool conditions)
+    public void SendHudEvent(Utils.PlayerHelper.States hudKey, bool condition)
     {
-        HudEvent?.Invoke(hudKey, conditions);
+        HudEvent?.Invoke(hudKey, condition);
     }
 
     public void SendPlayerStateEvent(Utils.PlayerHelper.States actionMapKey)
@@ -68,30 +68,34 @@ public class GameManager : MonoBehaviour, IGameManager
     {
         _isInAstralWorld = !_isInAstralWorld;
         ChangeWorldEvent?.Invoke(_isInAstralWorld);
+        //Debug.Log("[MANAGER] Changing world state to " + (_isInAstralWorld ? "Astral" : "Real"));
     }
 
     public void InvokeDialogueState()
     {
         SendHudEvent(Utils.PlayerHelper.States.Dialogue, true);
         SendPlayerStateEvent(Utils.PlayerHelper.States.Dialogue);
+        //Debug.Log("[MANAGER] Change state to dialogue");
     }
 
     public void InvokeHidingState()
     {
         SendHudEvent(Utils.PlayerHelper.States.Hiding, true);
         SendPlayerStateEvent(Utils.PlayerHelper.States.Hiding);
+        //Debug.Log("[MANAGER] Change state to hiding");
     }
 
     public void InvokeExorcismState()
     {
         SendHudEvent(Utils.PlayerHelper.States.Exorcism, true);
         SendPlayerStateEvent(Utils.PlayerHelper.States.Exorcism);
+        //Debug.Log("[MANAGER] Change state to exorcism");
     }
 
     public void ResetPlayerState()
     {
-        //Debug.Log("[INVOKE PLAYER STATE] Player state");
         SendPlayerStateEvent(Utils.PlayerHelper.States.Default);
+        //Debug.Log("[MANAGER] Reset player state to default");
     }
     #endregion
 }

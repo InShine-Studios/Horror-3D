@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class ExorcismState : PlayerState
 {
     #region Events
-    public static event Action UseReleasedEvent;
+    public static event Action StopExorcismEvent;
     #endregion
 
     protected override void Awake()
@@ -17,15 +17,8 @@ public class ExorcismState : PlayerState
     {
         if (ctx.performed)
         {
-            SendUseReleasedEvent();
+            StopExorcismEvent?.Invoke();
         }
-    }
-    #endregion
-
-    #region SendEvents
-    public void SendUseReleasedEvent()
-    {
-        UseReleasedEvent?.Invoke();
     }
     #endregion
 }

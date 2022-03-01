@@ -8,7 +8,7 @@ public interface IExorcismBar
     float GetSliderValue();
     bool IsExorcised();
     bool IsUsed();
-    void ProcessExorcism();
+    void ProcessPostExorcism();
     void SetSliderMinValue(float sliderValue);
     void SetSliderValue(float sliderValue);
     void ShowBar(bool isActive);
@@ -44,12 +44,12 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
 
     private void OnEnable()
     {
-        ExorcismState.UseReleasedEvent += StopExorcism;
+        ExorcismState.StopExorcismEvent += StopExorcism;
     }
 
     private void OnDisable()
     {
-        ExorcismState.UseReleasedEvent -= StopExorcism;
+        ExorcismState.StopExorcismEvent -= StopExorcism;
     }
 
     private void Update()
@@ -112,10 +112,10 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
         _isUsed = false;
         ShowBar(false);
         FinishExorcismChannelingEvent?.Invoke();
-        ProcessExorcism();
+        ProcessPostExorcism();
     }
 
-    public void ProcessExorcism()
+    public void ProcessPostExorcism()
     {
         if (_isExorcised)
         {
