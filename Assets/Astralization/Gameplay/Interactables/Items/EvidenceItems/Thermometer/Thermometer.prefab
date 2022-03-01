@@ -101,12 +101,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 702483fbdc390fc0997370720f68f99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseIcon: 1
-  InteractableIcon: {fileID: 7572900280791124002}
-  _itemLogo: {fileID: 7403073595886107718, guid: 76c058bdb7187bc45bba0328cc1afc28, type: 3}
+  _useIcon: 0
+  _guideIcon: {fileID: 0}
+  _HudLogo: {fileID: 0}
   _discardedWhenUsed: 1
   state: 0
-  _model: {fileID: 7376206032017376481}
   _baseMaterial: {fileID: 2100000, guid: 40d48c34dd1762321aa0439bd84fb7f8, type: 2}
   _activeMaterial: {fileID: 2100000, guid: 062116c317e6f29d88d48f9609e7db10, type: 2}
   _positiveMaterial: {fileID: 2100000, guid: 2fb4d7f5de93b10f9967eb3170f689ba, type: 2}
@@ -180,11 +179,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cde292bdc6fd20566b5748292fa0071a, type: 3}
---- !u!1 &7376206032017376481 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6545030475240256356, guid: cde292bdc6fd20566b5748292fa0071a, type: 3}
-  m_PrefabInstance: {fileID: 4362038348730103685}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8525260332503875170 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5388237953643268583, guid: cde292bdc6fd20566b5748292fa0071a, type: 3}
@@ -271,11 +265,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ae7a6ff3f027104f822ac571927e317, type: 3}
---- !u!1 &7572900280791124002 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1090158781566876810, guid: 1ae7a6ff3f027104f822ac571927e317, type: 3}
-  m_PrefabInstance: {fileID: 7366020973676606632}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &179022666051931240 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7225279200835860672, guid: 1ae7a6ff3f027104f822ac571927e317, type: 3}

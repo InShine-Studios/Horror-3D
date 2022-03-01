@@ -7,20 +7,22 @@ using UnityEngine;
  */
 public class ClosetsController : Interactable
 {
-    #region Variables
-
+    #region Events
     public static event Action StartHidingEvent;
-
     #endregion
 
+    #region MonoBehaviour
     protected override void Awake()
     {
         base.Awake();
     }
+    #endregion
 
+    #region Handler
     public override void OnInteraction()
     {
         //Debug.Log("[INTERACTABLE] " + this.name + " interacted");
         StartHidingEvent?.Invoke();
     }
+    #endregion
 }

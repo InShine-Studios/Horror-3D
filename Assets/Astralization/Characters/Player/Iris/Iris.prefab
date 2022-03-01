@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3935439492266647455}
   - component: {fileID: 7612435407238431527}
   - component: {fileID: 7587431485049714996}
-  - component: {fileID: 5185263958987290348}
   - component: {fileID: 1105417087990013444}
+  - component: {fileID: 5185263958987290348}
   m_Layer: 0
   m_Name: InteractZone
   m_TagString: Player
@@ -42,7 +42,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728479974111243851}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1
   m_Height: 2.5
@@ -60,6 +60,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00bc4174dd11fb848a3861f3ff88ec36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1105417087990013444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728479974111243851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aafa030043c6fbd4ab58efaf38fe26c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5185263958987290348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,18 +87,6 @@ MonoBehaviour:
   InvenLength: 3
   ActiveItemYOffset: {x: 0, y: -0.5, z: 0}
   ScrollSensitivity: 1
---- !u!114 &1105417087990013444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728479974111243851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aafa030043c6fbd4ab58efaf38fe26c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1845195656393805060
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,7 +885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerBase:
-    _playerMovementSpeed: 200
+    _movementSpeed: 200
     _rotationSpeed: 25
     _sprintSpeed: 300
   Gravity: -50

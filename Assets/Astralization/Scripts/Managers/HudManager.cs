@@ -18,24 +18,7 @@ public class HudManager : MonoBehaviour
     private ExorcismBar _exorcismBar;
     #endregion
 
-    #region Enable - Disable
-    private void OnEnable()
-    {
-        GameManager.HudEvent += SetHudState;
-        DialogueState.NextDialogueHudEvent += NextDialogue;
-        HidingState.StopHidingHudEvent += ShowHidingHud;
-        Inventory.ItemLogoEvent += UpdateLogo;
-    }
-
-    private void OnDisable()
-    {
-        GameManager.HudEvent -= SetHudState;
-        DialogueState.NextDialogueHudEvent -= NextDialogue;
-        HidingState.StopHidingHudEvent -= ShowHidingHud;
-        Inventory.ItemLogoEvent -= UpdateLogo;
-    }
-    #endregion
-
+    #region SetGet
     public void SetHudState(Utils.PlayerHelper.States hudKey, bool condition)
     {
         switch (hudKey)
@@ -46,16 +29,15 @@ public class HudManager : MonoBehaviour
         }
     }
 
-    #region HUDfunction
     public void ShowDialogue(bool isShowDialogue)
     {
-        //Debug.Log("[START DIALOGUE HUD] isShowDialogue: " + isShowDialogue);
+        //Debug.Log("[HUD SYSTEM] Set dialogue box visibility to " + isShowDialogue);
         _dialogueManager.ShowDialogueBox(isShowDialogue);
     }
 
     public void NextDialogue()
     {
-        //Debug.Log("[NEXT DIALOGUE HUD]");
+        //Debug.Log("[HUD SYSTEM] Dialogue Next Line");
         _dialogueManager.NextLine();
     }
 
@@ -71,7 +53,25 @@ public class HudManager : MonoBehaviour
 
     public void ShowExorcism(bool isShowExorcism)
     {
-        _exorcismBar.SetExorcismBar(isShowExorcism);
+        _exorcismBar.ShowBar(isShowExorcism);
+    }
+    #endregion
+
+    #region MonoBehaviour
+    private void OnEnable()
+    {
+        GameManager.HudEvent += SetHudState;
+        DialogueState.NextDialogueHudEvent += NextDialogue;
+        HidingState.StopHidingHudEvent += ShowHidingHud;
+        Inventory.ItemLogoEvent += UpdateLogo;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.HudEvent -= SetHudState;
+        DialogueState.NextDialogueHudEvent -= NextDialogue;
+        HidingState.StopHidingHudEvent -= ShowHidingHud;
+        Inventory.ItemLogoEvent -= UpdateLogo;
     }
     #endregion
 }

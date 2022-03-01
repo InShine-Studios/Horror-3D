@@ -14,14 +14,16 @@ public interface INpcController
  */
 public class NpcController : Interactable, INpcController
 {
-    #region Variables
-    private bool _questOneFinished;
-    private bool _questTwoFinished;
-
+    #region Events
     public static event Action NpcInteractionEvent;
     #endregion
 
-    #region Setter Getter
+    #region Variables
+    private bool _questOneFinished;
+    private bool _questTwoFinished;
+    #endregion
+
+    #region SetGet
     public bool GetOneFinished()
     {
         return _questOneFinished;
@@ -33,9 +35,11 @@ public class NpcController : Interactable, INpcController
     }
     #endregion
 
+    #region Handler
     public override void OnInteraction()
     {
         //Debug.Log("[INTERACTABLE] Npc interacted: " + this.name);
         NpcInteractionEvent?.Invoke();
     }
+    #endregion
 }

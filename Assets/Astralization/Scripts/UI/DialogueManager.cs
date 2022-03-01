@@ -20,7 +20,11 @@ public interface IDialogueManager
  */
 public class DialogueManager : MonoBehaviour, IDialogueManager
 {
-    #region Variable
+    #region Events
+    public static event Action FinishDialogueEvent;
+    #endregion
+
+    #region Variables
     [SerializeField]
     private Text _nameText;
     [SerializeField]
@@ -38,19 +42,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     private bool _dialogBoxOpen;
     #endregion
 
-
-    public static event Action FinishDialogueEvent;
-
-    #region Awake
-    private void Awake()
-    {
-        _nameText.text = "Budi";
-        _dialogueText.text = string.Empty;
-        
-    }
-    #endregion
-
-    #region Setter Getter
+    #region SetGet
     public void SetDialogJson(TextAsset newDialogueJson)
     {
         _dialogueJson = newDialogueJson;
@@ -72,7 +64,16 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     }
     #endregion
 
-    #region Dialogue Setup/Show
+    #region MonoBehaviour
+    private void Awake()
+    {
+        _nameText.text = "Budi";
+        _dialogueText.text = string.Empty;
+        
+    }
+    #endregion
+
+    #region Handler
     public void ShowDialogueBox(bool isShowDialogue)
     {
         if (isShowDialogue)
@@ -89,15 +90,13 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         }
     }
 
-    void SetUpDialogue()
+    private void SetUpDialogue()
     {
         _dialogueText.text = string.Empty;
         _dialogueStory = new Story(_dialogueJson.text);
     }
-    #endregion
 
-    #region TypeLine
-    IEnumerator TypeLine()
+    private IEnumerator TypeLine()
     {
         //To type each character 1 by 1
         foreach (char c in _dialogueStory.Continue().ToCharArray())
@@ -106,9 +105,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
             yield return new WaitForSeconds(_textSpeed);
         }
     }
-    #endregion
 
-    #region Next
     public void NextLine()
     {
         if (_dialogueStory.canContinue)

@@ -9,12 +9,6 @@ public interface IGameManager
 
 public class GameManager : MonoBehaviour, IGameManager
 {
-    #region Variables
-    [Tooltip("Bool flag to check if the player is in Real World or Astral World")]
-    [SerializeField]
-    private bool _isInAstralWorld = false;
-    #endregion
-
     #region Event
     public static event Action<bool> ChangeWorldEvent;
     public static event Action<Utils.PlayerHelper.States> PlayerStateEvent;
@@ -23,7 +17,17 @@ public class GameManager : MonoBehaviour, IGameManager
     public static event Action PlayerAudioDiesEvent;
     #endregion
 
-    #region Enable - Disable
+    #region Variables
+    [Tooltip("Bool flag to check if the player is in Real World or Astral World")]
+    [SerializeField]
+    private bool _isInAstralWorld = false;
+    #endregion
+
+    #region SetGet
+    public bool IsInAstralWorld() { return _isInAstralWorld; }
+    #endregion
+
+    #region MonoBehaviour
     private void OnEnable()
     {
         AnkhItem.ChangeWorldGM += InvokeChangeWorld;
@@ -47,14 +51,10 @@ public class GameManager : MonoBehaviour, IGameManager
     }
     #endregion
 
-    #region Setter Getter
-    public bool IsInAstralWorld() { return _isInAstralWorld; }
-    #endregion
-
     #region SendEvents
-    public void SendHudEvent(Utils.PlayerHelper.States hudKey, bool conditions)
+    public void SendHudEvent(Utils.PlayerHelper.States hudKey, bool condition)
     {
-        HudEvent?.Invoke(hudKey, conditions);
+        HudEvent?.Invoke(hudKey, condition);
     }
 
     public void SendPlayerStateEvent(Utils.PlayerHelper.States actionMapKey)
@@ -63,35 +63,39 @@ public class GameManager : MonoBehaviour, IGameManager
     }
     #endregion
 
-    #region InvokeFunctions
+    #region Invoker
     public void InvokeChangeWorld()
     {
         _isInAstralWorld = !_isInAstralWorld;
         ChangeWorldEvent?.Invoke(_isInAstralWorld);
+        //Debug.Log("[MANAGER] Changing world state to " + (_isInAstralWorld ? "Astral" : "Real"));
     }
 
     public void InvokeDialogueState()
     {
         SendHudEvent(Utils.PlayerHelper.States.Dialogue, true);
         SendPlayerStateEvent(Utils.PlayerHelper.States.Dialogue);
+        //Debug.Log("[MANAGER] Change state to dialogue");
     }
 
     public void InvokeHidingState()
     {
         SendHudEvent(Utils.PlayerHelper.States.Hiding, true);
         SendPlayerStateEvent(Utils.PlayerHelper.States.Hiding);
+        //Debug.Log("[MANAGER] Change state to hiding");
     }
 
     public void InvokeExorcismState()
     {
         SendHudEvent(Utils.PlayerHelper.States.Exorcism, true);
         SendPlayerStateEvent(Utils.PlayerHelper.States.Exorcism);
+        //Debug.Log("[MANAGER] Change state to exorcism");
     }
 
     public void ResetPlayerState()
     {
-        //Debug.Log("[INVOKE PLAYER STATE] Player state");
         SendPlayerStateEvent(Utils.PlayerHelper.States.Default);
+        //Debug.Log("[MANAGER] Reset player state to default");
     }
     #endregion
 }

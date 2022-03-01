@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,10 +8,10 @@ public interface IExorcismBar
     float GetSliderValue();
     bool IsExorcised();
     bool IsUsed();
-    void ProcessExorcism();
+    void ProcessPostExorcism();
     void SetSliderMinValue(float sliderValue);
     void SetSliderValue(float sliderValue);
-    void SetExorcismBar(bool isActive);
+    void ShowBar(bool isActive);
     void StopExorcism();
 }
 
@@ -38,24 +36,22 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     public static event Action FinishExorcismChannelingEvent;
     #endregion
 
-    #region Enable - Disable
-    private void OnEnable()
-    {
-        ExorcismState.UseReleasedEvent += StopExorcism;
-    }
-
-    private void OnDisable()
-    {
-        ExorcismState.UseReleasedEvent -= StopExorcism;
-    }
-    #endregion
-
+    #region MonoBehaviour
     private void Awake()
     {
         SetSliderMinValue(_minValue);
     }
 
-    #region Update
+    private void OnEnable()
+    {
+        ExorcismState.StopExorcismEvent += StopExorcism;
+    }
+
+    private void OnDisable()
+    {
+        ExorcismState.StopExorcismEvent -= StopExorcism;
+    }
+
     private void Update()
     {
         if (slider.gameObject.activeSelf)
@@ -72,7 +68,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     }
     #endregion
 
-    #region Setter Getter
+    #region SetGet
     public float GetAccumulatedTime()
     {
         return _accumulatedTime;
@@ -103,31 +99,31 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     {
         slider.value = sliderValue;
     }
-    #endregion
 
-    #region Exorcism Logic
-    public void SetExorcismBar(bool isActive)
+    public void ShowBar(bool isActive)
     {
         slider.gameObject.SetActive(isActive);
     }
+    #endregion
 
+    #region Handler
     public void StopExorcism()
     {
         _isUsed = false;
-        SetExorcismBar(false);
+        ShowBar(false);
         FinishExorcismChannelingEvent?.Invoke();
-        ProcessExorcism();
+        ProcessPostExorcism();
     }
 
-    public void ProcessExorcism()
+    public void ProcessPostExorcism()
     {
         if (_isExorcised)
         {
-            //Debug.Log("[EXORCISM] Exorcism Finished");
+            //Debug.Log("[HUD SYSTEM] Exorcism Finished");
         }
         else
         {
-            //Debug.Log("[EXORCISM] Exorcism Cancelled");
+            //Debug.Log("[HUD SYSTEM] Exorcism Cancelled");
         }
         _accumulatedTime = 0f;
     }

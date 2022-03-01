@@ -9,12 +9,14 @@ using System.IO;
  */
 public class StageRoomBuilder : MonoBehaviour
 {
+    #region Variables
     [SerializeField]
     private WorldPoint _roomPointPrefab;
     private static Dictionary<string, WorldPoint> _roomPoints = new Dictionary<string, WorldPoint>();
 
     [SerializeField]
     private StageData _stageData;
+    #endregion
 
     #region RoomPoints Setup
     public void Clear()
@@ -52,7 +54,7 @@ public class StageRoomBuilder : MonoBehaviour
     }
     #endregion
 
-    #region Save - Load
+    #region Save Load
     public void Save()
     {
         Rename();
