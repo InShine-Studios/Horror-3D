@@ -57,12 +57,12 @@ public abstract class ObjectDetector : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerMovement.FindClosest += SetClosestInteractable;
+        PlayerMovement.FindClosest += UpdateClosestInteractable;
     }
 
     private void OnDisable()
     {
-        PlayerMovement.FindClosest -= SetClosestInteractable;
+        PlayerMovement.FindClosest -= UpdateClosestInteractable;
     }
     #endregion
 
