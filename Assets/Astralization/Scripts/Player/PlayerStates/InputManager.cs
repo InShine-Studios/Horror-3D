@@ -79,5 +79,23 @@ public class InputManager : StateMachine
             case "NextDialogue": _currentPlayerState.NextDialogue(ctx); break;
         }
     }
+
+    public void HandleInputExorcism(InputAction.CallbackContext ctx)
+    {
+        if (!CanHandleInput()) return;
+        switch (ctx.action.name)
+        {
+            case "ChannelingStop": _currentPlayerState.UseReleased(ctx); break;
+        }
+    }
+
+    public void HandleInputHiding(InputAction.CallbackContext ctx)
+    {
+        if (!CanHandleInput()) return;
+        switch (ctx.action.name)
+        {
+            case "Interact": _currentPlayerState.UnhidePlayer(ctx); break;
+        }
+    }
     #endregion
 }
