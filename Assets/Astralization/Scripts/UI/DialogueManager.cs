@@ -4,6 +4,8 @@ using System;
 using System.Collections;
 using Ink.Runtime;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public interface IDialogueManager
 {
@@ -46,11 +48,21 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     public static event Action<string> FinishDialogueEvent;
     public static event Action<bool> DialogueChoiceSetInputEvent;
 
+    [SerializeField]
+    private GameObject _uiCanvas;
+    private GraphicRaycaster _uiRaycaster;
+
+    private PointerEventData _clickData;
+    private List<RaycastResult> _clickResults;
+
     #region Awake
     private void Awake()
     {
         _nameText.text = "Budi";
         _dialogueText.text = string.Empty;
+        _uiRaycaster = _uiCanvas.GetComponent<GraphicRaycaster>();
+        _clickData = new PointerEventData(EventSystem.current);
+        _clickResults = new List<RaycastResult>();
     }
     #endregion
 
@@ -138,6 +150,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     // Create then show the choices on the screen until one got selected
     private void ShowChoices()
     {
+        Debug.Log("[DIALOGUE MANAGER] Show Choice");
         DialogueChoiceSetInputEvent?.Invoke(false);
         List<Choice> _choices = _dialogueStory.currentChoices;
 
@@ -155,13 +168,13 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
     public void ChoiceOnePressed()
     {
-        //Debug.Log("[CHOICE 1] Pressed");
+        Debug.Log("[DIALOGUE MANAGER] Choice 1 pressed");
         HideChoiceAndNextLine(0);
     }
 
     public void ChoicetTwoPressed()
     {
-        //Debug.Log("[CHOICE 2] Pressed");
+        Debug.Log("[DIALOGUE MANAGER] Choice 2 pressed");
         HideChoiceAndNextLine(1);
     }
 
@@ -177,4 +190,30 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     }
 
     #endregion
+
+    public void DialogueClickTriggered(InputAction.CallbackContext ctx)
+    {
+        // use isPressed if you wish to ray cast every frame:
+        //if(Mouse.current.leftButton.isPressed)
+
+        // use wasReleasedThisFrame if you wish to ray cast just once per click:
+        if (ctx.performed)
+        {
+
+            _clickData.position = Mouse.current.position.ReadValue();
+            _clickResults.Clear();
+
+            _uiRaycaster.Raycast(_clickData, _clickResults);
+
+            foreach (RaycastResult _result in _clickResults)
+            {
+                GameObject _uiElement = _result.gameObject;
+                switch (_uiElement.name)
+                {
+                    case "Choice1": ChoiceOnePressed(); break;
+                    case "Choice2": ChoicetTwoPressed(); break;
+                }
+            }
+        }
+    }
 }

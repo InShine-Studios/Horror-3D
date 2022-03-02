@@ -42,11 +42,13 @@ public class InputManager : StateMachine
         //Debug.Log("[INPUT MANAGER] SetEnablePlayerInput " + isEnable);
         if (isEnable)
         {
+            _playerInput.SwitchCurrentActionMap("Dialogue");
             _playerInput.currentActionMap.Enable();
         }
         else
         {
-            _playerInput.currentActionMap.Disable();
+            _playerInput.SwitchCurrentActionMap("Dialogue Choice");
+            //_playerInput.currentActionMap.Disable();
         }
     }
 

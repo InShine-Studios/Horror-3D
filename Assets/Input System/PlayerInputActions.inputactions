@@ -346,6 +346,34 @@
             ]
         },
         {
+            "name": "Dialogue Choice",
+            "id": "956f1f69-2bb5-4b66-8684-4a0fd4f3db2e",
+            "actions": [
+                {
+                    "name": "Choice Option",
+                    "type": "Button",
+                    "id": "0d6c27a7-5fd8-4822-ab77-6da994a91254",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8b69db09-e12a-4089-a48d-e468ad23b545",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Choice Option",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
             "name": "Hiding",
             "id": "6b786aa6-feda-40ae-a3b8-834d6468adb6",
             "actions": [
