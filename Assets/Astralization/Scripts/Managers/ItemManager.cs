@@ -4,9 +4,9 @@ using UnityEngine;
  * Class to keep all items in the overworld.
  * AddItemChild() to add a new items as child of the OverworldItem.
  */
-public class OverworldItem : MonoBehaviour
+public class ItemManager : MonoBehaviour
 {
-    #region Enable - Disable
+    #region MonoBehaviour
     private void OnEnable()
     {
         Inventory.DiscardItemEvent += ReceiveDiscardedItem;
@@ -18,6 +18,7 @@ public class OverworldItem : MonoBehaviour
     }
     #endregion
 
+    #region Item Handler
     private void ReceiveDiscardedItem(Item discardedItem)
     {
         AddItemChild(discardedItem);
@@ -27,4 +28,5 @@ public class OverworldItem : MonoBehaviour
     {
         item.gameObject.transform.parent = this.transform;
     }
+    #endregion
 }

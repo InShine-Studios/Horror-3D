@@ -5,9 +5,10 @@ using UnityEngine;
  */
 public class VolumeReal : Volume
 {
+    #region SetGet
     protected override void SetState(bool state)
     {
-        //Debug.Log("[VOLUME REAL] Toggle " + this.name);
+        //Debug.Log("[WORLD STATE SYSTEM] Toggle " + this.name);
         state = !state;
         base.SetState(state);
     }
@@ -19,4 +20,5 @@ public class VolumeReal : Volume
             RenderSettings.fogColor = Color.black;
         }
     }
+    #endregion
 }

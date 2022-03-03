@@ -23,29 +23,33 @@ public interface IEvidenceItem : IItem
  */
 public abstract class EvidenceItem : Item, IEvidenceItem
 {
-
-    #region States
+    #region Variables
     [Header("States")]
     [SerializeField]
     [Tooltip("Current state")]
     public EvidenceItemState state = EvidenceItemState.BASE;
     #endregion
 
-    public override void Use()
-    {
-        SetState(EvidenceItemState.ACTIVE);
-    }
-
-    public override void OnInteraction()
-    {
-        SetState(EvidenceItemState.BASE);
-        base.OnInteraction();
-    }
-
+    #region SetGet
     public void SetState(EvidenceItemState state)
     {
         this.state = state;
         HandleChange();
+    }
+    #endregion
+
+    #region Use
+    public override void Use()
+    {
+        SetState(EvidenceItemState.ACTIVE);
+    }
+    #endregion
+
+    #region Handler
+    public override void OnInteraction()
+    {
+        SetState(EvidenceItemState.BASE);
+        base.OnInteraction();
     }
 
     public void OnGhostInteraction()
@@ -53,8 +57,11 @@ public abstract class EvidenceItem : Item, IEvidenceItem
         if (state != EvidenceItemState.BASE) DetermineEvidence();
     }
 
-    public abstract void DetermineEvidence();
-
     public abstract void HandleChange();
 
+    #endregion
+
+    #region Evidence related
+    public abstract void DetermineEvidence();
+    #endregion
 }

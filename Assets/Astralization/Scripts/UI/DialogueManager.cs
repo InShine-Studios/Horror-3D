@@ -23,7 +23,12 @@ public interface IDialogueManager
  */
 public class DialogueManager : MonoBehaviour, IDialogueManager
 {
-    #region Variable
+    #region Events
+    public static event Action FinishDialogueEvent;
+    public static event Action<bool> DialogueChoiceSetInputEvent;
+    #endregion
+
+    #region Variables
     [SerializeField]
     private Text _nameText;
     [SerializeField]
@@ -39,34 +44,19 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     private float _textSpeed;
 
     private bool _dialogBoxOpen;
-    private string _defaultActionMap = "Default";
     private string _choiceOne = "Choice1";
     private string _choiceTwo = "Choice2";
     private string _continue = "Continue";
-    #endregion
-
-    public static event Action<string> FinishDialogueEvent;
-    public static event Action<bool> DialogueChoiceSetInputEvent;
 
     [SerializeField]
     private GameObject _uiCanvas;
     private GraphicRaycaster _uiRaycaster;
-
     private PointerEventData _clickData;
-    private List<RaycastResult> _clickResults;
 
-    #region Awake
-    private void Awake()
-    {
-        _nameText.text = "Budi";
-        _dialogueText.text = string.Empty;
-        _uiRaycaster = _uiCanvas.GetComponent<GraphicRaycaster>();
-        _clickData = new PointerEventData(EventSystem.current);
-        _clickResults = new List<RaycastResult>();
-    }
+    private List<RaycastResult> _clickResults;
     #endregion
 
-    #region Setter Getter
+    #region SetGet
     public void SetDialogJson(TextAsset newDialogueJson)
     {
         _dialogueJson = newDialogueJson;
@@ -88,7 +78,18 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     }
     #endregion
 
-    #region Dialogue Setup/Show
+    #region MonoBehaviour
+    private void Awake()
+    {
+        _nameText.text = "Budi";
+        _dialogueText.text = string.Empty;
+        _uiRaycaster = _uiCanvas.GetComponent<GraphicRaycaster>();
+        _clickData = new PointerEventData(EventSystem.current);
+        _clickResults = new List<RaycastResult>();
+    }
+    #endregion
+
+    #region Handler
     public void ShowDialogueBox(bool isShowDialogue)
     {
         if (isShowDialogue)
@@ -105,15 +106,13 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         }
     }
 
-    void SetUpDialogue()
+    private void SetUpDialogue()
     {
         _dialogueText.text = string.Empty;
         _dialogueStory = new Story(_dialogueJson.text);
     }
-    #endregion
 
-    #region TypeLine
-    IEnumerator TypeLine()
+    private IEnumerator TypeLine()
     {
         //To type each character 1 by 1
         foreach (char c in _dialogueStory.Continue().ToCharArray())
@@ -122,9 +121,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
             yield return new WaitForSeconds(_textSpeed);
         }
     }
-    #endregion
 
-    #region Next
     public void NextLine()
     {
         if (_dialogueStory.canContinue)
@@ -135,7 +132,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         else
         {
             StopAllCoroutines();
-            FinishDialogueEvent?.Invoke(_defaultActionMap);
+            FinishDialogueEvent?.Invoke();
             ShowDialogueBox(false);
         }
 

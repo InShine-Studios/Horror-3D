@@ -3,11 +3,16 @@ using UnityEngine.InputSystem;
 
 public abstract class PlayerState : State
 {
+    #region Variables
     protected InputManager owner;
+    #endregion
+
+    #region MonoBehaviour
     protected virtual void Awake()
     {
         owner = GetComponent<InputManager>();
     }
+    #endregion
 
     #region Default Input Handler
     public virtual void OnMovementInput(InputAction.CallbackContext ctx)
@@ -59,10 +64,25 @@ public abstract class PlayerState : State
     }
     #endregion
 
+    #region Hiding Input Handler
+    public virtual void UnhidePlayer(InputAction.CallbackContext ctx)
+    {
+        PrintDefaultLog("UnhidePlayer");
+    }
+    #endregion
+
+    #region Exorcism Input Handler
+    public virtual void UseReleased(InputAction.CallbackContext ctx)
+    {
+        PrintDefaultLog("UseReleasedExorcism");
+    }
+    #endregion
+
+    #region Logger
     private void PrintDefaultLog(string methodName)
     {
-        Debug.Log("[STATE INPUT HANDLER] this is default message, " +
-            "either there is no state override this func, " +
-            "or you are in the wrong state " + methodName);
+        Debug.Log("[PLAYER STATE] NotImplementedWarning: " + methodName +
+            " is not implemented in this state");
     }
+    #endregion
 }

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 /*
  * Class to enable parts of player to rotate.
@@ -8,7 +7,7 @@ using UnityEngine.InputSystem;
  */
 public class PlayerRotation : MonoBehaviour
 {
-    #region Rotation Variables
+    #region Variables
     [Header("External Variables")]
     [Tooltip("Current mouse position")]
     private Vector2 _mousePosition = new Vector2(0, 0);
@@ -19,7 +18,7 @@ public class PlayerRotation : MonoBehaviour
     [Tooltip("The PlayerBase for constants")]
     private PlayerBase _playerBase;
 
-    [Space][Header("Rotation Constants")]
+    [Space][Header("Rotation Variables")]
     [Tooltip("The last position of this object")]
     private Vector3 _posPrev;
     [Tooltip("Direction from player to cursor position")]
@@ -28,6 +27,15 @@ public class PlayerRotation : MonoBehaviour
     private float _rotationSpeed;
     #endregion
 
+    #region SetGet
+    public void SetMousePosition(Vector2 mousePosition)
+    {
+        _mousePosition = mousePosition;
+        //Debug.Log("[PLAYER ROTATION] Direction: " + mousePosition);
+    }
+    #endregion
+
+    #region MonoBehaviour
     private void Awake()
     {
         _playerBase = GetComponentInParent<PlayerMovement>().GetPlayerBase();
@@ -48,16 +56,9 @@ public class PlayerRotation : MonoBehaviour
         _playerMovementPlane.Translate(_posPrev - this.transform.position);
         _posPrev = this.transform.position;
     }
-
-    #region Input System
-    // Read mouse position to change player direction
-    public void OnMousePosition(Vector2 mousePosition)
-    {
-        _mousePosition = mousePosition;
-        //Debug.Log("[PLAYER] Movement direction: " + mousePosition);
-    }
     #endregion
 
+    #region Handler
     private void RotatePlayer()
     {
         Vector3 cursorScenePosition = _mousePosition;
@@ -67,17 +68,18 @@ public class PlayerRotation : MonoBehaviour
         Quaternion newRotation = Quaternion.LookRotation(_playerToMouse);
         transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, _rotationSpeed * Time.deltaTime);
     }
+    #endregion
 
     #region Screen to World
     // Convert a screenpoint on camera to plane
-    Vector3 ScreenPointToWorldPlane(Vector3 screenPoint, Plane plane, Camera camera)
+    private Vector3 ScreenPointToWorldPlane(Vector3 screenPoint, Plane plane, Camera camera)
     {
         Ray ray = camera.ScreenPointToRay(screenPoint);
         return PlaneRayIntersection(plane, ray);
     }
 
     // Cast a ray to the plane and find the intersection point
-    Vector3 PlaneRayIntersection(Plane plane, Ray ray)
+    private Vector3 PlaneRayIntersection(Plane plane, Ray ray)
     {
         plane.Raycast(ray, out float dist);
         Vector3 worldPos = ray.GetPoint(dist);

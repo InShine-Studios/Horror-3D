@@ -29,6 +29,12 @@ public interface IInventory
  */
 public class Inventory : MonoBehaviour, IInventory
 {
+    #region Events
+    public static event Action<bool, Sprite> ItemLogoEvent;
+
+    public static event Action<Item> DiscardItemEvent;
+    #endregion
+
     #region Variables - Item List
     [Header("Item List")]
     [Tooltip("The list of items")]
@@ -62,19 +68,7 @@ public class Inventory : MonoBehaviour, IInventory
     private const int _scrollStep = 120;
     #endregion
 
-    #region Events
-    public static event Action<bool, Sprite> ItemLogoEvent;
-
-    public static event Action<Item> DiscardItemEvent;
-
-    #endregion
-
-    private void Awake()
-    {
-        _items = new Item[InvenLength];
-    }
-
-    #region Setter Getter
+    #region SetGet
     public int GetLength() { return InvenLength; }
     public int GetNumOfItem() { return _numOfItem; }
     public int GetActiveIdx() { return _activeIdx; }
@@ -82,7 +76,13 @@ public class Inventory : MonoBehaviour, IInventory
     public IItem GetItemByIndex(int idx) { return _items[idx]; }
     public float GetScrollStep() { return _scrollStep * ScrollSensitivity; }
     public string GetActiveItemName() { return _activeItem.name; }
+    #endregion
 
+    #region MonoBehaviour
+    private void Awake()
+    {
+        _items = new Item[InvenLength];
+    }
     #endregion
 
     #region Pick - Discard
@@ -113,7 +113,7 @@ public class Inventory : MonoBehaviour, IInventory
                 }
 
                 _numOfItem++;
-                item?.HideItem();
+                item?.ShowItem(false);
             }
             else
             {
@@ -177,25 +177,27 @@ public class Inventory : MonoBehaviour, IInventory
     private void ChangeActiveItem(int newIdx)
     {
         // Hide active item
-        _activeItem?.HideItem();
+        _activeItem?.ShowItem(false);
 
         // Change active item
         _activeIdx = newIdx;
         _activeItem = _items[_activeIdx];
 
         // Show active item
-        _activeItem?.ShowItem();
+        _activeItem?.ShowItem(true);
 
         if(_activeItem) ItemLogoEvent?.Invoke(true, _activeItem.GetItemLogo());
         else ItemLogoEvent?.Invoke(false, null);
     }
     #endregion
 
+    #region Use Active Item
     public void UseActiveItem()
     {
         _activeItem?.Use();
 
-        if (!_activeItem) Debug.Log("[ITEM] Missing active item");
+        if (!_activeItem) Debug.Log("[INVENTORY] Missing active item");
         else if (_activeItem.IsDiscardedWhenUsed()) DiscardItem();
     }
+    #endregion
 }

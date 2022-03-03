@@ -6,11 +6,9 @@ public interface IPlayerMovement
 {
     PlayerBase GetPlayerBase();
     Vector3 GetMoveDirection();
-    bool GetSprintBool();
+    bool IsSprinting();
     float GetCurMoveSpeed();
-    void OnMovementInput(Vector2 moveInput);
-    void SprintPressed();
-    void SprintReleased();
+    void GenerateMoveVector(Vector2 moveInput);
 }
 
 /*
@@ -21,9 +19,11 @@ public interface IPlayerMovement
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour, IPlayerMovement
 {
+    #region Events
     public static event Action FindClosest;
+    #endregion
 
-    #region Movement Variables
+    #region Variables
     [Header("External Variables")]
     [Tooltip("The Controller component")]
     private CharacterController _controller;
@@ -34,8 +34,6 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     [Header("Movement Constants")]
     [Tooltip("The movement speed used")]
     private float _curMoveSpeed;
-    [Tooltip("The movement input from input actions")]
-    private Vector2 _moveInput = new Vector2(0, 0);
     [Tooltip("The move direction generated")]
     private Vector3 _moveDirection;
     [Tooltip("Gravity Strength")]
@@ -47,11 +45,15 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private bool _isSprinting;
     #endregion
 
+    #region SetGet
     public PlayerBase GetPlayerBase() { return _playerBase; }
     public float GetCurMoveSpeed() { return _curMoveSpeed; }
     public Vector3 GetMoveDirection() { return _moveDirection; }
-    public bool GetSprintBool(){ return _isSprinting; }
+    public bool IsSprinting() { return _isSprinting; }
+    public void SetSprinting(bool isSprinting) { _isSprinting = isSprinting; }     //TODO Sprint with cooldown?
+    #endregion
 
+    #region MonoBehaviour
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
@@ -62,30 +64,14 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         if (MovePlayer()) FindClosest?.Invoke();
         if (_useForceGrounding) ForceGrounding();
     }
-
-
-    #region Input System
-    // Read movement input and set move direction
-    public void OnMovementInput(Vector2 moveInput)
-    {
-        _moveInput = moveInput;
-        _moveDirection = new Vector3(0, 0) { x = _moveInput.x, z = _moveInput.y };
-        //Debug.Log("[PLAYER] Movement direction: " + moveDirection);
-    }
-
-    //TODO Sprint with cooldown?
-    public void SprintPressed()
-    {
-        _isSprinting = true;
-        //Debug.Log(this.name + " started sprinting " + isSprinting);
-    }
-
-    public void SprintReleased()
-    {
-        _isSprinting = false;
-        //Debug.Log(this.name + " no longer sprinting " + isSprinting);
-    }
     #endregion
+
+    #region Handler
+    public void GenerateMoveVector(Vector2 moveInput)
+    {
+        _moveDirection = new Vector3(0, 0) { x = moveInput.x, z = moveInput.y };
+        //Debug.Log("[PLAYER MOVEMENT] Direction: " + _moveDirection);
+    }
 
     private void ForceGrounding()
     {
@@ -97,10 +83,10 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
 
     private bool MovePlayer()
     {
-        _curMoveSpeed = _playerBase.GetPlayerMovementSpeed();
-        if (_isSprinting)
-            _curMoveSpeed = _playerBase.GetSprintSpeed();
+        if (_isSprinting) _curMoveSpeed = _playerBase.GetSprintSpeed();
+        else _curMoveSpeed = _playerBase.GetPlayerMovementSpeed();
         _controller.SimpleMove(_curMoveSpeed * Time.deltaTime * _moveDirection);
         return _moveDirection.magnitude != 0;
     }
+    #endregion
 }

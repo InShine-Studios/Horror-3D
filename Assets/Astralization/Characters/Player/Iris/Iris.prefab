@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3935439492266647455}
   - component: {fileID: 7612435407238431527}
   - component: {fileID: 7587431485049714996}
-  - component: {fileID: 5185263958987290348}
   - component: {fileID: 1105417087990013444}
+  - component: {fileID: 5185263958987290348}
   m_Layer: 0
   m_Name: InteractZone
   m_TagString: Player
@@ -42,7 +42,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728479974111243851}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1
   m_Height: 2.5
@@ -60,6 +60,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00bc4174dd11fb848a3861f3ff88ec36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1105417087990013444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728479974111243851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aafa030043c6fbd4ab58efaf38fe26c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5185263958987290348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,18 +87,6 @@ MonoBehaviour:
   InvenLength: 3
   ActiveItemYOffset: {x: 0, y: -0.5, z: 0}
   ScrollSensitivity: 1
---- !u!114 &1105417087990013444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728479974111243851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aafa030043c6fbd4ab58efaf38fe26c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1845195656393805060
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,135 +273,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!1 &7329187075767835058
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7116502384261183026}
-  - component: {fileID: 6235038391716557646}
-  m_Layer: 0
-  m_Name: Exorcism
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7116502384261183026
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7329187075767835058}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8057739223163586144}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6235038391716557646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7329187075767835058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e76297e59eddfc46b09d77f5ebeeddf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &7860654072095955259
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8213726983374667518}
-  - component: {fileID: 1804307803709109356}
-  m_Layer: 0
-  m_Name: Dialogue
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8213726983374667518
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7860654072095955259}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 964, y: 272.72058, z: 5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8057739223163586144}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1804307803709109356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7860654072095955259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 938d0c0a940fd4747ac19c0319f28642, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &7895101731825605789
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8109854913073248501}
-  - component: {fileID: 6243230000220513699}
-  m_Layer: 0
-  m_Name: Hide
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8109854913073248501
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7895101731825605789}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8057739223163586144}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6243230000220513699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7895101731825605789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90a295a0f001ba54ca696e5faa37e51f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8057739222434694644
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,9 +473,6 @@ Transform:
   - {fileID: 8057739222434694645}
   - {fileID: 8057739222879337489}
   - {fileID: 954159943982308359}
-  - {fileID: 8213726983374667518}
-  - {fileID: 8109854913073248501}
-  - {fileID: 7116502384261183026}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -829,25 +697,29 @@ MonoBehaviour:
     m_ActionName: Dialogue/NextDialogue[/Keyboard/enter,/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 873121507167454745}
-        m_TargetAssemblyTypeName: InputManager, Scripts
-        m_MethodName: HandleInputDialogue
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 0
     m_ActionId: 23ed480d-0a3a-4541-b9f6-ed571086ebb5
     m_ActionName: Player/SimulateGhostInteract[/Keyboard/z]
   - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d256b422-a6c7-4d0d-b23c-58c06ddf35fe
+    m_ActionName: Default/ExorcismButtonReleased[/Mouse/rightButton]
+  - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6243230000220513699}
-        m_TargetAssemblyTypeName: HideInputHandler, Scripts
-        m_MethodName: UnhidePlayer
+      - m_Target: {fileID: 873121507167454745}
+        m_TargetAssemblyTypeName: InputManager, Scripts
+        m_MethodName: HandleInputExorcism
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -860,14 +732,10 @@ MonoBehaviour:
     m_ActionId: 8a6b2f5b-c2a4-41bc-a977-55ce12bdd266
     m_ActionName: Hiding/Interact[/Keyboard/e]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d256b422-a6c7-4d0d-b23c-58c06ddf35fe
-    m_ActionName: Player/ExorcismButtonReleased[/Mouse/rightButton]
-  - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6235038391716557646}
-        m_TargetAssemblyTypeName: ExorcismInputHandler, Scripts
-        m_MethodName: UseReleased
+      - m_Target: {fileID: 873121507167454745}
+        m_TargetAssemblyTypeName: InputManager, Scripts
+        m_MethodName: HandleInputHiding
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -897,7 +765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerBase:
-    _playerMovementSpeed: 200
+    _movementSpeed: 200
     _rotationSpeed: 25
     _sprintSpeed: 300
   Gravity: -50

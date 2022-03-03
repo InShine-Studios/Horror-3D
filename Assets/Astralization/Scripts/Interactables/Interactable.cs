@@ -5,7 +5,7 @@ public interface IInteractable
 {
     void OnInteraction();
     void SetCollider(bool state);
-    void SetInteractableIcon(bool state);
+    void ShowGuideIcon(bool state);
 }
 
 /*
@@ -22,44 +22,23 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     [SerializeField]
     private bool _useIcon;
 
-    [Tooltip("The Game Object for the icon")]
+    [Tooltip("The icon mark for guidance")]
     [SerializeField]
-    private GameObject _interactableIcon;
+    private GameObject _guideIcon;
 
     [Space]
     [Header("Audio")]
     [Tooltip("Audio Manager")]
     protected AudioPlayer AudioPlayerObj;
-
     #endregion
 
-    protected virtual void Awake()
-    {
-        AudioPlayerObj = GetComponentInChildren<AudioPlayer>();
-    }
-
-    private void Reset()
-    {
-        GetComponent<Collider>().isTrigger = true;
-    }
-
-    public abstract void OnInteraction();
-
-    protected void OnTriggerExit(Collider collision)
-    {
-        if (Utils.PlayerHelper.CheckIsInteractZone(collision))
-        {
-            SetInteractableIcon(false);
-        }
-    }
-
-    // Function to set Icon state
-    public void SetInteractableIcon(bool state)
+    #region SetGet
+    public void ShowGuideIcon(bool state)
     {
         if (_useIcon)
         {
             //Debug.Log("[INTERACTABLE] Setting icon " + this.name + " to " + state);
-            _interactableIcon.SetActive(state);
+            _guideIcon.SetActive(state);
         }
     }
 
@@ -69,9 +48,26 @@ public abstract class Interactable : MonoBehaviour, IInteractable
         //Debug.Log("[INTERACTABLE] Setting collider " + this.name + " to " + state);
         GetComponent<Collider>().enabled = state;
     }
+    #endregion
+
+    #region MonoBehaviour
+    protected virtual void Awake()
+    {
+        AudioPlayerObj = GetComponentInChildren<AudioPlayer>();
+    }
+
+    private void Reset()
+    {
+        GetComponent<Collider>().isTrigger = true;
+    }
+    #endregion
+
+    #region Handler
+    public abstract void OnInteraction();
 
     protected void PlayAudio(string name)
     {
         AudioPlayerObj.Play(name);
     }
+    #endregion
 }

@@ -18,39 +18,26 @@ public class HudManager : MonoBehaviour
     private ExorcismBar _exorcismBar;
     #endregion
 
-    #region Enable - Disable
-    private void OnEnable()
+    #region SetGet
+    public void SetHudState(Utils.PlayerHelper.States hudKey, bool condition)
     {
-        GameManager.ShowDialogueHudEvent += ShowDialogue;
-        GameManager.StartHidingHudEvent += ShowHidingHud;
-        DialogueInputHandler.NextDialogueHudEvent += NextDialogue;
-        HideInputHandler.StopHidingHudEvent += ShowHidingHud;
-        Inventory.ItemLogoEvent += UpdateLogo;
-        GameManager.ShowExorcismHudEvent += ShowExorcism;
-        UiInputHandler.DialogueChoiceOneHudEvent += DialogueChoiceOnePressed;
-        UiInputHandler.DialogueChoiceTwoHudEvent += DialogueChoiceTwoPressed;
+        switch (hudKey)
+        {
+            case Utils.PlayerHelper.States.Exorcism: ShowExorcism(condition); break;
+            case Utils.PlayerHelper.States.Hiding: ShowHidingHud(condition); break;
+            case Utils.PlayerHelper.States.Dialogue: ShowDialogue(condition); break;
+        }
     }
-
-    private void OnDisable()
-    {
-        GameManager.ShowDialogueHudEvent -= ShowDialogue;
-        GameManager.StartHidingHudEvent -= ShowHidingHud;
-        DialogueInputHandler.NextDialogueHudEvent -= NextDialogue;
-        HideInputHandler.StopHidingHudEvent -= ShowHidingHud;
-        Inventory.ItemLogoEvent -= UpdateLogo;
-        GameManager.ShowExorcismHudEvent -= ShowExorcism;
-    }
-    #endregion
 
     public void ShowDialogue(bool isShowDialogue)
     {
-        //Debug.Log("[START DIALOGUE HUD] isShowDialogue: " + isShowDialogue);
+        //Debug.Log("[HUD SYSTEM] Set dialogue box visibility to " + isShowDialogue);
         _dialogueManager.ShowDialogueBox(isShowDialogue);
     }
 
     public void NextDialogue()
     {
-        //Debug.Log("[NEXT DIALOGUE HUD]");
+        //Debug.Log("[HUD SYSTEM] Dialogue Next Line");
         _dialogueManager.NextLine();
     }
 
@@ -80,4 +67,23 @@ public class HudManager : MonoBehaviour
         //Debug.Log("[CHOICE 2 DIALOGUE HUD]");
         _dialogueManager.ChoicetTwoPressed();
     }
+    #endregion
+
+    #region MonoBehaviour
+    private void OnEnable()
+    {
+        GameManager.HudEvent += SetHudState;
+        DialogueState.NextDialogueHudEvent += NextDialogue;
+        HidingState.StopHidingHudEvent += ShowHidingHud;
+        Inventory.ItemLogoEvent += UpdateLogo;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.HudEvent -= SetHudState;
+        DialogueState.NextDialogueHudEvent -= NextDialogue;
+        HidingState.StopHidingHudEvent -= ShowHidingHud;
+        Inventory.ItemLogoEvent -= UpdateLogo;
+    }
+    #endregion
 }

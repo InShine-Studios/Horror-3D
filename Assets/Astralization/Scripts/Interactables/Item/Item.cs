@@ -2,9 +2,7 @@ using UnityEngine;
 
 public interface IItem: IInteractable
 {
-    void HideItem();
     void SetMeshRenderer(bool enabled);
-    void ShowItem();
     void Use();
 }
 
@@ -16,68 +14,65 @@ public interface IItem: IInteractable
 [RequireComponent(typeof(MeshRenderer))]
 public abstract class Item : Interactable, IItem
 {
-
+    #region Variables
     [Header("Item Logo")]
     [SerializeField]
-    [Tooltip("The Sprite for the logo")]
-    private Sprite _itemLogo;
+    [Tooltip("The item logo for HUD")]
+    private Sprite _HudLogo;
 
     [Header("Item Behavior")]
     [SerializeField]
     [Tooltip("Determine whether discard after used or not")]
     private bool _discardedWhenUsed = false;
+    #endregion
 
-    public abstract void Use();
-
-    public virtual void StopUse() 
-    { 
+    #region SetGet
+    public void SetMeshRenderer(bool enabled)
+    {
+        transform.Find("Model").gameObject.SetActive(enabled);
     }
 
+    public void ShowItem(bool isShown)
+    {
+        //Debug.Log("[ITEM] Show " + this.name + " visibility to:" + isShown);
+        this.gameObject.SetActive(isShown);
+    }
+
+    public Sprite GetItemLogo()
+    {
+        return _HudLogo;
+    }
+
+    public bool IsDiscardedWhenUsed()
+    {
+        return _discardedWhenUsed;
+    }
+    #endregion
+
+    #region Use
+    public abstract void Use();
+
+    public virtual void StopUse() { }
+    #endregion
+
+    #region Handler
     public override void OnInteraction()
     {
         Pick();
     }
+    #endregion
 
+    #region Pick - Discard
     private void Pick()
     {
         SetCollider(false);
         SetMeshRenderer(false);
-        SetInteractableIcon(false);
+        ShowGuideIcon(false);
     }
     public void Discard()
     {
         SetCollider(true);
         SetMeshRenderer(true);
     }
-
-    #region Setter Getter
-    public void SetMeshRenderer(bool enabled)
-    {
-        transform.Find("Model").gameObject.SetActive(enabled);
-    }
-
-    public Sprite GetItemLogo()
-    {
-        return _itemLogo;
-    }
     #endregion
-
-    #region Show - Hide Item
-    public void HideItem()
-    {
-        //Debug.Log("[ITEM] Hiding item " + this.name);
-        this.gameObject.SetActive(false);
-    }
-
-    public void ShowItem()
-    {
-        //Debug.Log("[ITEM] Showing item " + this.name);
-        this.gameObject.SetActive(true);
-    }
-    #endregion
-
-    public bool IsDiscardedWhenUsed()
-    {
-        return _discardedWhenUsed;
-    }
 }

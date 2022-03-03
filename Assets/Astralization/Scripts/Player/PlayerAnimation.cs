@@ -17,18 +17,7 @@ public class PlayerAnimation : MonoBehaviour
     private PlayerRotation _playerRotation;
     #endregion
 
-    private void Awake()
-    {
-        _animator = GetComponent<Animator>();
-    }
-
-    private void Update()
-    {
-        SetPlayerDir();
-        SetPlayerMoveAnim();
-    }
-
-    #region Set Anim
+    #region SetGet
     private void SetPlayerDir()
     {
         float currentAngle = _playerRotation.transform.localEulerAngles.y;
@@ -51,7 +40,7 @@ public class PlayerAnimation : MonoBehaviour
         }
     }
 
-    void SetPlayerMoveAnim()
+    private void SetPlayerMoveAnim()
     {
         _animator.SetBool("IsIdle", false);
         _animator.SetBool("IsWalking", false);
@@ -61,7 +50,7 @@ public class PlayerAnimation : MonoBehaviour
         {
             _animator.SetBool("IsIdle", true);
         }
-        else if (_playerMovement.GetSprintBool())
+        else if (_playerMovement.IsSprinting())
         {
             _animator.SetBool("IsSprinting", true);
         }
@@ -69,6 +58,19 @@ public class PlayerAnimation : MonoBehaviour
         {
             _animator.SetBool("IsWalking", true);
         }
+    }
+    #endregion
+
+    #region MonoBehaviour
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        SetPlayerDir();
+        SetPlayerMoveAnim();
     }
     #endregion
 }

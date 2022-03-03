@@ -6,17 +6,9 @@ using System.Collections.Generic;
  * Thermometer class.
  * Override DetermineEvidence and HandleChange from base EvidenceItem class according to murder environment temperature evidence mechanics.
  */
-public class Thermometer : EvidenceItem
+public class ThermometerItem : EvidenceItem
 {
-
-    #region Model
-    [Header("Model reference")]
-    [SerializeField]
-    [Tooltip("Model reference")]
-    private GameObject _model;
-    #endregion
-
-    #region State Materials
+    #region Variables - StateMaterial
     [Header("State Materials")]
     [SerializeField]
     [Tooltip("Material for Base evidence")]
@@ -37,10 +29,18 @@ public class Thermometer : EvidenceItem
     [Tooltip("Material for Negative evidence")]
     private Material _negativeMaterial;
 
+    private Dictionary<EvidenceItemState, Material> stateToMatMapping;
     #endregion
 
-    private Dictionary<EvidenceItemState, Material> stateToMatMapping;
+    #region SetGet
+    private void SetStateMaterial(Material stateMaterial)
+    {
+        MeshRenderer mesh = transform.Find("Model").GetComponentInChildren<MeshRenderer>(true);
+        mesh.material = stateMaterial;
+    }
+    #endregion
 
+    #region MonoBehaviour
     protected override void Awake()
     {
         base.Awake();
@@ -51,22 +51,21 @@ public class Thermometer : EvidenceItem
             {EvidenceItemState.NEGATIVE, this._negativeMaterial},
         };
     }
+    #endregion
 
-    private void SetStateMaterial(Material stateMaterial)
-    {
-        MeshRenderer mesh = _model.GetComponentInChildren<MeshRenderer>(true);
-        mesh.material = stateMaterial;
-    }
-
+    #region Handler
     public override void HandleChange()
     {
         SetStateMaterial(stateToMatMapping[this.state]);
     }
+    #endregion
 
+    #region Evidence related
     public override void DetermineEvidence()
     {
         // TODO this dummy behavior at the moment, wait for Ghost Implementation
         if (state == EvidenceItemState.NEGATIVE) SetState(EvidenceItemState.POSITIVE);
         else SetState(EvidenceItemState.NEGATIVE);
     }
+    #endregion
 }
