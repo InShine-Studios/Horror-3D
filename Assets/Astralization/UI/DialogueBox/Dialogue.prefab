@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 8330263420509346522}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!114 &5735201872050009459
@@ -62,7 +62,7 @@ MonoBehaviour:
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: e2a393e2499c2394c85b549ad880d748, type: 3}
   m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_SubmitAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
@@ -73,7 +73,7 @@ MonoBehaviour:
   m_ScrollWheelAction: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
 --- !u!1 &1248752035285528121
 GameObject:
@@ -1075,7 +1075,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4975062758057047993}
   - component: {fileID: 4226640490201859368}
-  - component: {fileID: 2764324794431634662}
   m_Layer: 0
   m_Name: Dialogue Box
   m_TagString: Untagged
@@ -1120,15 +1119,7 @@ MonoBehaviour:
   _animator: {fileID: 4839461080498682912}
   _dialogueJson: {fileID: 4900000, guid: 3b5aed34ba2c841e784aa83d20bbdce5, type: 3}
   _textSpeed: 0
---- !u!114 &2764324794431634662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8479476520901104449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 938d0c0a940fd4747ac19c0319f28642, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _buttonChoiceOne: {fileID: 7880507897145431372}
+  _buttonChoiceTwo: {fileID: 5575301166717140910}
+  _buttonContinue: {fileID: 8330263420509346522}
+  _eventSystem: {fileID: 0}

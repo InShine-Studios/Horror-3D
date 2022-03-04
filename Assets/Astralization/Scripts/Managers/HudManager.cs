@@ -65,7 +65,7 @@ public class HudManager : MonoBehaviour
     public void DialogueChoiceTwoPressed()
     {
         //Debug.Log("[CHOICE 2 DIALOGUE HUD]");
-        _dialogueManager.ChoicetTwoPressed();
+        _dialogueManager.ChoiceTwoPressed();
     }
     #endregion
 

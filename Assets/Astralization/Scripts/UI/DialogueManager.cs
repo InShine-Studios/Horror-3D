@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 using System.Collections;
 using Ink.Runtime;
 using System.Collections.Generic;
-using UnityEngine.InputSystem;
+using System;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public interface IDialogueManager
@@ -44,16 +44,20 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     private float _textSpeed;
 
     private bool _dialogBoxOpen;
-    private string _choiceOne = "Choice1";
-    private string _choiceTwo = "Choice2";
-    private string _continue = "Continue";
 
+    [Space]
+    [Header("Buttons")]
     [SerializeField]
-    private GameObject _uiCanvas;
-    private GraphicRaycaster _uiRaycaster;
-    private PointerEventData _clickData;
+    private GameObject _buttonChoiceOne;
+    [SerializeField]
+    private GameObject _buttonChoiceTwo;
+    [SerializeField]
+    private GameObject _buttonContinue;
 
-    private List<RaycastResult> _clickResults;
+    [Space]
+    [Header("Event System")]
+    [SerializeField]
+    private EventSystem _eventSystem;
     #endregion
 
     #region SetGet
@@ -83,9 +87,6 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     {
         _nameText.text = "Budi";
         _dialogueText.text = string.Empty;
-        _uiRaycaster = _uiCanvas.GetComponent<GraphicRaycaster>();
-        _clickData = new PointerEventData(EventSystem.current);
-        _clickResults = new List<RaycastResult>();
     }
     #endregion
 
@@ -110,6 +111,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     {
         _dialogueText.text = string.Empty;
         _dialogueStory = new Story(_dialogueJson.text);
+        SetDialogueState(false);
     }
 
     private IEnumerator TypeLine()
@@ -124,6 +126,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
     public void NextLine()
     {
+        Debug.Log(_dialogueStory.canContinue);
         if (_dialogueStory.canContinue)
         {
             _dialogueText.text = string.Empty;
@@ -151,16 +154,10 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         DialogueChoiceSetInputEvent?.Invoke(false);
         List<Choice> _choices = _dialogueStory.currentChoices;
 
-        GameObject _buttonChoiceOne = transform.Find(_choiceOne).gameObject;
-        GameObject _buttonChoiceTwo = transform.Find(_choiceTwo).gameObject;
-        GameObject _buttonContinue = transform.Find(_continue).gameObject;
-
         _buttonChoiceOne.GetComponentInChildren<Text>().text = _choices[0].text;
         _buttonChoiceTwo.GetComponentInChildren<Text>().text = _choices[1].text;
 
-        _buttonChoiceOne.SetActive(true);
-        _buttonChoiceTwo.SetActive(true);
-        _buttonContinue.SetActive(false);
+        SetDialogueState(true);
     }
 
     public void ChoiceOnePressed()
@@ -169,7 +166,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         HideChoiceAndNextLine(0);
     }
 
-    public void ChoicetTwoPressed()
+    public void ChoiceTwoPressed()
     {
         Debug.Log("[DIALOGUE MANAGER] Choice 2 pressed");
         HideChoiceAndNextLine(1);
@@ -178,39 +175,36 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     private void HideChoiceAndNextLine(int _index)
     {
         _dialogueStory.ChooseChoiceIndex(_index);
-        transform.Find(_choiceOne).gameObject.SetActive(false);
-        transform.Find(_choiceTwo).gameObject.SetActive(false);
-        transform.Find(_continue).gameObject.SetActive(true);
+        SetDialogueState(false);
 
         DialogueChoiceSetInputEvent?.Invoke(true);
         NextLine();
     }
 
-    #endregion
-
-    public void DialogueClickTriggered(InputAction.CallbackContext ctx)
+    private void SetDialogueState(bool isAskingChoice)
     {
-        // use isPressed if you wish to ray cast every frame:
-        //if(Mouse.current.leftButton.isPressed)
-
-        // use wasReleasedThisFrame if you wish to ray cast just once per click:
-        if (ctx.performed)
+        SetActiveButton(_buttonChoiceOne, isAskingChoice, ChoiceOnePressed);
+        SetActiveButton(_buttonChoiceTwo, isAskingChoice, ChoiceTwoPressed);
+        SetActiveButton(_buttonContinue, !isAskingChoice, NextLine);
+        if (!isAskingChoice)
         {
-
-            _clickData.position = Mouse.current.position.ReadValue();
-            _clickResults.Clear();
-
-            _uiRaycaster.Raycast(_clickData, _clickResults);
-
-            foreach (RaycastResult _result in _clickResults)
-            {
-                GameObject _uiElement = _result.gameObject;
-                switch (_uiElement.name)
-                {
-                    case "Choice1": ChoiceOnePressed(); break;
-                    case "Choice2": ChoicetTwoPressed(); break;
-                }
-            }
+            _eventSystem.SetSelectedGameObject(_buttonContinue);
         }
     }
+    #endregion
+
+    #region Buttons
+    private void SetActiveButton(GameObject button, bool isActive, UnityAction handler)
+    {
+        button.SetActive(isActive);
+        if (isActive)
+        {
+            button.GetComponent<Button>().onClick.AddListener(handler);
+        }
+        else
+        {
+            button.GetComponent<Button>().onClick.RemoveAllListeners();
+        }
+    }
+    #endregion
 }
