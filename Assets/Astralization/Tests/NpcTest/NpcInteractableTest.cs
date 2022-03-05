@@ -37,7 +37,7 @@ public class NPCInteractableTest: TestBase
         GameObject npc = GameObject.Find("NPC");
         INpcController npcController = npc.GetComponent<INpcController>();
         GameObject exclamationMark = npc.transform.Find("ExclamationMark").gameObject;
-        IDialogueManager dialogueManager = GameObject.Find("Dialogue/Dialogue Box").GetComponent<IDialogueManager>();
+        IDialogueManager dialogueManager = GameObject.Find("Dialogue Box").GetComponent<IDialogueManager>();
 
         float moveDuration = GetMovementDurationTowards(npc.transform);
 
@@ -52,7 +52,7 @@ public class NPCInteractableTest: TestBase
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
         yield return new WaitForSeconds(1.0f);
 
-        Assert.AreEqual("Dialogue", playerInput.currentActionMap.ToString().Split(':')[1]);
+        Assert.AreEqual("UI", playerInput.currentActionMap.ToString().Split(':')[1]);
         Assert.IsTrue(dialogueManager.GetAnimator().GetBool("IsOpen"));
     }
 
