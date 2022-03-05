@@ -35,12 +35,6 @@ public class HudManager : MonoBehaviour
         _dialogueManager.ShowDialogueBox(isShowDialogue);
     }
 
-    public void NextDialogue()
-    {
-        //Debug.Log("[HUD SYSTEM] Dialogue Next Line");
-        _dialogueManager.NextLine();
-    }
-
     public void ShowHidingHud(bool isHiding)
     {
         _hidingManager.StartAnim(isHiding);
@@ -73,7 +67,6 @@ public class HudManager : MonoBehaviour
     private void OnEnable()
     {
         GameManager.HudEvent += SetHudState;
-        DialogueState.NextDialogueHudEvent += NextDialogue;
         HidingState.StopHidingHudEvent += ShowHidingHud;
         Inventory.ItemLogoEvent += UpdateLogo;
     }
@@ -81,7 +74,6 @@ public class HudManager : MonoBehaviour
     private void OnDisable()
     {
         GameManager.HudEvent -= SetHudState;
-        DialogueState.NextDialogueHudEvent -= NextDialogue;
         HidingState.StopHidingHudEvent -= ShowHidingHud;
         Inventory.ItemLogoEvent -= UpdateLogo;
     }

@@ -15,12 +15,5 @@ public class DialogueState : PlayerState
     #endregion
 
     #region InputHandler
-    public override void NextDialogue(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
-        {
-            NextDialogueHudEvent?.Invoke();
-        }
-    }
     #endregion
 }

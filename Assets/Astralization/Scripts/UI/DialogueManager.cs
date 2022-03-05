@@ -42,8 +42,9 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     
     [SerializeField]
     private float _textSpeed;
-
     private bool _dialogBoxOpen;
+    private bool _dialogIsTyping;
+    private String _currentDialogLine;
 
     [Space]
     [Header("Buttons")]
@@ -111,16 +112,35 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     {
         _dialogueText.text = string.Empty;
         _dialogueStory = new Story(_dialogueJson.text);
-        SetDialogueState(false);
+        ShowChoiceButton(false);
+        _dialogIsTyping = false;
+        _currentDialogLine = "";
     }
 
     private IEnumerator TypeLine()
     {
         //To type each character 1 by 1
-        foreach (char c in _dialogueStory.Continue().ToCharArray())
+        foreach (char c in _currentDialogLine.ToCharArray())
         {
             _dialogueText.text += c;
             yield return new WaitForSeconds(_textSpeed);
+        }
+        _dialogIsTyping = false;
+    }
+
+    private void TypeLineHelper()
+    {
+        if (_dialogIsTyping)
+        {
+            StopAllCoroutines();
+            _dialogueText.text = _currentDialogLine;
+            _dialogIsTyping = false;
+        }
+        else
+        {
+            _dialogIsTyping = true;
+            _currentDialogLine = _dialogueStory.Continue();
+            StartCoroutine(TypeLine());
         }
     }
 
@@ -130,7 +150,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         if (_dialogueStory.canContinue)
         {
             _dialogueText.text = string.Empty;
-            StartCoroutine(TypeLine());
+            TypeLineHelper();
         }
         else
         {
@@ -157,7 +177,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         _buttonChoiceOne.GetComponentInChildren<Text>().text = _choices[0].text;
         _buttonChoiceTwo.GetComponentInChildren<Text>().text = _choices[1].text;
 
-        SetDialogueState(true);
+        ShowChoiceButton(true);
     }
 
     public void ChoiceOnePressed()
@@ -175,13 +195,13 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     private void HideChoiceAndNextLine(int _index)
     {
         _dialogueStory.ChooseChoiceIndex(_index);
-        SetDialogueState(false);
+        ShowChoiceButton(false);
 
         DialogueChoiceSetInputEvent?.Invoke(true);
         NextLine();
     }
 
-    private void SetDialogueState(bool isAskingChoice)
+    private void ShowChoiceButton(bool isAskingChoice)
     {
         SetActiveButton(_buttonChoiceOne, isAskingChoice, ChoiceOnePressed);
         SetActiveButton(_buttonChoiceTwo, isAskingChoice, ChoiceTwoPressed);

@@ -73,12 +73,12 @@ public class InputManager : StateMachine
         }  
     }
 
-    public void HandleInputDialogue(InputAction.CallbackContext ctx)
+    public void HandleInputUi(InputAction.CallbackContext ctx)
     {
         if (!CanHandleInput()) return;
         switch (ctx.action.name)
         {
-            case "NextDialogue": _currentPlayerState.NextDialogue(ctx); break;
+            // TODO add here if there is UI component
         }
     }
 
