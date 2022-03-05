@@ -1,10 +1,9 @@
 using System;
 using UnityEngine.InputSystem;
 
-public class DialogueState : PlayerState
+public class UiState : PlayerState
 {
     #region Events
-    public static event Action NextDialogueHudEvent;
     #endregion
 
     #region MonoBehaviour
