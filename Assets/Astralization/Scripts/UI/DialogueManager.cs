@@ -103,6 +103,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         }
         else
         {
+            TearDownDialogue();
             _animator.SetBool("IsOpen", false);
             _dialogBoxOpen = false;
         }
@@ -115,6 +116,13 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         ShowChoiceButton(false);
         _dialogIsTyping = false;
         _currentDialogLine = "";
+    }
+
+    private void TearDownDialogue()
+    {
+        _buttonChoiceOne.GetComponent<Button>().onClick.RemoveAllListeners();
+        _buttonChoiceTwo.GetComponent<Button>().onClick.RemoveAllListeners();
+        _buttonContinue.GetComponent<Button>().onClick.RemoveAllListeners();
     }
 
     private IEnumerator TypeLine()
@@ -146,7 +154,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
     public void NextLine()
     {
-        Debug.Log(_dialogueStory.canContinue);
+        Debug.Log("Dialogue can continue: " + _dialogueStory.canContinue);
         if (_dialogueStory.canContinue)
         {
             _dialogueText.text = string.Empty;
