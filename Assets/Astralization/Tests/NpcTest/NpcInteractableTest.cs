@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Ink.Runtime;
 
 public class NPCInteractableTest: TestBase
 {
@@ -37,7 +39,7 @@ public class NPCInteractableTest: TestBase
         GameObject npc = GameObject.Find("NPC");
         INpcController npcController = npc.GetComponent<INpcController>();
         GameObject exclamationMark = npc.transform.Find("ExclamationMark").gameObject;
-        IDialogueManager dialogueManager = GameObject.Find("Dialogue Box").GetComponent<IDialogueManager>();
+        IDialogueManager dialogueManager = GameObject.Find("UI/Dialogue Box").GetComponent<IDialogueManager>();
 
         float moveDuration = GetMovementDurationTowards(npc.transform);
 
@@ -57,11 +59,14 @@ public class NPCInteractableTest: TestBase
     }
 
     [UnityTest]
-    public IEnumerator PlayerInteractableDetector_NextLine()
+    public IEnumerator PlayerInteractableDetector_NextLineAndChoiceOption()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
         GameObject npc = GameObject.Find("NPC");
-        GameObject dialogue = GameObject.Find("Dialogue/Dialogue Box");
+        GameObject dialogue = GameObject.Find("UI/Dialogue Box");
+        Button continueButton = dialogue.transform.Find("Continue").GetComponent<Button>();
+        Button choiceButton1 = dialogue.transform.Find("Choice1").GetComponent<Button>();
+        Button choiceButton2 = dialogue.transform.Find("Choice2").GetComponent<Button>();
 
         float moveDuration = GetMovementDurationTowards(npc.transform);
 
@@ -74,10 +79,22 @@ public class NPCInteractableTest: TestBase
 
         yield return new WaitForSeconds(0.3f);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.NextDialogueEnter);
-        Assert.AreEqual(false, dialogueManager.GetDialogStory().canContinue);
-
         yield return new WaitForSeconds(0.3f);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.NextDialogueClick);
+        continueButton.onClick.Invoke();
+        Assert.AreEqual(2, dialogueManager.GetDialogStory().currentChoices.Count);
+
+        yield return new WaitForSeconds(1f);
+        choiceButton2.onClick.Invoke();
+        yield return new WaitForSeconds(1f);
+        continueButton.onClick.Invoke();
+        Assert.AreEqual(2, dialogueManager.GetDialogStory().currentChoices.Count);
+
+        yield return new WaitForSeconds(1f);
+        choiceButton1.onClick.Invoke();
+        yield return new WaitForSeconds(1f);
+        continueButton.onClick.Invoke();
+        yield return new WaitForSeconds(1f);
+        continueButton.onClick.Invoke();
 
         Assert.IsFalse(dialogueManager.IsDialogBoxOpen());
     }

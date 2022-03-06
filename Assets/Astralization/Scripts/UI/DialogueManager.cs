@@ -44,7 +44,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     private float _textSpeed;
     private bool _dialogBoxOpen;
     private bool _dialogIsTyping;
-    private String _currentDialogLine;
+    private string _currentDialogLine;
 
     [Space]
     [Header("Buttons")]
