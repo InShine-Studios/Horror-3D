@@ -154,7 +154,6 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
     public void NextLine()
     {
-        Debug.Log("Dialogue can continue: " + _dialogueStory.canContinue);
         if (_dialogueStory.canContinue)
         {
             _dialogueText.text = string.Empty;
@@ -178,7 +177,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     // Create then show the choices on the screen until one got selected
     private void ShowChoices()
     {
-        Debug.Log("[DIALOGUE MANAGER] Show Choice");
+        //Debug.Log("[DIALOGUE MANAGER] Show Choice");
         DialogueChoiceSetInputEvent?.Invoke(false);
         List<Choice> _choices = _dialogueStory.currentChoices;
 
@@ -190,13 +189,13 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
     public void ChoiceOnePressed()
     {
-        Debug.Log("[DIALOGUE MANAGER] Choice 1 pressed");
+        //Debug.Log("[DIALOGUE MANAGER] Choice 1 pressed");
         HideChoiceAndNextLine(0);
     }
 
     public void ChoiceTwoPressed()
     {
-        Debug.Log("[DIALOGUE MANAGER] Choice 2 pressed");
+        //Debug.Log("[DIALOGUE MANAGER] Choice 2 pressed");
         HideChoiceAndNextLine(1);
     }
 
