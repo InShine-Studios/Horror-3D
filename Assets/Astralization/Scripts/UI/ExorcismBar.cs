@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public interface IExorcismBar
 {
-    float GetAccumulatedTime();
+    Utils.CooldownHelper GetCooldownHelper();
     float GetSliderValue();
     bool IsExorcised();
     bool IsUsed();
@@ -23,6 +23,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
 {
     #region Variable
     public Slider slider;
+    private Utils.CooldownHelper _cooldownHelper;
 
     [SerializeField]
     private float _accumulatedTime = 0f;
@@ -40,6 +41,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     private void Awake()
     {
         SetSliderMinValue(_minValue);
+        _cooldownHelper = new Utils.CooldownHelper(_holdTime);
     }
 
     private void OnEnable()
@@ -57,9 +59,9 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
         if (slider.gameObject.activeSelf)
         {
             _isUsed = true;
-            _accumulatedTime += Time.deltaTime;
-            SetSliderValue(_accumulatedTime);
-            if (_accumulatedTime >= _holdTime)
+            _cooldownHelper.AddAccumulatedTime();
+            SetSliderValue(_cooldownHelper.GetAccumulatedTime());
+            if (_cooldownHelper.CheckTimer())
             {
                 _isExorcised = true;
                 StopExorcism();
@@ -69,11 +71,10 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     #endregion
 
     #region SetGet
-    public float GetAccumulatedTime()
+    public Utils.CooldownHelper GetCooldownHelper()
     {
-        return _accumulatedTime;
+        return _cooldownHelper;
     }
-
     public bool IsUsed()
     {
         return _isUsed;
@@ -125,7 +126,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
         {
             //Debug.Log("[HUD SYSTEM] Exorcism Cancelled");
         }
-        _accumulatedTime = 0f;
+        _cooldownHelper.SetAccumulatedTime(0f);
     }
     #endregion
 }
