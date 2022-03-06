@@ -1,17 +1,19 @@
 using UnityEngine;
-using System.Collections;
 
 namespace Utils
 {
     /*
-    * Class that has methods related to player
+    * Class that has methods related to cooldown
     */
     public class CooldownHelper
     {
         #region Variable
+        [Tooltip("Float value for accumulated time")]
         private float _accumulatedTime = 0f;
+        [Tooltip("Float value for the cooldown")]
         private float _holdTime;
-        public bool isFinished;
+        [Tooltip("Bool value for cooldown conditions")]
+        private bool _isFinished;
         #endregion
 
         public CooldownHelper(float holdTime)
@@ -19,11 +21,14 @@ namespace Utils
             _holdTime = holdTime;
         }
 
-
         #region SetGet
         public float GetAccumulatedTime()
         {
             return _accumulatedTime;
+        }
+        public bool GetFinishedConditions()
+        {
+            return _isFinished;
         }
         public void SetAccumulatedTime(float accumulatedTime)
         {
@@ -31,14 +36,12 @@ namespace Utils
         }
         #endregion
 
+        #region CooldownFunctions
         public void AddAccumulatedTime()
         {
             _accumulatedTime += Time.deltaTime;
+            _isFinished = (_accumulatedTime >= _holdTime);
         }
-
-        public bool CheckTimer()
-        {
-            return (_accumulatedTime >= _holdTime);
-        }
+        #endregion
     }
 }
