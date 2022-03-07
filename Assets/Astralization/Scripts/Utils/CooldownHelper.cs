@@ -8,19 +8,17 @@ namespace Utils
     public class CooldownHelper
     {
         #region Variable
-        [SerializeField]
         [Tooltip("Float value for accumulated time")]
         private float _accumulatedTime = 0f;
-        [SerializeField]
         [Tooltip("Float value for the cooldown")]
-        private float _holdTime;
+        private float _duration;
         [Tooltip("Bool value for cooldown conditions")]
         private bool _isFinished;
         #endregion
 
-        public CooldownHelper(float holdTime)
+        public CooldownHelper(float duration)
         {
-            _holdTime = holdTime;
+            _duration = duration;
         }
 
         #region SetGet
@@ -42,7 +40,7 @@ namespace Utils
         public void AddAccumulatedTime()
         {
             _accumulatedTime += Time.deltaTime;
-            _isFinished = (_accumulatedTime >= _holdTime);
+            _isFinished = (_accumulatedTime >= _duration);
         }
         #endregion
     }
