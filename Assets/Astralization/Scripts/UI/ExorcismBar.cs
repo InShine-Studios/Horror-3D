@@ -59,7 +59,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
             _isUsed = true;
             _cooldownHelper.AddAccumulatedTime();
             SetSliderValue(_cooldownHelper.GetAccumulatedTime());
-            if (_cooldownHelper.GetFinishedConditions())
+            if (_cooldownHelper.IsFinished())
             {
                 _isExorcised = true;
                 StopExorcism();

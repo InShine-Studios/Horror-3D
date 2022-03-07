@@ -26,7 +26,7 @@ namespace Utils
         {
             return _accumulatedTime;
         }
-        public bool GetFinishedConditions()
+        public bool IsFinished()
         {
             return _isFinished;
         }
@@ -36,7 +36,7 @@ namespace Utils
         }
         #endregion
 
-        #region CooldownFunctions
+        #region Handler
         public void AddAccumulatedTime()
         {
             _accumulatedTime += Time.deltaTime;
