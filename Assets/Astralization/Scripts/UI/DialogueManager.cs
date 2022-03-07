@@ -25,7 +25,6 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 {
     #region Events
     public static event Action FinishDialogueEvent;
-    public static event Action<bool> DialogueChoiceSetInputEvent;
     #endregion
 
     #region Variables
@@ -109,22 +108,6 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         }
     }
 
-    private void SetUpDialogue()
-    {
-        _dialogueText.text = string.Empty;
-        _dialogueStory = new Story(_dialogueJson.text);
-        ShowChoiceButton(false);
-        _dialogIsTyping = false;
-        _currentDialogLine = "";
-    }
-
-    private void TearDownDialogue()
-    {
-        _buttonChoiceOne.GetComponent<Button>().onClick.RemoveAllListeners();
-        _buttonChoiceTwo.GetComponent<Button>().onClick.RemoveAllListeners();
-        _buttonContinue.GetComponent<Button>().onClick.RemoveAllListeners();
-    }
-
     private IEnumerator TypeLine()
     {
         //To type each character 1 by 1
@@ -173,12 +156,29 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     }
     #endregion
 
+    #region SetUpTeardown
+    private void SetUpDialogue()
+    {
+        _dialogueText.text = string.Empty;
+        _dialogueStory = new Story(_dialogueJson.text);
+        ShowChoiceButton(false);
+        _dialogIsTyping = false;
+        _currentDialogLine = "";
+    }
+
+    private void TearDownDialogue()
+    {
+        _buttonChoiceOne.GetComponent<Button>().onClick.RemoveAllListeners();
+        _buttonChoiceTwo.GetComponent<Button>().onClick.RemoveAllListeners();
+        _buttonContinue.GetComponent<Button>().onClick.RemoveAllListeners();
+    }
+    #endregion
+
     #region Choice
     // Create then show the choices on the screen until one got selected
     private void ShowChoices()
     {
         //Debug.Log("[DIALOGUE MANAGER] Show Choice");
-        DialogueChoiceSetInputEvent?.Invoke(false);
         List<Choice> _choices = _dialogueStory.currentChoices;
 
         _buttonChoiceOne.GetComponentInChildren<Text>().text = _choices[0].text;
@@ -203,8 +203,6 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     {
         _dialogueStory.ChooseChoiceIndex(_index);
         ShowChoiceButton(false);
-
-        DialogueChoiceSetInputEvent?.Invoke(true);
         NextLine();
     }
 

@@ -49,18 +49,6 @@ public class HudManager : MonoBehaviour
     {
         _exorcismBar.ShowBar(isShowExorcism);
     }
-
-    public void DialogueChoiceOnePressed()
-    {
-        //Debug.Log("[CHOICE 1 DIALOGUE HUD]");
-        _dialogueManager.ChoiceOnePressed();
-    }
-
-    public void DialogueChoiceTwoPressed()
-    {
-        //Debug.Log("[CHOICE 2 DIALOGUE HUD]");
-        _dialogueManager.ChoiceTwoPressed();
-    }
     #endregion
 
     #region MonoBehaviour
