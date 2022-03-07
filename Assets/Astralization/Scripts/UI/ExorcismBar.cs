@@ -26,8 +26,6 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     private Utils.CooldownHelper _cooldownHelper;
 
     [SerializeField]
-    private float _accumulatedTime = 0f;
-    [SerializeField]
     private float _holdTime = 5.0f;
     [SerializeField]
     private float _minValue = 0.0f;

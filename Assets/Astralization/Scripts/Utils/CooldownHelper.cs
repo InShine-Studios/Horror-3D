@@ -8,8 +8,10 @@ namespace Utils
     public class CooldownHelper
     {
         #region Variable
+        [SerializeField]
         [Tooltip("Float value for accumulated time")]
         private float _accumulatedTime = 0f;
+        [SerializeField]
         [Tooltip("Float value for the cooldown")]
         private float _holdTime;
         [Tooltip("Bool value for cooldown conditions")]
