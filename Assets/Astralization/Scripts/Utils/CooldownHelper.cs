@@ -26,13 +26,13 @@ namespace Utils
         {
             return _accumulatedTime;
         }
-        public bool IsFinished()
-        {
-            return _isFinished;
-        }
         public void SetAccumulatedTime(float accumulatedTime)
         {
             _accumulatedTime = accumulatedTime;
+        }
+        public bool IsFinished()
+        {
+            return _isFinished;
         }
         #endregion
 
