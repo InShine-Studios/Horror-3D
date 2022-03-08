@@ -94,15 +94,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "ExorcismButtonReleased",
-                    "type": "Button",
-                    "id": "d256b422-a6c7-4d0d-b23c-58c06ddf35fe",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -303,17 +294,6 @@
                     "action": "SimulateGhostInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f8c61814-dd94-48da-b65c-739adbf7deda",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "Press(behavior=1)",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "ExorcismButtonReleased",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -409,7 +389,7 @@
             "id": "d373a07f-06aa-483f-8660-276585384028",
             "actions": [
                 {
-                    "name": "Channeling Stop",
+                    "name": "ChannelingStop",
                     "type": "Button",
                     "id": "531e8a8d-46a4-4dca-a869-e3c015b57ab7",
                     "expectedControlType": "Button",
@@ -426,7 +406,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Channeling Stop",
+                    "action": "ChannelingStop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
