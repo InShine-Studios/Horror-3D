@@ -81,15 +81,6 @@ public class InputManager : StateMachine
         }  
     }
 
-    public void HandleInputUi(InputAction.CallbackContext ctx)
-    {
-        if (!CanHandleInput()) return;
-        //switch (ctx.action.name)
-        //{
-        //    // TODO add here if there is UI component
-        //}
-    }
-
     public void HandleInputExorcism(InputAction.CallbackContext ctx)
     {
         if (!CanHandleInput()) return;
