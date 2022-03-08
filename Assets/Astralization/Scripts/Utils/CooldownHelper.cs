@@ -7,19 +7,21 @@ namespace Utils
     */
     public class CooldownHelper
     {
-        #region Variable
-        [Tooltip("Float value for accumulated time")]
+        #region Variables
+        [Tooltip("Time elapsed during cooldown")]
         private float _accumulatedTime = 0f;
-        [Tooltip("Float value for the cooldown")]
+        [Tooltip("Cooldown duration")]
         private float _duration;
-        [Tooltip("Bool value for cooldown conditions")]
+        [Tooltip("True if cooldown is finished")]
         private bool _isFinished;
         #endregion
 
+        #region Constructor
         public CooldownHelper(float duration)
         {
             _duration = duration;
         }
+        #endregion
 
         #region SetGet
         public float GetAccumulatedTime()
