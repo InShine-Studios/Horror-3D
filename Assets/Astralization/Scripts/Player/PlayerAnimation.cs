@@ -15,16 +15,27 @@ public class PlayerAnimation : MonoBehaviour
     private PlayerMovement _playerMovement;
     [SerializeField][Tooltip("The rotation component for the angle")]
     private PlayerRotation _playerRotation;
+    [Tooltip("The camera that follows the player")]
+    private Camera _mainCamera;
+    [Tooltip("The rotating gameobjects of player")]
+    private GameObject _rotatable;
     #endregion
 
     #region SetGet
-    private void SetPlayerDir()
+    public void SetSpriteDir(Transform _rotatable, Transform _mainCamera)
     {
-        float currentAngle = _playerRotation.transform.localEulerAngles.y;
+        Vector3 playerDir = _rotatable.rotation * Vector3.forward + _rotatable.position;
+        Vector3 perspectiveDir = new Vector3(
+            _mainCamera.position.x - playerDir.x,
+            0f,
+            _mainCamera.position.z - playerDir.z
+            ).normalized;
+        float currentAngle = Mathf.Atan2(perspectiveDir.x, perspectiveDir.z) * Mathf.Rad2Deg;
+        currentAngle = Utils.MathCalcu.mod((int)currentAngle, 360);
 
         if (currentAngle >= 135 && currentAngle < 225)
         {
-            _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Down);
+            _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Up);
         }
         else if (currentAngle >= 45 && currentAngle < 135)
         {
@@ -32,7 +43,7 @@ public class PlayerAnimation : MonoBehaviour
         }
         else if (currentAngle >= 315 || currentAngle < 45)
         {
-            _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Up);
+            _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Down);
         }
         else if (currentAngle >= 225 && currentAngle < 315)
         {
@@ -66,10 +77,15 @@ public class PlayerAnimation : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
     }
+    private void Start()
+    {
+        PlayerMovement playerMovement = GetComponentInParent<PlayerMovement>();
+        _mainCamera = playerMovement.GetMainCamera();
+        _rotatable = playerMovement.GetRotatable();
+    }
 
     private void Update()
     {
-        SetPlayerDir();
         SetPlayerMoveAnim();
     }
     #endregion
