@@ -100,15 +100,20 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         _moveAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         _moveDirection = Quaternion.Euler(0f, _moveAngle, 0f) * _faceDirection;
 
-        if (_faceDirection.magnitude >= 0.1f)
+        _animation.transform.rotation = Quaternion.Euler(0f, _moveAngle, 0f);
+
+        if (_moveDirection.magnitude >= 0.1f)
         {
             float faceAngle = Mathf.Atan2(_moveDirection.x, _moveDirection.z) * Mathf.Rad2Deg;
             _rotatable.transform.rotation = Quaternion.Euler(0f, faceAngle, 0f);
             //Debug.DrawRay(transform.position, _rotatable.transform.rotation * Vector3.forward);
-        }
 
-        _animation.transform.rotation = Quaternion.Euler(0f, _moveAngle, 0f);
-        _animation.SetSpriteDir(_rotatable.transform, _mainCamera.transform);
+            _animation.SetSpriteMovingDirection(_faceDirection);
+        }
+        else
+        {
+            _animation.SetSpriteIdleDirection(_rotatable.transform, _mainCamera.transform);
+        }
     }
 
     public void SetFaceDirection(Vector2 moveInput)

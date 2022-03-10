@@ -15,39 +15,49 @@ public class PlayerAnimation : MonoBehaviour
     private PlayerMovement _playerMovement;
     [SerializeField][Tooltip("The rotation component for the angle")]
     private PlayerRotation _playerRotation;
-    [Tooltip("The camera that follows the player")]
-    private Camera _mainCamera;
-    [Tooltip("The rotating gameobjects of player")]
-    private GameObject _rotatable;
     #endregion
 
     #region SetGet
-    public void SetSpriteDir(Transform _rotatable, Transform _mainCamera)
+    public void SetSpriteIdleDirection(Transform _rotatable, Transform _mainCamera)
     {
-        Vector3 playerDir = _rotatable.rotation * Vector3.forward + _rotatable.position;
-        Vector3 perspectiveDir = new Vector3(
-            _mainCamera.position.x - playerDir.x,
-            0f,
-            _mainCamera.position.z - playerDir.z
-            ).normalized;
-        float currentAngle = Mathf.Atan2(perspectiveDir.x, perspectiveDir.z) * Mathf.Rad2Deg;
-        currentAngle = Utils.MathCalcu.mod((int)currentAngle, 360);
+        float perspectiveAngle = _mainCamera.rotation.y - _rotatable.rotation.y;
+        perspectiveAngle = Utils.MathCalcu.mod((int)(perspectiveAngle*180), 360);
 
-        if (currentAngle >= 135 && currentAngle < 225)
-        {
-            _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Up);
-        }
-        else if (currentAngle >= 45 && currentAngle < 135)
-        {
-            _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Right);
-        }
-        else if (currentAngle >= 315 || currentAngle < 45)
+        if (perspectiveAngle >= 135 && perspectiveAngle < 225)
         {
             _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Down);
         }
-        else if (currentAngle >= 225 && currentAngle < 315)
+        else if (perspectiveAngle >= 45 && perspectiveAngle < 135)
         {
             _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Left);
+        }
+        else if (perspectiveAngle >= 315 || perspectiveAngle < 45)
+        {
+            _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Up);
+        }
+        else if (perspectiveAngle >= 225 && perspectiveAngle < 315)
+        {
+            _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Right);
+        }
+    }
+
+    public void SetSpriteMovingDirection(Vector3 faceDirection)
+    {
+        if (faceDirection.x > 0)
+        {
+            _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Right);
+        }
+        else if (faceDirection.x < 0)
+        {
+            _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Left);
+        }
+        else if (faceDirection.z > 0)
+        {
+            _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Up);
+        }
+        else if (faceDirection.z < 0)
+        {
+            _animator.SetInteger("Direction", (int)Utils.PlayerHelper.Direction.Down);
         }
     }
 
@@ -76,12 +86,6 @@ public class PlayerAnimation : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-    }
-    private void Start()
-    {
-        PlayerMovement playerMovement = GetComponentInParent<PlayerMovement>();
-        _mainCamera = playerMovement.GetMainCamera();
-        _rotatable = playerMovement.GetRotatable();
     }
 
     private void Update()
