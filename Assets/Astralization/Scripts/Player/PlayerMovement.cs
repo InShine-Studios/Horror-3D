@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private PlayerBase _playerBase;
     [SerializeField] [Tooltip("The camera that follows the player")]
     private Camera _mainCamera;
+    [Tooltip("Rotating GameObjects of Player")]
+    private GameObject _rotatable;
 
     [Space]
     [Header("Movement Constants")]
@@ -38,10 +40,10 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private float _curMoveSpeed;
     [Tooltip("The facing direction generated from keyboard")]
     private Vector3 _faceDirection = new Vector3(0, 0, 0);
-    [Tooltip("The move angle calculated relative to camera position")]
-    private float _moveAngle;
     [Tooltip("The move direction calculated from move quaternion")]
     private Vector3 _moveDirection;
+    [Tooltip("The move angle relative to camera and player position")]
+    private float _moveAngle;
     [SerializeField] [Tooltip("Smoothing duration for turning")]
     private float turnSmoothTime = 0.1f;
     [Tooltip("Smoothing velocity for turning")]
@@ -67,6 +69,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
+        _rotatable = transform.Find("Rotate").gameObject;
     }
 
     private void FixedUpdate()
@@ -87,13 +90,18 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         ).normalized;
         _moveAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, _moveAngle, ref turnSmoothVelocity, turnSmoothTime);
-        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        _moveDirection = Quaternion.Euler(0f, _moveAngle, 0f) * _faceDirection;
+
+        if (_faceDirection.magnitude >= 0.1f)
+        {
+            float faceAngle = Mathf.Atan2(_moveDirection.x, _moveDirection.z) * Mathf.Rad2Deg;
+            _rotatable.transform.rotation = Quaternion.Euler(0f, faceAngle, 0f);
+        }
     }
 
     public void GenerateMoveVector(Vector2 moveInput)
     {
         _faceDirection = new Vector3(0, 0) { x = moveInput.x, z = moveInput.y }.normalized;
-        _moveDirection = Quaternion.Euler(0f, _moveAngle, 0f) * _faceDirection;
         //Debug.Log("[PLAYER MOVEMENT] Direction: " + _moveDirection);
     }
 
