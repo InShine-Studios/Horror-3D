@@ -132,12 +132,9 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
 
     private bool MovePlayer()
     {
-        if (_faceDirection.magnitude >= 0.1f)
-        {
-            if (_isSprinting) _curMoveSpeed = _playerBase.GetSprintSpeed();
-            else _curMoveSpeed = _playerBase.GetPlayerMovementSpeed();
-            _controller.SimpleMove(_curMoveSpeed * Time.deltaTime * _moveDirection.normalized);
-        }
+        if (_isSprinting) _curMoveSpeed = _playerBase.GetSprintSpeed();
+        else _curMoveSpeed = _playerBase.GetPlayerMovementSpeed();
+        _controller.SimpleMove(_curMoveSpeed * Time.deltaTime * _moveDirection.normalized);
         return _faceDirection.magnitude != 0;
     }
     #endregion

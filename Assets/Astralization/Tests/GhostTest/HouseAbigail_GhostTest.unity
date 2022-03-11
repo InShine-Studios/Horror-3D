@@ -5951,6 +5951,10 @@ PrefabInstance:
       propertyPath: m_LookAt
       value: 
       objectReference: {fileID: 828985978}
+    - target: {fileID: 3273256044022937043, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3273256044410928801, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_Name
       value: Player Follow
@@ -6003,6 +6007,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7617979104036291243, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 828985978}
+    - target: {fileID: 7617979104036291243, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
+      propertyPath: m_LookAt
+      value: 
+      objectReference: {fileID: 828985978}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
 --- !u!43 &673078163
@@ -7580,6 +7592,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Iris
       objectReference: {fileID: 0}
+    - target: {fileID: 8057739223163586148, guid: e4042580c30f349b0bc5fccc43e12f7e, type: 3}
+      propertyPath: _mainCamera
+      value: 
+      objectReference: {fileID: 1378913032}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4042580c30f349b0bc5fccc43e12f7e, type: 3}
 --- !u!4 &828985978 stripped
@@ -17767,11 +17783,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044022937042, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 6.277645e-12
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044022937042, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -7.38562e-13
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044022937043, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_Follow
@@ -17784,6 +17800,18 @@ PrefabInstance:
     - target: {fileID: 3273256044410928801, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_Name
       value: Ghost Follow
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273256044410928803, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273256044410928803, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
+      propertyPath: far clip plane
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273256044410928803, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
+      propertyPath: near clip plane
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044410928812, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_RootOrder
@@ -17811,11 +17839,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044410928812, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000021521367
+      value: -0.0000000021471116
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044410928812, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 1.2616122e-10
+      value: 1.2586666e-10
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044410928812, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
