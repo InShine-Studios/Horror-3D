@@ -59,6 +59,8 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
 
     [Tooltip("True if player is sprinting")]
     private bool _isSprinting;
+    [Tooltip("True if player is moving")]
+    private bool _isMoving;
     #endregion
 
     #region SetGet
@@ -82,8 +84,14 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private void FixedUpdate()
     {
         SetDirection();
-        if (MovePlayer()) FindClosest?.Invoke();
+        _isMoving = MovePlayer();
+        if (_isMoving) FindClosest?.Invoke();
         if (_useForceGrounding) ForceGrounding();
+    }
+
+    private void Update()
+    {
+        _animation.SetPlayerMoveAnim(_isMoving, _isSprinting);
     }
     #endregion
 

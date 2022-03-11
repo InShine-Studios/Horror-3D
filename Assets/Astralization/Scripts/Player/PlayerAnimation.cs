@@ -11,8 +11,6 @@ public class PlayerAnimation : MonoBehaviour
     [Header("Player Parts")]
     [Tooltip("The Animator for this player")]
     private Animator _animator;
-    [SerializeField][Tooltip("The movement component for the speed")]
-    private PlayerMovement _playerMovement;
     #endregion
 
     #region SetGet
@@ -59,17 +57,17 @@ public class PlayerAnimation : MonoBehaviour
         }
     }
 
-    private void SetPlayerMoveAnim()
+    public void SetPlayerMoveAnim(bool isMoving, bool isSprinting)
     {
         _animator.SetBool("IsIdle", false);
         _animator.SetBool("IsWalking", false);
         _animator.SetBool("IsSprinting", false);
 
-        if (_playerMovement.GetMoveDirection().magnitude == 0)
+        if (!isMoving)
         {
             _animator.SetBool("IsIdle", true);
         }
-        else if (_playerMovement.IsSprinting())
+        else if (isSprinting)
         {
             _animator.SetBool("IsSprinting", true);
         }
@@ -84,11 +82,6 @@ public class PlayerAnimation : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-    }
-
-    private void Update()
-    {
-        SetPlayerMoveAnim();
     }
     #endregion
 }
