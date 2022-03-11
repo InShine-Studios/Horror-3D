@@ -11,13 +11,11 @@ public class HidingState : PlayerState
 
     #region Variables
     [Tooltip("Closets interactable that been interacted by player")]
-    private Interactable _closets;
-    [Tooltip("PlayerMovement object that gonna be toogled")]
+    private Transform _closets;
+    [Tooltip("PlayerMovement script that gonna be toogled")]
     private PlayerMovement _playerMovement;
     [Tooltip("Player previous position")]
     private Vector3 _prevPosition;
-    [Tooltip("False if player change position")]
-    private bool _playerMovementConditions = false;
     #endregion
 
     #region MonoBehaviour
@@ -33,25 +31,25 @@ public class HidingState : PlayerState
     {
         base.Enter();
         PlayerMovementChangeState();
-        _closets = GetComponentInChildren<InteractableDetector>().GetClosest();
+        _closets = GetComponentInChildren<InteractableDetector>().GetClosest().transform.parent;
         _prevPosition = this.transform.position;
-        Vector3 closetsPosition = _closets.transform.parent.position;
-        Vector3 calOffset = _closets.transform.parent.rotation * new Vector3(0.97f,1.1f,-0.47f);
-        this.transform.position = closetsPosition + calOffset;
+        Vector3 calOffset = _closets.GetComponent<Renderer>().bounds.center;
+        this.transform.position = calOffset;
+        this.transform.Find("Glow").GetComponent<Light>().enabled = false;
     }
 
     public override void Exit()
     {
         base.Exit();
         this.transform.position = _prevPosition;
+        this.transform.Find("Glow").GetComponent<Light>().enabled = true;
         _closets = null;
         Invoke("PlayerMovementChangeState", 1.0f);
     }
 
     private void PlayerMovementChangeState()
     {
-        _playerMovement.enabled = _playerMovementConditions;
-        _playerMovementConditions = !_playerMovementConditions;
+        _playerMovement.enabled = !_playerMovement.enabled;
     }
     #endregion
 
