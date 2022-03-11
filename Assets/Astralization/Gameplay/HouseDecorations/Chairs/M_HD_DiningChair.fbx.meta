@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8f208a830591554eba1306d3a0f6c300
+guid: 98f16e144065f43dfa66fb415d086981
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: MAT_DiningChair
-    second: {fileID: 2100000, guid: 6f5815f4d8fac54289472741817537bc, type: 2}
+      name: MAT_DiningChair.002
+    second: {fileID: 2100000, guid: 1ee1e9e852f687c33a2311a5130409ef, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -44,10 +44,10 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
-    importVisibility: 0
-    importBlendShapes: 0
-    importCameras: 0
-    importLights: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
