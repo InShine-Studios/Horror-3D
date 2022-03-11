@@ -13,8 +13,6 @@ public class PlayerAnimation : MonoBehaviour
     private Animator _animator;
     [SerializeField][Tooltip("The movement component for the speed")]
     private PlayerMovement _playerMovement;
-    [SerializeField][Tooltip("The rotation component for the angle")]
-    private PlayerRotation _playerRotation;
     #endregion
 
     #region SetGet
