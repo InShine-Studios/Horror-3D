@@ -25,7 +25,14 @@ public class HudManager : MonoBehaviour
         {
             case Utils.PlayerHelper.States.Exorcism: ShowExorcism(condition); break;
             case Utils.PlayerHelper.States.Hiding: ShowHidingHud(condition); break;
-            case Utils.PlayerHelper.States.Dialogue: ShowDialogue(condition); break;
+        }
+    }
+
+    private void SetHudState(Utils.UiHelper.States hudKey, bool condition)
+    {
+        switch (hudKey)
+        {
+            case Utils.UiHelper.States.Dialogue: ShowDialogue(condition); break;
         }
     }
 
@@ -54,14 +61,16 @@ public class HudManager : MonoBehaviour
     #region MonoBehaviour
     private void OnEnable()
     {
-        GameManager.HudEvent += SetHudState;
+        GameManager.HudPlayerEvent += SetHudState;
+        GameManager.HudUiEvent += SetHudState;
         HidingState.StopHidingHudEvent += ShowHidingHud;
         Inventory.ItemLogoEvent += UpdateLogo;
     }
 
     private void OnDisable()
     {
-        GameManager.HudEvent -= SetHudState;
+        GameManager.HudPlayerEvent -= SetHudState;
+        GameManager.HudUiEvent -= SetHudState;
         HidingState.StopHidingHudEvent -= ShowHidingHud;
         Inventory.ItemLogoEvent -= UpdateLogo;
     }
