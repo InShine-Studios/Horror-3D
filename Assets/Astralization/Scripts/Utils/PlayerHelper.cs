@@ -16,6 +16,7 @@ namespace Utils
         }
         public enum States
         {
+            UI,
             Dialogue,
             Hiding,
             Exorcism,

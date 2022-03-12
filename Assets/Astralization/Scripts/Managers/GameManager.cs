@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private void OnEnable()
     {
         AnkhItem.ChangeWorldGM += InvokeChangeWorld;
-        NpcController.NpcInteractionEvent += InvokeDialogueState;
+        VictimController.VictimInteractionEvent += InvokeDialogueState;
         DialogueManager.FinishDialogueEvent += ResetPlayerState;
         ClosetsController.StartHidingEvent += InvokeHidingState;
         ExorcismItem.ExorcismChannelingEvent += InvokeExorcismState;
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private void OnDisable()
     {
         AnkhItem.ChangeWorldGM -= InvokeChangeWorld;
-        NpcController.NpcInteractionEvent -= InvokeDialogueState;
+        VictimController.VictimInteractionEvent -= InvokeDialogueState;
         DialogueManager.FinishDialogueEvent -= ResetPlayerState;
         ClosetsController.StartHidingEvent -= InvokeHidingState;
         ExorcismItem.ExorcismChannelingEvent -= InvokeExorcismState;
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour, IGameManager
     public void InvokeDialogueState()
     {
         SendHudEvent(Utils.PlayerHelper.States.Dialogue, true);
-        SendPlayerStateEvent(Utils.PlayerHelper.States.Dialogue);
+        SendPlayerStateEvent(Utils.PlayerHelper.States.UI);
         //Debug.Log("[MANAGER] Change state to dialogue");
     }
 

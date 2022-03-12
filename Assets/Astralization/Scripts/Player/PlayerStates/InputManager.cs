@@ -34,20 +34,12 @@ public class InputManager : StateMachine
     #region SetGet
     public void SetPlayerActionMap(Utils.PlayerHelper.States actionMap)
     {
-        // for all UI related, add this condition
-        if (actionMap.ToString().Equals("Dialogue"))
-        {
-            _playerInput.SwitchCurrentActionMap("UI");
-        }
-        else
-        {
-            _playerInput.SwitchCurrentActionMap(actionMap.ToString());
-        }
+        _playerInput.SwitchCurrentActionMap(actionMap.ToString());
         switch (actionMap) // RACE CONDITION
         {
             case Utils.PlayerHelper.States.Default: ChangeState<DefaultPlayerState>(); break;
             case Utils.PlayerHelper.States.Hiding: ChangeState<HidingState>(); break;
-            case Utils.PlayerHelper.States.Dialogue: ChangeState<UiState>(); break;
+            case Utils.PlayerHelper.States.UI: ChangeState<UiState>(); break;
             case Utils.PlayerHelper.States.Exorcism: ChangeState<ExorcismState>(); break;
         }
         //Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);

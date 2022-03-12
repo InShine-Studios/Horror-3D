@@ -12,14 +12,14 @@ public interface IDialogueManager
     void SetDialogJson(TextAsset newDialogueJson);
     Animator GetAnimator();
     bool IsDialogBoxOpen();
-    void ShowDialogueBox(bool isInteractWithNpc);
+    void ShowDialogueBox(bool isShowDialogue);
     Story GetDialogStory();
 }
 
 /*
  * Class to manage dialogues.
  * Use Setter and Getter to access the variables.
- * Is subscribed to NpcController to change action map, and DialogueInvoker to continue the dialogue.
+ * Is subscribed to VictimController to change action map, and DialogueInvoker to continue the dialogue.
  */
 public class DialogueManager : MonoBehaviour, IDialogueManager
 {
