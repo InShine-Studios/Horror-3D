@@ -28,11 +28,8 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     #endregion
 
     #region Variables
-    [SerializeField]
     private Text _nameText;
-    [SerializeField]
     private Text _dialogueText;
-    [SerializeField]
     private Animator _animator;
 
     [SerializeField]
@@ -47,11 +44,8 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
     [Space]
     [Header("Buttons")]
-    [SerializeField]
     private GameObject _buttonChoiceOne;
-    [SerializeField]
     private GameObject _buttonChoiceTwo;
-    [SerializeField]
     private GameObject _buttonContinue;
 
     [Space]
@@ -83,10 +77,20 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     #endregion
 
     #region MonoBehaviour
-    private void Awake()
+    private void Start()
     {
         _nameText.text = "Budi";
         _dialogueText.text = string.Empty;
+    }
+
+    private void Awake()
+    {
+        _buttonChoiceOne = transform.Find("Choice1").gameObject;
+        _buttonChoiceTwo = transform.Find("Choice2").gameObject;
+        _buttonContinue = transform.Find("Continue").gameObject;
+        _nameText = transform.Find("Name").GetComponent<Text>();
+        _dialogueText = transform.Find("Dialogue").GetComponent<Text>();
+        _animator = transform.GetComponent<Animator>();
     }
     #endregion
 
@@ -161,9 +165,13 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     {
         _dialogueText.text = string.Empty;
         _dialogueStory = new Story(_dialogueJson.text);
-        ShowChoiceButton(false);
         _dialogIsTyping = false;
         _currentDialogLine = "";
+        ShowChoiceButton(false);
+
+        _buttonChoiceOne.GetComponent<Button>().onClick.AddListener(ChoiceOnePressed);
+        _buttonChoiceTwo.GetComponent<Button>().onClick.AddListener(ChoiceTwoPressed);
+        _buttonContinue.GetComponent<Button>().onClick.AddListener(NextLine);
     }
 
     private void TearDownDialogue()
@@ -208,27 +216,12 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
     private void ShowChoiceButton(bool isAskingChoice)
     {
-        SetActiveButton(_buttonChoiceOne, isAskingChoice, ChoiceOnePressed);
-        SetActiveButton(_buttonChoiceTwo, isAskingChoice, ChoiceTwoPressed);
-        SetActiveButton(_buttonContinue, !isAskingChoice, NextLine);
+        _buttonChoiceOne.SetActive(isAskingChoice);
+        _buttonChoiceTwo.SetActive(isAskingChoice);
+        _buttonContinue.SetActive(!isAskingChoice);
         if (!isAskingChoice)
         {
             _eventSystem.SetSelectedGameObject(_buttonContinue);
-        }
-    }
-    #endregion
-
-    #region Buttons
-    private void SetActiveButton(GameObject button, bool isActive, UnityAction handler)
-    {
-        button.SetActive(isActive);
-        if (isActive)
-        {
-            button.GetComponent<Button>().onClick.AddListener(handler);
-        }
-        else
-        {
-            button.GetComponent<Button>().onClick.RemoveAllListeners();
         }
     }
     #endregion
