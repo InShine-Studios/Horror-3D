@@ -77,12 +77,6 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     #endregion
 
     #region MonoBehaviour
-    private void Start()
-    {
-        _nameText.text = "Budi";
-        _dialogueText.text = string.Empty;
-    }
-
     private void Awake()
     {
         _buttonChoiceOne = transform.Find("Choice1").gameObject;
@@ -91,6 +85,12 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         _nameText = transform.Find("Name").GetComponent<Text>();
         _dialogueText = transform.Find("Dialogue").GetComponent<Text>();
         _animator = transform.GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        _nameText.text = "Budi";
+        _dialogueText.text = string.Empty;
     }
     #endregion
 
