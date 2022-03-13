@@ -30,11 +30,11 @@ public class AstralTest : TestBase
 
     #region Astral World
     [UnityTest]
-    public IEnumerator AstralMeter_NPCWrongAnswer()
+    public IEnumerator AstralMeter_VictimWrongAnswer()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
         IAstralMeterLogic astralMeterLogic = GameObject.Find("AstralMeter").GetComponent<IAstralMeterLogic>();
-        astralMeterLogic.NpcWrongAnswer();
+        astralMeterLogic.VictimWrongAnswer();
 
         Assert.IsTrue(astralMeterLogic.GetAstralMeter() >= 10.0f);
         Assert.IsTrue(astralMeterLogic.GetAstralMeter() <= 15.0f);

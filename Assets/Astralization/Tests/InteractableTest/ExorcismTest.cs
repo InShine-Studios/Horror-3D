@@ -19,7 +19,7 @@ public class ExorcismTest : TestBase
                 player = gameObject;
                 playerMovement = player.GetComponent<IPlayerMovement>();
             }
-            else if (gameObject.name == "Canvas")
+            else if (gameObject.name == "UI")
             {
                 hud = gameObject;
             }
