@@ -18,7 +18,7 @@ public class ItemTest : TestBase
             {
                 player = gameObject;
             }
-            else if (gameObject.name == "Canvas")
+            else if (gameObject.name == "UI")
             {
                 hud = gameObject;
             }
