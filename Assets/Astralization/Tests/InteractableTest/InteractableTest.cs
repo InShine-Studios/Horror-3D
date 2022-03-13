@@ -86,12 +86,17 @@ public class InteractableTest: TestBase
 
         PlayerInput _playerInput = player.GetComponent<PlayerInput>();
         Animator anim = _hud.transform.Find("HidingOverlay").GetComponent<Animator>();
+        Transform closetsModel = GameObject.Find("Closets").transform.Find("Model");
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
+        yield return new WaitForSeconds(1.0f);
+        Vector3 calOffset = closetsModel.GetComponent<Renderer>().bounds.center;
+        Assert.AreEqual(player.transform.position, calOffset);
         Assert.True(anim.GetBool("isHiding"));
         Assert.AreEqual(_playerInput.currentActionMap.name, "Hiding");
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
         Assert.False(anim.GetBool("isHiding"));
+        yield return new WaitForSeconds(1.0f);
         Assert.AreEqual(_playerInput.currentActionMap.name, "Default");
     }
 

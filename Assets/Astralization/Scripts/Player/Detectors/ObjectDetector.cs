@@ -22,6 +22,13 @@ public abstract class ObjectDetector : MonoBehaviour
     protected Interactable closestInteractable;
     #endregion
 
+    #region SetGet
+    public Interactable GetClosest()
+    {
+        return closestInteractable;
+    }
+    #endregion
+
     #region MonoBehaviour
     protected virtual void Awake()
     {
