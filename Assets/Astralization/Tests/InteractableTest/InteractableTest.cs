@@ -88,6 +88,7 @@ public class InteractableTest: TestBase
         Animator anim = _hud.transform.Find("HidingOverlay").GetComponent<Animator>();
         Transform closetsModel = GameObject.Find("Closets").transform.Find("Model");
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
+        yield return new WaitForSeconds(1.0f);
         Vector3 calOffset = closetsModel.GetComponent<Renderer>().bounds.center;
         Assert.AreEqual(player.transform.position, calOffset);
         Assert.True(anim.GetBool("isHiding"));
