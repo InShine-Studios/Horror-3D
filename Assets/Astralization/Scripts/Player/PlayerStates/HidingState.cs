@@ -14,6 +14,10 @@ public class HidingState : PlayerState
     private Transform _closets;
     [Tooltip("PlayerMovement script that gonna be toogled")]
     private PlayerMovement _playerMovement;
+    [Tooltip("InteractableDetector script to get closets")]
+    private InteractableDetector _interactableDetector;
+    [Tooltip("Light object that gonna be toogled")]
+    private Light _light;
     [Tooltip("Player previous position")]
     private Vector3 _prevPosition;
     #endregion
@@ -23,6 +27,8 @@ public class HidingState : PlayerState
     {
         base.Awake();
         _playerMovement = GetComponent<PlayerMovement>();
+        _interactableDetector = GetComponentInChildren<InteractableDetector>();
+        _light = this.transform.Find("Glow").GetComponent<Light>();
     }
     #endregion
 
@@ -31,25 +37,35 @@ public class HidingState : PlayerState
     {
         base.Enter();
         PlayerMovementChangeState();
-        _closets = GetComponentInChildren<InteractableDetector>().GetClosest().transform.parent;
+        _closets = _interactableDetector.GetClosest().transform.parent;
         _prevPosition = this.transform.position;
         Vector3 calOffset = _closets.GetComponent<Renderer>().bounds.center;
         this.transform.position = calOffset;
-        this.transform.Find("Glow").GetComponent<Light>().enabled = false;
+        _light.enabled = false;
     }
 
     public override void Exit()
     {
         base.Exit();
         this.transform.position = _prevPosition;
-        this.transform.Find("Glow").GetComponent<Light>().enabled = true;
+        _light.enabled = true;
         _closets = null;
-        Invoke("PlayerMovementChangeState", 1.0f);
+        Invoke("PlayerMovementChangeState", 0.5f);
     }
 
     private void PlayerMovementChangeState()
     {
         _playerMovement.enabled = !_playerMovement.enabled;
+    }
+
+    public void SendStopHidingHudEvent()
+    {
+        StopHidingHudEvent?.Invoke(false);
+    }
+
+    public void SendStopHidingEvent()
+    {
+        StopHidingEvent?.Invoke();
     }
     #endregion
 
@@ -58,8 +74,8 @@ public class HidingState : PlayerState
     {
         if (ctx.performed)
         {
-            StopHidingEvent?.Invoke();
-            StopHidingHudEvent?.Invoke(false);
+            SendStopHidingHudEvent();
+            StartCoroutine(Utils.DelayerHelper.Delay(1.0f, SendStopHidingEvent));
         }
     }
     #endregion
