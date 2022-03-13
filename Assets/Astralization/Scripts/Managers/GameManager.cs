@@ -57,7 +57,6 @@ public class GameManager : MonoBehaviour, IGameManager
     {
         HudPlayerEvent?.Invoke(hudKey, condition);
     }
-
     public void SendHudUiEvent(Utils.UiHelper.States hudKey, bool condition)
     {
         HudUiEvent?.Invoke(hudKey, condition);
