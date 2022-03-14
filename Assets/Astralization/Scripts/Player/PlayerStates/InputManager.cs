@@ -31,6 +31,7 @@ public class InputManager : StateMachine
     }
     #endregion
 
+    #region SetGet
     public void SetPlayerActionMap(Utils.PlayerHelper.States actionMap)
     {
         _playerInput.SwitchCurrentActionMap(actionMap.ToString());
@@ -38,11 +39,12 @@ public class InputManager : StateMachine
         {
             case Utils.PlayerHelper.States.Default: ChangeState<DefaultPlayerState>(); break;
             case Utils.PlayerHelper.States.Hiding: ChangeState<HidingState>(); break;
-            case Utils.PlayerHelper.States.Dialogue: ChangeState<DialogueState>(); break;
+            case Utils.PlayerHelper.States.UI: ChangeState<UiState>(); break;
             case Utils.PlayerHelper.States.Exorcism: ChangeState<ExorcismState>(); break;
         }
         //Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);
     }
+    #endregion
 
     #region Input Handler
     private bool CanHandleInput()
@@ -69,15 +71,6 @@ public class InputManager : StateMachine
             case "DiscardItem": _currentPlayerState.DiscardItemInput(ctx); break;
             case "SimulateGhostInteract": _currentPlayerState.CheckInteractionGhost(ctx); break;
         }  
-    }
-
-    public void HandleInputDialogue(InputAction.CallbackContext ctx)
-    {
-        if (!CanHandleInput()) return;
-        switch (ctx.action.name)
-        {
-            case "NextDialogue": _currentPlayerState.NextDialogue(ctx); break;
-        }
     }
 
     public void HandleInputExorcism(InputAction.CallbackContext ctx)

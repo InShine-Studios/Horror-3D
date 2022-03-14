@@ -57,13 +57,6 @@ public abstract class PlayerState : State
     }
     #endregion
 
-    #region Dialogue Input Handler
-    public virtual void NextDialogue(InputAction.CallbackContext ctx)
-    {
-        PrintDefaultLog("NextDialogue");
-    }
-    #endregion
-
     #region Hiding Input Handler
     public virtual void UnhidePlayer(InputAction.CallbackContext ctx)
     {
