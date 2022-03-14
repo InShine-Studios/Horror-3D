@@ -61,7 +61,7 @@ public class InputManager : StateMachine
         switch (ctx.action.name)
         {
             case "Movement": _currentPlayerState.OnMovementInput(ctx); break;
-            case "MousePosition": _currentPlayerState.OnMousePosition(ctx); break;
+            //case "MousePosition": _currentPlayerState.OnMousePosition(ctx); break;
             case "ChangeItem": _currentPlayerState.ScrollActiveItem(ctx); break;
             case "SprintStart": _currentPlayerState.SprintPressed(ctx); break;
             case "SprintEnd": _currentPlayerState.SprintReleased(ctx); break;

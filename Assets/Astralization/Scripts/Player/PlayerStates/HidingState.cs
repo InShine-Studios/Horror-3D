@@ -6,7 +6,6 @@ public class HidingState : PlayerState
 {
     #region Events
     public static event Action<bool> StopHidingHudEvent;
-    public static event Action StopHidingEvent;
     #endregion
 
     #region Variables
@@ -57,16 +56,6 @@ public class HidingState : PlayerState
     {
         _playerMovement.enabled = !_playerMovement.enabled;
     }
-
-    public void SendStopHidingHudEvent()
-    {
-        StopHidingHudEvent?.Invoke(false);
-    }
-
-    public void SendStopHidingEvent()
-    {
-        StopHidingEvent?.Invoke();
-    }
     #endregion
 
     #region InputHandler
@@ -74,8 +63,8 @@ public class HidingState : PlayerState
     {
         if (ctx.performed)
         {
-            SendStopHidingHudEvent();
-            StartCoroutine(Utils.DelayerHelper.Delay(1.0f, SendStopHidingEvent));
+            StopHidingHudEvent?.Invoke(false);
+            StartCoroutine(Utils.DelayerHelper.Delay(1.0f, () => owner.ChangeState<DefaultPlayerState>()));
         }
     }
     #endregion

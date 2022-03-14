@@ -24,6 +24,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "MouseDelta",
+                    "type": "PassThrough",
+                    "id": "2a719410-3182-4ba9-bd1c-7e437353d882",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Interact",
                     "type": "Button",
                     "id": "c513c0b0-0b07-4f2f-b58d-27aa85fffc98",
@@ -292,6 +301,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "SimulateGhostInteract",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d7fa5855-fcfd-4bc8-9896-f12596b84c6b",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MouseDelta",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
