@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour, IGameManager
     public void InvokeHidingState()
     {
         SendHudPlayerEvent(Utils.PlayerHelper.States.Hiding, true);
-        StartCoroutine(Utils.DelayerHelper.Delay(1.0f, () => SendPlayerStateEvent(Utils.PlayerHelper.States.Hiding)));
+        SendPlayerStateEvent(Utils.PlayerHelper.States.Hiding);
         //Debug.Log("[MANAGER] Change state to hiding");
     }
 
