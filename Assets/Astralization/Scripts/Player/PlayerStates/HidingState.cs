@@ -31,14 +31,14 @@ public class HidingState : PlayerState
     }
     #endregion
 
-    #region Handler
+    #region StateHandler
     public override void Enter()
     {
         base.Enter();
         PlayerMovementChangeState();
         _closets = _interactableDetector.GetClosest().transform.parent;
         _prevPosition = this.transform.position;
-        Vector3 calOffset = _closets.GetComponent<Renderer>().bounds.center;
+        Vector3 calOffset = _closets.GetComponentInChildren<Renderer>().bounds.center;
         this.transform.position = calOffset;
         _light.enabled = false;
     }
@@ -64,7 +64,12 @@ public class HidingState : PlayerState
         if (ctx.performed)
         {
             StopHidingHudEvent?.Invoke(false);
-            StartCoroutine(Utils.DelayerHelper.Delay(1.0f, () => owner.ChangeState<DefaultPlayerState>()));
+            StartCoroutine(Utils.DelayerHelper.Delay(1.0f, () =>
+            {
+                owner.ChangeState<DefaultPlayerState>();
+                owner.SetPlayerActionMap(Utils.PlayerHelper.States.Default);
+            }));
+
         }
     }
     #endregion
