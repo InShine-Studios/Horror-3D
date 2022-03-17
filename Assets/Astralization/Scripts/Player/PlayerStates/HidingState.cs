@@ -73,7 +73,7 @@ public class HidingState : PlayerState
 
     private void ChangeToDefaultState()
     {
-        owner.SetPlayerActionMap(Utils.PlayerHelper.States.Default);
+        owner.SetPlayerActionMap(Utils.PlayerHelper.States.Default); // [BUG] kalo abis ubah script -> unity reload -> bisa jalan -> replay -> error inputmanager destroyed
     }
     #endregion
 
