@@ -63,7 +63,7 @@ public class HidingState : PlayerState
         this.transform.position = _prevPosition;
         _light.enabled = true;
         _closets = null;
-        Invoke("PlayerMovementChangeState", 0.5f);
+        Invoke("PlayerMovementChangeState", 0.1f);
     }
 
     private void PlayerMovementChangeState()
@@ -74,7 +74,6 @@ public class HidingState : PlayerState
     private void ChangeToDefaultState()
     {
         owner.SetPlayerActionMap(Utils.PlayerHelper.States.Default);
-        owner.ChangeState<DefaultPlayerState>();
     }
     #endregion
 
