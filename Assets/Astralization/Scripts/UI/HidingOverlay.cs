@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,11 @@ using UnityEngine.UI;
  */
 public class HidingOverlay : MonoBehaviour
 {
+    #region Events
+    public static event Action FinishHiding;
+    public static event Action FinishUnhiding;
+    #endregion
+
     #region Constants
     private const string _animParam = "isHiding";
     #endregion
@@ -35,6 +41,16 @@ public class HidingOverlay : MonoBehaviour
     private void ChangeColor()
     {
         _overlay.color = RenderSettings.fogColor;
+    }
+
+    private void OnFinishHiding()
+    {
+        FinishHiding?.Invoke();
+    }
+
+    private void OnFinishUnhiding()
+    {
+        FinishUnhiding?.Invoke();
     }
     #endregion
 }
