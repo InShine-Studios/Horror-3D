@@ -19,29 +19,15 @@ public class HidingState : PlayerState
     private Light _light;
     [Tooltip("Player previous position")]
     private Vector3 _prevPosition;
-
-    [Tooltip("True if player is able to unhide. Prevent spamming on hiding")]
-    private bool _enableUnhide = false;
-    #endregion
-
-    #region SetGet
-    private void EnableUnhiding()
-    {
-        _enableUnhide = true;
-    }
     #endregion
 
     #region MonoBehaviour
     protected override void Awake()
     {
         base.Awake();
-        _enableUnhide = false;
         _playerMovement = GetComponent<PlayerMovement>();
         _interactableDetector = GetComponentInChildren<InteractableDetector>();
         _light = this.transform.Find("Glow").GetComponent<Light>();
-
-        HidingOverlay.FinishHiding += EnableUnhiding;
-        HidingOverlay.FinishUnhiding += ChangeToDefaultState;
     }
     #endregion
 
@@ -70,19 +56,14 @@ public class HidingState : PlayerState
     {
         _playerMovement.enabled = !_playerMovement.enabled;
     }
-
-    private void ChangeToDefaultState()
-    {
-        owner.SetPlayerActionMap(Utils.PlayerHelper.States.Default); // [BUG] kalo abis ubah script -> unity reload -> bisa jalan -> replay -> error inputmanager destroyed
-    }
     #endregion
 
     #region InputHandler
     public override void UnhidePlayer(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed & _enableUnhide)
+        if (ctx.performed)
         {
-            StopHidingHudEvent?.Invoke(false);
+            owner.SetPlayerActionMap(Utils.PlayerHelper.States.Default);
         }
     }
     #endregion
