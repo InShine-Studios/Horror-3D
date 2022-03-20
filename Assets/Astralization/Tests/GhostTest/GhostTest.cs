@@ -41,8 +41,8 @@ public class GhostTest : TestBase
         IStageManager stageManager = GameObject.Find("Building/StageManager").GetComponent<IStageManager>();
         WorldPoint targetRoom = stageManager.GetRoomCoordinate(targetRoomName);
 
-        ghostMovement.SetWandering(false);
-        ghostMovement.WanderTarget(targetRoom, false);
+        //ghostMovement.SetWandering(false);
+        //ghostMovement.WanderTarget(targetRoom, false);
         yield return new WaitWhile(ghostMovement.IsOnRoute);
         float delta = Mathf.Abs(
             Utils.GeometryCalcu.GetDistance3D(
