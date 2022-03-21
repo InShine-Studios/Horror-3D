@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8678860885055237811}
   - component: {fileID: 4190455809664457921}
   - component: {fileID: 7924734258129327488}
-  - component: {fileID: 4804907318077626227}
+  - component: {fileID: 8913060077667199614}
   m_Layer: 0
   m_Name: DoorRight
   m_TagString: Untagged
@@ -82,8 +82,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4804907318077626227
-MeshCollider:
+--- !u!65 &8913060077667199614
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -92,10 +92,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2610788475953756333, guid: 18579b6685d3186838046b0ebc64bf66, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.89, y: 2.19, z: 0.13}
+  m_Center: {x: 0.4, y: 0.03, z: 0.03}
 --- !u!1 &377284307546387065
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,7 +137,7 @@ GameObject:
   - component: {fileID: 3144204115078431821}
   - component: {fileID: 5831259800207970618}
   - component: {fileID: 4299175001921430796}
-  - component: {fileID: 8825057086625546804}
+  - component: {fileID: 6444086702861922224}
   m_Layer: 0
   m_Name: DoorLeft
   m_TagString: Untagged
@@ -209,8 +208,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8825057086625546804
-MeshCollider:
+--- !u!65 &6444086702861922224
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -219,10 +218,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3079511812392895539, guid: 18579b6685d3186838046b0ebc64bf66, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.88, y: 2.19, z: 0.13}
+  m_Center: {x: -0.39, y: 0.01, z: 0.02}
 --- !u!1 &4804138534769424762
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,7 +265,7 @@ GameObject:
   - component: {fileID: 8628884359264390673}
   - component: {fileID: 2203957003850722249}
   - component: {fileID: 7910034251218203405}
-  - component: {fileID: 4091553756390819293}
+  - component: {fileID: 2975178634147190558}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -338,7 +336,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4091553756390819293
+--- !u!64 &2975178634147190558
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
