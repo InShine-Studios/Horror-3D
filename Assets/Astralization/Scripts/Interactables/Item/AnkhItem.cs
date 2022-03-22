@@ -23,6 +23,7 @@ public class AnkhItem : Item
         ChangeWorldGM?.Invoke();
         //TODO: Call PlayAudio for Ankh
         //TODO: Implement transition animation
+        
     }
     #endregion
 }

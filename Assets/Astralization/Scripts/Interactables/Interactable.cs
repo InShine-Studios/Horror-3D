@@ -20,7 +20,7 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     [Header("Interactable Icons")]
     [Tooltip("True if there is an icon to be used")]
     [SerializeField]
-    private bool _useIcon;
+    protected bool useIcon;
 
     [Tooltip("The icon mark for guidance")]
     [SerializeField]
@@ -35,7 +35,7 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     #region SetGet
     public void ShowGuideIcon(bool state)
     {
-        if (_useIcon)
+        if (useIcon)
         {
             //Debug.Log("[INTERACTABLE] Setting icon " + this.name + " to " + state);
             _guideIcon.SetActive(state);

@@ -68,11 +68,13 @@ public abstract class Item : Interactable, IItem
         SetCollider(false);
         SetMeshRenderer(false);
         ShowGuideIcon(false);
+        useIcon = false;
     }
     public void Discard()
     {
         SetCollider(true);
         SetMeshRenderer(true);
+        useIcon = true;
     }
     #endregion
 }

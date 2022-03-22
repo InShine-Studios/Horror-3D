@@ -73,6 +73,8 @@ public class GameManager : MonoBehaviour, IGameManager
         _isInAstralWorld = !_isInAstralWorld;
         ChangeWorldEvent?.Invoke(_isInAstralWorld);
         //Debug.Log("[MANAGER] Changing world state to " + (_isInAstralWorld ? "Astral" : "Real"));
+        GameObject.Find("Building/1st Floor/Living Room/LightSwitch/Ceil 1").GetComponent<Light>().enabled = !_isInAstralWorld;
+        GameObject.Find("Iris/Rotate/Flashlight").GetComponent<Light>().enabled = !_isInAstralWorld;
     }
 
     public void InvokeDialogueState()
