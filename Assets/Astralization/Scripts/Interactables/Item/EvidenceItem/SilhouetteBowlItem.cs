@@ -7,34 +7,35 @@ using System.Collections.Generic;
  */
 public class SilhouetteBowlItem : EvidenceItem
 {
-    #region Variables - StateModel
-    [Header("Model reference")]
-    [SerializeField]
-    [Tooltip("Positive model game object reference")]
-    private GameObject _positiveModel;
-    
-    [Space]
-    [SerializeField]
-    [Tooltip("Positive model game object reference")]
-    private GameObject _negativeModel;
+    #region Variables
+    private SilhouetteBowlManager _silhouetteBowlManager;
+    #endregion
+
+    #region MonoBehaviour
+    protected override void Awake()
+    {
+        base.Awake();
+        _silhouetteBowlManager = GetComponent<SilhouetteBowlManager>();
+    }
+    #endregion
+
+    #region Use
+    public override void Use()
+    {
+        _silhouetteBowlManager.ChangeState<SilhouetteBowlActiveState>();
+    }
     #endregion
 
     #region Handler
-    public override void HandleChange()
+    public override void OnInteraction()
     {
-        if (this.state == EvidenceItemState.POSITIVE)
-        {
-            _positiveModel.SetActive(true);
-            _negativeModel.SetActive(false);
-        } else if (this.state == EvidenceItemState.NEGATIVE)
-        {
-            _positiveModel.SetActive(false);
-            _negativeModel.SetActive(true);
-        } else
-        {
-            _positiveModel.SetActive(false);
-            _negativeModel.SetActive(false);
-        }
+        _silhouetteBowlManager.ChangeState<SilhouetteBowlInactiveState>();
+        base.OnInteraction();
+    }
+
+    public override void OnGhostInteraction()
+    {
+        if (!(_silhouetteBowlManager.GetCurrentState() is SilhouetteBowlInactiveState)) DetermineEvidence();
     }
     #endregion
 
@@ -42,8 +43,11 @@ public class SilhouetteBowlItem : EvidenceItem
     public override void DetermineEvidence()
     {
         // TODO this dummy behavior at the moment, wait for Ghost Implementation
-        if (state == EvidenceItemState.NEGATIVE) SetState(EvidenceItemState.POSITIVE);
-        else SetState(EvidenceItemState.NEGATIVE);
+        if (_silhouetteBowlManager.GetCurrentState() is SilhouetteBowlNegativeState)
+        {
+            _silhouetteBowlManager.ChangeState<SilhouetteBowlPositiveState>();
+        }
+        else _silhouetteBowlManager.ChangeState<SilhouetteBowlNegativeState>();
     }
     #endregion
 }

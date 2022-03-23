@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
-
 
 /*
  * Thermometer class.
@@ -8,55 +6,35 @@ using System.Collections.Generic;
  */
 public class ThermometerItem : EvidenceItem
 {
-    #region Variables - StateMaterial
-    [Header("State Materials")]
-    [SerializeField]
-    [Tooltip("Material for Base evidence")]
-    private Material _baseMaterial;
-
-    [Space]
-    [SerializeField]
-    [Tooltip("Material for Detect Evidence evidence")]
-    private Material _activeMaterial;
-
-    [Space]
-    [SerializeField]
-    [Tooltip("Material for Positive evidence")]
-    private Material _positiveMaterial;
-
-    [Space]
-    [SerializeField]
-    [Tooltip("Material for Negative evidence")]
-    private Material _negativeMaterial;
-
-    private Dictionary<EvidenceItemState, Material> stateToMatMapping;
-    #endregion
-
-    #region SetGet
-    private void SetStateMaterial(Material stateMaterial)
-    {
-        MeshRenderer mesh = transform.Find("Model").GetComponentInChildren<MeshRenderer>(true);
-        mesh.material = stateMaterial;
-    }
+    #region Variables
+    private ThermometerManager _thermometerManager;
     #endregion
 
     #region MonoBehaviour
     protected override void Awake()
     {
         base.Awake();
-        stateToMatMapping = new Dictionary<EvidenceItemState, Material>() {
-            {EvidenceItemState.BASE, this._baseMaterial},
-            {EvidenceItemState.ACTIVE, this._activeMaterial},
-            {EvidenceItemState.POSITIVE, this._positiveMaterial},
-            {EvidenceItemState.NEGATIVE, this._negativeMaterial},
-        };
+        _thermometerManager = GetComponent<ThermometerManager>();
+    }
+    #endregion
+
+    #region Use
+    public override void Use()
+    {
+        _thermometerManager.ChangeState<ThermometerActiveState>();
     }
     #endregion
 
     #region Handler
-    public override void HandleChange()
+    public override void OnInteraction()
     {
-        SetStateMaterial(stateToMatMapping[this.state]);
+        _thermometerManager.ChangeState<ThermometerInactiveState>();
+        base.OnInteraction();
+    }
+
+    public override void OnGhostInteraction()
+    {
+        if (!(_thermometerManager.GetCurrentState() is ThermometerInactiveState)) DetermineEvidence();
     }
     #endregion
 
@@ -64,8 +42,11 @@ public class ThermometerItem : EvidenceItem
     public override void DetermineEvidence()
     {
         // TODO this dummy behavior at the moment, wait for Ghost Implementation
-        if (state == EvidenceItemState.NEGATIVE) SetState(EvidenceItemState.POSITIVE);
-        else SetState(EvidenceItemState.NEGATIVE);
+        if (_thermometerManager.GetCurrentState() is ThermometerNegativeState)
+        {
+            _thermometerManager.ChangeState<ThermometerPositiveState>();
+        }
+        else _thermometerManager.ChangeState<ThermometerNegativeState>();
     }
     #endregion
 }
