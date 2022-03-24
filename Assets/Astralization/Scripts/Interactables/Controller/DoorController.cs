@@ -45,19 +45,6 @@ public class DoorController : Interactable, IDoorController
     {
         _isTransitioning = isTransitioning;
     }
-
-    // General function to change the state of doors
-    private void ChangeState()
-    {
-        if (_isTransitioning)
-        {
-            //Debug.Log("[INTERACTABLE] " + (isOpen ? "Closing " : "Opening ") + this.name);
-            _isOpen = !_isOpen;
-            _animator.SetBool(_animParam, _isOpen);
-            if (_isOpen) PlayAudio("Door_Open");
-            else PlayAudio("Door_Close");
-        }
-    }
     #endregion
 
     #region MonoBehaviour
@@ -70,6 +57,19 @@ public class DoorController : Interactable, IDoorController
     #endregion
 
     #region Handler
+    // General function to change the state of doors
+    private void ChangeState()
+    {
+        if (_isTransitioning)
+        {
+            //Debug.Log("[INTERACTABLE] " + (isOpen ? "Closing " : "Opening ") + this.name);
+            _isOpen = !_isOpen;
+            _animator.SetBool(_animParam, _isOpen);
+            if (_isOpen) PlayAudio("Door_Open");
+            else PlayAudio("Door_Close");
+        }
+    }
+
     public override void OnInteraction()
     {
         ChangeState();
