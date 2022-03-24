@@ -10,7 +10,7 @@ public class IdleGhostState : GhostState
     private bool _enableRotate;
     [SerializeField]
     [Tooltip("Rotation Speed of ghost")]
-    private float _rotateSpeed = 0.1f;
+    private float _rotateSpeed = 0.025f;
     private Quaternion targetRotation;
     #endregion
 
@@ -25,11 +25,12 @@ public class IdleGhostState : GhostState
     {
         if (_enableRotate)
         {
-            if (targetRotation == transform.rotation)
+            Quaternion delta = Utils.GeometryCalcu.GetAngleDelta(transform.rotation, targetRotation);
+            if (delta.eulerAngles.y <= 5f)
             {
                 targetRotation = Quaternion.Euler(0f, Utils.Randomizer.GetFloat(-180f, 180f), 0f);
             }
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.time * _rotateSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotateSpeed);
         }
     }
     #endregion
@@ -39,6 +40,8 @@ public class IdleGhostState : GhostState
     {
         base.Enter();
         _enableRotate = true;
+        float randomDelay = Utils.Randomizer.GetFloat(2f, 5f);
+        ChangeToWanderInSeconds(randomDelay);
     }
 
     public override void Exit()
@@ -47,9 +50,11 @@ public class IdleGhostState : GhostState
         _enableRotate = false;
     }
 
-    public override void ChangeToWanderInSeconds(float delay)
+    private void ChangeToWanderInSeconds(float delay)
     {
-        Utils.DelayerHelper.Delay(delay, () => owner.ChangeState<WanderGhostState>());
+        StartCoroutine(
+            Utils.DelayerHelper.Delay(delay, () => owner.ChangeState<WanderGhostState>())
+        );
     }
     #endregion
 }

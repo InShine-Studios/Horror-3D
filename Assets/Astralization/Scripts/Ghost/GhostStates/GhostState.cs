@@ -14,11 +14,4 @@ public abstract class GhostState : State
         owner = GetComponent<GhostManager>();
     }
     #endregion
-
-    #region Handler
-    public virtual void ChangeToWanderInSeconds(float delay)
-    {
-        Utils.LoggerHelper.PrintStateDefaultLog("Ghost", "ChangeToWanderInSeconds");
-    }
-    #endregion
 }
