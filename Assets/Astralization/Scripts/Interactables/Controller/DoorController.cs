@@ -5,7 +5,7 @@ public interface IDoorController: IInteractable
 {
     bool GetState();
     float GetAngle();
-    void SetEnableChangeState(bool enableChangeState);
+    void SetIsTransitioning(bool isTransitioning);
 }
 
 /*
@@ -25,7 +25,7 @@ public class DoorController : Interactable, IDoorController
     [Tooltip("True if door is in open state")]
     private bool _isOpen = false;
     [Tooltip("True if door is in open state")]
-    private bool _enableChangeState = true;
+    private bool _isTransitioning = true;
 
     private Animator _animator;
     #endregion
@@ -41,15 +41,15 @@ public class DoorController : Interactable, IDoorController
         return transform.parent.rotation.y;
     }
 
-    public void SetEnableChangeState(bool enableChangeState)
+    public void SetIsTransitioning(bool isTransitioning)
     {
-        _enableChangeState = enableChangeState;
+        _isTransitioning = isTransitioning;
     }
 
     // General function to change the state of doors
     private void ChangeState()
     {
-        if (_enableChangeState)
+        if (_isTransitioning)
         {
             //Debug.Log("[INTERACTABLE] " + (isOpen ? "Closing " : "Opening ") + this.name);
             _isOpen = !_isOpen;
@@ -65,7 +65,7 @@ public class DoorController : Interactable, IDoorController
     {
         base.Awake();
         _animator = GetComponentInParent<Animator>();
-        _enableChangeState = true;
+        _isTransitioning = true;
     }
     #endregion
 

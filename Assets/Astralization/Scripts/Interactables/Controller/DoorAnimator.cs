@@ -18,12 +18,12 @@ public class DoorAnimator : MonoBehaviour
     #region Handler
     public void StartTransition()
     {
-        _doorController.SetEnableChangeState(false);
+        _doorController.SetIsTransitioning(false);
     }
 
     public void FinishTransition()
     {
-        _doorController.SetEnableChangeState(true);
+        _doorController.SetIsTransitioning(true);
     }
     #endregion
 }
