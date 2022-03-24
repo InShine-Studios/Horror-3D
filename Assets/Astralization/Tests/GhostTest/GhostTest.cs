@@ -8,6 +8,7 @@ public class GhostTest : TestBase
 {
     private GameObject ghost;
     private IGhostMovement ghostMovement;
+    private IGhostManager ghostManager;
 
     protected override void FindGameObjects(Scene scene)
     {
@@ -18,6 +19,7 @@ public class GhostTest : TestBase
             {
                 ghost = gameObject;
                 ghostMovement = ghost.GetComponent<IGhostMovement>();
+                ghostManager = ghost.GetComponent<IGhostManager>();
             }
         }
     }
@@ -38,11 +40,11 @@ public class GhostTest : TestBase
         yield return new WaitWhile(() => sceneLoaded == false);
 
         string targetRoomName = "Laundry Room";
-        IStageManager stageManager = GameObject.Find("Building/StageManager").GetComponent<IStageManager>();
+        IStageManager stageManager = GameObject.Find("Stage/StageManager").GetComponent<IStageManager>();
         WorldPoint targetRoom = stageManager.GetRoomCoordinate(targetRoomName);
 
-        //ghostMovement.SetWandering(false);
-        //ghostMovement.WanderTarget(targetRoom, false);
+        yield return new WaitWhile(() => ghostManager.GetCurrentGhostState() is IdleGhostState);
+        ghost.GetComponent<IWanderGhostState>().SetWanderTarget(targetRoomName,false);
         yield return new WaitWhile(ghostMovement.IsOnRoute);
         float delta = Mathf.Abs(
             Utils.GeometryCalcu.GetDistance3D(
@@ -59,8 +61,19 @@ public class GhostTest : TestBase
         yield return new WaitWhile(() => sceneLoaded == false);
         Vector3 initialPosition = ghost.transform.position;
 
+        yield return new WaitWhile(() => ghostManager.GetCurrentGhostState() is IdleGhostState);
         yield return new WaitWhile(ghostMovement.IsOnRoute);
         Assert.AreNotEqual(initialPosition, ghost.transform.position);
+    }
+
+    [UnityTest]
+    public IEnumerator Ghost_RotatingWhileIdle()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        Quaternion initialRotation = ghost.transform.rotation;
+
+        yield return new WaitForSeconds(1f);
+        Assert.AreNotEqual(initialRotation, ghost.transform.rotation);
     }
     #endregion
 }

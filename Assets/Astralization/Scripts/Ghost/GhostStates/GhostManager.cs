@@ -2,7 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GhostManager : StateMachine
+public interface IGhostManager
+{
+    GhostState GetCurrentGhostState();
+}
+
+public class GhostManager : StateMachine, IGhostManager
 {
     #region Variables
     private GhostState _currentGhostState;
@@ -21,9 +26,10 @@ public class GhostManager : StateMachine
     {
         ChangeState<InitGhostState>();
     }
-    #endregion
 
-    #region Handler
-
+    public GhostState GetCurrentGhostState()
+    {
+        return _currentGhostState;
+    }
     #endregion
 }
