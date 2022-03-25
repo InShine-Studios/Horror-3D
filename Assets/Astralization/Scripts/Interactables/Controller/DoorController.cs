@@ -5,6 +5,7 @@ public interface IDoorController: IInteractable
 {
     bool GetState();
     float GetAngle();
+    void SetIsTransitioning(bool isTransitioning);
 }
 
 /*
@@ -15,6 +16,7 @@ public class DoorController : Interactable, IDoorController
 {
     #region Constants
     private const string _animParam = "isOpen";
+    private static readonly string[] _transitionAnimNames = { "Opening", "Closing" };
     #endregion
 
     #region Variables
@@ -22,10 +24,9 @@ public class DoorController : Interactable, IDoorController
     [SerializeField]
     [Tooltip("True if door is in open state")]
     private bool _isOpen = false;
+    [Tooltip("True if door is in open state")]
+    private bool _isTransitioning = true;
 
-    [Space]
-    [SerializeField]
-    [Header("Animation")]
     private Animator _animator;
     #endregion
 
@@ -40,12 +41,9 @@ public class DoorController : Interactable, IDoorController
         return transform.parent.rotation.y;
     }
 
-    // General function to change the state of doors
-    private void ChangeState()
+    public void SetIsTransitioning(bool isTransitioning)
     {
-        //Debug.Log("[INTERACTABLE] " + (isOpen ? "Closing " : "Opening ") + this.name);
-        _isOpen = !_isOpen;
-        _animator.SetBool(_animParam, _isOpen);
+        _isTransitioning = isTransitioning;
     }
     #endregion
 
@@ -53,15 +51,28 @@ public class DoorController : Interactable, IDoorController
     protected override void Awake()
     {
         base.Awake();
+        _animator = GetComponentInParent<Animator>();
+        _isTransitioning = true;
     }
     #endregion
 
     #region Handler
+    // General function to change the state of doors
+    private void ChangeState()
+    {
+        if (_isTransitioning)
+        {
+            //Debug.Log("[INTERACTABLE] " + (isOpen ? "Closing " : "Opening ") + this.name);
+            _isOpen = !_isOpen;
+            _animator.SetBool(_animParam, _isOpen);
+            if (_isOpen) PlayAudio("Door_Open");
+            else PlayAudio("Door_Close");
+        }
+    }
+
     public override void OnInteraction()
     {
         ChangeState();
-        if (_isOpen) PlayAudio("Door_Open");
-        else PlayAudio("Door_Close");
     }
     #endregion
 
