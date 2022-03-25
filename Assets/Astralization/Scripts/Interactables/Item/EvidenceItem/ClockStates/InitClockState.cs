@@ -15,7 +15,7 @@ public class InitClockState : ClockState
     {
         // set up here for future use
         yield return null;
-        owner.ChangeState<ClockInactiveStates>();
+        owner.ChangeState<ClockInactiveState>();
     }
     #endregion
 }

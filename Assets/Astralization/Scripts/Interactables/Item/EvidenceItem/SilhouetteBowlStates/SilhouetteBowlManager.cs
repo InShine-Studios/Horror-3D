@@ -8,7 +8,7 @@ public class SilhouetteBowlManager : StateMachine
     private SilhouetteBowlState _currentSilhouetteBowlState;
     #endregion
 
-    #region Getter
+    #region SetGet
     public SilhouetteBowlState GetCurrentState()
     {
         return _currentSilhouetteBowlState;

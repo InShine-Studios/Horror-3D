@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClockInactiveStates : ClockState
+public class ClockInactiveState : ClockState
 {
     #region MonoBehaviour
     protected override void Awake()

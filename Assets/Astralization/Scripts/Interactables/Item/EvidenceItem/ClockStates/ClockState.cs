@@ -4,6 +4,7 @@ public class ClockState : State
 {
     #region Variables
     private GameObject _audioSourceReference;
+    private AudioSource _audioSource;
     protected ClockManager owner;
     protected AudioClip audioInUse;
     #endregion
@@ -13,6 +14,7 @@ public class ClockState : State
     {
         owner = GetComponent<ClockManager>();
         _audioSourceReference = transform.Find("AudioPlayer/StateAudio").gameObject;
+        _audioSource = _audioSourceReference.GetComponent<AudioSource>();
     }
     #endregion
 
@@ -20,8 +22,7 @@ public class ClockState : State
     public override void Enter()
     {
         base.Enter();
-        AudioSource audioSource = _audioSourceReference.GetComponent<AudioSource>();
-        audioSource.clip = audioInUse;
+        _audioSource.clip = audioInUse;
     }
     #endregion
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 public class ThermometerState : State
 {
     #region Variables
+    private MeshRenderer _mesh;
     protected ThermometerManager owner;
     protected Material materialInUse;
     #endregion
@@ -11,6 +12,7 @@ public class ThermometerState : State
     protected virtual void Awake()
     {
         owner = GetComponent<ThermometerManager>();
+        _mesh = transform.Find("Model").GetComponentInChildren<MeshRenderer>(true);
     }
     #endregion
 
@@ -18,8 +20,7 @@ public class ThermometerState : State
     public override void Enter()
     {
         base.Enter();
-        MeshRenderer mesh = transform.Find("Model").GetComponentInChildren<MeshRenderer>(true);
-        mesh.material = materialInUse;
+        _mesh.material = materialInUse;
     }
     #endregion
 }

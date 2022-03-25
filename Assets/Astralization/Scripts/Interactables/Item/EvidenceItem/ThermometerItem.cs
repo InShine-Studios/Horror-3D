@@ -18,14 +18,12 @@ public class ThermometerItem : EvidenceItem
     }
     #endregion
 
-    #region Use
+    #region Handler
     public override void Use()
     {
         _thermometerManager.ChangeState<ThermometerActiveState>();
     }
-    #endregion
 
-    #region Handler
     public override void OnInteraction()
     {
         _thermometerManager.ChangeState<ThermometerInactiveState>();
@@ -38,7 +36,7 @@ public class ThermometerItem : EvidenceItem
     }
     #endregion
 
-    #region Evidence related
+    #region EvidenceHandler
     public override void DetermineEvidence()
     {
         // TODO this dummy behavior at the moment, wait for Ghost Implementation

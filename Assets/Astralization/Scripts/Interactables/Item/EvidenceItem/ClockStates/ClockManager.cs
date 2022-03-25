@@ -8,7 +8,7 @@ public class ClockManager : StateMachine
     private ClockState _currentClockState;
     #endregion
 
-    #region Getter
+    #region SetGet
     public ClockState GetCurrentState()
     {
         return _currentClockState;

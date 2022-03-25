@@ -13,7 +13,6 @@ public class SilhouetteBowlActiveState : SilhouetteBowlState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log(positiveModel);
         positiveModel.SetActive(false);
         negativeModel.SetActive(false);
     }

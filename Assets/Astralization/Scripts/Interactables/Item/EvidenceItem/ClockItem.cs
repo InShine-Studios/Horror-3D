@@ -6,6 +6,10 @@ using UnityEngine;
  */
 public class ClockItem : EvidenceItem
 {
+    #region Const
+    private const string _stateAudio = "StateAudio";
+    #endregion
+
     #region Variables
     private ClockManager _clockManager;
     #endregion
@@ -18,41 +22,38 @@ public class ClockItem : EvidenceItem
     }
     #endregion
 
-    #region Use
+    #region ItemHandler
     public override void Use()
     {
-        _clockManager.ChangeState<ClockActiveStates>();
-        PlayAudio("StateAudio");
+        _clockManager.ChangeState<ClockActiveState>();
+        PlayAudio(_stateAudio);
     }
-    #endregion
 
-    #region Handler
     public override void OnInteraction()
     {
-        _clockManager.ChangeState<ClockInactiveStates>();
-        PlayAudio("StateAudio");
+        _clockManager.ChangeState<ClockInactiveState>();
+        PlayAudio(_stateAudio);
         base.OnInteraction();
     }
 
     public override void OnGhostInteraction()
     {
-        if (!(_clockManager.GetCurrentState() is ClockInactiveStates)) DetermineEvidence();
+        if (!(_clockManager.GetCurrentState() is ClockInactiveState)) DetermineEvidence();
     }
     #endregion
 
-    #region Evidence related
+    #region EvidenceHandler
     public override void DetermineEvidence()
     {
         // TODO this dummy behavior at the moment, wait for Ghost Implementation
         if (_clockManager.GetCurrentState() is ClockNegativeState)
         {
             _clockManager.ChangeState<ClockPositiveState>();
-            PlayAudio("StateAudio");
         }
         else {
             _clockManager.ChangeState<ClockNegativeState>();
-            PlayAudio("StateAudio");
         }
+        PlayAudio(_stateAudio);
     }
     #endregion
 }
