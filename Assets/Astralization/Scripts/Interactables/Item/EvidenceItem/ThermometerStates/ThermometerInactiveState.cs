@@ -6,7 +6,7 @@ public class ThermometerInactiveState : ThermometerState
     protected override void Awake()
     {
         base.Awake();
-        materialInUse = Resources.Load("MAT_Thermometer_Base", typeof(Material)) as Material;
+        materialInUse = Resources.Load("EvidenceItem/MAT_Thermometer_Base", typeof(Material)) as Material;
     }
     #endregion
 }

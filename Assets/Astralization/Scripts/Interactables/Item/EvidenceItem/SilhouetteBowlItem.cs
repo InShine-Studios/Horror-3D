@@ -19,14 +19,12 @@ public class SilhouetteBowlItem : EvidenceItem
     }
     #endregion
 
-    #region Use
+    #region ItemInputHandler
     public override void Use()
     {
         _silhouetteBowlManager.ChangeState<SilhouetteBowlActiveState>();
     }
-    #endregion
 
-    #region Handler
     public override void OnInteraction()
     {
         _silhouetteBowlManager.ChangeState<SilhouetteBowlInactiveState>();
@@ -39,7 +37,7 @@ public class SilhouetteBowlItem : EvidenceItem
     }
     #endregion
 
-    #region Evidence related
+    #region EvidenceHelper
     public override void DetermineEvidence()
     {
         // TODO this dummy behavior at the moment, wait for Ghost Implementation

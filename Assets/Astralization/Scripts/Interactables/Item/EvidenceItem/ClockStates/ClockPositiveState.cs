@@ -6,7 +6,7 @@ public class ClockPositiveState : ClockState
     protected override void Awake()
     {
         base.Awake();
-        audioInUse = Resources.Load("SFX_Heartbeat_2_Loop", typeof(AudioClip)) as AudioClip;
+        audioInUse = Resources.Load("EvidenceItem/SFX_Clock_2_Loop", typeof(AudioClip)) as AudioClip;
     }
     #endregion
 }

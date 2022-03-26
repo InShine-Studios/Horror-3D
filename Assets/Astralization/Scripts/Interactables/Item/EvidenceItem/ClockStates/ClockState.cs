@@ -3,7 +3,6 @@ using UnityEngine;
 public class ClockState : State
 {
     #region Variables
-    private GameObject _audioSourceReference;
     private AudioSource _audioSource;
     protected ClockManager owner;
     protected AudioClip audioInUse;
@@ -13,8 +12,8 @@ public class ClockState : State
     protected virtual void Awake()
     {
         owner = GetComponent<ClockManager>();
-        _audioSourceReference = transform.Find("AudioPlayer/StateAudio").gameObject;
-        _audioSource = _audioSourceReference.GetComponent<AudioSource>();
+        GameObject StateAudio = transform.Find("AudioPlayer/StateAudio").gameObject;
+        _audioSource = StateAudio.GetComponent<AudioSource>();
     }
     #endregion
 

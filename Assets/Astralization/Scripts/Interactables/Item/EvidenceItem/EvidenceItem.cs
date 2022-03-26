@@ -13,12 +13,12 @@ public interface IEvidenceItem : IItem
  */
 public abstract class EvidenceItem : Item, IEvidenceItem
 {
-    #region Handler
+    #region GhostInput
     public abstract void OnGhostInteraction();
 
     #endregion
 
-    #region Evidence related
+    #region EvidenceHelper
     public abstract void DetermineEvidence();
     #endregion
 }

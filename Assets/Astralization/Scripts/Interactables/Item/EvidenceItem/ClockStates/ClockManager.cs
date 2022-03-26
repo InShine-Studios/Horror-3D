@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class ClockManager : StateMachine
 {
-    #region Variables
-    private ClockState _currentClockState;
-    #endregion
-
     #region SetGet
     public ClockState GetCurrentState()
     {
-        return _currentClockState;
+        return (ClockState)CurrentState;
     }
     #endregion
 
@@ -19,14 +15,6 @@ public class ClockManager : StateMachine
     private void Awake()
     {
         ChangeState<InitClockState>();
-    }
-    #endregion
-
-    #region Handler
-    public override void ChangeState<T>()
-    {
-        base.ChangeState<T>();
-        _currentClockState = (ClockState)CurrentState;
     }
     #endregion
 }
