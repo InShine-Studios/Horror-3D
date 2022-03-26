@@ -85,19 +85,29 @@ public class InteractableTest: TestBase
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
 
         PlayerInput _playerInput = player.GetComponent<PlayerInput>();
-        Animator anim = _hud.transform.Find("HidingOverlay").GetComponent<Animator>();
-        Transform closetsModel = GameObject.Find("Closets").transform.Find("Model");
+        //Animator anim = _hud.transform.Find("HidingOverlay").GetComponent<Animator>();
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
         yield return new WaitForSeconds(1.0f);
-        Vector3 calOffset = closetsModel.GetComponent<Renderer>().bounds.center;
-        Assert.AreEqual(player.transform.position, calOffset);
-        Assert.True(anim.GetBool("isHiding"));
+        Vector3 calOffset = GameObject.Find("Closets/Model/RotateRight").GetComponentInChildren<Renderer>().bounds.center;
+        Assert.Less(Utils.GeometryCalcu.GetDistance3D(calOffset,player.transform.position),1f);
+        //Assert.True(anim.GetBool("isHiding"));
         Assert.AreEqual(_playerInput.currentActionMap.name, "Hiding");
 
+        // Try moving while hiding
+        Transform currentPosition = player.transform;
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveBack, false, 1f);
+        Assert.Less(Utils.GeometryCalcu.GetDistance3D(calOffset, player.transform.position), 1f);
+
+        // Unhide
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
-        Assert.False(anim.GetBool("isHiding"));
+        //Assert.False(anim.GetBool("isHiding"));
         yield return new WaitForSeconds(1.0f);
         Assert.AreEqual(_playerInput.currentActionMap.name, "Default");
+
+        // Try moving after hiding
+        currentPosition = player.transform;
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveBack, false, 1f);
+        Assert.AreNotEqual(currentPosition, player.transform.position);
     }
 
     [UnityTest]
