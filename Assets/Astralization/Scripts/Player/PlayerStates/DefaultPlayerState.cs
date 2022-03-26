@@ -56,6 +56,13 @@ public class DefaultPlayerState : PlayerState
     }
     #endregion
 
+    #region StateHandler
+    public override void Enter()
+    {
+        base.Enter();
+    }
+    #endregion
+
     #region Inventory Input Handler
     public override void UseActiveItem(InputAction.CallbackContext ctx)
     {

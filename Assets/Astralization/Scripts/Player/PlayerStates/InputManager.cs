@@ -43,6 +43,12 @@ public class InputManager : StateMachine
         }
         //Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);
     }
+
+    public override void ChangeState<T>()
+    {
+        base.ChangeState<T>();
+        _currentPlayerState = (PlayerState)CurrentState;
+    }
     #endregion
 
     #region Input Handler
