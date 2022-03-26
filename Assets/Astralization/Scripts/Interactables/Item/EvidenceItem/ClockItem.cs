@@ -30,8 +30,8 @@ public class ClockItem : EvidenceItem
 
     public override void OnInteraction()
     {
-        _clockManager.ChangeState<ClockInactiveState>();
         base.OnInteraction();
+        _clockManager.ChangeState<ClockInactiveState>();
     }
 
     public override void OnGhostInteraction()

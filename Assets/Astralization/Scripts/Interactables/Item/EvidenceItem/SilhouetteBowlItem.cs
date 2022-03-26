@@ -27,8 +27,8 @@ public class SilhouetteBowlItem : EvidenceItem
 
     public override void OnInteraction()
     {
-        _silhouetteBowlManager.ChangeState<SilhouetteBowlInactiveState>();
         base.OnInteraction();
+        _silhouetteBowlManager.ChangeState<SilhouetteBowlInactiveState>();
     }
 
     public override void OnGhostInteraction()

@@ -26,8 +26,8 @@ public class ThermometerItem : EvidenceItem
 
     public override void OnInteraction()
     {
-        _thermometerManager.ChangeState<ThermometerInactiveState>();
         base.OnInteraction();
+        _thermometerManager.ChangeState<ThermometerInactiveState>();
     }
 
     public override void OnGhostInteraction()
