@@ -43,12 +43,6 @@ public class InputManager : StateMachine
         }
         //Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);
     }
-
-    public override void ChangeState<T>()
-    {
-        base.ChangeState<T>();
-        _currentPlayerState = (PlayerState)CurrentState;
-    }
     #endregion
 
     #region Input Handler
@@ -61,7 +55,6 @@ public class InputManager : StateMachine
 
     public void HandleInputDefault(InputAction.CallbackContext ctx)
     {
-
         PlayerState currentPlayerState = (PlayerState)CurrentState;
         if (!CanHandleInput()) return;
         switch (ctx.action.name)
