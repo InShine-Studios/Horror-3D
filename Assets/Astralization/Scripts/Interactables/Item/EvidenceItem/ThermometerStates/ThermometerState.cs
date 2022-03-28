@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ThermometerState : State
+public class ThermometerState : State, IEvidenceState
 {
     #region Variables
     private MeshRenderer _mesh;

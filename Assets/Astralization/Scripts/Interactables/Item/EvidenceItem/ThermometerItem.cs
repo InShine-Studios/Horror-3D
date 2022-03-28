@@ -36,7 +36,7 @@ public class ThermometerItem : EvidenceItem
     }
     #endregion
 
-    #region EvidenceHandler
+    #region EvidenceHelper
     public override void DetermineEvidence()
     {
         // TODO this dummy behavior at the moment, wait for Ghost Implementation

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SilhouetteBowlState : State
+public class SilhouetteBowlState : State, IEvidenceState
 {
     #region Variables
     protected SilhouetteBowlManager owner;

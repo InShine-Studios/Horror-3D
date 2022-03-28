@@ -63,8 +63,7 @@ public class HidingState : PlayerState
     {
         if (ctx.performed)
         {
-            StopHidingHudEvent?.Invoke(false);
-            StartCoroutine(Utils.DelayerHelper.Delay(1.0f, () => owner.SetPlayerActionMap(Utils.PlayerHelper.States.Default)));
+            owner.SetPlayerActionMap(Utils.PlayerHelper.States.Default);
         }
     }
     #endregion

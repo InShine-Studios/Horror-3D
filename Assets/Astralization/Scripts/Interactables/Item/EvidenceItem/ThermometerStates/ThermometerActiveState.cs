@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ThermometerActiveState : ThermometerState
+public class ThermometerActiveState : ThermometerState, IActiveState
 {
     #region MonoBehaviour
     protected override void Awake()

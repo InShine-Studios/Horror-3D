@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ClockNegativeState : ClockState
+public class ClockNegativeState : ClockState, INegativeState
 {
     #region MonoBehaviour
     protected override void Awake()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SilhouetteBowlPositiveState : SilhouetteBowlState
+public class SilhouetteBowlPositiveState : SilhouetteBowlState, IPositiveState
 {
     #region MonoBehaviour
     protected override void Awake()

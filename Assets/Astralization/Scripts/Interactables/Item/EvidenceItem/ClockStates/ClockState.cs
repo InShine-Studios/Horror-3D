@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ClockState : State
+public class ClockState : State, IEvidenceState
 {
     #region Variables
     private AudioSource _audioSource;

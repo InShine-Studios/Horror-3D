@@ -110,8 +110,8 @@ public class EvidenceItemTest : TestBase
                 Assert.IsFalse(heartless.activeInHierarchy);
             }
 
-            EvidenceItem script = gameObject.GetComponent<EvidenceItem>();
-            //Assert.AreEqual(script.state, EvidenceItemState.ACTIVE);
+            IStateMachine script = gameObject.GetComponent<IStateMachine>();
+            Assert.True(script.CurrentState is IActiveState);
         }
     }
 
@@ -156,8 +156,8 @@ public class EvidenceItemTest : TestBase
                 Assert.IsFalse(heartless.activeInHierarchy);
             }
 
-            EvidenceItem script = gameObject.GetComponent<EvidenceItem>();
-            //Assert.AreEqual(script.state, EvidenceItemState.BASE);
+            IStateMachine script = gameObject.GetComponent<IStateMachine>();
+            Assert.True(script.CurrentState is IInactiveState);
         }
     }
     #endregion
@@ -207,8 +207,8 @@ public class EvidenceItemTest : TestBase
                 Assert.IsFalse(heartless.activeInHierarchy);
             }
 
-            EvidenceItem script = gameObject.GetComponent<EvidenceItem>();
-            //Assert.AreEqual(script.state, EvidenceItemState.BASE);
+            IStateMachine script = gameObject.GetComponent<IStateMachine>();
+            Assert.True(script.CurrentState is IInactiveState);
         }
     }
 
@@ -255,8 +255,8 @@ public class EvidenceItemTest : TestBase
                 Assert.IsFalse(heartless.activeInHierarchy);
             }
 
-            EvidenceItem script = gameObject.GetComponent<EvidenceItem>();
-            //Assert.AreEqual(script.state, EvidenceItemState.POSITIVE);
+            IStateMachine script = gameObject.GetComponent<IStateMachine>();
+            Assert.True(script.CurrentState is IPositiveState);
         }
     }
 
@@ -302,8 +302,8 @@ public class EvidenceItemTest : TestBase
                 Assert.IsTrue(heartless.activeInHierarchy);
             }
 
-            EvidenceItem script = gameObject.GetComponent<EvidenceItem>();
-            //Assert.AreEqual(script.state, EvidenceItemState.NEGATIVE);
+            IStateMachine script = gameObject.GetComponent<IStateMachine>();
+            Assert.True(script.CurrentState is INegativeState);
         }
     }
     #endregion
