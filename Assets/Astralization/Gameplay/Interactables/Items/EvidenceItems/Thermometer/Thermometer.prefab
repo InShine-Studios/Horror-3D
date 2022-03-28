@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5542375193068595120}
   - component: {fileID: 7859233674013976874}
   - component: {fileID: 6788411416412141661}
+  - component: {fileID: 1099225383577469023}
   m_Layer: 0
   m_Name: Thermometer
   m_TagString: Item
@@ -110,6 +111,18 @@ MonoBehaviour:
   _activeMaterial: {fileID: 2100000, guid: 062116c317e6f29d88d48f9609e7db10, type: 2}
   _positiveMaterial: {fileID: 2100000, guid: 2fb4d7f5de93b10f9967eb3170f689ba, type: 2}
   _negativeMaterial: {fileID: 2100000, guid: b467fd4452de9777abe114a393b42921, type: 2}
+--- !u!114 &1099225383577469023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8067161170645168918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45fbd0f1424f8f47a9aeb6ddeaab479, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4362038348730103685
 PrefabInstance:
   m_ObjectHideFlags: 0
