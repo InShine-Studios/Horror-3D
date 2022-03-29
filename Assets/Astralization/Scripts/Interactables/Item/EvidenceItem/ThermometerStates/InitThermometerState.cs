@@ -10,7 +10,7 @@ public class InitThermometerState : ThermometerState
     }
     #endregion
 
-    #region Handler
+    #region Initialization
     private IEnumerator Init()
     {
         // set up here for future use
