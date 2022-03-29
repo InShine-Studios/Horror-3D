@@ -29,6 +29,9 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     private string _currentRoom = "Living Room";
     [Tooltip("Target destination of movement")]
     private Vector3 _wanderTarget;
+
+    [SerializeField]
+    private StageManager _stageManager;
     #endregion
 
     #region SetGet
@@ -67,7 +70,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
 
     public void WanderTarget(string targetRoomName, bool randomizePoint)
     {
-        WorldPoint targetRoom = StageManager.GetRoomCoordinate(targetRoomName);
+        WorldPoint targetRoom = _stageManager.GetRoomCoordinate(targetRoomName);
         if (WanderTarget(_wanderTarget, out _wanderTarget, targetRoom, randomizePoint))
         {
             _navMeshAgent.SetDestination(_wanderTarget);
@@ -97,7 +100,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
 
     private bool RandomWanderTarget(Vector3 center, out Vector3 result)
     {
-        WorldPoint targetRoom = StageManager.GetRandomRoomCoordinate();
+        WorldPoint targetRoom = _stageManager.GetRandomRoomCoordinate();
         return WanderTarget(center, out result, targetRoom, true);
     }
 
