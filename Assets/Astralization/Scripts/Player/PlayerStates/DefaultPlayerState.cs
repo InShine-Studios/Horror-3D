@@ -61,6 +61,12 @@ public class DefaultPlayerState : PlayerState
     {
         base.Enter();
     }
+
+    public override void Exit()
+    {
+        base.Exit();
+        _playerMovement.SetSprinting(false);
+    }
     #endregion
 
     #region Inventory Input Handler

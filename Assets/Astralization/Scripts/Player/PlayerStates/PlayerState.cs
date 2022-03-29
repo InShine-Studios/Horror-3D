@@ -14,6 +14,14 @@ public abstract class PlayerState : State
     }
     #endregion
 
+    #region StateHandler
+    public override void Enter()
+    {
+        base.Enter();
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+    #endregion
+
     #region Default Input Handler
     public virtual void OnMovementInput(InputAction.CallbackContext ctx)
     {
