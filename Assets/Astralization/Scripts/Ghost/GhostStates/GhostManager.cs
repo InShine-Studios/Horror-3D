@@ -7,7 +7,7 @@ public interface IGhostManager
     GhostState GetCurrentGhostState();
 }
 
-public class GhostManager : StateMachine, IGhostManager
+public class GhostStateMachine : StateMachine, IGhostManager
 {
     #region MonoBehaviour
     private void Awake()

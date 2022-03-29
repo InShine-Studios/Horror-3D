@@ -5,13 +5,13 @@ using UnityEngine;
 public abstract class GhostState : State
 {
     #region Variables
-    protected GhostManager owner;
+    protected GhostStateMachine owner;
     #endregion
 
     #region MonoBehaviour
     protected virtual void Awake()
     {
-        owner = GetComponent<GhostManager>();
+        owner = GetComponent<GhostStateMachine>();
     }
     #endregion
 }

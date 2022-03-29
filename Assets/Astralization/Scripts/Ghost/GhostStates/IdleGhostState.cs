@@ -25,17 +25,12 @@ public class IdleGhostState : GhostState
     {
         if (_enableRotate)
         {
-            Quaternion delta = Utils.GeometryCalcu.GetAngleDelta(transform.rotation, targetRotation);
-            if (delta.eulerAngles.y <= 5f)
-            {
-                targetRotation = Quaternion.Euler(0f, Utils.Randomizer.GetFloat(-180f, 180f), 0f);
-            }
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotateSpeed);
+            RotateGhost();
         }
     }
     #endregion
 
-    #region Handler
+    #region GhostStateHandler
     public override void Enter()
     {
         base.Enter();
@@ -49,7 +44,21 @@ public class IdleGhostState : GhostState
         base.Exit();
         _enableRotate = false;
     }
+    #endregion
 
+    #region MovementHelper
+    private void RotateGhost()
+    {
+        Quaternion delta = Utils.GeometryCalcu.GetAngleDelta(transform.rotation, targetRotation);
+        if (delta.eulerAngles.y <= 5f)
+        {
+            targetRotation = Quaternion.Euler(0f, Utils.Randomizer.GetFloat(-180f, 180f), 0f);
+        }
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotateSpeed);
+    }
+    #endregion
+
+    #region StateTransitionHelper
     private void ChangeToWanderInSeconds(float delay)
     {
         StartCoroutine(

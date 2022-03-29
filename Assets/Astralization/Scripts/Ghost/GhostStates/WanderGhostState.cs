@@ -14,7 +14,7 @@ public class WanderGhostState : GhostState, IWanderGhostState
     [Tooltip("Current delay in seconds for checking")]
     private float _checkRate = 1f;
     [Tooltip("Checker delay repeater")]
-    private Utils.CooldownHelper _checker;
+    private Utils.CooldownHelper _wanderTimer;
     [Tooltip("Room name for wander target. Ghost will wander randomly if wander target is not specified.")]
     private string _wanderTarget;
     [Tooltip("True if wander target randomly shifted")]
@@ -27,7 +27,7 @@ public class WanderGhostState : GhostState, IWanderGhostState
         _wanderTarget = wanderTarget;
         _isShifted = isShifted;
         _ghostMovement.ResetPath();
-        StartWandering();
+        GhostWander();
     }
     #endregion
 
@@ -35,17 +35,17 @@ public class WanderGhostState : GhostState, IWanderGhostState
     protected override void Awake()
     {
         base.Awake();
-        _checker = new Utils.CooldownHelper(_checkRate);
+        _wanderTimer = new Utils.CooldownHelper(_checkRate);
         _ghostMovement = GetComponent<GhostMovement>();
         _wanderTarget = "";
     }
 
     protected void Update()
     {
-        _checker.AddAccumulatedTime();
-        if (_checker.IsFinished())
+        _wanderTimer.AddAccumulatedTime();
+        if (_wanderTimer.IsFinished())
         {
-            _checker.SetAccumulatedTime(0f);
+            _wanderTimer.SetAccumulatedTime(0f);
             if (!_ghostMovement.IsOnRoute())
             {
                 owner.ChangeState<IdleGhostState>();
@@ -54,13 +54,13 @@ public class WanderGhostState : GhostState, IWanderGhostState
     }
     #endregion
 
-    #region Handler
+    #region GhostStateHandler
     public override void Enter()
     {
         base.Enter();
         _wanderTarget = "";
         _isShifted = false;
-        StartWandering();
+        GhostWander();
     }
 
     public override void Exit()
@@ -68,8 +68,10 @@ public class WanderGhostState : GhostState, IWanderGhostState
         base.Exit();
         _ghostMovement.ResetPath();
     }
+    #endregion
 
-    private void StartWandering()
+    #region WanderingHandler
+    private void GhostWander()
     {
         if (_wanderTarget == "")
         {
