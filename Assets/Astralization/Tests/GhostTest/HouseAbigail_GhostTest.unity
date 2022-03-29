@@ -77737,7 +77737,8 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2908446662778423234, guid: 4f911ef6b3bda46c08ccddc1ca4cedf6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4f911ef6b3bda46c08ccddc1ca4cedf6, type: 3}
 --- !u!43 &1458516366
 Mesh:
@@ -92917,7 +92918,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044022937042, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -1e-45
+      value: 3e-45
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044022937042, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.z
@@ -92981,7 +92982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044410928812, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 3273256044410928812, guid: 7fef102572efe7e4a90b1164070fc27c, type: 3}
       propertyPath: m_LocalRotation.z

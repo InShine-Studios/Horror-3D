@@ -1,11 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IStageManager
-{
-    WorldPoint GetRandomRoomCoordinate();
-    WorldPoint GetRoomCoordinate(string roomName);
-}
+public interface IStageManager { }
 
 /*
  * Manages stage related behavior.
@@ -14,7 +10,7 @@ public interface IStageManager
 public class StageManager : MonoBehaviour, IStageManager
 {
     #region Variables
-    private Dictionary<string, WorldPoint> _roomPoints = new Dictionary<string, WorldPoint>();
+    private static Dictionary<string, WorldPoint> _roomPoints = new Dictionary<string, WorldPoint>();
 
     [SerializeField]
     private WorldPoint _roomPointPrefab;
@@ -23,12 +19,13 @@ public class StageManager : MonoBehaviour, IStageManager
     #endregion
 
     #region SetGet
-    public WorldPoint GetRoomCoordinate(string roomName)
+    public static WorldPoint GetRoomCoordinate(string roomName)
     {
+        Debug.Log(_roomPoints);
         return _roomPoints[roomName];
     }
 
-    public WorldPoint GetRandomRoomCoordinate()
+    public static WorldPoint GetRandomRoomCoordinate()
     {
         WorldPoint randomRoom = Utils.Randomizer.GetRandomValue(_roomPoints);
         return randomRoom;
@@ -46,6 +43,7 @@ public class StageManager : MonoBehaviour, IStageManager
     private void Load()
     {
         if (!_stageData) return;
+        if (_roomPoints.Count > 0) _roomPoints.Clear();
 
         for (int i = 0; i < _stageData.Positions.Count; i++)
         {
