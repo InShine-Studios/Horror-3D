@@ -1,7 +1,15 @@
 using UnityEngine;
 
+public interface IStateMachine
+{
+    State CurrentState { get; set; }
+
+    void ChangeState<T>() where T : State;
+    T GetState<T>() where T : State;
+}
+
 // State machine to control the states
-public class StateMachine : MonoBehaviour
+public class StateMachine : MonoBehaviour, IStateMachine
 {
     public virtual State CurrentState
     {
@@ -31,7 +39,7 @@ public class StateMachine : MonoBehaviour
         // Same state or not done transitioning
         if (_currentState == value || _inTransition)
             return;
-        
+
         _inTransition = true;
 
         if (_currentState != null)

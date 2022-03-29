@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5ea8eaf3a4c0cb89bad826561a126e75
+guid: 1a49daf1e448f3ab490e7c0f973bed7e
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -7,8 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: MAT_Iris
-    second: {fileID: 2100000, guid: 80428ce6879e1616a9efb85f6be540f7, type: 2}
+      name: Material
+    second: {fileID: 2100000, guid: d1f0ff8f41bf6f967bcb50606d593253, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Outline
+    second: {fileID: 2100000, guid: e1283b8198988109b8ebe64e4492e439, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -44,10 +49,10 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
-    importVisibility: 0
-    importBlendShapes: 0
-    importCameras: 0
-    importLights: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
