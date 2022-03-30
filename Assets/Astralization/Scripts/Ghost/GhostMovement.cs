@@ -5,8 +5,7 @@ public interface IGhostMovement
 {
     float GetDistanceThreshold();
     bool IsOnRoute();
-    void SetWandering(bool value);
-    void WanderTarget(WorldPoint targetRoom, bool randomizePoint);
+    void WanderTarget(string targetRoomName, bool randomizePoint);
 }
 
 /*
@@ -21,16 +20,8 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     [Tooltip("Consider ghost is arrive at destination if distance between ghost position and destination is less than thresh")]
     private float _distanceThresh = 0.5f;
     [SerializeField]
-    [Tooltip("Cooldown of checking if target position should be updated")]
-    private Utils.Range _checkRateRange;
-    [Tooltip("Current delay for checking")]
-    private float _checkRate;
-    [Tooltip("Next check time")]
-    private float _nextCheck = 0.0f;
     [Tooltip("Wander range for sampling. Should be less than 2x agent height")]
-    private float _wanderRange = 3f;
-    [Tooltip("True if ghost is able to wander")]
-    private bool _enableWandering = true;
+    private const float _wanderRange = 3f;
     private NavMeshAgent _navMeshAgent;
     private NavMeshHit _navMeshHit;
 
@@ -56,13 +47,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
 
     public bool IsOnRoute()
     {
-        bool isArrived = GetDistanceFromDestination() <= _distanceThresh;
-        return !isArrived;
-    }
-
-    public void SetWandering(bool value)
-    {
-        _enableWandering = value;
+        return GetDistanceFromDestination() > _distanceThresh;
     }
     #endregion
 
@@ -72,17 +57,6 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _wanderTarget = transform.position;
         _navMeshAgent.SetDestination(_wanderTarget);
-    }
-
-    void Update()
-    {
-        if (Time.time > _nextCheck)
-        {
-            _nextCheck = Time.time + _checkRate;
-            _checkRate = Utils.Randomizer.GetFloat(_checkRateRange.min, _checkRateRange.max);
-
-            if (_enableWandering) CheckReadyToWander();
-        }
     }
     #endregion
 
@@ -94,8 +68,9 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         return target.GetPosition() + new Vector3(shiftX, 0, shiftZ);
     }
 
-    public void WanderTarget(WorldPoint targetRoom, bool randomizePoint)
+    public void WanderTarget(string targetRoomName, bool randomizePoint)
     {
+        WorldPoint targetRoom = _stageManager.GetRoomCoordinate(targetRoomName);
         if (WanderTarget(_wanderTarget, out _wanderTarget, targetRoom, randomizePoint))
         {
             _navMeshAgent.SetDestination(_wanderTarget);
@@ -129,16 +104,19 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         return WanderTarget(center, out result, targetRoom, true);
     }
 
-    private void CheckReadyToWander()
+    public void RandomWander()
     {
-        if (!IsOnRoute())
+        if (RandomWanderTarget(transform.position, out _wanderTarget))
         {
-            if (RandomWanderTarget(transform.position, out _wanderTarget))
-            {
-                _navMeshAgent.SetDestination(_wanderTarget);
-                //Debug.DrawRay(_wanderTarget, Vector3.up, Color.blue, 1.0f);
-            }
+            _navMeshAgent.SetDestination(_wanderTarget);
+            //Debug.DrawRay(_wanderTarget, Vector3.up, Color.blue, 1.0f);
         }
+    }
+
+    public void ResetPath()
+    {
+        _navMeshAgent.isStopped = true;
+        _navMeshAgent.ResetPath();
     }
     #endregion
 }

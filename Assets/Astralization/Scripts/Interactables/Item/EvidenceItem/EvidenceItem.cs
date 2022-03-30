@@ -1,19 +1,9 @@
 using UnityEngine;
 
-public enum EvidenceItemState
-{
-    BASE,
-    ACTIVE,
-    POSITIVE,
-    NEGATIVE
-}
-
 public interface IEvidenceItem : IItem
 {
     void DetermineEvidence();
-    void HandleChange();
     void OnGhostInteraction();
-    void SetState(EvidenceItemState state);
 }
 
 /*
@@ -23,45 +13,12 @@ public interface IEvidenceItem : IItem
  */
 public abstract class EvidenceItem : Item, IEvidenceItem
 {
-    #region Variables
-    [Header("States")]
-    [SerializeField]
-    [Tooltip("Current state")]
-    public EvidenceItemState state = EvidenceItemState.BASE;
-    #endregion
-
-    #region SetGet
-    public void SetState(EvidenceItemState state)
-    {
-        this.state = state;
-        HandleChange();
-    }
-    #endregion
-
-    #region Use
-    public override void Use()
-    {
-        SetState(EvidenceItemState.ACTIVE);
-    }
-    #endregion
-
-    #region Handler
-    public override void OnInteraction()
-    {
-        SetState(EvidenceItemState.BASE);
-        base.OnInteraction();
-    }
-
-    public void OnGhostInteraction()
-    {
-        if (state != EvidenceItemState.BASE) DetermineEvidence();
-    }
-
-    public abstract void HandleChange();
+    #region GhostInput
+    public abstract void OnGhostInteraction();
 
     #endregion
 
-    #region Evidence related
+    #region EvidenceHelper
     public abstract void DetermineEvidence();
     #endregion
 }

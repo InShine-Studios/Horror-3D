@@ -76,6 +76,11 @@ public class PlayerAnimation : MonoBehaviour
             _animator.SetBool("IsWalking", true);
         }
     }
+
+    public void SetAnimState(string animName)
+    {
+        _animator.Play(animName);
+    }
     #endregion
 
     #region MonoBehaviour

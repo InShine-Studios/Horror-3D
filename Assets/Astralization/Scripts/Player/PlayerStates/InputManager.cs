@@ -11,7 +11,6 @@ public class InputManager : StateMachine
     [Tooltip("The Player Input component")]
     [SerializeField]
     private PlayerInput _playerInput;
-    private PlayerState _currentPlayerState;
     #endregion
 
     #region MonoBehaviour
@@ -49,45 +48,47 @@ public class InputManager : StateMachine
     #region Input Handler
     private bool CanHandleInput()
     {
-        _currentPlayerState = (PlayerState)CurrentState;
-        if (_currentPlayerState == null) return false;
+        if (CurrentState == null) return false;
         if (_inTransition) return false;
         return true;
     }
 
     public void HandleInputDefault(InputAction.CallbackContext ctx)
     {
+        PlayerState currentPlayerState = (PlayerState)CurrentState;
         if (!CanHandleInput()) return;
         switch (ctx.action.name)
         {
-            case "Movement": _currentPlayerState.OnMovementInput(ctx); break;
+            case "Movement": currentPlayerState.OnMovementInput(ctx); break;
             //case "MousePosition": _currentPlayerState.OnMousePosition(ctx); break;
-            case "ChangeItem": _currentPlayerState.ScrollActiveItem(ctx); break;
-            case "SprintStart": _currentPlayerState.SprintPressed(ctx); break;
-            case "SprintEnd": _currentPlayerState.SprintReleased(ctx); break;
-            case "Interact": _currentPlayerState.CheckInteractionInteractable(ctx); break;
-            case "PickItem": _currentPlayerState.CheckInteractionItem(ctx); break;
-            case "UseItem": _currentPlayerState.UseActiveItem(ctx); break;
-            case "DiscardItem": _currentPlayerState.DiscardItemInput(ctx); break;
-            case "SimulateGhostInteract": _currentPlayerState.CheckInteractionGhost(ctx); break;
+            case "ChangeItem": currentPlayerState.ScrollActiveItem(ctx); break;
+            case "SprintStart": currentPlayerState.SprintPressed(ctx); break;
+            case "SprintEnd": currentPlayerState.SprintReleased(ctx); break;
+            case "Interact": currentPlayerState.CheckInteractionInteractable(ctx); break;
+            case "PickItem": currentPlayerState.CheckInteractionItem(ctx); break;
+            case "UseItem": currentPlayerState.UseActiveItem(ctx); break;
+            case "DiscardItem": currentPlayerState.DiscardItemInput(ctx); break;
+            case "SimulateGhostInteract": currentPlayerState.CheckInteractionGhost(ctx); break;
         }  
     }
 
     public void HandleInputExorcism(InputAction.CallbackContext ctx)
     {
+        PlayerState currentPlayerState = (PlayerState)CurrentState;
         if (!CanHandleInput()) return;
         switch (ctx.action.name)
         {
-            case "ChannelingStop": _currentPlayerState.UseReleased(ctx); break;
+            case "ChannelingStop": currentPlayerState.UseReleased(ctx); break;
         }
     }
 
     public void HandleInputHiding(InputAction.CallbackContext ctx)
     {
+        PlayerState currentPlayerState = (PlayerState)CurrentState;
         if (!CanHandleInput()) return;
         switch (ctx.action.name)
         {
-            case "Interact": _currentPlayerState.UnhidePlayer(ctx); break;
+            case "Interact": currentPlayerState.UnhidePlayer(ctx); break;
         }
     }
     #endregion
