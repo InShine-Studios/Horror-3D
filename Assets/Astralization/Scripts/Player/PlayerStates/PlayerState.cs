@@ -17,65 +17,57 @@ public abstract class PlayerState : State
     #region Default Input Handler
     public virtual void OnMovementInput(InputAction.CallbackContext ctx)
     {
-        PrintDefaultLog("OnMovementInput");
+        Utils.LoggerHelper.PrintStateDefaultLog("Player","OnMovementInput");
     }
     public virtual void OnMousePosition(InputAction.CallbackContext ctx)
     {
-        PrintDefaultLog("OnMousePosition");
+        Utils.LoggerHelper.PrintStateDefaultLog("Player","OnMousePosition");
     }
     public virtual void ScrollActiveItem(InputAction.CallbackContext ctx)
     {
-        PrintDefaultLog("ScrollActiveItem");
+        Utils.LoggerHelper.PrintStateDefaultLog("Player","ScrollActiveItem");
     }
     public virtual void SprintPressed(InputAction.CallbackContext ctx)
     {
-        PrintDefaultLog("SprintPressed");
+        Utils.LoggerHelper.PrintStateDefaultLog("Player","SprintPressed");
     }
     public virtual void SprintReleased(InputAction.CallbackContext ctx)
     {
-        PrintDefaultLog("SprintReleased");
+        Utils.LoggerHelper.PrintStateDefaultLog("Player","SprintReleased");
     }
     public virtual void CheckInteractionInteractable(InputAction.CallbackContext ctx)
     {
-        PrintDefaultLog("CheckInteractionInteractable");
+        Utils.LoggerHelper.PrintStateDefaultLog("Player","CheckInteractionInteractable");
     }
     public virtual void CheckInteractionItem(InputAction.CallbackContext ctx)
     {
-        PrintDefaultLog("CheckInteractionItem");
+        Utils.LoggerHelper.PrintStateDefaultLog("Player","CheckInteractionItem");
     }
     public virtual void UseActiveItem(InputAction.CallbackContext ctx)
     {
-        PrintDefaultLog("UseActiveItem");
+        Utils.LoggerHelper.PrintStateDefaultLog("Player","UseActiveItem");
     }
     public virtual void DiscardItemInput(InputAction.CallbackContext ctx)
     {
-        PrintDefaultLog("DiscardItemInput");
+        Utils.LoggerHelper.PrintStateDefaultLog("Player","DiscardItemInput");
     }
     public virtual void CheckInteractionGhost(InputAction.CallbackContext ctx)
     {
-        PrintDefaultLog("CheckInteractionGhost");
+        Utils.LoggerHelper.PrintStateDefaultLog("Player","CheckInteractionGhost");
     }
     #endregion
 
     #region Hiding Input Handler
     public virtual void UnhidePlayer(InputAction.CallbackContext ctx)
     {
-        PrintDefaultLog("UnhidePlayer");
+        Utils.LoggerHelper.PrintStateDefaultLog("Player","UnhidePlayer");
     }
     #endregion
 
     #region Exorcism Input Handler
     public virtual void UseReleased(InputAction.CallbackContext ctx)
     {
-        PrintDefaultLog("UseReleasedExorcism");
-    }
-    #endregion
-
-    #region Logger
-    private void PrintDefaultLog(string methodName)
-    {
-        Debug.Log("[PLAYER STATE] NotImplementedWarning: " + methodName +
-            " is not implemented in this state");
+        Utils.LoggerHelper.PrintStateDefaultLog("Player","UseReleasedExorcism");
     }
     #endregion
 }
