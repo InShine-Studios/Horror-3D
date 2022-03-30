@@ -12,6 +12,11 @@ namespace Utils
             return Vector3.Distance(source, target);
         }
 
+        public static Quaternion GetAngleDelta(Quaternion source, Quaternion target)
+        {
+            return target * Quaternion.Inverse(source);
+        }
+
         public static Collider[] FindOverlapsFromCollider(Transform source, CapsuleCollider CapsuleDetector)
         {
             Vector3 startCapsulePos = source.position + new Vector3(0f, CapsuleDetector.height / 2f) +

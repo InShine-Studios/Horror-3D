@@ -11,7 +11,7 @@ public class InitPlayerState : PlayerState
     }
     #endregion
 
-    #region Handler
+    #region Initialization
     private IEnumerator Init()
     {
         // set up here for future use
