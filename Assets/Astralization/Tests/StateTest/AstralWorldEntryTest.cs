@@ -52,7 +52,10 @@ public class AstralWorldEntryTest : TestBase
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return null;
-        
+
+        GameObject volume = GameObject.Find("Volume");
+        IStateMachine script = volume.GetComponent<IStateMachine>();
+        Assert.True(script.CurrentState is IVolumeAstralState);
 
         Assert.IsTrue(astralMeterLogic.GetConstantRate() == 0.083f);
     }

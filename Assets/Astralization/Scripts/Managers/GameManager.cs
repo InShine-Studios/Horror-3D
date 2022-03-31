@@ -9,7 +9,8 @@ public interface IGameManager
     void InvokeExorcismState();
     void InvokeHidingState();
     void ResetPlayerState();
-    void SendHudEvent(PlayerHelper.States hudKey, bool condition);
+    void SendHudPlayerEvent(PlayerHelper.States hudKey, bool condition);
+    void SendHudUiEvent(UiHelper.States hudKey, bool condition);
     void SendPlayerStateEvent(PlayerHelper.States actionMapKey);
 }
 
