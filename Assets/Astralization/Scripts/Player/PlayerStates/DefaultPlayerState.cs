@@ -31,7 +31,7 @@ public class DefaultPlayerState : PlayerState
     #region Movement Input Handler
     public override void OnMovementInput(InputAction.CallbackContext ctx)
     {
-        _playerMovement.GenerateMoveVector(ctx.ReadValue<Vector2>());
+        _playerMovement.SetFaceDirection(ctx.ReadValue<Vector2>());
     }
 
     public override void OnMousePosition(InputAction.CallbackContext ctx)
@@ -53,6 +53,13 @@ public class DefaultPlayerState : PlayerState
         {
             _playerMovement.SetSprinting(false);
         }
+    }
+    #endregion
+
+    #region StateHandler
+    public override void Enter()
+    {
+        base.Enter();
     }
     #endregion
 

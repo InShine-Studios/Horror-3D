@@ -8,7 +8,7 @@ public interface IAstralMeterLogic
     float GetAstralMeter();
     float GetConstantRate();
     bool IsOnSight();
-    void NpcWrongAnswer();
+    void VictimWrongAnswer();
     void PlayerKilled();
 }
 
@@ -106,8 +106,8 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     }
     #endregion
 
-    #region NPC
-    public void NpcWrongAnswer()
+    #region Victim
+    public void VictimWrongAnswer()
     {
         int randAnswerAmount = Random.Range(10, 15);
         _astralMeter += (float)randAnswerAmount;

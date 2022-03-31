@@ -20,7 +20,7 @@ public class EvidenceItemTest : TestBase
                 player = gameObject;
                 playerMovement = player.GetComponent<IPlayerMovement>();
             }
-            else if (gameObject.name == "Canvas")
+            else if (gameObject.name == "UI")
             {
                 hud = gameObject;
             }
@@ -42,7 +42,7 @@ public class EvidenceItemTest : TestBase
     {
         yield return new WaitWhile(() => sceneLoaded == false);
 
-        foreach (string gameObjectName in 
+        foreach (string gameObjectName in
             new ArrayList() {
                 "Thermometer",
                 "SilhouetteBowl",
@@ -74,7 +74,7 @@ public class EvidenceItemTest : TestBase
     {
         yield return new WaitWhile(() => sceneLoaded == false);
 
-        foreach (string gameObjectName in 
+        foreach (string gameObjectName in
             new ArrayList() {
                 "Thermometer",
                 "SilhouetteBowl",
@@ -95,12 +95,14 @@ public class EvidenceItemTest : TestBase
                 GameObject thermometerModel = GameObject.Find("OverworldItems/Thermometer/Model");
                 Material stateMaterial = thermometerModel.GetComponent<MeshRenderer>().material;
                 Assert.AreEqual("MAT_Thermometer_Active (Instance)", stateMaterial.name);
-            } else if (gameObjectName == "Clock")
+            }
+            else if (gameObjectName == "Clock")
             {
                 GameObject clockAudioSourceRef = GameObject.Find("OverworldItems/Clock/AudioPlayer/StateAudio");
                 AudioClip stateAudioClip = clockAudioSourceRef.GetComponent<AudioSource>().clip;
-                Assert.AreEqual("SFX_Heartbeat_3_Loop", stateAudioClip.name);
-            } else if  (gameObjectName == "SilhouetteBowl")
+                Assert.AreEqual("SFX_Clock_3_Loop", stateAudioClip.name);
+            }
+            else if (gameObjectName == "SilhouetteBowl")
             {
                 GameObject headless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Headless");
                 GameObject heartless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Heartless");
@@ -108,17 +110,17 @@ public class EvidenceItemTest : TestBase
                 Assert.IsFalse(heartless.activeInHierarchy);
             }
 
-            EvidenceItem script = gameObject.GetComponent<EvidenceItem>();
-            Assert.AreEqual(script.state, EvidenceItemState.ACTIVE);
+            IStateMachine script = gameObject.GetComponent<IStateMachine>();
+            Assert.True(script.CurrentState is IActiveState);
         }
-    }    
-    
+    }
+
     [UnityTest]
     public IEnumerator EvidenceItem_NotActivatedWhenDiscarded()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
 
-        foreach (string gameObjectName in 
+        foreach (string gameObjectName in
             new ArrayList() {
                 "Thermometer",
                 "SilhouetteBowl",
@@ -139,12 +141,14 @@ public class EvidenceItemTest : TestBase
                 GameObject thermometerModel = GameObject.Find("OverworldItems/Thermometer/Model");
                 Material stateMaterial = thermometerModel.GetComponent<MeshRenderer>().material;
                 Assert.AreEqual("MAT_Thermometer_Base (Instance)", stateMaterial.name);
-            } else if (gameObjectName == "Clock")
+            }
+            else if (gameObjectName == "Clock")
             {
                 GameObject clockAudioSourceRef = GameObject.Find("OverworldItems/Clock/AudioPlayer/StateAudio");
                 AudioClip stateAudioClip = clockAudioSourceRef.GetComponent<AudioSource>().clip;
                 Assert.IsNull(stateAudioClip);
-            } else if  (gameObjectName == "SilhouetteBowl")
+            }
+            else if (gameObjectName == "SilhouetteBowl")
             {
                 GameObject headless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Headless");
                 GameObject heartless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Heartless");
@@ -152,12 +156,12 @@ public class EvidenceItemTest : TestBase
                 Assert.IsFalse(heartless.activeInHierarchy);
             }
 
-            EvidenceItem script = gameObject.GetComponent<EvidenceItem>();
-            Assert.AreEqual(script.state, EvidenceItemState.BASE);
+            IStateMachine script = gameObject.GetComponent<IStateMachine>();
+            Assert.True(script.CurrentState is IInactiveState);
         }
-    }    
+    }
     #endregion
-    
+
     #region Ghost Interaction Simulation
 
     // [TODO] Adjust/remove when Ghost Interaction fully implemented
@@ -166,7 +170,7 @@ public class EvidenceItemTest : TestBase
     {
         yield return new WaitWhile(() => sceneLoaded == false);
 
-        foreach (string gameObjectName in 
+        foreach (string gameObjectName in
             new ArrayList() {
                 "Thermometer",
                 "SilhouetteBowl",
@@ -188,12 +192,14 @@ public class EvidenceItemTest : TestBase
                 GameObject thermometerModel = GameObject.Find("OverworldItems/Thermometer/Model");
                 Material stateMaterial = thermometerModel.GetComponent<MeshRenderer>().material;
                 Assert.AreEqual("MAT_Thermometer_Base (Instance)", stateMaterial.name);
-            } else if (gameObjectName == "Clock")
+            }
+            else if (gameObjectName == "Clock")
             {
                 GameObject clockAudioSourceRef = GameObject.Find("OverworldItems/Clock/AudioPlayer/StateAudio");
                 AudioClip stateAudioClip = clockAudioSourceRef.GetComponent<AudioSource>().clip;
                 Assert.IsNull(stateAudioClip);
-            } else if  (gameObjectName == "SilhouetteBowl")
+            }
+            else if (gameObjectName == "SilhouetteBowl")
             {
                 GameObject headless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Headless");
                 GameObject heartless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Heartless");
@@ -201,17 +207,17 @@ public class EvidenceItemTest : TestBase
                 Assert.IsFalse(heartless.activeInHierarchy);
             }
 
-            EvidenceItem script = gameObject.GetComponent<EvidenceItem>();
-            Assert.AreEqual(script.state, EvidenceItemState.BASE);
+            IStateMachine script = gameObject.GetComponent<IStateMachine>();
+            Assert.True(script.CurrentState is IInactiveState);
         }
-    }      
-    
+    }
+
     [UnityTest]
     public IEnumerator EvidenceItem_SimulateGhostInteractionPositive()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
 
-        foreach (string gameObjectName in 
+        foreach (string gameObjectName in
             new ArrayList() {
                 "Thermometer",
                 "SilhouetteBowl",
@@ -234,12 +240,14 @@ public class EvidenceItemTest : TestBase
                 GameObject thermometerModel = GameObject.Find("OverworldItems/Thermometer/Model");
                 Material stateMaterial = thermometerModel.GetComponent<MeshRenderer>().material;
                 Assert.AreEqual("MAT_Thermometer_Positive (Instance)", stateMaterial.name);
-            } else if (gameObjectName == "Clock")
+            }
+            else if (gameObjectName == "Clock")
             {
                 GameObject clockAudioSourceRef = GameObject.Find("OverworldItems/Clock/AudioPlayer/StateAudio");
                 AudioClip stateAudioClip = clockAudioSourceRef.GetComponent<AudioSource>().clip;
-                Assert.AreEqual("SFX_Heartbeat_2_Loop", stateAudioClip.name);
-            } else if  (gameObjectName == "SilhouetteBowl")
+                Assert.AreEqual("SFX_Clock_2_Loop", stateAudioClip.name);
+            }
+            else if (gameObjectName == "SilhouetteBowl")
             {
                 GameObject headless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Headless");
                 GameObject heartless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Heartless");
@@ -247,17 +255,17 @@ public class EvidenceItemTest : TestBase
                 Assert.IsFalse(heartless.activeInHierarchy);
             }
 
-            EvidenceItem script = gameObject.GetComponent<EvidenceItem>();
-            Assert.AreEqual(script.state, EvidenceItemState.POSITIVE);
+            IStateMachine script = gameObject.GetComponent<IStateMachine>();
+            Assert.True(script.CurrentState is IPositiveState);
         }
-    }    
-    
+    }
+
     [UnityTest]
     public IEnumerator EvidenceItem_SimulateGhostInteractionNegative()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
 
-        foreach (string gameObjectName in 
+        foreach (string gameObjectName in
             new ArrayList() {
                 "Thermometer",
                 "SilhouetteBowl",
@@ -279,12 +287,14 @@ public class EvidenceItemTest : TestBase
                 GameObject thermometerModel = GameObject.Find("OverworldItems/Thermometer/Model");
                 Material stateMaterial = thermometerModel.GetComponent<MeshRenderer>().material;
                 Assert.AreEqual("MAT_Thermometer_Negative (Instance)", stateMaterial.name);
-            } else if (gameObjectName == "Clock")
+            }
+            else if (gameObjectName == "Clock")
             {
                 GameObject clockAudioSourceRef = GameObject.Find("OverworldItems/Clock/AudioPlayer/StateAudio");
                 AudioClip stateAudioClip = clockAudioSourceRef.GetComponent<AudioSource>().clip;
-                Assert.AreEqual("SFX_Heartbeat_1_Loop", stateAudioClip.name);
-            } else if  (gameObjectName == "SilhouetteBowl")
+                Assert.AreEqual("SFX_Clock_1_Loop", stateAudioClip.name);
+            }
+            else if (gameObjectName == "SilhouetteBowl")
             {
                 GameObject headless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Headless");
                 GameObject heartless = GameObject.Find("OverworldItems/SilhouetteBowl/Model/Heartless");
@@ -292,10 +302,9 @@ public class EvidenceItemTest : TestBase
                 Assert.IsTrue(heartless.activeInHierarchy);
             }
 
-            EvidenceItem script = gameObject.GetComponent<EvidenceItem>();
-            Assert.AreEqual(script.state, EvidenceItemState.NEGATIVE);
+            IStateMachine script = gameObject.GetComponent<IStateMachine>();
+            Assert.True(script.CurrentState is INegativeState);
         }
     }
-
     #endregion
 }

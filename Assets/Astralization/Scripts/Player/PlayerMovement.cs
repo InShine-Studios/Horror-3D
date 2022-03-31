@@ -4,11 +4,14 @@ using UnityEngine.InputSystem;
 
 public interface IPlayerMovement
 {
-    PlayerBase GetPlayerBase();
-    Vector3 GetMoveDirection();
-    bool IsSprinting();
     float GetCurMoveSpeed();
-    void GenerateMoveVector(Vector2 moveInput);
+    Camera GetMainCamera();
+    GameObject GetRotatable();
+    Vector3 GetMoveDirection();
+    PlayerBase GetPlayerBase();
+    bool IsSprinting();
+    void SetFaceDirection(Vector2 moveInput);
+    void SetSprinting(bool isSprinting);
 }
 
 /*
@@ -27,22 +30,37 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     [Header("External Variables")]
     [Tooltip("The Controller component")]
     private CharacterController _controller;
-    [SerializeField] [Tooltip("The PlayerBase for constants")]
+    [SerializeField]
+    [Tooltip("The PlayerBase for constants")]
     private PlayerBase _playerBase;
+    [SerializeField]
+    [Tooltip("The camera that follows the player")]
+    private Camera _mainCamera;
+    [Tooltip("Rotating GameObjects of Player")]
+    private GameObject _rotatable;
+    [Tooltip("Player animation of Player Sprite")]
+    private PlayerAnimation _animation;
 
     [Space]
     [Header("Movement Constants")]
     [Tooltip("The movement speed used")]
     private float _curMoveSpeed;
-    [Tooltip("The move direction generated")]
+    [Tooltip("The facing direction generated from keyboard")]
+    private Vector3 _faceDirection = new Vector3(0, 0, 0);
+    [Tooltip("The move direction calculated from move quaternion")]
     private Vector3 _moveDirection;
+    [Tooltip("The move angle relative to camera and player position")]
+    private float _moveAngle;
     [Tooltip("Gravity Strength")]
     public float Gravity = -50.0f;
-    [Tooltip("Force Grounding Flag")] [SerializeField]
+    [Tooltip("Force Grounding Flag")]
+    [SerializeField]
     private bool _useForceGrounding = true;
 
-    [Tooltip("Sprinting boolean")]
+    [Tooltip("True if player is sprinting")]
     private bool _isSprinting;
+    [Tooltip("True if player is moving")]
+    private bool _isMoving;
     #endregion
 
     #region SetGet
@@ -51,25 +69,64 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     public Vector3 GetMoveDirection() { return _moveDirection; }
     public bool IsSprinting() { return _isSprinting; }
     public void SetSprinting(bool isSprinting) { _isSprinting = isSprinting; }     //TODO Sprint with cooldown?
+    public Camera GetMainCamera() { return _mainCamera; }
+    public GameObject GetRotatable() { return _rotatable; }
     #endregion
 
     #region MonoBehaviour
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
+        _rotatable = transform.Find("Rotate").gameObject;
+        _animation = GetComponentInChildren<PlayerAnimation>();
     }
 
     private void FixedUpdate()
     {
-        if (MovePlayer()) FindClosest?.Invoke();
+        SetDirection();
+        _isMoving = MovePlayer();
+        if (_isMoving) FindClosest?.Invoke();
         if (_useForceGrounding) ForceGrounding();
+    }
+
+    private void Update()
+    {
+        _animation.SetPlayerMoveAnim(_isMoving, _isSprinting);
     }
     #endregion
 
     #region Handler
-    public void GenerateMoveVector(Vector2 moveInput)
+    private void SetDirection()
     {
-        _moveDirection = new Vector3(0, 0) { x = moveInput.x, z = moveInput.y };
+        Vector3 direction = new Vector3(
+            transform.position.x - _mainCamera.transform.position.x,
+            0f,
+            transform.position.z - _mainCamera.transform.position.z
+        ).normalized;
+        //Debug.DrawRay(transform.position, direction);
+
+        _moveAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+        _moveDirection = Quaternion.Euler(0f, _moveAngle, 0f) * _faceDirection;
+
+        _animation.transform.rotation = Quaternion.Euler(0f, _moveAngle, 0f);
+
+        if (_moveDirection.magnitude >= 0.1f)
+        {
+            float faceAngle = Mathf.Atan2(_moveDirection.x, _moveDirection.z) * Mathf.Rad2Deg;
+            _rotatable.transform.rotation = Quaternion.Euler(0f, faceAngle, 0f);
+            //Debug.DrawRay(transform.position, _rotatable.transform.rotation * Vector3.forward);
+
+            _animation.SetSpriteMovingDirection(_faceDirection);
+        }
+        else
+        {
+            _animation.SetSpriteIdleDirection(_rotatable.transform, _mainCamera.transform);
+        }
+    }
+
+    public void SetFaceDirection(Vector2 moveInput)
+    {
+        _faceDirection = new Vector3(0, 0) { x = moveInput.x, z = moveInput.y }.normalized;
         //Debug.Log("[PLAYER MOVEMENT] Direction: " + _moveDirection);
     }
 
@@ -85,8 +142,8 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     {
         if (_isSprinting) _curMoveSpeed = _playerBase.GetSprintSpeed();
         else _curMoveSpeed = _playerBase.GetPlayerMovementSpeed();
-        _controller.SimpleMove(_curMoveSpeed * Time.deltaTime * _moveDirection);
-        return _moveDirection.magnitude != 0;
+        _controller.SimpleMove(_curMoveSpeed * Time.deltaTime * _moveDirection.normalized);
+        return _faceDirection.magnitude != 0;
     }
     #endregion
 }

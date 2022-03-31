@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IStageManager
+public interface IStageManager 
 {
     WorldPoint GetRandomRoomCoordinate();
     WorldPoint GetRoomCoordinate(string roomName);
@@ -25,6 +25,7 @@ public class StageManager : MonoBehaviour, IStageManager
     #region SetGet
     public WorldPoint GetRoomCoordinate(string roomName)
     {
+        Debug.Log(_roomPoints);
         return _roomPoints[roomName];
     }
 
@@ -46,6 +47,7 @@ public class StageManager : MonoBehaviour, IStageManager
     private void Load()
     {
         if (!_stageData) return;
+        if (_roomPoints.Count > 0) _roomPoints.Clear();
 
         for (int i = 0; i < _stageData.Positions.Count; i++)
         {

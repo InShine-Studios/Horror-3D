@@ -282,7 +282,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8057739222434694645}
-  - component: {fileID: 8057739222434694633}
   m_Layer: 0
   m_Name: Rotate
   m_TagString: Player
@@ -306,19 +305,6 @@ Transform:
   m_Father: {fileID: 8057739223163586144}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8057739222434694633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8057739222434694644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ab977764b5149e4c9d156b6018660ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mainCamera: {fileID: 0}
 --- !u!1 &8057739222879337488
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,8 +401,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852518e8b4d7f6f4594dedf01db0c990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerMovement: {fileID: 8057739223163586148}
-  _playerRotation: {fileID: 8057739222434694633}
 --- !u!95 &8057739222879337492
 Animator:
   serializedVersion: 3
@@ -536,19 +520,7 @@ MonoBehaviour:
     m_ActionId: 21a35221-6657-4fbf-a1ba-a8a28f9d9c8a
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 873121507167454745}
-        m_TargetAssemblyTypeName: InputManager, Scripts
-        m_MethodName: HandleInputDefault
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: f1144fc4-010c-49c2-bd51-3711584760af
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
@@ -683,7 +655,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 873121507167454745}
         m_TargetAssemblyTypeName: InputManager, Scripts
-        m_MethodName: HandleInputDialogue
+        m_MethodName: HandleInputHiding
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -695,26 +667,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8409afe8-676f-43cb-8470-6bcf76f9513c
     m_ActionName: Dialogue/NextDialogue[/Keyboard/enter,/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 0
-    m_ActionId: 23ed480d-0a3a-4541-b9f6-ed571086ebb5
-    m_ActionName: Player/SimulateGhostInteract[/Keyboard/z]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d256b422-a6c7-4d0d-b23c-58c06ddf35fe
-    m_ActionName: Default/ExorcismButtonReleased[/Mouse/rightButton]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 873121507167454745}
@@ -729,6 +681,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_ActionId: 23ed480d-0a3a-4541-b9f6-ed571086ebb5
+    m_ActionName: Player/SimulateGhostInteract[/Keyboard/z]
+  - m_PersistentCalls:
+      m_Calls: []
     m_ActionId: 8a6b2f5b-c2a4-41bc-a977-55ce12bdd266
     m_ActionName: Hiding/Interact[/Keyboard/e]
   - m_PersistentCalls:
@@ -768,6 +724,7 @@ MonoBehaviour:
     _movementSpeed: 200
     _rotationSpeed: 25
     _sprintSpeed: 300
+  _mainCamera: {fileID: 0}
   Gravity: -50
   _useForceGrounding: 1
 --- !u!54 &5756019973116728186

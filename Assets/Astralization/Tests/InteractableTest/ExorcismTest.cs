@@ -19,7 +19,7 @@ public class ExorcismTest : TestBase
                 player = gameObject;
                 playerMovement = player.GetComponent<IPlayerMovement>();
             }
-            else if (gameObject.name == "Canvas")
+            else if (gameObject.name == "UI")
             {
                 hud = gameObject;
             }
@@ -62,7 +62,7 @@ public class ExorcismTest : TestBase
         yield return new WaitForSeconds(0.3f);
         Assert.IsTrue(exorcismBar.IsUsed());
         Assert.IsTrue(exorcismSliderObj.activeSelf);
-        Assert.AreEqual(exorcismBar.GetAccumulatedTime(), exorcismBar.GetSliderValue());
+        Assert.AreEqual(exorcismBar.GetCooldownHelper().GetAccumulatedTime(), exorcismBar.GetSliderValue());
 
         yield return new WaitForSeconds(5.0f);
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.UseItem);
@@ -98,7 +98,7 @@ public class ExorcismTest : TestBase
         yield return new WaitForSeconds(0.3f);
         Assert.IsTrue(exorcismBar.IsUsed());
         Assert.IsTrue(exorcismSliderObj.activeSelf);
-        Assert.AreEqual(exorcismBar.GetAccumulatedTime(), exorcismBar.GetSliderValue());
+        Assert.AreEqual(exorcismBar.GetCooldownHelper().GetAccumulatedTime(), exorcismBar.GetSliderValue());
 
         yield return new WaitForSeconds(2.0f);
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.UseItem);
