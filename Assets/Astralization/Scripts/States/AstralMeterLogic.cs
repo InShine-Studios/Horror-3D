@@ -31,6 +31,7 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     [Tooltip("Astral Meter increase amount when seen by ghost")]
     private float _sightAmount = 1.0f;
     private bool _isOnSight = false;
+    private bool _isInAstralWorld = false;
     #endregion
 
     #region SetGet
@@ -81,9 +82,10 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     #endregion
 
     #region World State
-    private void ChangeWorld(bool state)
+    private void ChangeWorld()
     {
-        if (state)
+        _isInAstralWorld = !_isInAstralWorld;
+        if (_isInAstralWorld)
         {
             _constantRate = 0.083f;
         }

@@ -53,19 +53,8 @@ public class AstralWorldEntryTest : TestBase
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return null;
-        GameObject astral = GameObject.Find("VOL_Global_AstralWorld_1");
-        Assert.IsTrue(astral.activeInHierarchy);
+        
 
-        GameObject realWorld = GameObject.Find("VOL_Global_RealWorld_1");
-        for (int i = 0; i < realWorld.transform.childCount; i++)
-        {
-            GameObject go = realWorld.transform.GetChild(i).gameObject;
-            Assert.IsFalse(go.activeInHierarchy);
-        }
-
-        IGameManager gameManager = GameObject.Find("GameManager").GetComponent<IGameManager>();
-
-        Assert.IsTrue(gameManager.IsInAstralWorld());
         Assert.IsTrue(astralMeterLogic.GetConstantRate() == 0.083f);
     }
     #endregion
