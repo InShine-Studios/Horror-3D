@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VolumeManager : StateMachine
+public class WorldStateMachine : StateMachine
 {
     #region Variables
     [Tooltip("Bool flag to check if the player is in Real World or Astral World")]
@@ -10,16 +10,16 @@ public class VolumeManager : StateMachine
     #endregion
 
     #region Getter
-    public VolumeState GetCurrentState()
+    public WorldState GetCurrentState()
     {
-        return (VolumeState)CurrentState;
+        return (WorldState)CurrentState;
     }
     #endregion
 
     #region MonoBehaviour
     private void Awake()
     {
-        ChangeState<InitVolumeState>();
+        ChangeState<InitWorldState>();
     }
 
     private void OnEnable()
@@ -37,11 +37,13 @@ public class VolumeManager : StateMachine
         _isInAstralWorld = !_isInAstralWorld;
         if (_isInAstralWorld)
         {
-            ChangeState<VolumeAstralState>();
+            ChangeState<WorldAstralState>();
+            //Debug.Log("[MANAGER] Changing world state to Astral");
         }
         else
         {
-            ChangeState<VolumeRealState>();
+            ChangeState<WorldRealState>();
+            //Debug.Log("[MANAGER] Changing world state to Real");
         }
     }
     #endregion

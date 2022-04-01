@@ -1,26 +1,28 @@
 ﻿using UnityEngine;
 
-public interface IVolumeState { }
+public interface IWorldState { }
 
-public class VolumeState : State, IVolumeState
+public class WorldState : State, IWorldState
 {
     #region Variables
-    protected VolumeManager owner;
+    protected WorldStateMachine owner;
     protected Color colorInUse;
     protected GameObject volumeAstral;
     protected GameObject volumeReal;
+    protected AstralMeterLogic astralMeterLogic;
     #endregion
 
     #region MonoBehaviour
     protected virtual void Awake()
     {
-        owner = GetComponent<VolumeManager>();
+        owner = GetComponent<WorldStateMachine>();
+        astralMeterLogic = GetComponent<AstralMeterLogic>();
         volumeAstral = transform.Find("VOL_AstralWorld").gameObject;
         volumeReal = transform.Find("VOL_RealWorld").gameObject;
     }
     #endregion
 
-    #region Handler
+    #region StateHandler
     public override void Enter()
     {
         base.Enter();

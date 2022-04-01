@@ -68,7 +68,6 @@ public class GameManager : MonoBehaviour, IGameManager
     public void InvokeChangeWorld()
     {
         ChangeWorldEvent?.Invoke();
-        //Debug.Log("[MANAGER] Changing world state to " + (_isInAstralWorld ? "Astral" : "Real"));
     }
 
     public void InvokeDialogueState()

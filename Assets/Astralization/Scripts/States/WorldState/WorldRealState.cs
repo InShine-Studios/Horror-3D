@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public interface IVolumeRealState { }
+public interface IWorldRealState { }
 
-public class VolumeRealState : VolumeState, IVolumeRealState
+public class WorldRealState : WorldState, IWorldRealState
 {
     #region MonoBehaviour
     protected override void Awake()
@@ -12,10 +12,11 @@ public class VolumeRealState : VolumeState, IVolumeRealState
     }
     #endregion
 
-    #region Handler
+    #region StateHandler
     public override void Enter()
     {
         base.Enter();
+        astralMeterLogic.SetRealRate();
         volumeReal.SetActive(true);
         volumeAstral.SetActive(false);
     }

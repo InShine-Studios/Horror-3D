@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine.InputSystem;
 
-public class InitVolumeState : VolumeState
+public class InitWorldState : WorldState
 {
     #region MonoBehaviour
     protected override void Awake()
@@ -11,12 +11,12 @@ public class InitVolumeState : VolumeState
     }
     #endregion
 
-    #region Handler
+    #region Initialization
     private IEnumerator Init()
     {
         // set up here for future use
         yield return null;
-        owner.ChangeState<VolumeRealState>();
+        owner.ChangeState<WorldRealState>();
     }
     #endregion
 }

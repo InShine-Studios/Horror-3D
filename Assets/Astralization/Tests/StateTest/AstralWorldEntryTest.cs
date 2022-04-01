@@ -55,7 +55,7 @@ public class AstralWorldEntryTest : TestBase
 
         GameObject volume = GameObject.Find("Volume");
         IStateMachine script = volume.GetComponent<IStateMachine>();
-        Assert.True(script.CurrentState is IVolumeAstralState);
+        Assert.True(script.CurrentState is IWorldAstralState);
 
         Assert.IsTrue(astralMeterLogic.GetConstantRate() == 0.083f);
     }

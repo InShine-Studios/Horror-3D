@@ -14,6 +14,11 @@ public interface IAstralMeterLogic
 
 public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
 {
+    #region Const
+    private const float _astralRate = 0.083f;
+    private const float _realRate = 0.05f;
+    #endregion
+
     #region Variables
     [Header("Astral Meter")]
     [SerializeField]
@@ -49,6 +54,16 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     {
         return _isOnSight;
     }
+
+    public void SetAstralRate()
+    {
+        _constantRate = _astralRate;
+    }
+
+    public void SetRealRate()
+    {
+        _constantRate = _realRate;
+    }
     #endregion
 
     #region MonoBehaviour
@@ -78,18 +93,6 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
         }
         currentMeter += _constantRate;
         _astralMeter = System.Math.Min(_maxMeter, _astralMeter + currentMeter);
-    }
-    #endregion
-
-    #region World State
-    private void ChangeWorld()
-    {
-        _isInAstralWorld = !_isInAstralWorld;
-        if (_isInAstralWorld)
-        {
-            _constantRate = 0.083f;
-        }
-        else _constantRate = 0.05f;
     }
     #endregion
 
