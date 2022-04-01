@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4819861035849728723}
   - component: {fileID: 8057627934865404779}
+  - component: {fileID: 8523210911477764013}
   m_Layer: 0
-  m_Name: Volume
+  m_Name: WorldState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,6 +46,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccce4efb05a94dc41b067c01ecb0cc34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8523210911477764013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6312518008556147009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb64ae81acd3b5488ec075533c0d131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _astralMeter: 0
+  _maxMeter: 100
+  _constantRate: 0.05
+  _sightAmount: 1
 --- !u!1001 &548048722042016725
 PrefabInstance:
   m_ObjectHideFlags: 0

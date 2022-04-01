@@ -33,7 +33,7 @@ public class AstralTest : TestBase
     public IEnumerator AstralMeter_VictimWrongAnswer()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        IAstralMeterLogic astralMeterLogic = GameObject.Find("AstralMeter").GetComponent<IAstralMeterLogic>();
+        IAstralMeterLogic astralMeterLogic = GameObject.Find("WorldState").GetComponent<IAstralMeterLogic>();
         astralMeterLogic.VictimWrongAnswer();
 
         Assert.IsTrue(astralMeterLogic.GetAstralMeter() >= 10.0f);
@@ -44,7 +44,7 @@ public class AstralTest : TestBase
     public IEnumerator AstralMeter_PlayerKilled()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        IAstralMeterLogic astralMeterLogic = GameObject.Find("AstralMeter").GetComponent<IAstralMeterLogic>();
+        IAstralMeterLogic astralMeterLogic = GameObject.Find("WorldState").GetComponent<IAstralMeterLogic>();
         astralMeterLogic.PlayerKilled();
 
         Assert.IsTrue(astralMeterLogic.GetAstralMeter() >= 15.0f);

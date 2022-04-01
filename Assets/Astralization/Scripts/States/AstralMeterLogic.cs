@@ -6,10 +6,14 @@ public interface IAstralMeterLogic
 {
     void ChangeSightState();
     float GetAstralMeter();
+    float GetAstralRate();
     float GetConstantRate();
+    float GetRealRate();
     bool IsOnSight();
-    void VictimWrongAnswer();
     void PlayerKilled();
+    void SetAstralRate();
+    void SetRealRate();
+    void VictimWrongAnswer();
 }
 
 public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
@@ -64,22 +68,22 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     {
         _constantRate = _realRate;
     }
+
+    public float GetAstralRate()
+    {
+        return _astralRate;
+    }
+
+    public float GetRealRate()
+    {
+        return _realRate;
+    }
     #endregion
 
     #region MonoBehaviour
     void Awake()
     {
         InvokeRepeating(nameof(Increment), 0.0f, 1.0f);
-    }
-
-    private void OnEnable()
-    {
-        GameManager.ChangeWorldEvent += ChangeWorld;
-    }
-
-    private void OnDisable()
-    {
-        GameManager.ChangeWorldEvent -= ChangeWorld;
     }
     #endregion
 
