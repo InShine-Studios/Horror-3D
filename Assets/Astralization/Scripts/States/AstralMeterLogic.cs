@@ -64,14 +64,14 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
         _constantRate = _astralRate;
     }
 
-    public void SetRealRate()
-    {
-        _constantRate = _realRate;
-    }
-
     public float GetAstralRate()
     {
         return _astralRate;
+    }
+
+    public void SetRealRate()
+    {
+        _constantRate = _realRate;
     }
 
     public float GetRealRate()

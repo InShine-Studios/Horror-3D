@@ -9,41 +9,36 @@ public class WorldStateMachine : StateMachine
     private bool _isInAstralWorld = false;
     #endregion
 
-    #region Getter
-    public WorldState GetCurrentState()
-    {
-        return (WorldState)CurrentState;
-    }
-    #endregion
-
     #region MonoBehaviour
     private void Awake()
     {
-        ChangeState<InitWorldState>();
+        ChangeState<WorldInitState>();
     }
 
     private void OnEnable()
     {
-        GameManager.ChangeWorldEvent += SetState;
+        GameManager.ChangeWorldEvent += ChangeState;
     }
 
     private void OnDisable()
     {
-        GameManager.ChangeWorldEvent -= SetState;
+        GameManager.ChangeWorldEvent -= ChangeState;
     }
+    #endregion
 
-    protected virtual void SetState()
+    #region WorldHandler
+    protected virtual void ChangeState()
     {
         _isInAstralWorld = !_isInAstralWorld;
         if (_isInAstralWorld)
         {
             ChangeState<WorldAstralState>();
-            //Debug.Log("[MANAGER] Changing world state to Astral");
+            //Debug.Log("[WORLD STATE] Changing world state to Astral");
         }
         else
         {
             ChangeState<WorldRealState>();
-            //Debug.Log("[MANAGER] Changing world state to Real");
+            //Debug.Log("[WORLD STATE] Changing world state to Real");
         }
     }
     #endregion

@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour, IGameManager
     public void InvokeChangeWorld()
     {
         ChangeWorldEvent?.Invoke();
+        //Debug.Log("[MANAGER] Change World State");
     }
 
     public void InvokeDialogueState()

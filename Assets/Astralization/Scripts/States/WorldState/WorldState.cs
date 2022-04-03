@@ -7,9 +7,8 @@ public class WorldState : State, IWorldState
     #region Variables
     protected WorldStateMachine owner;
     protected Color colorInUse;
-    protected GameObject volumeAstral;
-    protected GameObject volumeReal;
     protected AstralMeterLogic astralMeterLogic;
+    protected GameObject volumeInUse;
     #endregion
 
     #region MonoBehaviour
@@ -17,8 +16,6 @@ public class WorldState : State, IWorldState
     {
         owner = GetComponent<WorldStateMachine>();
         astralMeterLogic = GetComponent<AstralMeterLogic>();
-        volumeAstral = transform.Find("VOL_AstralWorld").gameObject;
-        volumeReal = transform.Find("VOL_RealWorld").gameObject;
     }
     #endregion
 
@@ -27,6 +24,19 @@ public class WorldState : State, IWorldState
     {
         base.Enter();
         RenderSettings.fogColor = colorInUse;
+        if(volumeInUse != null)
+        {
+            volumeInUse.SetActive(true);
+        }
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        if (volumeInUse != null)
+        {
+            volumeInUse.SetActive(false);
+        }
     }
     #endregion
 }

@@ -9,6 +9,7 @@ public class WorldAstralState : WorldState, IWorldAstralState
     {
         base.Awake();
         colorInUse = Utils.ColorHelper.ParseHex("#5F466A");
+        volumeInUse = transform.Find("VOL_AstralWorld").gameObject;
     }
     #endregion
 
@@ -17,8 +18,6 @@ public class WorldAstralState : WorldState, IWorldAstralState
     {
         base.Enter();
         astralMeterLogic.SetAstralRate();
-        volumeReal.SetActive(false);
-        volumeAstral.SetActive(true);
     }
     #endregion
 }

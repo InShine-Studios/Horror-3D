@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine.InputSystem;
 
-public class InitWorldState : WorldState
+public class WorldInitState : WorldState
 {
     #region MonoBehaviour
     protected override void Awake()

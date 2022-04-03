@@ -57,6 +57,11 @@ public class AstralWorldEntryTest : TestBase
         IStateMachine script = volume.GetComponent<IStateMachine>();
         Assert.True(script.CurrentState is IWorldAstralState);
 
+        GameObject volumeAstral = volume.transform.Find("VOL_AstralWorld").gameObject;
+        GameObject volumeReal = volume.transform.Find("VOL_RealWorld").gameObject;
+        Assert.True(volumeAstral.activeInHierarchy);
+        Assert.False(volumeReal.activeInHierarchy);
+
         Assert.IsTrue(astralMeterLogic.GetConstantRate() == astralMeterLogic.GetAstralRate());
     }
     #endregion
