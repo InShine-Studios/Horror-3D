@@ -57,6 +57,11 @@ public class DefaultPlayerState : PlayerState
     #endregion
 
     #region StateHandler
+    private void ResetDefaultState()
+    {
+        _playerMovement.SetSprinting(false);
+    }
+
     public override void Enter()
     {
         base.Enter();
@@ -65,7 +70,7 @@ public class DefaultPlayerState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        _playerMovement.SetSprinting(false);
+        ResetDefaultState();
     }
     #endregion
 
