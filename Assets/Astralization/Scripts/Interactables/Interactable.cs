@@ -48,6 +48,12 @@ public abstract class Interactable : MonoBehaviour, IInteractable
         //Debug.Log("[INTERACTABLE] Setting collider " + this.name + " to " + state);
         GetComponent<Collider>().enabled = state;
     }
+
+    // Function to set Collider state
+    public void SetUseIcon(bool useIcon)
+    {
+        _useIcon = useIcon;
+    }
     #endregion
 
     #region MonoBehaviour
