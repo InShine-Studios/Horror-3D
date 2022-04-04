@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleGhostState : GhostState
+public class GhostIdleState : GhostState
 {
     #region Variables
     [SerializeField]
@@ -19,6 +19,7 @@ public class IdleGhostState : GhostState
     {
         base.Awake();
         targetRotation = transform.rotation;
+        debugMaterial = Resources.Load("EvidenceItem/MAT_Thermometer_Base", typeof(Material)) as Material;
     }
 
     protected void Update()
@@ -30,7 +31,7 @@ public class IdleGhostState : GhostState
     }
     #endregion
 
-    #region GhostStateHandler
+    #region StateHandler
     public override void Enter()
     {
         base.Enter();
@@ -62,7 +63,7 @@ public class IdleGhostState : GhostState
     private void ChangeToWanderInSeconds(float delay)
     {
         StartCoroutine(
-            Utils.DelayerHelper.Delay(delay, () => owner.ChangeState<WanderGhostState>())
+            Utils.DelayerHelper.Delay(delay, () => owner.ChangeState<GhostChasingState>())
         );
     }
     #endregion

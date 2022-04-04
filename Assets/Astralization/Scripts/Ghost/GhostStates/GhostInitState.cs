@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InitGhostState : GhostState
+public class GhostInitState : GhostState
 {
     #region MonoBehaviour
     protected override void Awake()
@@ -17,7 +17,7 @@ public class InitGhostState : GhostState
     {
         // set up here for future use
         yield return null;
-        owner.ChangeState<IdleGhostState>();
+        owner.ChangeState<GhostIdleState>();
     }
     #endregion
 }

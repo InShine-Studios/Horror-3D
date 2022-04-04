@@ -15,13 +15,14 @@ public interface IGhostMovement
  */
 public class GhostMovement : MonoBehaviour, IGhostMovement
 {
+    #region Const
+    private const float _wanderRange = 3f;
+    #endregion
+
     #region Variables
     [SerializeField]
     [Tooltip("Consider ghost is arrive at destination if distance between ghost position and destination is less than thresh")]
     private float _distanceThresh = 0.5f;
-    [SerializeField]
-    [Tooltip("Wander range for sampling. Should be less than 2x agent height")]
-    private const float _wanderRange = 3f;
     private NavMeshAgent _navMeshAgent;
     private NavMeshHit _navMeshHit;
 
@@ -60,7 +61,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     }
     #endregion
 
-    #region Wandering Controller
+    #region WanderingHandler
     private Vector3 RandomShiftTarget(WorldPoint target)
     {
         float shiftX = Utils.Randomizer.GetFloat(-target.Radius, target.Radius);
@@ -71,13 +72,19 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     public void WanderTarget(string targetRoomName, bool randomizePoint)
     {
         WorldPoint targetRoom = _stageManager.GetRoomCoordinate(targetRoomName);
-        if (WanderTarget(_wanderTarget, out _wanderTarget, targetRoom, randomizePoint))
+        if (WanderTarget(targetRoom, out _wanderTarget, randomizePoint))
         {
             _navMeshAgent.SetDestination(_wanderTarget);
         }
     }
 
-    private bool WanderTarget(Vector3 center, out Vector3 result, WorldPoint targetRoom, bool randomizePoint)
+    public void WanderTarget(Vector3 targetPosition)
+    {
+        _navMeshAgent.ResetPath();
+        _navMeshAgent.SetDestination(targetPosition);
+    }
+
+    private bool WanderTarget(WorldPoint targetRoom, out Vector3 result, bool randomizePoint)
     {
         Vector3 targetPoint = targetRoom.GetPosition();
         if (randomizePoint)
@@ -93,20 +100,20 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         }
         else
         {
-            result = center;
+            result = _wanderTarget;
             return false;
         }
     }
 
-    private bool RandomWanderTarget(Vector3 center, out Vector3 result)
+    private bool RandomWanderTarget(out Vector3 result)
     {
         WorldPoint targetRoom = _stageManager.GetRandomRoomCoordinate();
-        return WanderTarget(center, out result, targetRoom, true);
+        return WanderTarget(targetRoom, out result, true);
     }
 
     public void RandomWander()
     {
-        if (RandomWanderTarget(transform.position, out _wanderTarget))
+        if (RandomWanderTarget(out _wanderTarget))
         {
             _navMeshAgent.SetDestination(_wanderTarget);
             //Debug.DrawRay(_wanderTarget, Vector3.up, Color.blue, 1.0f);

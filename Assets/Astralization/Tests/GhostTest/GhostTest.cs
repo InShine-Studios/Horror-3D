@@ -8,7 +8,7 @@ public class GhostTest : TestBase
 {
     private GameObject ghost;
     private IGhostMovement ghostMovement;
-    private IGhostManager ghostManager;
+    private GhostStateMachine ghostStateMachine;
 
     protected override void FindGameObjects(Scene scene)
     {
@@ -19,7 +19,7 @@ public class GhostTest : TestBase
             {
                 ghost = gameObject;
                 ghostMovement = ghost.GetComponent<IGhostMovement>();
-                ghostManager = ghost.GetComponent<IGhostManager>();
+                ghostStateMachine = ghost.GetComponent<GhostStateMachine>();
             }
         }
     }
@@ -43,8 +43,8 @@ public class GhostTest : TestBase
         IStageManager stageManager = GameObject.Find("Stage/StageManager").GetComponent<IStageManager>();
         WorldPoint targetRoom = stageManager.GetRoomCoordinate(targetRoomName);
 
-        yield return new WaitWhile(() => ghostManager.GetCurrentGhostState() is IdleGhostState);
-        ghost.GetComponent<IWanderGhostState>().SetWanderTarget(targetRoomName,false);
+        yield return new WaitWhile(() => ghostStateMachine.CurrentState is GhostIdleState);
+        ghost.GetComponent<IGhostWanderState>().SetWanderTarget(targetRoomName,false);
         yield return new WaitWhile(ghostMovement.IsOnRoute);
         float delta = Mathf.Abs(
             Utils.GeometryCalcu.GetDistance3D(
@@ -61,7 +61,7 @@ public class GhostTest : TestBase
         yield return new WaitWhile(() => sceneLoaded == false);
         Vector3 initialPosition = ghost.transform.position;
 
-        yield return new WaitWhile(() => ghostManager.GetCurrentGhostState() is IdleGhostState);
+        yield return new WaitWhile(() => ghostStateMachine.CurrentState is GhostIdleState);
         yield return new WaitWhile(ghostMovement.IsOnRoute);
         Assert.AreNotEqual(initialPosition, ghost.transform.position);
     }

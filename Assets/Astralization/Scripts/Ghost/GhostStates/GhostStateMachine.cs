@@ -2,22 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IGhostManager
+public interface IGhostStateMachine
 {
-    GhostState GetCurrentGhostState();
+
 }
 
-public class GhostStateMachine : StateMachine, IGhostManager
+public class GhostStateMachine : StateMachine
 {
     #region MonoBehaviour
     private void Awake()
     {
-        ChangeState<InitGhostState>();
-    }
-
-    public GhostState GetCurrentGhostState()
-    {
-        return (GhostState)CurrentState;
+        ChangeState<GhostInitState>();
     }
     #endregion
 }
