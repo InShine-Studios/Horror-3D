@@ -1,31 +1,28 @@
 using System;
 using UnityEngine;
+using Utils;
 
 public interface IGameManager
 {
-    bool IsInAstralWorld();
     void InvokeChangeWorld();
+    void InvokeDialogueState();
+    void InvokeExorcismState();
+    void InvokeHidingState();
+    void ResetPlayerState();
+    void SendHudPlayerEvent(PlayerHelper.States hudKey, bool condition);
+    void SendHudUiEvent(UiHelper.States hudKey, bool condition);
+    void SendPlayerStateEvent(PlayerHelper.States actionMapKey);
 }
 
 public class GameManager : MonoBehaviour, IGameManager
 {
     #region Event
-    public static event Action<bool> ChangeWorldEvent;
+    public static event Action ChangeWorldEvent;
     public static event Action<Utils.PlayerHelper.States> PlayerStateEvent;
     public static event Action<Utils.PlayerHelper.States, bool> HudPlayerEvent;
     public static event Action<Utils.UiHelper.States, bool> HudUiEvent;
     // TODO: to be implemented
     public static event Action PlayerAudioDiesEvent;
-    #endregion
-
-    #region Variables
-    [Tooltip("Bool flag to check if the player is in Real World or Astral World")]
-    [SerializeField]
-    private bool _isInAstralWorld = false;
-    #endregion
-
-    #region SetGet
-    public bool IsInAstralWorld() { return _isInAstralWorld; }
     #endregion
 
     #region MonoBehaviour
@@ -70,9 +67,8 @@ public class GameManager : MonoBehaviour, IGameManager
     #region Invoker
     public void InvokeChangeWorld()
     {
-        _isInAstralWorld = !_isInAstralWorld;
-        ChangeWorldEvent?.Invoke(_isInAstralWorld);
-        //Debug.Log("[MANAGER] Changing world state to " + (_isInAstralWorld ? "Astral" : "Real"));
+        ChangeWorldEvent?.Invoke();
+        //Debug.Log("[MANAGER] Change World State");
     }
 
     public void InvokeDialogueState()
