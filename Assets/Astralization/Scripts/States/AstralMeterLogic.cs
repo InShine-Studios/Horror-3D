@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IAstralMeterLogic
 {
     void ChangeSightState();
-    float GetAstralMeter();
+    float GetCurrentMeter();
     float GetAstralRate();
     float GetConstantRate();
     float GetRealRate();
@@ -27,7 +27,7 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     [Header("Astral Meter")]
     [SerializeField]
     [Tooltip("Current Astral Meter")]
-    private float _astralMeter = 0.0f;
+    private float _currentMeter = 0.0f;
     [SerializeField]
     [Tooltip("Max Astral Meter")]
     private float _maxMeter = 100.0f;
@@ -44,9 +44,9 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     #endregion
 
     #region SetGet
-    public float GetAstralMeter()
+    public float GetCurrentMeter()
     {
-        return _astralMeter;
+        return _currentMeter;
     }
 
     public float GetConstantRate()
@@ -96,7 +96,7 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
             currentMeter += _sightAmount;
         }
         currentMeter += _constantRate;
-        _astralMeter = System.Math.Min(_maxMeter, _astralMeter + currentMeter);
+        _currentMeter = System.Math.Min(_maxMeter, _currentMeter + currentMeter);
     }
     #endregion
 
@@ -109,7 +109,7 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     public void PlayerKilled()
     {
         int randKillAmount = Random.Range(15, 20);
-        _astralMeter += (float)randKillAmount;
+        _currentMeter += (float)randKillAmount;
     }
     #endregion
 
@@ -117,7 +117,7 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     public void VictimWrongAnswer()
     {
         int randAnswerAmount = Random.Range(10, 15);
-        _astralMeter += (float)randAnswerAmount;
+        _currentMeter += (float)randAnswerAmount;
     }
     #endregion
 }

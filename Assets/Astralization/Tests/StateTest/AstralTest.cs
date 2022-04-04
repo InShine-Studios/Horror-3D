@@ -36,8 +36,8 @@ public class AstralTest : TestBase
         IAstralMeterLogic astralMeterLogic = GameObject.Find("WorldState").GetComponent<IAstralMeterLogic>();
         astralMeterLogic.VictimWrongAnswer();
 
-        Assert.IsTrue(astralMeterLogic.GetAstralMeter() >= 10.0f);
-        Assert.IsTrue(astralMeterLogic.GetAstralMeter() <= 15.0f);
+        Assert.IsTrue(astralMeterLogic.GetCurrentMeter() >= 10.0f);
+        Assert.IsTrue(astralMeterLogic.GetCurrentMeter() <= 15.0f);
     }
 
     [UnityTest]
@@ -47,8 +47,8 @@ public class AstralTest : TestBase
         IAstralMeterLogic astralMeterLogic = GameObject.Find("WorldState").GetComponent<IAstralMeterLogic>();
         astralMeterLogic.PlayerKilled();
 
-        Assert.IsTrue(astralMeterLogic.GetAstralMeter() >= 15.0f);
-        Assert.IsTrue(astralMeterLogic.GetAstralMeter() <= 20.0f);
+        Assert.IsTrue(astralMeterLogic.GetCurrentMeter() >= 15.0f);
+        Assert.IsTrue(astralMeterLogic.GetCurrentMeter() <= 20.0f);
     }
     #endregion
 }
