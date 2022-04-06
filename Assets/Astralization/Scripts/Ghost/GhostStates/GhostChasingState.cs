@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GhostChasingState : GhostState
@@ -15,6 +14,8 @@ public class GhostChasingState : GhostState
     protected string _wanderTarget;
     [Tooltip("True if wander target randomly shifted")]
     protected bool _isShifted;
+
+    private bool _enableChasing = false;
     #endregion
 
     #region MonoBehaviour
@@ -24,6 +25,10 @@ public class GhostChasingState : GhostState
         _ghostMovement = GetComponent<GhostMovement>();
         _ghostFieldOfView = GetComponent<GhostFieldOfView>();
         debugMaterial = Resources.Load("EvidenceItem/MAT_Thermometer_Negative", typeof(Material)) as Material;
+        if (_enableChasing)
+        {
+            StartCoroutine(CheckChasingRoutine()); // Will be moved to ghost manager that can trigger kill phase
+        }
     }
     #endregion
 
@@ -33,13 +38,11 @@ public class GhostChasingState : GhostState
         base.Enter();
         _wanderTarget = "";
         _isShifted = true;
-        StartCoroutine(CheckChasingRoutine());
     }
 
     public override void Exit()
     {
         base.Exit();
-        StopCoroutine(CheckChasingRoutine());
         _ghostMovement.ResetPath();
     }
     #endregion

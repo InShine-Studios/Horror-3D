@@ -13,11 +13,11 @@ public class GhostFieldOfView : MonoBehaviour
     #region Variables
     [SerializeField]
     [Tooltip("Sight radius of the ghost")]
-    private float radius;
+    private float radius = 10f;
     [SerializeField]
     [Tooltip("Sight angle of the ghost")]
     [Range(0, 360)]
-    private float angle;
+    private float angle = 180f;
 
     [Tooltip("Target layer mask of ghost vision. By default: Player")]
     private LayerMask targetMask;
