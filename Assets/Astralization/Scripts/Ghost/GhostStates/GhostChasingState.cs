@@ -15,7 +15,8 @@ public class GhostChasingState : GhostState
     [Tooltip("True if wander target randomly shifted")]
     protected bool _isShifted;
 
-    private bool _enableChasing = false;
+    private bool _enableChasing = true;
+    private GhostTransitionZone _currentTransitionZone;
     #endregion
 
     #region MonoBehaviour
@@ -28,6 +29,22 @@ public class GhostChasingState : GhostState
         if (_enableChasing)
         {
             StartCoroutine(CheckChasingRoutine()); // Will be moved to ghost manager that can trigger kill phase
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("GhostTransitionZone"))
+        {
+            _currentTransitionZone = other.GetComponent<GhostTransitionZone>();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("GhostTransitionZone"))
+        {
+            _currentTransitionZone = null;
         }
     }
     #endregion
@@ -58,7 +75,18 @@ public class GhostChasingState : GhostState
             bool playerSeen = _ghostFieldOfView.FieldOfViewCheck();
             if (playerSeen)
             {
+                //Debug.Log("[GHOST VISION] Player sighted.");
                 GhostChasing(_ghostFieldOfView.ChasingTarget);
+            }
+            else if (!(_currentTransitionZone is null))
+            {
+                //Debug.Log("[GHOST VISION] Lost sight of player. Attempting to move out of transition zone.");
+                _ghostMovement.WanderTarget(_currentTransitionZone.ExitPoint.Position);
+            }
+            else
+            {
+                //Debug.Log("[GHOST VISION] Lost sight of player.");
+                //TODO change state to idle
             }
         }
     }
