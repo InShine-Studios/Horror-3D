@@ -48,7 +48,15 @@ MonoBehaviour:
   - 4
   - 6
   - 5
-  GhostTransitionZonePosition: []
-  GhostTransitionZoneCenter: []
-  GhostTransitionZoneSize: []
-  GhostTransitionZoneEndpoint: []
+  GhostTransitionZonePosition:
+  - {x: 13.04, y: 5.96, z: -2.125}
+  GhostTransitionZoneCenter:
+  - {x: -0.8713441, y: 0.45578957, z: 0.93891144}
+  GhostTransitionZoneSize:
+  - {x: 10.9231825, y: 5.9592037, z: 5.62516}
+  GhostTransitionZoneEndpoint:
+  - list:
+    - AreaName: Laundry Room
+      Position: {x: -4.1, y: -2, z: -2.6}
+    - AreaName: Attic
+      Position: {x: -3.8, y: 4, z: 0}

@@ -12,24 +12,24 @@ public class WorldPoint : MonoBehaviour
     #endregion
 
     #region SetGet
-    public Vector3 GetPosition()
-    {
-        return transform.position;
-    }
-
     public void SetPosition(Vector3 pos)
     {
         transform.position = pos;
     }
 
-    public Vector3 GetLocalPosition()
+    public Vector3 GetPosition()
     {
-        return transform.localPosition;
+        return transform.position;
     }
 
     public void SetLocalPosition(Vector3 pos)
     {
         transform.localPosition = pos;
+    }
+
+    public Vector3 GetLocalPosition()
+    {
+        return transform.localPosition;
     }
     #endregion
 

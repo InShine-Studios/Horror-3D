@@ -15,29 +15,36 @@ public class StageRoomBuilder : MonoBehaviour
     private static Dictionary<string, WorldPoint> _roomPoints = new Dictionary<string, WorldPoint>();
 
     [SerializeField]
+    private GhostTransitionZone _ghostTransitionZonePrefab;
+    private static Dictionary<string, GhostTransitionZone> _ghostTransitionZones = new Dictionary<string, GhostTransitionZone>();
+
+    [SerializeField]
     private StageData _stageData;
     #endregion
 
     #region RoomPoints Setup
-    public void Clear()
+    public void ClearAll()
     {
         for (int i = transform.childCount - 1; i >= 0; --i)
             DestroyImmediate(transform.GetChild(i).gameObject);
     }
 
-    public WorldPoint Create()
+    public WorldPoint CreateRoomPoints()
     {
         WorldPoint instance = Instantiate(_roomPointPrefab);
         instance.transform.parent = transform;
         return instance;
     }
 
-    private void Rename()
+    private void RenameRoomPoint()
     {
         for (int i = transform.childCount - 1; i >= 0; --i)
         {
             GameObject go = transform.GetChild(i).gameObject;
-            go.name = go.GetComponent<WorldPoint>().PointName;
+            if (go.CompareTag("WorldPoint"))
+            {
+                go.name = go.GetComponent<WorldPoint>().PointName;
+            }
         }
     }
 
@@ -54,11 +61,47 @@ public class StageRoomBuilder : MonoBehaviour
     }
     #endregion
 
+    #region GhostTransitionZoneHandler
+    public GhostTransitionZone CreateGhostTransitionZone()
+    {
+        GhostTransitionZone instance = Instantiate(_ghostTransitionZonePrefab);
+        instance.transform.parent = transform;
+        return instance;
+    }
+
+    private void RenameEndpoints()
+    {
+        for (int i = transform.childCount - 1; i >= 0; --i)
+        {
+            GameObject zoneGameObject = transform.GetChild(i).gameObject;
+            if (zoneGameObject.CompareTag("GhostTransitionZone"))
+            {
+                zoneGameObject.GetComponent<GhostTransitionZone>().SetZoneName();
+            }
+        }
+    }
+
+    private void UpdateTransitionEndpoints()
+    {
+        // Reset dict first
+        _ghostTransitionZones = new Dictionary<string, GhostTransitionZone>();
+
+        GhostTransitionZone[] childZones = transform.GetComponentsInChildren<GhostTransitionZone>();
+        foreach (GhostTransitionZone zone in childZones)
+        {
+            _ghostTransitionZones.Add(zone.name, zone);
+        }
+    }
+    #endregion
+
     #region Save Load
     public void Save()
     {
-        Rename();
+        RenameRoomPoint();
         UpdatePoints();
+
+        RenameEndpoints();
+        UpdateTransitionEndpoints();
         _stageData = null;
 
         string filePath = Application.dataPath + "/Astralization/Resources/Stages";
@@ -70,11 +113,24 @@ public class StageRoomBuilder : MonoBehaviour
         stage.Names = new List<string>(_roomPoints.Count);
         stage.Rads = new List<float>(_roomPoints.Count);
 
+        stage.GhostTransitionZonePosition = new List<Vector3>(_ghostTransitionZones.Count);
+        stage.GhostTransitionZoneCenter = new List<Vector3>(_ghostTransitionZones.Count);
+        stage.GhostTransitionZoneSize = new List<Vector3>(_ghostTransitionZones.Count);
+        stage.GhostTransitionZoneEndpoint = new List<TransitionEndpointList>(_ghostTransitionZones.Count);
+
         foreach (WorldPoint r in _roomPoints.Values)
         {
             stage.Positions.Add(r.GetLocalPosition());
             stage.Names.Add(r.PointName);
             stage.Rads.Add(r.Radius);
+        }
+
+        foreach (GhostTransitionZone zone in _ghostTransitionZones.Values)
+        {
+            stage.GhostTransitionZonePosition.Add(zone.GetZoneLocalPosition());
+            stage.GhostTransitionZoneCenter.Add(zone.GetZoneColliderCenter());
+            stage.GhostTransitionZoneSize.Add(zone.GetZoneColliderSize());
+            stage.GhostTransitionZoneEndpoint.Add(zone.Endpoints);
         }
 
         string fileName = string.Format("Assets/Astralization/Resources/Stages/{1}.asset", filePath, name);
@@ -95,18 +151,32 @@ public class StageRoomBuilder : MonoBehaviour
 
     public void Load()
     {
-        Clear();
+        ClearAll();
 
         if (!_stageData) return;
 
         for (int i = 0; i < _stageData.Positions.Count; i++)
         {
-            WorldPoint r = Create();
+            WorldPoint r = CreateRoomPoints();
             r.Load(_stageData.Positions[i], _stageData.Names[i], _stageData.Rads[i]);
         }
 
-        Rename();
+        for (int i = 0; i < _stageData.GhostTransitionZonePosition.Count; i++)
+        {
+            GhostTransitionZone zone = CreateGhostTransitionZone();
+            zone.Load(
+                _stageData.GhostTransitionZonePosition[i], 
+                _stageData.GhostTransitionZoneCenter[i], 
+                _stageData.GhostTransitionZoneSize[i], 
+                _stageData.GhostTransitionZoneEndpoint[i].list
+            );
+        }
+
+        RenameRoomPoint();
         UpdatePoints();
+
+        RenameEndpoints();
+        UpdateTransitionEndpoints();
     }
     #endregion
 }
