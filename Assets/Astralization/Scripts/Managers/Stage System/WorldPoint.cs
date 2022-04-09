@@ -37,8 +37,8 @@ public class WorldPoint : MonoBehaviour
     public void Load(Vector3 pos, string pointName, float radius)
     {
         SetLocalPosition(pos);
-        this.PointName = pointName;
-        this.Radius = radius;
+        PointName = pointName;
+        Radius = radius;
     }
     #endregion
 }

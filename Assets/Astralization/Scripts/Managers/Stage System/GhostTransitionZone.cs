@@ -20,8 +20,8 @@ public class GhostTransitionZone : MonoBehaviour
     #region Variables
     public TransitionEndpointList Endpoints;
 
-    public TransitionEndpoint EnterPoint { get; private set; }
-    public TransitionEndpoint ExitPoint { get; private set; }
+    public Transform EnterPoint { get; private set; }
+    public Transform ExitPoint { get; private set; }
     #endregion
 
     #region SetGet
@@ -71,12 +71,6 @@ public class GhostTransitionZone : MonoBehaviour
     {
         return GetComponent<BoxCollider>().size;
     }
-
-    public void SetEndpointPosition(string name, Vector3 pos)
-    {
-        Transform endpoint = transform.Find(name);
-        endpoint.localPosition = pos;
-    }
     #endregion
 
     #region MonoBehaviour
@@ -85,8 +79,8 @@ public class GhostTransitionZone : MonoBehaviour
         if (other.CompareTag("Ghost"))
         {
             int endpointIndex = GetEnteringPointIndex(other.transform.position);
-            EnterPoint = Endpoints.list[endpointIndex];
-            ExitPoint = Endpoints.list[Utils.MathCalcu.mod(endpointIndex + 1, 2)];
+            EnterPoint = transform.GetChild(endpointIndex);
+            ExitPoint = transform.GetChild(Utils.MathCalcu.mod(endpointIndex + 1, 2));
         }
     }
 
@@ -123,9 +117,9 @@ public class GhostTransitionZone : MonoBehaviour
     {
         int minDistanceIndex = -1;
         float minDistance = float.MaxValue;
-        for (int i = Endpoints.list.Count; i >= 0; --i)
+        for (int i = 0; i < transform.childCount; i++)
         {
-            float currDistance = Utils.GeometryCalcu.GetDistance3D(position, Endpoints.list[0].Position);
+            float currDistance = Utils.GeometryCalcu.GetDistance3D(position, transform.GetChild(i).position);
             if (currDistance < minDistance)
             {
                 minDistance = currDistance;

@@ -81,7 +81,7 @@ public class GhostChasingState : GhostState
             else if (!(_currentTransitionZone is null))
             {
                 //Debug.Log("[GHOST VISION] Lost sight of player. Attempting to move out of transition zone.");
-                _ghostMovement.WanderTarget(_currentTransitionZone.ExitPoint.Position);
+                _ghostMovement.WanderTarget(_currentTransitionZone.ExitPoint.position);
             }
             else
             {
