@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private void OnEnable()
     {
         AnkhItem.ChangeWorldGM += InvokeChangeWorld;
+        GhostManager.ChangeWorldGM += InvokeChangeWorld;
         VictimController.VictimInteractionEvent += InvokeDialogueState;
         DialogueManager.FinishDialogueEvent += ResetPlayerState;
         ClosetsController.StartHidingEvent += InvokeHidingState;
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private void OnDisable()
     {
         AnkhItem.ChangeWorldGM -= InvokeChangeWorld;
+        GhostManager.ChangeWorldGM -= InvokeChangeWorld;
         VictimController.VictimInteractionEvent -= InvokeDialogueState;
         DialogueManager.FinishDialogueEvent -= ResetPlayerState;
         ClosetsController.StartHidingEvent -= InvokeHidingState;
