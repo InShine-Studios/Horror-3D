@@ -82,16 +82,20 @@ public class GhostTest : TestBase
     public IEnumerator Ghost_KillPhase()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        yield return new WaitWhile(ghostMovement.IsOnRoute);
 
         GameObject volume = GameObject.Find("WorldState");
         GameObject volumeAstral = volume.transform.Find("VOL_AstralWorld").gameObject;
         GameObject volumeReal = volume.transform.Find("VOL_RealWorld").gameObject;
+        IStateMachine script = volume.GetComponent<IStateMachine>();
 
+        ghostManager.StartKillPhase();
         yield return new WaitUntil(() => ghostManager.IsKillPhase() == true);
+        Assert.True(script.CurrentState is IWorldAstralState);
         Assert.True(volumeAstral.activeInHierarchy);
         Assert.False(volumeReal.activeInHierarchy);
+
         yield return new WaitUntil(() => ghostManager.IsKillPhase() == false);
+        Assert.True(script.CurrentState is IWorldRealState);
         Assert.False(volumeAstral.activeInHierarchy);
         Assert.True(volumeReal.activeInHierarchy);
     }

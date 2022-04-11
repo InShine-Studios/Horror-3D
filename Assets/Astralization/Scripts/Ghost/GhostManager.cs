@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public interface IGhostManager
 {
     bool IsKillPhase();
+    void StartKillPhase();
 }
 
 public class GhostManager : MonoBehaviour, IGhostManager
@@ -13,63 +15,18 @@ public class GhostManager : MonoBehaviour, IGhostManager
     #endregion
 
     #region Variable
-    private Utils.CooldownHelper _randomIntervalTimer;
-    private Utils.CooldownHelper _killPhaseTimer;
-    private Utils.CooldownHelper _graceTimer;
-
     [SerializeField]
     private float _graceTime;
     [SerializeField]
     private float _killPhaseTime;
     [SerializeField]
     private float _randomIntervalTime;
+    [SerializeField]
+    [Range(0,1)]
+    private float _thresholdKillPhase;
 
     private bool _isKillPhase = false;
-    private bool _isGrace = true;
-    private bool _isRandomInterval = false;
-    #endregion
-
-    #region MonoBehaviour
-    private void Awake()
-    {
-        _randomIntervalTimer = new Utils.CooldownHelper(_randomIntervalTime);
-        _killPhaseTimer = new Utils.CooldownHelper(_killPhaseTime);
-        _graceTimer = new Utils.CooldownHelper(_graceTime);
-    }
-
-    private void Update()
-    {
-        if (_isGrace)
-        {
-            _graceTimer.AddAccumulatedTime();
-            if (_graceTimer.IsFinished())
-            {
-                _isGrace = false;
-                TryRandom();
-                ResetTimer(_graceTimer);
-            }
-        }
-        else if (_isKillPhase)
-        {
-            _killPhaseTimer.AddAccumulatedTime();
-            if (_killPhaseTimer.IsFinished())
-            {
-                _isKillPhase = false;
-                _isGrace = true;
-                ChangeWorld();
-                ResetTimer(_killPhaseTimer);
-            }
-        }
-        else if (_isRandomInterval)
-        {
-            _randomIntervalTimer.AddAccumulatedTime();
-            if (_randomIntervalTimer.IsFinished())
-            {
-                TryRandom();
-                ResetTimer(_randomIntervalTimer);
-            }
-        }
-    }
+    private bool _isGrace = false;
     #endregion
 
     #region SetGet
@@ -79,29 +36,49 @@ public class GhostManager : MonoBehaviour, IGhostManager
     }
     #endregion
 
-    #region Handler
-    public void TryRandom()
+    #region KillPhaseHandler
+    public void StartKillPhase()
+    {
+        if (!_isGrace) TryRandom();
+    }
+    private void TryRandom()
     {
         float randomResults = Utils.Randomizer.GetFloat();
-        if (randomResults > 0.5f)
+        if (randomResults > _thresholdKillPhase)
         {
             _isKillPhase = true;
-            _isRandomInterval = false;
             ChangeWorld();
+            StartCoroutine(KillPhaseTimer());
         }
         else
         {
-            _isRandomInterval = true;
+            StartCoroutine(RandomIntervalTimer());
         }
     }
-    public void ChangeWorld()
+    private void ChangeWorld()
     {
         ChangeWorldGM?.Invoke();
     }
 
-    public void ResetTimer(Utils.CooldownHelper timer)
+    private IEnumerator GraceTimer()
     {
-        timer.SetAccumulatedTime(0f);
+        yield return new WaitForSeconds(_graceTime);
+        _isGrace = false;
+    }
+
+    private IEnumerator KillPhaseTimer()
+    {
+        yield return new WaitForSeconds(_killPhaseTime);
+        _isKillPhase = false;
+        _isGrace = true;
+        ChangeWorld();
+        StartCoroutine(GraceTimer());
+    }
+
+    private IEnumerator RandomIntervalTimer()
+    {
+        yield return new WaitForSeconds(_randomIntervalTime);
+        TryRandom();
     }
     #endregion
 }
