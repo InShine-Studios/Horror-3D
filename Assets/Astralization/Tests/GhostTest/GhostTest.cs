@@ -88,7 +88,6 @@ public class GhostTest : TestBase
         GameObject volumeReal = volume.transform.Find("VOL_RealWorld").gameObject;
         IStateMachine script = volume.GetComponent<IStateMachine>();
 
-        ghostManager.StartKillPhase();
         yield return new WaitUntil(() => ghostManager.IsKillPhase() == true);
         Assert.True(script.CurrentState is IWorldAstralState);
         Assert.True(volumeAstral.activeInHierarchy);

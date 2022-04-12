@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IGhostManager
 {
     bool IsKillPhase();
-    void StartKillPhase();
+    void FinishGracePeriod();
 }
 
 public class GhostManager : MonoBehaviour, IGhostManager
@@ -36,23 +36,30 @@ public class GhostManager : MonoBehaviour, IGhostManager
     }
     #endregion
 
-    #region KillPhaseHandler
-    public void StartKillPhase()
+    #region MonoBehaviour
+    private void Awake()
     {
-        if (!_isGrace) TryRandom();
+        StartCoroutine(StartGracePeriod());
     }
-    private void TryRandom()
+    #endregion
+
+    #region KillPhaseHandler
+    public void FinishGracePeriod()
+    {
+        if (!_isGrace) AttemptKillPhase();
+    }
+    private void AttemptKillPhase()
     {
         float randomResults = Utils.Randomizer.GetFloat();
         if (randomResults > _thresholdKillPhase)
         {
             _isKillPhase = true;
             ChangeWorld();
-            StartCoroutine(KillPhaseTimer());
+            StartCoroutine(StartKillPhase());
         }
         else
         {
-            StartCoroutine(RandomIntervalTimer());
+            StartCoroutine(StartAttemptKillPhaseCooldown());
         }
     }
     private void ChangeWorld()
@@ -60,25 +67,26 @@ public class GhostManager : MonoBehaviour, IGhostManager
         ChangeWorldGM?.Invoke();
     }
 
-    private IEnumerator GraceTimer()
+    private IEnumerator StartGracePeriod()
     {
         yield return new WaitForSeconds(_graceTime);
         _isGrace = false;
+        AttemptKillPhase();
     }
 
-    private IEnumerator KillPhaseTimer()
+    private IEnumerator StartKillPhase()
     {
         yield return new WaitForSeconds(_killPhaseTime);
         _isKillPhase = false;
         _isGrace = true;
         ChangeWorld();
-        StartCoroutine(GraceTimer());
+        StartCoroutine(StartGracePeriod());
     }
 
-    private IEnumerator RandomIntervalTimer()
+    private IEnumerator StartAttemptKillPhaseCooldown()
     {
         yield return new WaitForSeconds(_randomIntervalTime);
-        TryRandom();
+        AttemptKillPhase();
     }
     #endregion
 }
