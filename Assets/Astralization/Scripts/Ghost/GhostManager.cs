@@ -5,7 +5,6 @@ using UnityEngine;
 public interface IGhostManager
 {
     bool IsKillPhase();
-    void FinishGracePeriod();
 }
 
 public class GhostManager : MonoBehaviour, IGhostManager
@@ -26,7 +25,6 @@ public class GhostManager : MonoBehaviour, IGhostManager
     private float _thresholdKillPhase;
 
     private bool _isKillPhase = false;
-    private bool _isGrace = false;
     #endregion
 
     #region SetGet
@@ -44,10 +42,6 @@ public class GhostManager : MonoBehaviour, IGhostManager
     #endregion
 
     #region KillPhaseHandler
-    public void FinishGracePeriod()
-    {
-        if (!_isGrace) AttemptKillPhase();
-    }
     private void AttemptKillPhase()
     {
         float randomResults = Utils.Randomizer.GetFloat();
@@ -62,15 +56,19 @@ public class GhostManager : MonoBehaviour, IGhostManager
             StartCoroutine(StartAttemptKillPhaseCooldown());
         }
     }
+    #endregion
+
+    #region WorldChangeHandler
     private void ChangeWorld()
     {
         ChangeWorldGM?.Invoke();
     }
+    #endregion
 
+    #region IEnumeratorFunction
     private IEnumerator StartGracePeriod()
     {
         yield return new WaitForSeconds(_graceTime);
-        _isGrace = false;
         AttemptKillPhase();
     }
 
@@ -78,7 +76,6 @@ public class GhostManager : MonoBehaviour, IGhostManager
     {
         yield return new WaitForSeconds(_killPhaseTime);
         _isKillPhase = false;
-        _isGrace = true;
         ChangeWorld();
         StartCoroutine(StartGracePeriod());
     }
