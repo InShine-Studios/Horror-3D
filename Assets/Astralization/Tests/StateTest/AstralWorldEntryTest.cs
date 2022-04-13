@@ -33,8 +33,8 @@ public class AstralWorldEntryTest : TestBase
     public IEnumerator AstralWorld_MoveToAstralWorld()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        IAstralMeterLogic astralMeterLogic = GameObject.Find("AstralMeter").GetComponent<IAstralMeterLogic>();
-        Assert.IsTrue(astralMeterLogic.GetConstantRate() == 0.05f);
+        IAstralMeterLogic astralMeterLogic = GameObject.Find("WorldState").GetComponent<IAstralMeterLogic>();
+        Assert.IsTrue(astralMeterLogic.GetConstantRate() == astralMeterLogic.GetRealRate());
 
         GameObject ankhOW = GameObject.Find("OverworldItems/Ankh");
         float moveDuration = GetMovementDurationTowards(ankhOW.transform);
@@ -52,20 +52,17 @@ public class AstralWorldEntryTest : TestBase
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return null;
-        GameObject astral = GameObject.Find("VOL_Global_AstralWorld_1");
-        Assert.IsTrue(astral.activeInHierarchy);
 
-        GameObject realWorld = GameObject.Find("VOL_Global_RealWorld_1");
-        for (int i = 0; i < realWorld.transform.childCount; i++)
-        {
-            GameObject go = realWorld.transform.GetChild(i).gameObject;
-            Assert.IsFalse(go.activeInHierarchy);
-        }
+        GameObject volume = GameObject.Find("WorldState");
+        IStateMachine script = volume.GetComponent<IStateMachine>();
+        Assert.True(script.CurrentState is IWorldAstralState);
 
-        IGameManager gameManager = GameObject.Find("GameManager").GetComponent<IGameManager>();
+        GameObject volumeAstral = volume.transform.Find("VOL_AstralWorld").gameObject;
+        GameObject volumeReal = volume.transform.Find("VOL_RealWorld").gameObject;
+        Assert.True(volumeAstral.activeInHierarchy);
+        Assert.False(volumeReal.activeInHierarchy);
 
-        Assert.IsTrue(gameManager.IsInAstralWorld());
-        Assert.IsTrue(astralMeterLogic.GetConstantRate() == 0.083f);
+        Assert.IsTrue(astralMeterLogic.GetConstantRate() == astralMeterLogic.GetAstralRate());
     }
     #endregion
 }
