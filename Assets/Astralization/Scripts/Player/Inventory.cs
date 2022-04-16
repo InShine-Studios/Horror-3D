@@ -88,7 +88,7 @@ public class Inventory : MonoBehaviour, IInventory
         {
             _activeIdx = newIdx;
             _activeItem = _items[newIdx];
-            Debug.Log("[INVENTORY] Change item by quickslot to index " + _activeIdx);
+            //Debug.Log("[INVENTORY] Change item by quickslot to index " + _activeIdx);
         }
     }
     public int GetActiveIdx() { return _activeIdx; }
