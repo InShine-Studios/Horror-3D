@@ -18,7 +18,12 @@ public class KeyboardMouseTestFixture: InputTestFixture
         ChangeItem,
         NextDialogueEnter,
         NextDialogueClick,
-        SimulateGhostInteract
+        SimulateGhostInteract,
+        InventorySlot1,
+        InventorySlot2,
+        InventorySlot3,
+        InventorySlot4,
+        InventorySlot5
     }
     private Keyboard keyboard;
     private Mouse mouse;
@@ -42,6 +47,11 @@ public class KeyboardMouseTestFixture: InputTestFixture
             {RegisteredInput.DiscardItem, keyboard.gKey },
             {RegisteredInput.NextDialogueEnter, keyboard.enterKey },
             {RegisteredInput.SimulateGhostInteract, keyboard.zKey }, // [TODO] Remove when Ghost Interaction fully implemented
+            {RegisteredInput.InventorySlot1, keyboard.digit1Key },
+            {RegisteredInput.InventorySlot2, keyboard.digit2Key },
+            {RegisteredInput.InventorySlot3, keyboard.digit3Key },
+            {RegisteredInput.InventorySlot4, keyboard.digit4Key },
+            {RegisteredInput.InventorySlot5, keyboard.digit5Key }
         };
         buttonInputMap = new Dictionary<RegisteredInput, ButtonControl>(){
             {RegisteredInput.UseItem, mouse.rightButton},

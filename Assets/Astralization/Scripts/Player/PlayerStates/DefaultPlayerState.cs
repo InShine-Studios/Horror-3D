@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 public class DefaultPlayerState : PlayerState
 {
@@ -96,6 +97,16 @@ public class DefaultPlayerState : PlayerState
         if (ctx.performed)
         {
             _inventory.ScrollActiveItem(ctx.ReadValue<Vector2>());
+        }
+    }
+
+    public override void ChangeActiveItemQuickslot(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            Key pressedKey = ((KeyControl)ctx.control).keyCode;
+            int newIdx = pressedKey - Key.Digit1;
+            _inventory.SetActiveItem(newIdx);
         }
     }
     #endregion

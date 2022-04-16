@@ -93,5 +93,41 @@ public class ItemTest : TestBase
         Image img = hud.transform.Find("ItemHud/Logo").GetComponent<Image>();
         Assert.IsTrue(!img.enabled);
     }
+
+    [UnityTest]
+    public IEnumerator PlayerInventory_InventoryQuickslot()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
+        inventory.SetLength(5);
+        KeyboardMouseTestFixture.RegisteredInput[] quickslots =
+        {
+            KeyboardMouseTestFixture.RegisteredInput.InventorySlot1,
+            KeyboardMouseTestFixture.RegisteredInput.InventorySlot2,
+            KeyboardMouseTestFixture.RegisteredInput.InventorySlot3,
+            KeyboardMouseTestFixture.RegisteredInput.InventorySlot4,
+            KeyboardMouseTestFixture.RegisteredInput.InventorySlot5
+        };
+
+        for (int i = 0; i < quickslots.Length; i++)
+        {
+            KeyboardMouseTestFixture.RegisteredInput quickslot = quickslots[i];
+            yield return SimulateInput(quickslot);
+            Assert.AreEqual(i, inventory.GetActiveIdx());
+            Assert.AreEqual(inventory.GetItemByIndex(i), inventory.GetActiveItem());
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator PlayerInventory_InventoryQuickslotOutOfRange()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
+        inventory.SetLength(2);
+        int prevActiveIdx = inventory.GetActiveIdx();
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.InventorySlot3);
+        Assert.AreEqual(prevActiveIdx, inventory.GetActiveIdx());
+        Assert.AreEqual(inventory.GetItemByIndex(prevActiveIdx), inventory.GetActiveItem());
+    }
     #endregion
 }
