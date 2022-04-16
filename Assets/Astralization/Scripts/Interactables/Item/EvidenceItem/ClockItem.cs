@@ -36,7 +36,7 @@ public class ClockItem : EvidenceItem
 
     public override void OnGhostInteraction()
     {
-        if (!(_clockManager.GetCurrentState() is ClockInactiveState)) DetermineEvidence();
+        if (!(_clockManager.CurrentState is ClockInactiveState)) DetermineEvidence();
     }
     #endregion
 
@@ -44,7 +44,7 @@ public class ClockItem : EvidenceItem
     public override void DetermineEvidence()
     {
         // TODO this dummy behavior at the moment, wait for Ghost Implementation
-        if (_clockManager.GetCurrentState() is ClockNegativeState)
+        if (_clockManager.CurrentState is ClockNegativeState)
         {
             _clockManager.ChangeState<ClockPositiveState>();
         }

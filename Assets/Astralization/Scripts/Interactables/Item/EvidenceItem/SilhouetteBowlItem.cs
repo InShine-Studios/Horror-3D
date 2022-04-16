@@ -33,7 +33,7 @@ public class SilhouetteBowlItem : EvidenceItem
 
     public override void OnGhostInteraction()
     {
-        if (!(_silhouetteBowlManager.GetCurrentState() is SilhouetteBowlInactiveState)) DetermineEvidence();
+        if (!(_silhouetteBowlManager.CurrentState is SilhouetteBowlInactiveState)) DetermineEvidence();
     }
     #endregion
 
@@ -41,7 +41,7 @@ public class SilhouetteBowlItem : EvidenceItem
     public override void DetermineEvidence()
     {
         // TODO this dummy behavior at the moment, wait for Ghost Implementation
-        if (_silhouetteBowlManager.GetCurrentState() is SilhouetteBowlNegativeState)
+        if (_silhouetteBowlManager.CurrentState is SilhouetteBowlNegativeState)
         {
             _silhouetteBowlManager.ChangeState<SilhouetteBowlPositiveState>();
         }
