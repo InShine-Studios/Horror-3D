@@ -8,7 +8,8 @@ public class GhostTest : TestBase
 {
     private GameObject ghost;
     private IGhostMovement ghostMovement;
-    private GhostStateMachine ghostStateMachine;
+    private IGhostStateMachine ghostStateMachine;
+    private IGhostManager ghostManager;
 
     protected override void FindGameObjects(Scene scene)
     {
@@ -19,7 +20,8 @@ public class GhostTest : TestBase
             {
                 ghost = gameObject;
                 ghostMovement = ghost.GetComponent<IGhostMovement>();
-                ghostStateMachine = ghost.GetComponent<GhostStateMachine>();
+                ghostStateMachine = ghost.GetComponent<IGhostStateMachine>();
+                ghostManager = ghost.GetComponent<IGhostManager>();
             }
         }
     }
@@ -74,6 +76,27 @@ public class GhostTest : TestBase
 
         yield return new WaitForSeconds(1f);
         Assert.AreNotEqual(initialRotation, ghost.transform.rotation);
+    }
+
+    [UnityTest]
+    public IEnumerator Ghost_KillPhase()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+
+        GameObject volume = GameObject.Find("WorldState");
+        GameObject volumeAstral = volume.transform.Find("VOL_AstralWorld").gameObject;
+        GameObject volumeReal = volume.transform.Find("VOL_RealWorld").gameObject;
+        IStateMachine script = volume.GetComponent<IStateMachine>();
+
+        yield return new WaitUntil(() => ghostManager.IsKillPhase() == true);
+        Assert.True(script.CurrentState is IWorldAstralState);
+        Assert.True(volumeAstral.activeInHierarchy);
+        Assert.False(volumeReal.activeInHierarchy);
+
+        yield return new WaitUntil(() => ghostManager.IsKillPhase() == false);
+        Assert.True(script.CurrentState is IWorldRealState);
+        Assert.False(volumeAstral.activeInHierarchy);
+        Assert.True(volumeReal.activeInHierarchy);
     }
     #endregion
 }

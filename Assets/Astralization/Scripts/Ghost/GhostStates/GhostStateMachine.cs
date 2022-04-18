@@ -7,7 +7,7 @@ public interface IGhostStateMachine
 
 }
 
-public class GhostStateMachine : StateMachine
+public class GhostStateMachine : StateMachine, IGhostStateMachine
 {
     #region MonoBehaviour
     private void Awake()
