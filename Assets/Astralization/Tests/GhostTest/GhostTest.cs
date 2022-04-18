@@ -8,7 +8,7 @@ public class GhostTest : TestBase
 {
     private GameObject ghost;
     private IGhostMovement ghostMovement;
-    private IGhostStateMachine ghostStateMachine;
+    private GhostStateMachine ghostStateMachine;
     private IGhostManager ghostManager;
 
     protected override void FindGameObjects(Scene scene)
@@ -20,7 +20,7 @@ public class GhostTest : TestBase
             {
                 ghost = gameObject;
                 ghostMovement = ghost.GetComponent<IGhostMovement>();
-                ghostStateMachine = ghost.GetComponent<IGhostStateMachine>();
+                ghostStateMachine = ghost.GetComponent<GhostStateMachine>();
                 ghostManager = ghost.GetComponent<IGhostManager>();
             }
         }
