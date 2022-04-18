@@ -25,7 +25,7 @@ public class GhostFieldOfView : MonoBehaviour
     private LayerMask obstructionMask;
 
     private GhostStateMachine _ghostStateMachine;
-    public Transform ChasingTarget { get; private set; }
+    public Transform ChasingTarget { get; set; }
     #endregion
 
     #region MonoBehaviour

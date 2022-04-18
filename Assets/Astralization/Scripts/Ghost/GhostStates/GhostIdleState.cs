@@ -63,7 +63,7 @@ public class GhostIdleState : GhostState
     private void ChangeToWanderInSeconds(float delay)
     {
         StartCoroutine(
-            Utils.DelayerHelper.Delay(delay, () => owner.ChangeState<GhostChasingState>())
+            Utils.DelayerHelper.Delay(delay, () => owner.ChangeState<GhostWanderState>())
         );
     }
     #endregion

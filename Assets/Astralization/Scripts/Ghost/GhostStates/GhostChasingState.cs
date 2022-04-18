@@ -15,7 +15,6 @@ public class GhostChasingState : GhostState
     [Tooltip("True if wander target randomly shifted")]
     protected bool _isShifted;
 
-    private bool _enableChasing = true;
     private GhostTransitionZone _currentTransitionZone;
     #endregion
 
@@ -26,10 +25,6 @@ public class GhostChasingState : GhostState
         _ghostMovement = GetComponent<GhostMovement>();
         _ghostFieldOfView = GetComponent<GhostFieldOfView>();
         debugMaterial = Resources.Load("EvidenceItem/MAT_Thermometer_Negative", typeof(Material)) as Material;
-        if (_enableChasing)
-        {
-            StartCoroutine(CheckChasingRoutine()); // Will be moved to ghost manager that can trigger kill phase
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -61,39 +56,29 @@ public class GhostChasingState : GhostState
     {
         base.Exit();
         _ghostMovement.ResetPath();
+        _ghostFieldOfView.ChasingTarget = null;
     }
     #endregion
 
     #region ChasingHandler
-    private IEnumerator CheckChasingRoutine()
+    public void GhostChasing()
     {
-        WaitForSeconds wait = new WaitForSeconds(_checkRateChasing);
-
-        while (true)
+        bool playerSeen = _ghostFieldOfView.FieldOfViewCheck();
+        if (playerSeen)
         {
-            yield return wait;
-            bool playerSeen = _ghostFieldOfView.FieldOfViewCheck();
-            if (playerSeen)
-            {
-                //Debug.Log("[GHOST VISION] Player sighted.");
-                GhostChasing(_ghostFieldOfView.ChasingTarget);
-            }
-            else if (!(_currentTransitionZone is null))
-            {
-                //Debug.Log("[GHOST VISION] Lost sight of player. Attempting to move out of transition zone.");
-                _ghostMovement.WanderTarget(_currentTransitionZone.ExitPoint.position);
-            }
-            else
-            {
-                //Debug.Log("[GHOST VISION] Lost sight of player.");
-                //TODO change state to idle
-            }
+            //Debug.Log("[GHOST VISION] Player sighted.");
+            _ghostMovement.WanderTarget(_ghostFieldOfView.ChasingTarget.position);
         }
-    }
-
-    protected void GhostChasing(Transform target)
-    {
-        _ghostMovement.WanderTarget(target.position);
+        else if (!(_currentTransitionZone is null))
+        {
+            //Debug.Log("[GHOST VISION] Lost sight of player. Attempting to move out of transition zone.");
+            _ghostMovement.WanderTarget(_currentTransitionZone.ExitPoint.position);
+        }
+        else
+        {
+            //Debug.Log("[GHOST VISION] Lost sight of player.");
+            owner.ChangeState<GhostIdleState>();
+        }
     }
     #endregion
 }

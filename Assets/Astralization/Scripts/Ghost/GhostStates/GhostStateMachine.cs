@@ -15,4 +15,12 @@ public class GhostStateMachine : StateMachine, IGhostStateMachine
         ChangeState<GhostInitState>();
     }
     #endregion
+
+    #region Handler
+    public void HandleChasing()
+    {
+        ChangeState<GhostChasingState>();
+        ((GhostChasingState)CurrentState).GhostChasing();
+    }
+    #endregion
 }
