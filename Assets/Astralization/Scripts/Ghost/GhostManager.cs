@@ -86,7 +86,7 @@ public class GhostManager : MonoBehaviour, IGhostManager
         yield return new WaitForSeconds(_killPhaseTime);
         _isKillPhase = false;
         ChangeWorld();
-        StopCoroutine(CheckChasingRoutine());
+        StopAllCoroutines();
         _ghostStateMachine.ChangeState<GhostIdleState>();
         StartCoroutine(StartGracePeriod());
     }
@@ -108,7 +108,7 @@ public class GhostManager : MonoBehaviour, IGhostManager
             if (playerSeen)
             {
                 //Debug.Log("[GHOST VISION] Player sighted.");
-                _ghostStateMachine.HandleChasing();
+                _ghostStateMachine.AttemptChasing();
             }
         }
     }

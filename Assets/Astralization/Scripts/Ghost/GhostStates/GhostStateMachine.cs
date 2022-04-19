@@ -17,7 +17,7 @@ public class GhostStateMachine : StateMachine, IGhostStateMachine
     #endregion
 
     #region Handler
-    public void HandleChasing()
+    public void AttemptChasing()
     {
         ChangeState<GhostChasingState>();
         ((GhostChasingState)CurrentState).GhostChasing();

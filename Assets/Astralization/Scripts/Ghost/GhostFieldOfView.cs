@@ -62,5 +62,10 @@ public class GhostFieldOfView : MonoBehaviour
         }
         return canSeePlayer;
     }
+
+    public void ResetTarget()
+    {
+        ChasingTarget = null;
+    }
     #endregion
 }

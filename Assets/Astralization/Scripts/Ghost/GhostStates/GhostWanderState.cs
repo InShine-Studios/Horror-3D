@@ -43,7 +43,7 @@ public class GhostWanderState : GhostState, IGhostWanderState
     public override void Enter()
     {
         base.Enter();
-        _wanderTarget = "Attic";
+        _wanderTarget = "";
         _isShifted = true;
         GhostWander();
         StartCoroutine(CheckGhostRoutine());
