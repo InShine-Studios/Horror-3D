@@ -8,6 +8,7 @@ public class GhostTest : TestBase
 {
     private GameObject ghost;
     private IGhostMovement ghostMovement;
+    private IGhostStateMachine ghostStateMachine;
     private IGhostManager ghostManager;
 
     protected override void FindGameObjects(Scene scene)
@@ -19,6 +20,7 @@ public class GhostTest : TestBase
             {
                 ghost = gameObject;
                 ghostMovement = ghost.GetComponent<IGhostMovement>();
+                ghostStateMachine = ghost.GetComponent<IGhostStateMachine>();
                 ghostManager = ghost.GetComponent<IGhostManager>();
             }
         }
@@ -43,7 +45,7 @@ public class GhostTest : TestBase
         IStageManager stageManager = GameObject.Find("Stage/StageManager").GetComponent<IStageManager>();
         WorldPoint targetRoom = stageManager.GetRoomCoordinate(targetRoomName);
 
-        yield return new WaitWhile(() => ghostManager.GetCurrentGhostState() is IdleGhostState);
+        yield return new WaitWhile(() => ghostStateMachine.GetCurrentGhostState() is IdleGhostState);
         ghost.GetComponent<IWanderGhostState>().SetWanderTarget(targetRoomName,false);
         yield return new WaitWhile(ghostMovement.IsOnRoute);
         float delta = Mathf.Abs(
@@ -61,7 +63,7 @@ public class GhostTest : TestBase
         yield return new WaitWhile(() => sceneLoaded == false);
         Vector3 initialPosition = ghost.transform.position;
 
-        yield return new WaitWhile(() => ghostManager.GetCurrentGhostState() is IdleGhostState);
+        yield return new WaitWhile(() => ghostStateMachine.GetCurrentGhostState() is IdleGhostState);
         yield return new WaitWhile(ghostMovement.IsOnRoute);
         Assert.AreNotEqual(initialPosition, ghost.transform.position);
     }
@@ -74,6 +76,27 @@ public class GhostTest : TestBase
 
         yield return new WaitForSeconds(1f);
         Assert.AreNotEqual(initialRotation, ghost.transform.rotation);
+    }
+
+    [UnityTest]
+    public IEnumerator Ghost_KillPhase()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+
+        GameObject volume = GameObject.Find("WorldState");
+        GameObject volumeAstral = volume.transform.Find("VOL_AstralWorld").gameObject;
+        GameObject volumeReal = volume.transform.Find("VOL_RealWorld").gameObject;
+        IStateMachine script = volume.GetComponent<IStateMachine>();
+
+        yield return new WaitUntil(() => ghostManager.IsKillPhase() == true);
+        Assert.True(script.CurrentState is IWorldAstralState);
+        Assert.True(volumeAstral.activeInHierarchy);
+        Assert.False(volumeReal.activeInHierarchy);
+
+        yield return new WaitUntil(() => ghostManager.IsKillPhase() == false);
+        Assert.True(script.CurrentState is IWorldRealState);
+        Assert.False(volumeAstral.activeInHierarchy);
+        Assert.True(volumeReal.activeInHierarchy);
     }
     #endregion
 }

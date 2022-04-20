@@ -32,7 +32,7 @@ public class ThermometerItem : EvidenceItem
 
     public override void OnGhostInteraction()
     {
-        if (!(_thermometerManager.GetCurrentState() is ThermometerInactiveState)) DetermineEvidence();
+        if (!(_thermometerManager.CurrentState is ThermometerInactiveState)) DetermineEvidence();
     }
     #endregion
 
@@ -40,7 +40,7 @@ public class ThermometerItem : EvidenceItem
     public override void DetermineEvidence()
     {
         // TODO this dummy behavior at the moment, wait for Ghost Implementation
-        if (_thermometerManager.GetCurrentState() is ThermometerNegativeState)
+        if (_thermometerManager.CurrentState is ThermometerNegativeState)
         {
             _thermometerManager.ChangeState<ThermometerPositiveState>();
         }
