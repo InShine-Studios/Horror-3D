@@ -35,6 +35,7 @@ public class GhostWanderState : GhostState, IGhostWanderState
         base.Awake();
         _ghostMovement = GetComponent<GhostMovement>();
         _wanderTarget = "";
+        _isShifted = true;
         debugMaterial = Resources.Load("EvidenceItem/MAT_Thermometer_Active", typeof(Material)) as Material;
     }
     #endregion
@@ -43,8 +44,6 @@ public class GhostWanderState : GhostState, IGhostWanderState
     public override void Enter()
     {
         base.Enter();
-        _wanderTarget = "";
-        _isShifted = true;
         GhostWander();
         StartCoroutine(CheckGhostRoutine());
     }

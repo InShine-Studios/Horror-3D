@@ -1,7 +1,15 @@
 using System.Collections;
 using UnityEngine;
 
-public class GhostFieldOfView : MonoBehaviour
+public interface IGhostFieldOfView
+{
+    Transform ChasingTarget { get; set; }
+
+    bool FieldOfViewCheck();
+    void ResetTarget();
+}
+
+public class GhostFieldOfView : MonoBehaviour, IGhostFieldOfView
 {
     #region Const
     private const string _playerLayerName = "Player";
@@ -46,14 +54,20 @@ public class GhostFieldOfView : MonoBehaviour
         bool canSeePlayer = false;
         if (rangeChecks.Length != 0)
         {
-            ChasingTarget = rangeChecks[0].transform;
-            Vector3 directionToTarget = (ChasingTarget.position - transform.position).normalized;
+            Transform chasingTarget = rangeChecks[0].transform;
+
+            Vector3 directionToTarget = (chasingTarget.position - transform.position).normalized;
 
             if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2)
             {
-                float distanceToTarget = Vector3.Distance(transform.position, ChasingTarget.position);
+                float distanceToTarget = Vector3.Distance(transform.position, chasingTarget.position);
 
                 canSeePlayer = !Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask);
+
+                if (canSeePlayer)
+                {
+                    ChasingTarget = chasingTarget;
+                }
             }
         }
         else

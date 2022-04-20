@@ -63,8 +63,7 @@ public class GhostChasingState : GhostState
     #region ChasingHandler
     public void GhostChasing()
     {
-        bool playerSeen = _ghostFieldOfView.FieldOfViewCheck();
-        if (playerSeen)
+        if (!(_ghostFieldOfView.ChasingTarget is null))
         {
             //Debug.Log("[GHOST VISION] Player sighted.");
             _ghostMovement.WanderTarget(_ghostFieldOfView.ChasingTarget.position);
@@ -72,11 +71,13 @@ public class GhostChasingState : GhostState
         else if (!(_currentTransitionZone is null))
         {
             //Debug.Log("[GHOST VISION] Lost sight of player. Attempting to move out of transition zone.");
+            _ghostFieldOfView.ResetTarget();
             _ghostMovement.WanderTarget(_currentTransitionZone.ExitPoint.position);
         }
         else
         {
             //Debug.Log("[GHOST VISION] Lost sight of player.");
+            _ghostFieldOfView.ResetTarget();
             owner.ChangeState<GhostIdleState>();
         }
     }

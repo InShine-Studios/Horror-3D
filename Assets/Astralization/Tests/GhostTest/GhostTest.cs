@@ -42,7 +42,7 @@ public class GhostTest : TestBase
         yield return new WaitWhile(() => sceneLoaded == false);
 
         string targetRoomName = "Laundry Room";
-        IStageManager stageManager = GameObject.Find("Stage/StageManager").GetComponent<IStageManager>();
+        IStageManager stageManager = GameObject.Find("Building/StageManager").GetComponent<IStageManager>();
         WorldPoint targetRoom = stageManager.GetRoomCoordinate(targetRoomName);
 
         yield return new WaitWhile(() => ghostStateMachine.CurrentState is GhostIdleState);
@@ -77,26 +77,43 @@ public class GhostTest : TestBase
         yield return new WaitForSeconds(1f);
         Assert.AreNotEqual(initialRotation, ghost.transform.rotation);
     }
+    #endregion
 
+    #region GhostKillAndChase
     [UnityTest]
-    public IEnumerator Ghost_KillPhase()
+    public IEnumerator Ghost_ChasingWhileKillPhase()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
 
         GameObject volume = GameObject.Find("WorldState");
         GameObject volumeAstral = volume.transform.Find("VOL_AstralWorld").gameObject;
         GameObject volumeReal = volume.transform.Find("VOL_RealWorld").gameObject;
-        IStateMachine script = volume.GetComponent<IStateMachine>();
+        IStateMachine volumeStateMachine = volume.GetComponent<IStateMachine>();
+        IGhostFieldOfView ghostFieldOfView = ghost.GetComponent<IGhostFieldOfView>();
+
+        yield return new WaitUntil(() => ghostStateMachine.CurrentState is GhostWanderState);
+        ((GhostWanderState)ghostStateMachine.CurrentState).SetWanderTarget("Living Room", true);
 
         yield return new WaitUntil(() => ghostManager.IsKillPhase() == true);
-        Assert.True(script.CurrentState is IWorldAstralState);
+        Assert.True(volumeStateMachine.CurrentState is IWorldAstralState);
         Assert.True(volumeAstral.activeInHierarchy);
         Assert.False(volumeReal.activeInHierarchy);
 
+        yield return new WaitWhile(() => ghostFieldOfView.ChasingTarget is null);
+        Assert.True(ghostStateMachine.CurrentState is GhostChasingState);
+        float distance = Utils.GeometryCalcu.GetDistance3D(ghostFieldOfView.ChasingTarget.position, ghostMovement.NavMeshAgent.destination);
+        Assert.True(distance < 1f);
+
+        ghost.transform.rotation = Quaternion.Inverse(ghost.transform.rotation); // Make the ghost unsee the player
+        yield return new WaitUntil(() => ghostFieldOfView.ChasingTarget is null);
+        Assert.True(ghostStateMachine.CurrentState is GhostIdleState);
+        Assert.True(ghostFieldOfView.ChasingTarget is null);
+
         yield return new WaitUntil(() => ghostManager.IsKillPhase() == false);
-        Assert.True(script.CurrentState is IWorldRealState);
+        Assert.True(volumeStateMachine.CurrentState is IWorldRealState);
         Assert.False(volumeAstral.activeInHierarchy);
         Assert.True(volumeReal.activeInHierarchy);
+        Assert.True(ghostStateMachine.CurrentState is GhostIdleState);
     }
     #endregion
 }

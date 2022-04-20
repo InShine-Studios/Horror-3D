@@ -3,6 +3,8 @@ using UnityEngine.AI;
 
 public interface IGhostMovement
 {
+    NavMeshAgent NavMeshAgent { get; }
+
     float GetDistanceThreshold();
     bool IsOnRoute();
     void WanderTarget(string targetRoomName, bool randomizePoint);
@@ -23,7 +25,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     [SerializeField]
     [Tooltip("Consider ghost is arrive at destination if distance between ghost position and destination is less than thresh")]
     private float _distanceThresh = 0.5f;
-    private NavMeshAgent _navMeshAgent;
+    public NavMeshAgent NavMeshAgent { get; private set; }
     private NavMeshHit _navMeshHit;
 
     [Tooltip("Ghost current room")]
@@ -55,9 +57,9 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     #region MonoBehaviour
     void Awake()
     {
-        _navMeshAgent = GetComponent<NavMeshAgent>();
+        NavMeshAgent = GetComponent<NavMeshAgent>();
         _wanderTarget = transform.position;
-        _navMeshAgent.SetDestination(_wanderTarget);
+        NavMeshAgent.SetDestination(_wanderTarget);
     }
     #endregion
 
@@ -74,14 +76,14 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         WorldPoint targetRoom = _stageManager.GetRoomCoordinate(targetRoomName);
         if (WanderTarget(targetRoom, out _wanderTarget, randomizePoint))
         {
-            _navMeshAgent.SetDestination(_wanderTarget);
+            NavMeshAgent.SetDestination(_wanderTarget);
         }
     }
 
     public void WanderTarget(Vector3 targetPosition)
     {
-        _navMeshAgent.ResetPath();
-        _navMeshAgent.SetDestination(targetPosition);
+        NavMeshAgent.ResetPath();
+        NavMeshAgent.SetDestination(targetPosition);
     }
 
     private bool WanderTarget(WorldPoint targetRoom, out Vector3 result, bool randomizePoint)
@@ -115,15 +117,15 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     {
         if (RandomWanderTarget(out _wanderTarget))
         {
-            _navMeshAgent.SetDestination(_wanderTarget);
+            NavMeshAgent.SetDestination(_wanderTarget);
             //Debug.DrawRay(_wanderTarget, Vector3.up, Color.blue, 1.0f);
         }
     }
 
     public void ResetPath()
     {
-        _navMeshAgent.isStopped = true;
-        _navMeshAgent.ResetPath();
+        NavMeshAgent.isStopped = true;
+        NavMeshAgent.ResetPath();
     }
     #endregion
 }
