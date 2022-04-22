@@ -15,7 +15,6 @@ public class GhostFieldOfView : MonoBehaviour, IGhostFieldOfView
     private const string _playerLayerName = "Player";
     private const string _buildingLayerName = "Building";
     private const string _hidingLayerName = "HidingPlace";
-    private const float _checkRate = 0.2f;
     #endregion
 
     #region Variables
@@ -32,15 +31,12 @@ public class GhostFieldOfView : MonoBehaviour, IGhostFieldOfView
     [Tooltip("Target layer mask of ghost vision. By default: Building and HidingPlace")]
     private LayerMask obstructionMask;
 
-    private GhostStateMachine _ghostStateMachine;
     public Transform ChasingTarget { get; set; }
     #endregion
 
     #region MonoBehaviour
     private void Awake()
     {
-        _ghostStateMachine = GetComponent<GhostStateMachine>();
-
         targetMask = LayerMask.GetMask(_playerLayerName);
         obstructionMask = LayerMask.GetMask(_buildingLayerName, _hidingLayerName);
     }
@@ -63,15 +59,14 @@ public class GhostFieldOfView : MonoBehaviour, IGhostFieldOfView
                 float distanceToTarget = Vector3.Distance(transform.position, chasingTarget.position);
 
                 canSeePlayer = !Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask);
-
-                if (canSeePlayer)
-                {
-                    ChasingTarget = chasingTarget;
-                }
             }
         }
-        else
+
+        if (canSeePlayer)
         {
+            ChasingTarget = rangeChecks[0].transform;
+        }
+        else {
             ChasingTarget = null;
         }
         return canSeePlayer;

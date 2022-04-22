@@ -10,13 +10,13 @@ public interface IGhostWanderState
 public class GhostWanderState : GhostState, IGhostWanderState
 {
     #region Variables
-    protected GhostMovement _ghostMovement;
+    private GhostMovement _ghostMovement;
     [Tooltip("Current delay in seconds for checking")]
     private float _checkRate = 1f;
     [Tooltip("Room name for wander target. Ghost will wander randomly if wander target is not specified.")]
-    protected string _wanderTarget;
+    private string _wanderTarget;
     [Tooltip("True if wander target randomly shifted")]
-    protected bool _isShifted;
+    private bool _isShifted;
     #endregion
 
     #region SetGet

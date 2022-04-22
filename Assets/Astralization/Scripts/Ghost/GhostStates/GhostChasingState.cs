@@ -10,10 +10,6 @@ public class GhostChasingState : GhostState
     #region Variables
     private GhostMovement _ghostMovement;
     private GhostFieldOfView _ghostFieldOfView;
-    [Tooltip("Room name for wander target. Ghost will wander randomly if wander target is not specified.")]
-    protected string _wanderTarget;
-    [Tooltip("True if wander target randomly shifted")]
-    protected bool _isShifted;
 
     private GhostTransitionZone _currentTransitionZone;
     #endregion
@@ -48,8 +44,6 @@ public class GhostChasingState : GhostState
     public override void Enter()
     {
         base.Enter();
-        _wanderTarget = "";
-        _isShifted = true;
     }
 
     public override void Exit()
