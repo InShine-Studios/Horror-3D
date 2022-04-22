@@ -121,8 +121,7 @@ public class Inventory : MonoBehaviour, IInventory
                 for (int i = 0; i < InvenLength; i++)
                 {
                     // Find empty slot in inventory,
-                    // search from activeIdx to the end of array
-                    // and continue from the front of the array
+                    // search from start to the end of array
                     if (!_items[i])
                     {
                         _items[i] = item;
