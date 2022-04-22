@@ -30,6 +30,10 @@ public interface IInventory
 public class Inventory : MonoBehaviour, IInventory
 {
     #region Events
+    public static event Action<int,int> InitItemHudEvent;
+
+    public static event Action<int> UpdateActiveItemIndexEvent;
+
     public static event Action<bool, Sprite> ItemLogoEvent;
 
     public static event Action<Item> DiscardItemEvent;
@@ -79,10 +83,14 @@ public class Inventory : MonoBehaviour, IInventory
     #endregion
 
     #region MonoBehaviour
-    private void Awake()
+    private void Start()
     {
         _items = new Item[InvenLength];
+        InitItemHudEvent.Invoke(InvenLength, _activeIdx);
     }
+    #endregion
+
+    #region Initialization
     #endregion
 
     #region Pick - Discard
@@ -170,6 +178,7 @@ public class Inventory : MonoBehaviour, IInventory
         int indexShift = (int) (scrollValue / GetScrollStep());
         int newIdx = Utils.MathCalcu.mod(_activeIdx - indexShift, InvenLength);
         ChangeActiveItem(newIdx);
+        UpdateActiveItemIndexEvent.Invoke(newIdx);
 
         //Debug.Log("[INVENTORY] Change active item to " + (activeItem ? activeItem.name : "nothing") + " with index " + activeIdx);
     }
