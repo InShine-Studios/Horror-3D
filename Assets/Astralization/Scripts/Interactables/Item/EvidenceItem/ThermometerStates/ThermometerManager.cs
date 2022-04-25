@@ -7,7 +7,7 @@ public class ThermometerManager : StateMachine
     #region MonoBehaviour
     private void Awake()
     {
-        ChangeState<InitThermometerState>();
+        ChangeState<ThermometerInitState>();
     }
     #endregion
 }

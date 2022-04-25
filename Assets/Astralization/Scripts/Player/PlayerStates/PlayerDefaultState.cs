@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DefaultPlayerState : PlayerState
+public class PlayerDefaultState : PlayerState
 {
     #region Variables
     [Header("Movement and Rotation")]

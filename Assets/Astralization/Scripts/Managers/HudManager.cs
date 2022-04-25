@@ -63,7 +63,7 @@ public class HudManager : MonoBehaviour
     {
         GameManager.HudPlayerEvent += SetHudState;
         GameManager.HudUiEvent += SetHudState;
-        HidingState.StopHidingHudEvent += ShowHidingHud;
+        PlayerHidingState.StopHidingHudEvent += ShowHidingHud;
         Inventory.ItemLogoEvent += UpdateLogo;
     }
 
@@ -71,7 +71,7 @@ public class HudManager : MonoBehaviour
     {
         GameManager.HudPlayerEvent -= SetHudState;
         GameManager.HudUiEvent -= SetHudState;
-        HidingState.StopHidingHudEvent -= ShowHidingHud;
+        PlayerHidingState.StopHidingHudEvent -= ShowHidingHud;
         Inventory.ItemLogoEvent -= UpdateLogo;
     }
     #endregion

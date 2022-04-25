@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ExorcismState : PlayerState
+public class PlayerExorcismState : PlayerState
 {
     #region Events
     public static event Action StopExorcismEvent;

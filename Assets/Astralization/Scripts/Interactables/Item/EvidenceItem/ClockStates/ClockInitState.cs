@@ -1,7 +1,6 @@
 using System.Collections;
-using UnityEngine.InputSystem;
 
-public class InitPlayerState : PlayerState
+public class ClockInitState : ClockState
 {
     #region MonoBehaviour
     protected override void Awake()
@@ -16,7 +15,7 @@ public class InitPlayerState : PlayerState
     {
         // set up here for future use
         yield return null;
-        owner.ChangeState<DefaultPlayerState>();
+        owner.ChangeState<ClockInactiveState>();
     }
     #endregion
 }

@@ -1,6 +1,6 @@
 using System.Collections;
 
-public class InitThermometerState : ThermometerState
+public class SilhouetteBowlInitState : SilhouetteBowlState
 {
     #region MonoBehaviour
     protected override void Awake()
@@ -15,7 +15,7 @@ public class InitThermometerState : ThermometerState
     {
         // set up here for future use
         yield return null;
-        owner.ChangeState<ThermometerInactiveState>();
+        owner.ChangeState<SilhouetteBowlInactiveState>();
     }
     #endregion
 }

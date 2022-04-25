@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class HidingState : PlayerState
+public class PlayerHidingState : PlayerState
 {
     #region Events
     public static event Action<bool> StopHidingHudEvent;

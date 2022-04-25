@@ -6,7 +6,7 @@ using System;
  * Class to manage player when in UI state (dialogue, journal, etc).
  * All logic-related players in UI state will be handled here.
  */
-public class UiState : PlayerState
+public class PlayerUiState : PlayerState
 {
     #region Variables
     private CinemachineBrain _cinemachineBrain;
