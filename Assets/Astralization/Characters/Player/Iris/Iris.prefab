@@ -639,7 +639,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 873121507167454745}
         m_TargetAssemblyTypeName: InputManager, Scripts
-        m_MethodName: HandleInputDialogue
+        m_MethodName: HandleInputExorcism
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -649,8 +649,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 529143e4-1c0d-4543-8a9a-16690e5e2aa1
-    m_ActionName: Dialogue/Click[/Mouse/leftButton]
+    m_ActionId: 23ed480d-0a3a-4541-b9f6-ed571086ebb5
+    m_ActionName: Player/SimulateGhostInteract[/Keyboard/z]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 873121507167454745}
@@ -665,8 +665,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 8409afe8-676f-43cb-8470-6bcf76f9513c
-    m_ActionName: Dialogue/NextDialogue[/Keyboard/enter,/Mouse/leftButton]
+    m_ActionId: 8a6b2f5b-c2a4-41bc-a977-55ce12bdd266
+    m_ActionName: Hiding/Interact[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 873121507167454745}
@@ -681,17 +681,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 23ed480d-0a3a-4541-b9f6-ed571086ebb5
-    m_ActionName: Player/SimulateGhostInteract[/Keyboard/z]
+    m_ActionId: 531e8a8d-46a4-4dca-a869-e3c015b57ab7
+    m_ActionName: Exorcism/Channeling Stop[/Mouse/rightButton]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 8a6b2f5b-c2a4-41bc-a977-55ce12bdd266
-    m_ActionName: Hiding/Interact[/Keyboard/e]
+    m_ActionId: 2a719410-3182-4ba9-bd1c-7e437353d882
+    m_ActionName: Default/MouseDelta[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 873121507167454745}
         m_TargetAssemblyTypeName: InputManager, Scripts
-        m_MethodName: HandleInputHiding
+        m_MethodName: HandleInputDefault
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -701,8 +701,48 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 531e8a8d-46a4-4dca-a869-e3c015b57ab7
-    m_ActionName: Exorcism/Channeling Stop[/Mouse/rightButton]
+    m_ActionId: b31d57e4-19a3-4fb5-9d7b-b45bad74352a
+    m_ActionName: Default/InventoryQuickslot[/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4,/Keyboard/5]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e3df0298-ebce-4446-9d67-7ef542588419
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 777abb36-2800-47cd-90b8-17ed12bf4d5c
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 012c10a0-b793-45d5-b2c0-713807f23446
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 31862f20-2639-414e-9e1f-cd614c7ce6d7
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4c52f4d5-23db-4d81-9636-7ff394dbc5b7
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: adb5b7d7-38d5-4a94-9c55-c04094cbb479
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 47c1dd8d-3e16-4376-8d0a-d28232abdfcb
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1e81d4f8-ef54-4de1-9231-43dbcba4aa5d
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e59ce314-b965-4e80-a29d-7af4bf556d8b
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cca14c8d-8e03-4898-b9d2-19ae19ac2d6a
+    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Default

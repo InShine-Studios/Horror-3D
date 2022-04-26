@@ -8,6 +8,7 @@ public interface IInventory
     int GetActiveIdx();
     IItem GetActiveItem();
     IItem GetItemByIndex(int idx);
+    void SetLength(int invenLength);
     int GetLength();
     int GetNumOfItem();
     float GetScrollStep();
@@ -41,6 +42,7 @@ public class Inventory : MonoBehaviour, IInventory
     private Item[] _items;
 
     [Tooltip("Inventory Length")]
+    [Range(3,5)]
     public int InvenLength = 3;
 
     [Tooltip("The current active item")]
@@ -69,8 +71,26 @@ public class Inventory : MonoBehaviour, IInventory
     #endregion
 
     #region SetGet
+    public void SetLength(int invenLength) 
+    { 
+        InvenLength = invenLength;
+        _items = new Item[InvenLength];
+    }
     public int GetLength() { return InvenLength; }
     public int GetNumOfItem() { return _numOfItem; }
+    public void SetActiveItem(int newIdx) 
+    {
+        if(newIdx >= InvenLength)
+        {
+            Debug.Log("[INVENTORY] IndexOutOfRangeError: Trying to quickslot with index out of range");
+        }
+        else
+        {
+            _activeIdx = newIdx;
+            _activeItem = _items[newIdx];
+            //Debug.Log("[INVENTORY] Change item by quickslot to index " + _activeIdx);
+        }
+    }
     public int GetActiveIdx() { return _activeIdx; }
     public IItem GetActiveItem() { return _activeItem; }
     public IItem GetItemByIndex(int idx) { return _items[idx]; }
@@ -101,25 +121,21 @@ public class Inventory : MonoBehaviour, IInventory
                 for (int i = 0; i < InvenLength; i++)
                 {
                     // Find empty slot in inventory,
-                    // search from activeIdx to the end of array
-                    // and continue from the front of the array
-                    int cur = (_activeIdx + i) % InvenLength;
-                    if (!_items[cur])
+                    // search from start to the end of array
+                    if (!_items[i])
                     {
-                        _items[cur] = item;
-                        pickedIdx = cur; // For logs
+                        _items[i] = item;
+                        pickedIdx = i; // For logs
                         break;
                     }
                 }
 
-                _numOfItem++;
                 item?.ShowItem(false);
             }
             else
             {
                 _items[_activeIdx] = item;
                 _activeItem = item;
-                _numOfItem++;
 
                 ItemLogoEvent?.Invoke(true, _activeItem.GetItemLogo());
             }
@@ -129,6 +145,8 @@ public class Inventory : MonoBehaviour, IInventory
             item.transform.position = this.transform.position + ActiveItemYOffset;  // Reposition object to middle body of player
             item.transform.rotation = this.transform.rotation;  // Reset item rotation
             item.OnInteraction();
+
+            _numOfItem++;
 
             //Debug.Log("[INVENTORY] Pick " + item.name + " on position " + pickedIdx);
         }
