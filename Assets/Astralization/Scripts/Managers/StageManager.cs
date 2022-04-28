@@ -22,7 +22,9 @@ public class StageManager : MonoBehaviour, IStageManager
     [SerializeField]
     private GhostTransitionZone _ghostTransitionZonePrefab;
     [SerializeField]
-    private StageData _stageData;
+    private StagePointsData _stagePointsData;
+    [SerializeField]
+    private StageTransitionZoneData _stageTransitionZoneData;
     #endregion
 
     #region SetGet
@@ -48,26 +50,28 @@ public class StageManager : MonoBehaviour, IStageManager
     #region Loader
     private void Load()
     {
-        if (!_stageData) return;
+        if (!_stagePointsData) return;
 
-        for (int i = 0; i < _stageData.Positions.Count; i++)
+        for (int i = 0; i < _stagePointsData.Positions.Count; i++)
         {
             WorldPoint instance = Instantiate(_roomPointPrefab);
-            instance.name = _stageData.Names[i];
+            instance.name = _stagePointsData.Names[i];
             instance.transform.parent = transform;
-            instance.Load(_stageData.Positions[i], _stageData.Names[i], _stageData.Rads[i]);
+            instance.Load(_stagePointsData.Positions[i], _stagePointsData.Names[i], _stagePointsData.Rads[i]);
             _roomPoints.Add(instance.PointName, instance);
         }
 
-        for (int i = 0; i < _stageData.GhostTransitionZonePosition.Count; i++)
+        if (!_stageTransitionZoneData) return;
+
+        for (int i = 0; i < _stageTransitionZoneData.GhostTransitionZonePosition.Count; i++)
         {
             GhostTransitionZone instance = Instantiate(_ghostTransitionZonePrefab);
             instance.transform.parent = transform;
             instance.Load(
-                _stageData.GhostTransitionZonePosition[i], 
-                _stageData.GhostTransitionZoneCenter[i],
-                _stageData.GhostTransitionZoneSize[i], 
-                _stageData.GhostTransitionZoneEndpoint[i].list);
+                _stageTransitionZoneData.GhostTransitionZonePosition[i],
+                _stageTransitionZoneData.GhostTransitionZoneCenter[i],
+                _stageTransitionZoneData.GhostTransitionZoneSize[i],
+                _stageTransitionZoneData.GhostTransitionZoneEndpoint[i].list);
             instance.SetZoneName();
             _ghostTransitionZones.Add(instance.name, instance);
         }

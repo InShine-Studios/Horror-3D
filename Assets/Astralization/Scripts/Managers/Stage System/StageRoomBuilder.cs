@@ -19,7 +19,9 @@ public class StageRoomBuilder : MonoBehaviour
     private static Dictionary<string, GhostTransitionZone> _ghostTransitionZones = new Dictionary<string, GhostTransitionZone>();
 
     [SerializeField]
-    private StageData _stageData;
+    private StagePointsData _stagePointsData;
+    [SerializeField]
+    private StageTransitionZoneData _stageTransitionZoneData;
     #endregion
 
     #region RoomPoints Setup
@@ -95,48 +97,6 @@ public class StageRoomBuilder : MonoBehaviour
     #endregion
 
     #region Save Load
-    public void Save()
-    {
-        RenameRoomPoint();
-        UpdatePoints();
-
-        RenameEndpoints();
-        UpdateTransitionEndpoints();
-        _stageData = null;
-
-        string filePath = Application.dataPath + "/Astralization/Resources/Stages";
-        if (!Directory.Exists(filePath))
-            CreateSaveDirectory();
-
-        StageData stage = ScriptableObject.CreateInstance<StageData>();
-        stage.Positions = new List<Vector3>(_roomPoints.Count);
-        stage.Names = new List<string>(_roomPoints.Count);
-        stage.Rads = new List<float>(_roomPoints.Count);
-
-        stage.GhostTransitionZonePosition = new List<Vector3>(_ghostTransitionZones.Count);
-        stage.GhostTransitionZoneCenter = new List<Vector3>(_ghostTransitionZones.Count);
-        stage.GhostTransitionZoneSize = new List<Vector3>(_ghostTransitionZones.Count);
-        stage.GhostTransitionZoneEndpoint = new List<TransitionEndpointList>(_ghostTransitionZones.Count);
-
-        foreach (WorldPoint r in _roomPoints.Values)
-        {
-            stage.Positions.Add(r.GetLocalPosition());
-            stage.Names.Add(r.PointName);
-            stage.Rads.Add(r.Radius);
-        }
-
-        foreach (GhostTransitionZone zone in _ghostTransitionZones.Values)
-        {
-            stage.GhostTransitionZonePosition.Add(zone.GetZoneLocalPosition());
-            stage.GhostTransitionZoneCenter.Add(zone.GetZoneColliderCenter());
-            stage.GhostTransitionZoneSize.Add(zone.GetZoneColliderSize());
-            stage.GhostTransitionZoneEndpoint.Add(zone.Endpoints);
-        }
-
-        string fileName = string.Format("Assets/Astralization/Resources/Stages/{1}.asset", filePath, name);
-        AssetDatabase.CreateAsset(stage, fileName);
-    }
-
     private void CreateSaveDirectory()
     {
         string filePath = Application.dataPath + "/Astralization/Resources";
@@ -149,34 +109,100 @@ public class StageRoomBuilder : MonoBehaviour
         AssetDatabase.Refresh();
     }
 
-    public void Load()
+    public void SaveRoomPoints()
     {
-        ClearAll();
+        RenameRoomPoint();
+        UpdatePoints();
+        _stagePointsData = null;
 
-        if (!_stageData) return;
+        StagePointsData stagePoints = ScriptableObject.CreateInstance<StagePointsData>();
+        stagePoints.Positions = new List<Vector3>(_roomPoints.Count);
+        stagePoints.Names = new List<string>(_roomPoints.Count);
+        stagePoints.Rads = new List<float>(_roomPoints.Count);
 
-        for (int i = 0; i < _stageData.Positions.Count; i++)
+        foreach (WorldPoint r in _roomPoints.Values)
         {
-            WorldPoint r = CreateRoomPoints();
-            r.Load(_stageData.Positions[i], _stageData.Names[i], _stageData.Rads[i]);
+            stagePoints.Positions.Add(r.GetLocalPosition());
+            stagePoints.Names.Add(r.PointName);
+            stagePoints.Rads.Add(r.Radius);
         }
 
-        for (int i = 0; i < _stageData.GhostTransitionZonePosition.Count; i++)
+        string stagePointsFilename = string.Format("Assets/Astralization/Resources/Stages/{0} - {1}.asset", name, "WorldPoint");
+        AssetDatabase.CreateAsset(stagePoints, stagePointsFilename);
+    }
+
+    public void SaveTransitionZones()
+    {
+        RenameEndpoints();
+        UpdateTransitionEndpoints();
+        _stageTransitionZoneData = null;
+
+        StageTransitionZoneData stageZones = ScriptableObject.CreateInstance<StageTransitionZoneData>();
+        stageZones.GhostTransitionZonePosition = new List<Vector3>(_ghostTransitionZones.Count);
+        stageZones.GhostTransitionZoneCenter = new List<Vector3>(_ghostTransitionZones.Count);
+        stageZones.GhostTransitionZoneSize = new List<Vector3>(_ghostTransitionZones.Count);
+        stageZones.GhostTransitionZoneEndpoint = new List<TransitionEndpointList>(_ghostTransitionZones.Count);
+
+        foreach (GhostTransitionZone zone in _ghostTransitionZones.Values)
         {
-            GhostTransitionZone zone = CreateGhostTransitionZone();
-            zone.Load(
-                _stageData.GhostTransitionZonePosition[i], 
-                _stageData.GhostTransitionZoneCenter[i], 
-                _stageData.GhostTransitionZoneSize[i], 
-                _stageData.GhostTransitionZoneEndpoint[i].list
-            );
+            stageZones.GhostTransitionZonePosition.Add(zone.GetZoneLocalPosition());
+            stageZones.GhostTransitionZoneCenter.Add(zone.GetZoneColliderCenter());
+            stageZones.GhostTransitionZoneSize.Add(zone.GetZoneColliderSize());
+            stageZones.GhostTransitionZoneEndpoint.Add(zone.Endpoints);
+        }
+
+        string stageZoneFilename = string.Format("Assets/Astralization/Resources/Stages/{0} - {1}.asset", name, "GhostTransitionZone");
+        AssetDatabase.CreateAsset(stageZones, stageZoneFilename);
+    }
+
+    public void Save()
+    {
+        string filePath = Application.dataPath + "/Astralization/Resources/Stages";
+        if (!Directory.Exists(filePath))
+            CreateSaveDirectory();
+
+        SaveRoomPoints();
+        SaveTransitionZones();
+    }
+
+    public void LoadRoomPoints()
+    {
+        if (!_stagePointsData) return;
+
+        for (int i = 0; i < _stagePointsData.Positions.Count; i++)
+        {
+            WorldPoint r = CreateRoomPoints();
+            r.Load(_stagePointsData.Positions[i], _stagePointsData.Names[i], _stagePointsData.Rads[i]);
         }
 
         RenameRoomPoint();
         UpdatePoints();
+    }
+
+    public void LoadTransitionZones()
+    {
+        if (!_stageTransitionZoneData) return;
+
+        for (int i = 0; i < _stageTransitionZoneData.GhostTransitionZonePosition.Count; i++)
+        {
+            GhostTransitionZone zone = CreateGhostTransitionZone();
+            zone.Load(
+                _stageTransitionZoneData.GhostTransitionZonePosition[i],
+                _stageTransitionZoneData.GhostTransitionZoneCenter[i],
+                _stageTransitionZoneData.GhostTransitionZoneSize[i],
+                _stageTransitionZoneData.GhostTransitionZoneEndpoint[i].list
+            );
+        }
 
         RenameEndpoints();
         UpdateTransitionEndpoints();
+    }
+
+    public void Load()
+    {
+        ClearAll();
+        LoadRoomPoints();
+        LoadTransitionZones();
     }
     #endregion
 }

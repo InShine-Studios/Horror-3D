@@ -24,9 +24,17 @@ public class StageRoomInspector : Editor
             current.CreateGhostTransitionZone();
         if (GUILayout.Button("Clear All Child"))
             current.ClearAll();
-        if (GUILayout.Button("Save"))
+        if (GUILayout.Button("Save Room Points"))
+            current.SaveRoomPoints();
+        if (GUILayout.Button("Load Room Points"))
+            current.LoadRoomPoints();
+        if (GUILayout.Button("Save Ghost Transition Zone"))
+            current.SaveTransitionZones();
+        if (GUILayout.Button("Load Ghost Transition Zone"))
+            current.LoadTransitionZones();
+        if (GUILayout.Button("Save All"))
             current.Save();
-        if (GUILayout.Button("Load"))
+        if (GUILayout.Button("Load All"))
             current.Load();
     }
 

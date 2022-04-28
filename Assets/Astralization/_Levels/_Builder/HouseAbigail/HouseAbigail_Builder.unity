@@ -2238,7 +2238,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _roomPointPrefab: {fileID: 6944232682392850989, guid: ce606aa610b38094c9d2020360db057c, type: 3}
   _ghostTransitionZonePrefab: {fileID: 4399661195519458714, guid: 6ee303ff6a06e0949867f4d179b8d70c, type: 3}
-  _stageData: {fileID: 11400000, guid: fa5a0b57232b4d94fb2a5d45cfcbab2c, type: 2}
+  _stagePointsData: {fileID: 0}
+  _stageTransitionZoneData: {fileID: 0}
 --- !u!1 &72431410
 GameObject:
   m_ObjectHideFlags: 0
@@ -39673,7 +39674,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _roomPointPrefab: {fileID: 6944232682392850989, guid: ce606aa610b38094c9d2020360db057c, type: 3}
   _ghostTransitionZonePrefab: {fileID: 4399661195519458714, guid: 6ee303ff6a06e0949867f4d179b8d70c, type: 3}
-  _stageData: {fileID: 11400000, guid: 69e6185331d50aa40bdfffbcdef36145, type: 2}
+  _stagePointsData: {fileID: 0}
+  _stageTransitionZoneData: {fileID: 0}
 --- !u!4 &904425264
 Transform:
   m_ObjectHideFlags: 0
