@@ -31,11 +31,9 @@ public class Inventory : MonoBehaviour, IInventory
 {
     #region Events
     public static event Action<int,int> InitItemHudEvent;
-
+    public static event Action ToggleItemHudDisplayEvent;
     public static event Action<int> UpdateActiveItemIndexEvent;
-
     public static event Action<bool, Sprite> ItemLogoEvent;
-
     public static event Action<Item> DiscardItemEvent;
     #endregion
 
@@ -207,6 +205,14 @@ public class Inventory : MonoBehaviour, IInventory
 
         if (!_activeItem) Debug.Log("[INVENTORY] Missing active item");
         else if (_activeItem.IsDiscardedWhenUsed()) DiscardItem();
+    }
+    #endregion
+
+    #region ItemHud
+    public void ToggleItemHud()
+    {
+
+        ToggleItemHudDisplayEvent.Invoke();
     }
     #endregion
 }

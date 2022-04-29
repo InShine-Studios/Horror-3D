@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleItemHud",
+                    "type": "Button",
+                    "id": "e01af031-4251-430b-895c-73c989bc478d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -312,6 +321,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "MouseDelta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "388c222b-544c-409a-b9e6-4c1f7875ecb1",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ToggleItemHud",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

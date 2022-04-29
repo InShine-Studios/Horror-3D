@@ -13,7 +13,7 @@ public class HudManager : MonoBehaviour
     [SerializeField]
     private HidingOverlay _hidingManager;
     [SerializeField]
-    private ItemHud _itemHud;
+    private ItemHudDisplay _itemHud;
     [SerializeField]
     private ExorcismBar _exorcismBar;
     #endregion
@@ -49,7 +49,7 @@ public class HudManager : MonoBehaviour
 
     private void UpdateLogo(bool state, Sprite logo)
     {
-
+        //TODO
     }
 
     private void ShowExorcism(bool isShowExorcism)
@@ -62,9 +62,14 @@ public class HudManager : MonoBehaviour
         _itemHud.Init(inventoryLength, activeIdx);
     }
 
+    private void ToggleItemHudDisplay()
+    {
+        _itemHud.ToggleDisplay();
+    }
+
     private void UpdateActiveItem(int activeIdx)
     {
-        _itemHud.SetActiveSlot(activeIdx);
+        _itemHud.SelectActiveSlot(activeIdx);
     }
     #endregion
 
@@ -76,6 +81,7 @@ public class HudManager : MonoBehaviour
         HidingState.StopHidingHudEvent += ShowHidingHud;
         Inventory.ItemLogoEvent += UpdateLogo;
         Inventory.InitItemHudEvent += GenerateItemHud;
+        Inventory.ToggleItemHudDisplayEvent += ToggleItemHudDisplay;
         Inventory.UpdateActiveItemIndexEvent += UpdateActiveItem;
     }
 
@@ -86,6 +92,7 @@ public class HudManager : MonoBehaviour
         HidingState.StopHidingHudEvent -= ShowHidingHud;
         Inventory.ItemLogoEvent -= UpdateLogo;
         Inventory.InitItemHudEvent -= GenerateItemHud;
+        Inventory.ToggleItemHudDisplayEvent -= ToggleItemHudDisplay;
         Inventory.UpdateActiveItemIndexEvent += UpdateActiveItem;
     }
     #endregion

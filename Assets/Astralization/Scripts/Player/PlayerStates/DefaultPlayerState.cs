@@ -98,6 +98,14 @@ public class DefaultPlayerState : PlayerState
             _inventory.ScrollActiveItem(ctx.ReadValue<Vector2>());
         }
     }
+
+    public override void ToggleItemHud(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            _inventory.ToggleItemHud();
+        }
+    }
     #endregion
 
     #region Detector Input Handler
