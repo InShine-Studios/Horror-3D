@@ -31,7 +31,7 @@ public class StageRoomBuilder : MonoBehaviour
             DestroyImmediate(transform.GetChild(i).gameObject);
     }
 
-    public WorldPoint CreateRoomPoints()
+    public WorldPoint CreateStagePoint()
     {
         WorldPoint instance = Instantiate(_roomPointPrefab);
         instance.transform.parent = transform;
@@ -109,7 +109,7 @@ public class StageRoomBuilder : MonoBehaviour
         AssetDatabase.Refresh();
     }
 
-    public void SaveRoomPoints()
+    public void SaveStagePoints()
     {
         RenameRoomPoint();
         UpdatePoints();
@@ -161,17 +161,17 @@ public class StageRoomBuilder : MonoBehaviour
         if (!Directory.Exists(filePath))
             CreateSaveDirectory();
 
-        SaveRoomPoints();
+        SaveStagePoints();
         SaveTransitionZones();
     }
 
-    public void LoadRoomPoints()
+    public void LoadStagePoints()
     {
         if (!_stagePointsData) return;
 
         for (int i = 0; i < _stagePointsData.Positions.Count; i++)
         {
-            WorldPoint r = CreateRoomPoints();
+            WorldPoint r = CreateStagePoint();
             r.Load(_stagePointsData.Positions[i], _stagePointsData.Names[i], _stagePointsData.Rads[i]);
         }
 
@@ -201,7 +201,7 @@ public class StageRoomBuilder : MonoBehaviour
     public void Load()
     {
         ClearAll();
-        LoadRoomPoints();
+        LoadStagePoints();
         LoadTransitionZones();
     }
     #endregion

@@ -18,24 +18,33 @@ public class StageRoomInspector : Editor
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-        if (GUILayout.Button("Create Room Point"))
-            current.CreateRoomPoints();
-        if (GUILayout.Button("Create Ghost Transition Zone"))
-            current.CreateGhostTransitionZone();
-        if (GUILayout.Button("Clear All Child"))
-            current.ClearAll();
-        if (GUILayout.Button("Save Room Points"))
-            current.SaveRoomPoints();
-        if (GUILayout.Button("Load Room Points"))
-            current.LoadRoomPoints();
-        if (GUILayout.Button("Save Ghost Transition Zone"))
-            current.SaveTransitionZones();
-        if (GUILayout.Button("Load Ghost Transition Zone"))
-            current.LoadTransitionZones();
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("General");
         if (GUILayout.Button("Save All"))
             current.Save();
         if (GUILayout.Button("Load All"))
             current.Load();
+        if (GUILayout.Button("Clear All Child"))
+            current.ClearAll();
+
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Stage Point");
+        if (GUILayout.Button("Create Stage Point"))
+            current.CreateStagePoint();
+        if (GUILayout.Button("Save Stage Points"))
+            current.SaveStagePoints();
+        if (GUILayout.Button("Load Stage Points"))
+            current.LoadStagePoints();
+
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Ghost Transition Zone");
+        if (GUILayout.Button("Create Ghost Transition Zone"))
+            current.CreateGhostTransitionZone();
+        if (GUILayout.Button("Save Ghost Transition Zones"))
+            current.SaveTransitionZones();
+        if (GUILayout.Button("Load Ghost Transition Zones"))
+            current.LoadTransitionZones();
+        
     }
 
 }
