@@ -42,6 +42,7 @@ public class Inventory : MonoBehaviour, IInventory
     [Tooltip("The list of items")]
     private Item[] _items;
 
+    [Range(3,5)]
     [Tooltip("Inventory Length")]
     public int InvenLength = 3;
 
