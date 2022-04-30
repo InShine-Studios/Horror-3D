@@ -7,9 +7,10 @@ using System.IO;
  * General builder for a stage.
  * Used with StageRoomInspector class for editor mode.
  */
-public class StageRoomBuilder : MonoBehaviour
+public class StageBuilder : MonoBehaviour
 {
     #region Variables
+    [Header("Prefab")]
     [SerializeField]
     private WorldPoint _roomPointPrefab;
     private static Dictionary<string, WorldPoint> _roomPoints = new Dictionary<string, WorldPoint>();
@@ -18,6 +19,8 @@ public class StageRoomBuilder : MonoBehaviour
     private GhostTransitionZone _ghostTransitionZonePrefab;
     private static Dictionary<string, GhostTransitionZone> _ghostTransitionZones = new Dictionary<string, GhostTransitionZone>();
 
+    [Space]
+    [Header("StageData")]
     [SerializeField]
     private StagePointsData _stagePointsData;
     [SerializeField]

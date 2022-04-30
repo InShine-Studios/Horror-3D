@@ -4,14 +4,14 @@ using UnityEditor;
 /*
  * The editor script to edit rooms of a stage.
  */
-[CustomEditor(typeof(StageRoomBuilder))]
+[CustomEditor(typeof(StageBuilder))]
 public class StageRoomInspector : Editor
 {
-    public StageRoomBuilder current
+    public StageBuilder current
     {
         get
         {
-            return (StageRoomBuilder)target;
+            return (StageBuilder)target;
         }
     }
 
@@ -19,7 +19,7 @@ public class StageRoomInspector : Editor
     {
         DrawDefaultInspector();
         EditorGUILayout.Space();
-        EditorGUILayout.LabelField("General");
+        EditorGUILayout.LabelField("General", EditorStyles.boldLabel);
         if (GUILayout.Button("Save All"))
             current.Save();
         if (GUILayout.Button("Load All"))
@@ -28,7 +28,7 @@ public class StageRoomInspector : Editor
             current.ClearAll();
 
         EditorGUILayout.Space();
-        EditorGUILayout.LabelField("Stage Point");
+        EditorGUILayout.LabelField("Stage Point", EditorStyles.boldLabel);
         if (GUILayout.Button("Create Stage Point"))
             current.CreateStagePoint();
         if (GUILayout.Button("Save Stage Points"))
@@ -37,7 +37,7 @@ public class StageRoomInspector : Editor
             current.LoadStagePoints();
 
         EditorGUILayout.Space();
-        EditorGUILayout.LabelField("Ghost Transition Zone");
+        EditorGUILayout.LabelField("Ghost Transition Zone", EditorStyles.boldLabel);
         if (GUILayout.Button("Create Ghost Transition Zone"))
             current.CreateGhostTransitionZone();
         if (GUILayout.Button("Save Ghost Transition Zones"))
