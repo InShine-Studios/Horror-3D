@@ -1,9 +1,9 @@
 using UnityEngine;
 
 /*
- * A class that can keep data about a world point
+ * A class that can keep data about a stage point
  */
-public class WorldPoint : MonoBehaviour
+public class StagePoint : MonoBehaviour
 {
     #region Variables
     public string PointName;

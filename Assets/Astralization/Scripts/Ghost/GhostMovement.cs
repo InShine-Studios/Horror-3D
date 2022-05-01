@@ -64,7 +64,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     #endregion
 
     #region WanderingHandler
-    private Vector3 RandomShiftTarget(WorldPoint target)
+    private Vector3 RandomShiftTarget(StagePoint target)
     {
         float shiftX = Utils.Randomizer.GetFloat(-target.Radius, target.Radius);
         float shiftZ = Utils.Randomizer.GetFloat(-target.Radius, target.Radius);
@@ -73,7 +73,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
 
     public void WanderTarget(string targetRoomName, bool randomizePoint)
     {
-        WorldPoint targetRoom = _stageManager.GetRoomCoordinate(targetRoomName);
+        StagePoint targetRoom = _stageManager.GetRoomCoordinate(targetRoomName);
         if (WanderTarget(targetRoom, out _wanderTarget, randomizePoint))
         {
             NavMeshAgent.SetDestination(_wanderTarget);
@@ -86,7 +86,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         NavMeshAgent.SetDestination(targetPosition);
     }
 
-    private bool WanderTarget(WorldPoint targetRoom, out Vector3 result, bool randomizePoint)
+    private bool WanderTarget(StagePoint targetRoom, out Vector3 result, bool randomizePoint)
     {
         Vector3 targetPoint = targetRoom.GetPosition();
         if (randomizePoint)
@@ -109,7 +109,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
 
     private bool RandomWanderTarget(out Vector3 result)
     {
-        WorldPoint targetRoom = _stageManager.GetRandomRoomCoordinate();
+        StagePoint targetRoom = _stageManager.GetRandomRoomCoordinate();
         return WanderTarget(targetRoom, out result, true);
     }
 

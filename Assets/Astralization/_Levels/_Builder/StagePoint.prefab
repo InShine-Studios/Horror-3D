@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9214848337827957102}
-  - component: {fileID: 6944232682392850989}
+  - component: {fileID: 7238699077386796057}
   m_Layer: 0
-  m_Name: Point
+  m_Name: StagePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6944232682392850989
+--- !u!114 &7238699077386796057
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,8 +40,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 9214848337827957098}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5757d21a2ce9699469d39d86e4912bae, type: 3}
+  m_Script: {fileID: 11500000, guid: a2401baa88d46c14c88efa59e94dbaaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointName: 
-  radius: 0
+  PointName: 
+  Radius: 0

@@ -12,8 +12,8 @@ public class StageBuilder : MonoBehaviour
     #region Variables
     [Header("Prefab")]
     [SerializeField]
-    private WorldPoint _roomPointPrefab;
-    private static Dictionary<string, WorldPoint> _roomPoints = new Dictionary<string, WorldPoint>();
+    private StagePoint _stagePointPrefab;
+    private static Dictionary<string, StagePoint> _stagePoints = new Dictionary<string, StagePoint>();
 
     [SerializeField]
     private GhostTransitionZone _ghostTransitionZonePrefab;
@@ -27,16 +27,16 @@ public class StageBuilder : MonoBehaviour
     private StageTransitionZoneData _stageTransitionZoneData;
     #endregion
 
-    #region RoomPoints Setup
+    #region StagePoints Setup
     public void ClearAll()
     {
         for (int i = transform.childCount - 1; i >= 0; --i)
             DestroyImmediate(transform.GetChild(i).gameObject);
     }
 
-    public WorldPoint CreateStagePoint()
+    public StagePoint CreateStagePoint()
     {
-        WorldPoint instance = Instantiate(_roomPointPrefab);
+        StagePoint instance = Instantiate(_stagePointPrefab);
         instance.transform.parent = transform;
         return instance;
     }
@@ -48,7 +48,7 @@ public class StageBuilder : MonoBehaviour
             GameObject go = transform.GetChild(i).gameObject;
             if (go.CompareTag("WorldPoint"))
             {
-                go.name = go.GetComponent<WorldPoint>().PointName;
+                go.name = go.GetComponent<StagePoint>().PointName;
             }
         }
     }
@@ -56,12 +56,12 @@ public class StageBuilder : MonoBehaviour
     private void UpdatePoints()
     {
         // Reset dict first
-        _roomPoints = new Dictionary<string, WorldPoint>();
+        _stagePoints = new Dictionary<string, StagePoint>();
 
-        WorldPoint[] childPoints = transform.GetComponentsInChildren<WorldPoint>();
-        foreach (WorldPoint r in childPoints)
+        StagePoint[] childPoints = transform.GetComponentsInChildren<StagePoint>();
+        foreach (StagePoint r in childPoints)
         {
-            _roomPoints.Add(r.PointName, r);
+            _stagePoints.Add(r.PointName, r);
         }
     }
     #endregion
@@ -119,18 +119,18 @@ public class StageBuilder : MonoBehaviour
         _stagePointsData = null;
 
         StagePointsData stagePoints = ScriptableObject.CreateInstance<StagePointsData>();
-        stagePoints.Positions = new List<Vector3>(_roomPoints.Count);
-        stagePoints.Names = new List<string>(_roomPoints.Count);
-        stagePoints.Rads = new List<float>(_roomPoints.Count);
+        stagePoints.Positions = new List<Vector3>(_stagePoints.Count);
+        stagePoints.Names = new List<string>(_stagePoints.Count);
+        stagePoints.Rads = new List<float>(_stagePoints.Count);
 
-        foreach (WorldPoint r in _roomPoints.Values)
+        foreach (StagePoint r in _stagePoints.Values)
         {
             stagePoints.Positions.Add(r.GetLocalPosition());
             stagePoints.Names.Add(r.PointName);
             stagePoints.Rads.Add(r.Radius);
         }
 
-        string stagePointsFilename = string.Format("Assets/Astralization/Resources/Stages/{0} - {1}.asset", name, "WorldPoint");
+        string stagePointsFilename = string.Format("Assets/Astralization/Resources/Stages/{0} - {1}.asset", name, "StagePoint");
         AssetDatabase.CreateAsset(stagePoints, stagePointsFilename);
     }
 
@@ -174,7 +174,7 @@ public class StageBuilder : MonoBehaviour
 
         for (int i = 0; i < _stagePointsData.Positions.Count; i++)
         {
-            WorldPoint r = CreateStagePoint();
+            StagePoint r = CreateStagePoint();
             r.Load(_stagePointsData.Positions[i], _stagePointsData.Names[i], _stagePointsData.Rads[i]);
         }
 

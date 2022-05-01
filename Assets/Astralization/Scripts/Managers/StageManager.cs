@@ -3,8 +3,8 @@ using UnityEngine;
 
 public interface IStageManager 
 {
-    WorldPoint GetRandomRoomCoordinate();
-    WorldPoint GetRoomCoordinate(string roomName);
+    StagePoint GetRandomRoomCoordinate();
+    StagePoint GetRoomCoordinate(string roomName);
 }
 
 /*
@@ -14,11 +14,11 @@ public interface IStageManager
 public class StageManager : MonoBehaviour, IStageManager
 {
     #region Variables
-    private Dictionary<string, WorldPoint> _roomPoints = new Dictionary<string, WorldPoint>();
+    private Dictionary<string, StagePoint> _roomPoints = new Dictionary<string, StagePoint>();
     private Dictionary<string, GhostTransitionZone> _ghostTransitionZones = new Dictionary<string, GhostTransitionZone>();
 
     [SerializeField]
-    private WorldPoint _roomPointPrefab;
+    private StagePoint _roomPointPrefab;
     [SerializeField]
     private GhostTransitionZone _ghostTransitionZonePrefab;
     [SerializeField]
@@ -28,14 +28,14 @@ public class StageManager : MonoBehaviour, IStageManager
     #endregion
 
     #region SetGet
-    public WorldPoint GetRoomCoordinate(string roomName)
+    public StagePoint GetRoomCoordinate(string roomName)
     {
         return _roomPoints[roomName];
     }
 
-    public WorldPoint GetRandomRoomCoordinate()
+    public StagePoint GetRandomRoomCoordinate()
     {
-        WorldPoint randomRoom = Utils.Randomizer.GetRandomValue(_roomPoints);
+        StagePoint randomRoom = Utils.Randomizer.GetRandomValue(_roomPoints);
         return randomRoom;
     }
     #endregion
@@ -54,7 +54,7 @@ public class StageManager : MonoBehaviour, IStageManager
 
         for (int i = 0; i < _stagePointsData.Positions.Count; i++)
         {
-            WorldPoint instance = Instantiate(_roomPointPrefab);
+            StagePoint instance = Instantiate(_roomPointPrefab);
             instance.name = _stagePointsData.Names[i];
             instance.transform.parent = transform;
             instance.Load(_stagePointsData.Positions[i], _stagePointsData.Names[i], _stagePointsData.Rads[i]);

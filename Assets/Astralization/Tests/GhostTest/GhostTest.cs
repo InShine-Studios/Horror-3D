@@ -43,7 +43,7 @@ public class GhostTest : TestBase
 
         string targetRoomName = "Laundry Room";
         IStageManager stageManager = GameObject.Find("Building/StageManager").GetComponent<IStageManager>();
-        WorldPoint targetRoom = stageManager.GetRoomCoordinate(targetRoomName);
+        StagePoint targetRoom = stageManager.GetRoomCoordinate(targetRoomName);
 
         yield return new WaitWhile(() => ghostStateMachine.CurrentState is GhostIdleState);
         ghost.GetComponent<IGhostWanderState>().SetWanderTarget(targetRoomName,false);
