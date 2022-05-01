@@ -14,13 +14,16 @@ public interface IStageManager
 public class StageManager : MonoBehaviour, IStageManager
 {
     #region Variables
-    private Dictionary<string, StagePoint> _roomPoints = new Dictionary<string, StagePoint>();
+    private Dictionary<string, StagePoint> _stagePoints = new Dictionary<string, StagePoint>();
     private Dictionary<string, GhostTransitionZone> _ghostTransitionZones = new Dictionary<string, GhostTransitionZone>();
 
+    [Header("Prefab")]
     [SerializeField]
-    private StagePoint _roomPointPrefab;
+    private StagePoint _stagePointPrefab;
     [SerializeField]
     private GhostTransitionZone _ghostTransitionZonePrefab;
+   
+    [Header("Stage Data")]
     [SerializeField]
     private StagePointsData _stagePointsData;
     [SerializeField]
@@ -30,12 +33,12 @@ public class StageManager : MonoBehaviour, IStageManager
     #region SetGet
     public StagePoint GetRoomCoordinate(string roomName)
     {
-        return _roomPoints[roomName];
+        return _stagePoints[roomName];
     }
 
     public StagePoint GetRandomRoomCoordinate()
     {
-        StagePoint randomRoom = Utils.Randomizer.GetRandomValue(_roomPoints);
+        StagePoint randomRoom = Utils.Randomizer.GetRandomValue(_stagePoints);
         return randomRoom;
     }
     #endregion
@@ -54,11 +57,11 @@ public class StageManager : MonoBehaviour, IStageManager
 
         for (int i = 0; i < _stagePointsData.Positions.Count; i++)
         {
-            StagePoint instance = Instantiate(_roomPointPrefab);
+            StagePoint instance = Instantiate(_stagePointPrefab);
             instance.name = _stagePointsData.Names[i];
             instance.transform.parent = transform;
             instance.Load(_stagePointsData.Positions[i], _stagePointsData.Names[i], _stagePointsData.Rads[i]);
-            _roomPoints.Add(instance.PointName, instance);
+            _stagePoints.Add(instance.PointName, instance);
         }
 
         if (!_stageTransitionZoneData) return;
