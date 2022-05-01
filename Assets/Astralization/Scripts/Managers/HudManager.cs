@@ -93,7 +93,7 @@ public class HudManager : MonoBehaviour
         Inventory.ItemLogoEvent -= UpdateLogo;
         Inventory.InitItemHudEvent -= GenerateItemHud;
         Inventory.ToggleItemHudDisplayEvent -= ToggleItemHudDisplay;
-        Inventory.UpdateActiveItemIndexEvent += UpdateActiveItem;
+        Inventory.UpdateActiveItemIndexEvent -= UpdateActiveItem;
     }
     #endregion
 }
