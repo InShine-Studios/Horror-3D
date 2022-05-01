@@ -112,7 +112,7 @@ public class ItemHudDisplay : MonoBehaviour
 
     public void ToggleDisplay()
     {
-        if (onTransition) return; //TODO: race condition bug, tab still spammable
+        if (onTransition) return; //TODO: while in transition, prevent update change slot
 
         onTransition = true;
         if (isExpanded) Shrink();

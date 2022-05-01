@@ -35,6 +35,10 @@ public abstract class PlayerState : State
     {
         Utils.LoggerHelper.PrintStateDefaultLog("Player","ScrollActiveItem");
     }
+    public virtual void ChangeActiveItemQuickslot(InputAction.CallbackContext ctx)
+    {
+        Utils.LoggerHelper.PrintStateDefaultLog("Player", "ChangeActiveItemQuickslot");
+    }
     public virtual void SprintPressed(InputAction.CallbackContext ctx)
     {
         Utils.LoggerHelper.PrintStateDefaultLog("Player","SprintPressed");
