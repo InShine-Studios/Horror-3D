@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public interface IInventory
 {
@@ -80,20 +79,23 @@ public class Inventory : MonoBehaviour, IInventory
     }
     public int GetLength() { return InvenLength; }
     public int GetNumOfItem() { return _numOfItem; }
-    public void SetActiveItem(int newIdx) 
-    {
-        if(newIdx >= InvenLength)
-        {
-            Debug.Log("[INVENTORY] IndexOutOfRangeError: Trying to quickslot with index out of range");
-        }
-        else
-        {
-            _activeIdx = newIdx;
-            _activeItem = _items[newIdx];
-            //Debug.Log("[INVENTORY] Change item by quickslot to index " + _activeIdx);
-        }
-    }
     public int GetActiveIdx() { return _activeIdx; }
+    private void SetActiveItem(int newIdx)
+    {
+        // Hide active item
+        _activeItem?.ShowItem(false);
+
+        // Change active item
+        _activeIdx = newIdx;
+        _activeItem = _items[_activeIdx];
+
+        // Show active item
+        _activeItem?.ShowItem(true);
+
+        UpdateActiveItemIndexEvent.Invoke(newIdx);
+        if (_activeItem) ItemLogoEvent?.Invoke(true, _activeItem.GetItemLogo());
+        else ItemLogoEvent?.Invoke(false, null);
+    }
     public IItem GetActiveItem() { return _activeItem; }
     public IItem GetItemByIndex(int idx) { return _items[idx]; }
     public float GetScrollStep() { return _scrollStep * ScrollSensitivity; }
@@ -193,26 +195,21 @@ public class Inventory : MonoBehaviour, IInventory
         float scrollValue = scrollVector.y;
         int indexShift = (int) (scrollValue / GetScrollStep());
         int newIdx = Utils.MathCalcu.mod(_activeIdx - indexShift, InvenLength);
-        ChangeActiveItem(newIdx);
-        UpdateActiveItemIndexEvent.Invoke(newIdx);
+        SetActiveItem(newIdx);
 
         //Debug.Log("[INVENTORY] Change active item to " + (activeItem ? activeItem.name : "nothing") + " with index " + activeIdx);
     }
-
-    private void ChangeActiveItem(int newIdx)
+    public void SetActiveItemByQuickSlot(int newIdx)
     {
-        // Hide active item
-        _activeItem?.ShowItem(false);
-
-        // Change active item
-        _activeIdx = newIdx;
-        _activeItem = _items[_activeIdx];
-
-        // Show active item
-        _activeItem?.ShowItem(true);
-
-        if(_activeItem) ItemLogoEvent?.Invoke(true, _activeItem.GetItemLogo());
-        else ItemLogoEvent?.Invoke(false, null);
+        if (newIdx >= InvenLength)
+        {
+            Debug.Log("[INVENTORY] IndexOutOfRangeError: Trying to quickslot with index out of range");
+        }
+        else
+        {
+            SetActiveItem(newIdx);
+            //Debug.Log("[INVENTORY] Change item by quickslot to index " + _activeIdx);
+        }
     }
     #endregion
 
