@@ -1,5 +1,6 @@
 using UnityEngine;
 using ElRaccoone.Tweens;
+using System.Collections;
 
 /*
  * Class to control Item HUD
@@ -14,28 +15,14 @@ public class ItemHudDisplay : MonoBehaviour
     [SerializeField]
     private Vector3 _itemSlotStartingOffset = new Vector3(25f,20f,0f);
     [SerializeField]
-    private float _tweenDuration = 0.1f;
+    private float _tweenDuration = 0.5f;
+    [SerializeField]
+    private float _expandDuration = 3f;
 
     private ItemSlot[] itemSlots;
     private int currentActiveIdx;
     private bool isExpanded = false;
     private bool onTransition = false;
-    #endregion
-
-    #region SetGet
-    public void SelectActiveSlot(int index)
-    {
-        itemSlots[currentActiveIdx].SetSelected(false);
-        
-        if (!isExpanded)
-        {
-            itemSlots[currentActiveIdx].gameObject.SetActive(false);
-            itemSlots[index].gameObject.SetActive(true);
-        
-        }
-        itemSlots[index].SetSelected(true);
-        currentActiveIdx = index;
-    }
     #endregion
 
     #region MonoBehaviour
@@ -63,9 +50,32 @@ public class ItemHudDisplay : MonoBehaviour
     }
     #endregion
 
-    #region Transition
-    private void Expand()
+    #region SlotManager
+    public void SelectActiveSlot(int index)
     {
+        if (onTransition) return;
+
+        itemSlots[currentActiveIdx].SetSelected(false);
+
+        if (!isExpanded)
+        {
+            itemSlots[currentActiveIdx].gameObject.SetActive(false);
+            itemSlots[index].gameObject.SetActive(true);
+
+        }
+        itemSlots[index].SetSelected(true);
+        currentActiveIdx = index;
+    }
+    #endregion
+
+    #region Transition
+    public void Expand()
+    {
+        if (onTransition || isExpanded) return;
+
+        onTransition = true;
+        StartCoroutine(UpdateSelectedSlot());
+
         ItemSlot activeSlot = itemSlots[currentActiveIdx];
         activeSlot.transform.TweenLocalPosition(
             CalculateExpandedPosition(_itemSlotStartingOffset, _itemSlotGap, currentActiveIdx),
@@ -83,12 +93,16 @@ public class ItemHudDisplay : MonoBehaviour
                 }
                 onTransition = false;
                 isExpanded = true;
+                StartCoroutine(AutoShrink());
             }
         );
     }
 
     private void Shrink()
     {
+        onTransition = true;
+        StartCoroutine(UpdateSelectedSlot());
+
         for (int i = 0; i < itemSlots.Length; i++)
         {
             if (i == currentActiveIdx)
@@ -110,13 +124,22 @@ public class ItemHudDisplay : MonoBehaviour
         }
     }
 
-    public void ToggleDisplay()
+    private IEnumerator UpdateSelectedSlot()
     {
-        if (onTransition) return; //TODO: while in transition, prevent update change slot
+        yield return new WaitUntil(() => !onTransition);
+        for (int i = 0; i < itemSlots.Length; i++)
+        {
+            if (i != currentActiveIdx)
+            {
+                itemSlots[i].SetSelected(false);
+            }
+        }
+    }
 
-        onTransition = true;
-        if (isExpanded) Shrink();
-        else Expand();
+    private IEnumerator AutoShrink()
+    {
+        yield return new WaitForSeconds(_expandDuration);
+        Shrink();
     }
     #endregion
 
