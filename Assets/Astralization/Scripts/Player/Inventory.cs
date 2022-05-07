@@ -31,9 +31,9 @@ public class Inventory : MonoBehaviour, IInventory
 {
     #region Events
     public static event Action<int,int> InitItemHudEvent;
+    public static event Action<int,Sprite> ItemLogoEvent;
     public static event Action ToggleItemHudDisplayEvent;
     public static event Action<int> UpdateActiveItemIndexEvent;
-    public static event Action<bool, Sprite> ItemLogoEvent;
     public static event Action<Item> DiscardItemEvent;
     #endregion
 
@@ -93,8 +93,6 @@ public class Inventory : MonoBehaviour, IInventory
         _activeItem?.ShowItem(true);
 
         UpdateActiveItemIndexEvent.Invoke(newIdx);
-        if (_activeItem) ItemLogoEvent?.Invoke(true, _activeItem.GetItemLogo());
-        else ItemLogoEvent?.Invoke(false, null);
     }
     public IItem GetActiveItem() { return _activeItem; }
     public IItem GetItemByIndex(int idx) { return _items[idx]; }
@@ -134,6 +132,7 @@ public class Inventory : MonoBehaviour, IInventory
                     {
                         _items[i] = item;
                         pickedIdx = i; // For logs
+                        ItemLogoEvent?.Invoke(i,_activeItem.GetHudLogo());
                         break;
                     }
                 }
@@ -145,7 +144,7 @@ public class Inventory : MonoBehaviour, IInventory
                 _items[_activeIdx] = item;
                 _activeItem = item;
 
-                ItemLogoEvent?.Invoke(true, _activeItem.GetItemLogo());
+                ItemLogoEvent?.Invoke(_activeIdx,_activeItem.GetHudLogo());
             }
 
             // Put item as child of Inventory
@@ -176,7 +175,7 @@ public class Inventory : MonoBehaviour, IInventory
         _items[_activeIdx] = null;
         _numOfItem--;
 
-        ItemLogoEvent?.Invoke(false, null);
+        ItemLogoEvent?.Invoke(_activeIdx,null);
     }
 
     public void DiscardItemInput()

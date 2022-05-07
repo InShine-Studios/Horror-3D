@@ -66,6 +66,11 @@ public class ItemHudDisplay : MonoBehaviour
         itemSlots[index].SetSelected(true);
         currentActiveIdx = index;
     }
+
+    public void SetItemLogo(int index, Sprite logo)
+    {
+        itemSlots[index].SetItemImage(logo);
+    }
     #endregion
 
     #region Transition

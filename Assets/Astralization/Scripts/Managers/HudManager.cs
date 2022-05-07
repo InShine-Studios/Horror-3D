@@ -47,14 +47,14 @@ public class HudManager : MonoBehaviour
         _hidingManager.StartAnim(isHiding);
     }
 
-    private void UpdateLogo(bool state, Sprite logo)
-    {
-        //TODO
-    }
-
     private void ShowExorcism(bool isShowExorcism)
     {
         _exorcismBar.ShowBar(isShowExorcism);
+    }
+
+    private void UpdateLogo(int index, Sprite logo)
+    {
+        _itemHud.SetItemLogo(index, logo);
     }
 
     private void GenerateItemHud(int inventoryLength, int activeIdx)

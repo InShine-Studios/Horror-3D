@@ -34,8 +34,7 @@ public class ItemSlot : MonoBehaviour
     }
     public void SetSelected(bool isSelected)
     {
-        //Debug.Log(name);
-        _circleActive.SetActive(isSelected);
+         _circleActive.SetActive(isSelected);
         _circleInactive.SetActive(!isSelected);
         if (isSelected)
         {
