@@ -132,7 +132,7 @@ public class Inventory : MonoBehaviour, IInventory
                     {
                         _items[i] = item;
                         pickedIdx = i; // For logs
-                        ItemLogoEvent?.Invoke(i,_activeItem.GetHudLogo());
+                        ItemLogoEvent?.Invoke(i,item.GetHudLogo());
                         break;
                     }
                 }
@@ -144,7 +144,7 @@ public class Inventory : MonoBehaviour, IInventory
                 _items[_activeIdx] = item;
                 _activeItem = item;
 
-                ItemLogoEvent?.Invoke(_activeIdx,_activeItem.GetHudLogo());
+                ItemLogoEvent?.Invoke(_activeIdx,item.GetHudLogo());
             }
 
             // Put item as child of Inventory
