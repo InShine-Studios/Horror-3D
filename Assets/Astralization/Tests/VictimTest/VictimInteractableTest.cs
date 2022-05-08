@@ -31,7 +31,7 @@ public class VictimInteractableTest : TestBase
     }
     #endregion
 
-    #region Interactable
+    #region VictimInteraction
     [UnityTest]
     public IEnumerator PlayerInteractableDetector_InteractVictim()
     {

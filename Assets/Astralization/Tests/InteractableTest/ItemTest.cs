@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class ItemTest : TestBase
 {
-    protected GameObject hud;
+    protected IItemHudDisplay itemHud;
 
     protected override void FindGameObjects(Scene scene)
     {
@@ -20,7 +20,7 @@ public class ItemTest : TestBase
             }
             else if (gameObject.name == "UI")
             {
-                hud = gameObject;
+                itemHud = gameObject.transform.Find("ItemHud").GetComponent<IItemHudDisplay>();
             }
         }
     }
@@ -51,7 +51,7 @@ public class ItemTest : TestBase
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         Assert.IsTrue(flashlight.GetComponentInChildren<Light>().enabled);
-        Image img = hud.transform.Find("ItemHud/Logo").GetComponent<Image>();
+        Image img = itemHud.GetItemLogo(0);
         Assert.IsTrue(img.enabled);
         Assert.AreEqual(flashlight.name, img.sprite.name);
 
@@ -74,7 +74,7 @@ public class ItemTest : TestBase
         Transform markItem2 = overworldAnkh2.transform.Find("ExclamationMarkItem");
         Assert.True(markItem.gameObject.activeInHierarchy);
         Assert.False(markItem2.gameObject.activeInHierarchy);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, 0.2f);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, 0.25f);
         Assert.True(markItem2.gameObject.activeInHierarchy);
         Assert.False(markItem.gameObject.activeInHierarchy);
     }
@@ -90,7 +90,7 @@ public class ItemTest : TestBase
 
         Assert.AreEqual(Utils.MathCalcu.mod(idxBefore - 1, inventory.GetLength()), inventory.GetActiveIdx());
         Assert.AreEqual(inventory.GetItemByIndex(inventory.GetActiveIdx()), inventory.GetActiveItem());
-        Image img = hud.transform.Find("ItemHud/Logo").GetComponent<Image>();
+        Image img = itemHud.GetItemLogo(0);
         Assert.IsTrue(!img.enabled);
     }
 

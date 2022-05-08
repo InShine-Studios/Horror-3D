@@ -1,19 +1,29 @@
 using UnityEngine;
 using ElRaccoone.Tweens;
 using System.Collections;
+using UnityEngine.UI;
+
+public interface IItemHudDisplay
+{
+    void Expand();
+    void Init(int numSlot, int activeIdx);
+    void SelectActiveSlot(int index);
+    void SetItemLogo(int index, Sprite logo);
+    Image GetItemLogo(int index);
+}
 
 /*
  * Class to control Item HUD
  */
-public class ItemHudDisplay : MonoBehaviour
+public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
 {
     #region Variables
     [SerializeField]
     private ItemSlot _itemSlotPrefab;
     [SerializeField]
-    private Vector3 _itemSlotGap = new Vector3(10f,0f,0f);
+    private Vector3 _itemSlotGap = new Vector3(10f, 0f, 0f);
     [SerializeField]
-    private Vector3 _itemSlotStartingOffset = new Vector3(25f,20f,0f);
+    private Vector3 _itemSlotStartingOffset = new Vector3(25f, 20f, 0f);
     [SerializeField]
     private float _tweenDuration = 0.5f;
     [SerializeField]
@@ -23,6 +33,18 @@ public class ItemHudDisplay : MonoBehaviour
     private int currentActiveIdx;
     private bool isExpanded = false;
     private bool onTransition = false;
+    #endregion
+
+    #region SetGet
+    public void SetItemLogo(int index, Sprite logo)
+    {
+        itemSlots[index].SetItemImage(logo);
+    }
+
+    public Image GetItemLogo(int index)
+    {
+        return itemSlots[index].GetItemImage();
+    }
     #endregion
 
     #region MonoBehaviour
@@ -65,11 +87,6 @@ public class ItemHudDisplay : MonoBehaviour
         }
         itemSlots[index].SetSelected(true);
         currentActiveIdx = index;
-    }
-
-    public void SetItemLogo(int index, Sprite logo)
-    {
-        itemSlots[index].SetItemImage(logo);
     }
     #endregion
 
@@ -116,12 +133,13 @@ public class ItemHudDisplay : MonoBehaviour
                     CalculateExpandedPosition(_itemSlotStartingOffset, _itemSlotGap, 0),
                     _tweenDuration
                     ).SetOnComplete(
-                        () => 
+                        () =>
                         {
                             isExpanded = false;
                             onTransition = false;
                         });
-            } else
+            }
+            else
             {
                 itemSlots[i].transform.localPosition = CalculateExpandedPosition(_itemSlotStartingOffset, _itemSlotGap, 0);
                 itemSlots[i].gameObject.SetActive(false);

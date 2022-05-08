@@ -26,6 +26,10 @@ public class ItemSlot : MonoBehaviour
         _itemImage.sprite = sprite;
         _itemImage.enabled = sprite != null;
     }
+    public Image GetItemImage()
+    {
+        return _itemImage;
+    }
     public void SetImageOpacity(float alpha)
     {
         Color newColorImage = _itemImage.color;
