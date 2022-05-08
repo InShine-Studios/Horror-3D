@@ -78,7 +78,7 @@ public class HudManager : MonoBehaviour
     {
         GameManager.HudPlayerEvent += SetHudState;
         GameManager.HudUiEvent += SetHudState;
-        HidingState.StopHidingHudEvent += ShowHidingHud;
+        PlayerHidingState.StopHidingHudEvent += ShowHidingHud;
         Inventory.ItemLogoEvent += UpdateLogo;
         Inventory.InitItemHudEvent += GenerateItemHud;
         Inventory.ToggleItemHudDisplayEvent += ToggleItemHudDisplay;
@@ -89,7 +89,7 @@ public class HudManager : MonoBehaviour
     {
         GameManager.HudPlayerEvent -= SetHudState;
         GameManager.HudUiEvent -= SetHudState;
-        HidingState.StopHidingHudEvent -= ShowHidingHud;
+        PlayerHidingState.StopHidingHudEvent -= ShowHidingHud;
         Inventory.ItemLogoEvent -= UpdateLogo;
         Inventory.InitItemHudEvent -= GenerateItemHud;
         Inventory.ToggleItemHudDisplayEvent -= ToggleItemHudDisplay;

@@ -7,7 +7,7 @@ public class ClockManager : StateMachine
     #region MonoBehaviour
     private void Awake()
     {
-        ChangeState<InitClockState>();
+        ChangeState<ClockInitState>();
     }
     #endregion
 }

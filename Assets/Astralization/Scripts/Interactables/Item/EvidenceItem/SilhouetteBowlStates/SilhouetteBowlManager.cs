@@ -7,7 +7,7 @@ public class SilhouetteBowlManager : StateMachine
     #region MonoBehaviour
     private void Awake()
     {
-        ChangeState<InitSilhouetteBowlState>();
+        ChangeState<SilhouetteBowlInitState>();
     }
     #endregion
 }

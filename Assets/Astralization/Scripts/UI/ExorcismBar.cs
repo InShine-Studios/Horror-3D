@@ -44,12 +44,12 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
 
     private void OnEnable()
     {
-        ExorcismState.StopExorcismEvent += StopExorcism;
+        PlayerExorcismState.StopExorcismEvent += StopExorcism;
     }
 
     private void OnDisable()
     {
-        ExorcismState.StopExorcismEvent -= StopExorcism;
+        PlayerExorcismState.StopExorcismEvent -= StopExorcism;
     }
 
     private void Update()
