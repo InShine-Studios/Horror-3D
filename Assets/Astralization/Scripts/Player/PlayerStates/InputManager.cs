@@ -16,7 +16,7 @@ public class InputManager : StateMachine
     #region MonoBehaviour
     private void Awake()
     {
-        ChangeState<InitPlayerState>();
+        ChangeState<PlayerInitState>();
     }
 
     private void OnEnable()
@@ -36,10 +36,10 @@ public class InputManager : StateMachine
         _playerInput.SwitchCurrentActionMap(actionMap.ToString());
         switch (actionMap) // RACE CONDITION
         {
-            case Utils.PlayerHelper.States.Default: ChangeState<DefaultPlayerState>(); break;
-            case Utils.PlayerHelper.States.Hiding: ChangeState<HidingState>(); break;
-            case Utils.PlayerHelper.States.UI: ChangeState<UiState>(); break;
-            case Utils.PlayerHelper.States.Exorcism: ChangeState<ExorcismState>(); break;
+            case Utils.PlayerHelper.States.Default: ChangeState<PlayerDefaultState>(); break;
+            case Utils.PlayerHelper.States.Hiding: ChangeState<PlayerHidingState>(); break;
+            case Utils.PlayerHelper.States.UI: ChangeState<PlayerUiState>(); break;
+            case Utils.PlayerHelper.States.Exorcism: ChangeState<PlayerExorcismState>(); break;
         }
         //Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);
     }
@@ -69,6 +69,7 @@ public class InputManager : StateMachine
             case "UseItem": currentPlayerState.UseActiveItem(ctx); break;
             case "DiscardItem": currentPlayerState.DiscardItemInput(ctx); break;
             case "SimulateGhostInteract": currentPlayerState.CheckInteractionGhost(ctx); break;
+            case "InventoryQuickslot": currentPlayerState.ChangeActiveItemQuickslot(ctx); break;
         }  
     }
 

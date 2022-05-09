@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IGhostStateMachine
 {
-    GhostState GetCurrentGhostState();
+
 }
 
 public class GhostStateMachine : StateMachine, IGhostStateMachine
@@ -12,12 +12,15 @@ public class GhostStateMachine : StateMachine, IGhostStateMachine
     #region MonoBehaviour
     private void Awake()
     {
-        ChangeState<InitGhostState>();
+        ChangeState<GhostInitState>();
     }
+    #endregion
 
-    public GhostState GetCurrentGhostState()
+    #region Handler
+    public void AttemptChasing()
     {
-        return (GhostState)CurrentState;
+        ChangeState<GhostChasingState>();
+        ((GhostChasingState)CurrentState).GhostChasing();
     }
     #endregion
 }

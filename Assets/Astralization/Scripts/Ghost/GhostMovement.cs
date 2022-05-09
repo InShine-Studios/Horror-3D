@@ -3,6 +3,8 @@ using UnityEngine.AI;
 
 public interface IGhostMovement
 {
+    NavMeshAgent NavMeshAgent { get; }
+
     float GetDistanceThreshold();
     bool IsOnRoute();
     void WanderTarget(string targetRoomName, bool randomizePoint);
@@ -15,14 +17,15 @@ public interface IGhostMovement
  */
 public class GhostMovement : MonoBehaviour, IGhostMovement
 {
+    #region Const
+    private const float _wanderRange = 3f;
+    #endregion
+
     #region Variables
     [SerializeField]
     [Tooltip("Consider ghost is arrive at destination if distance between ghost position and destination is less than thresh")]
     private float _distanceThresh = 0.5f;
-    [SerializeField]
-    [Tooltip("Wander range for sampling. Should be less than 2x agent height")]
-    private const float _wanderRange = 3f;
-    private NavMeshAgent _navMeshAgent;
+    public NavMeshAgent NavMeshAgent { get; private set; }
     private NavMeshHit _navMeshHit;
 
     [Tooltip("Ghost current room")]
@@ -54,14 +57,14 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     #region MonoBehaviour
     void Awake()
     {
-        _navMeshAgent = GetComponent<NavMeshAgent>();
+        NavMeshAgent = GetComponent<NavMeshAgent>();
         _wanderTarget = transform.position;
-        _navMeshAgent.SetDestination(_wanderTarget);
+        NavMeshAgent.SetDestination(_wanderTarget);
     }
     #endregion
 
-    #region Wandering Controller
-    private Vector3 RandomShiftTarget(WorldPoint target)
+    #region WanderingHandler
+    private Vector3 RandomShiftTarget(StagePoint target)
     {
         float shiftX = Utils.Randomizer.GetFloat(-target.Radius, target.Radius);
         float shiftZ = Utils.Randomizer.GetFloat(-target.Radius, target.Radius);
@@ -70,14 +73,20 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
 
     public void WanderTarget(string targetRoomName, bool randomizePoint)
     {
-        WorldPoint targetRoom = _stageManager.GetRoomCoordinate(targetRoomName);
-        if (WanderTarget(_wanderTarget, out _wanderTarget, targetRoom, randomizePoint))
+        StagePoint targetRoom = _stageManager.GetRoomCoordinate(targetRoomName);
+        if (WanderTarget(targetRoom, out _wanderTarget, randomizePoint))
         {
-            _navMeshAgent.SetDestination(_wanderTarget);
+            NavMeshAgent.SetDestination(_wanderTarget);
         }
     }
 
-    private bool WanderTarget(Vector3 center, out Vector3 result, WorldPoint targetRoom, bool randomizePoint)
+    public void WanderTarget(Vector3 targetPosition)
+    {
+        NavMeshAgent.ResetPath();
+        NavMeshAgent.SetDestination(targetPosition);
+    }
+
+    private bool WanderTarget(StagePoint targetRoom, out Vector3 result, bool randomizePoint)
     {
         Vector3 targetPoint = targetRoom.GetPosition();
         if (randomizePoint)
@@ -93,30 +102,30 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         }
         else
         {
-            result = center;
+            result = _wanderTarget;
             return false;
         }
     }
 
-    private bool RandomWanderTarget(Vector3 center, out Vector3 result)
+    private bool RandomWanderTarget(out Vector3 result)
     {
-        WorldPoint targetRoom = _stageManager.GetRandomRoomCoordinate();
-        return WanderTarget(center, out result, targetRoom, true);
+        StagePoint targetRoom = _stageManager.GetRandomRoomCoordinate();
+        return WanderTarget(targetRoom, out result, true);
     }
 
     public void RandomWander()
     {
-        if (RandomWanderTarget(transform.position, out _wanderTarget))
+        if (RandomWanderTarget(out _wanderTarget))
         {
-            _navMeshAgent.SetDestination(_wanderTarget);
+            NavMeshAgent.SetDestination(_wanderTarget);
             //Debug.DrawRay(_wanderTarget, Vector3.up, Color.blue, 1.0f);
         }
     }
 
     public void ResetPath()
     {
-        _navMeshAgent.isStopped = true;
-        _navMeshAgent.ResetPath();
+        NavMeshAgent.isStopped = true;
+        NavMeshAgent.ResetPath();
     }
     #endregion
 }
