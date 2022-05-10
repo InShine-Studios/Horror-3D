@@ -60,12 +60,13 @@ public class ItemTest : TestBase
         Image img = itemHud.GetSelectedItemLogo();
         Assert.IsTrue(img.enabled);
         Assert.AreEqual(flashlightOnPlayer.name, img.sprite.name);
+        Assert.AreEqual(img, itemHud.GetItemLogo(0));
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.DiscardItem);
         GameObject overworldFlashlight = GameObject.Find("OverworldItems/DummyFlashlight");
         Assert.NotNull(overworldFlashlight);
         Assert.Null(player.transform.Find("Rotate/InteractZone/DummyFlashlight"));
-        Assert.IsFalse(img.enabled);
+        Assert.IsFalse(itemHud.GetSelectedItemLogo().enabled);
         Assert.AreEqual(0, inventory.GetNumOfItem());
         Assert.IsNull(inventory.GetActiveItem());
     }
@@ -95,10 +96,10 @@ public class ItemTest : TestBase
         inputTestFixture.Set("Scroll/Y", inventory.GetScrollStep());
         yield return null;
 
-        Assert.AreEqual(Utils.MathCalcu.mod(idxBefore - 1, inventory.Size), inventory.GetActiveIdx());
+        int newIdx = Utils.MathCalcu.mod(idxBefore - 1, inventory.Size);
+        Assert.AreEqual(newIdx, inventory.GetActiveIdx());
         Assert.AreEqual(inventory.GetItemByIndex(inventory.GetActiveIdx()), inventory.GetActiveItem());
-        Image img = itemHud.GetSelectedItemLogo();
-        Assert.IsTrue(!img.enabled);
+        Assert.AreEqual(itemHud.GetSelectedItemLogo(), itemHud.GetItemLogo(newIdx));
     }
 
     [UnityTest]
