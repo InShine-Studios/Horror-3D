@@ -10,6 +10,7 @@ public interface IItemHudDisplay
     void SelectActiveSlot(int index);
     void SetItemLogo(int index, Sprite logo);
     Image GetItemLogo(int index);
+    Image GetSelectedItemLogo();
 }
 
 /*
@@ -44,6 +45,11 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     public Image GetItemLogo(int index)
     {
         return itemSlots[index].GetItemImage();
+    }
+
+    public Image GetSelectedItemLogo()
+    {
+        return itemSlots[currentActiveIdx].GetItemImage();
     }
     #endregion
 

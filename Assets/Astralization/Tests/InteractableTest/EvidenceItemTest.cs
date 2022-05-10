@@ -57,7 +57,7 @@ public class EvidenceItemTest : TestBase
             yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
 
             gameObject = GameObject.Find("OverworldItems/" + gameObjectName);
-            Image img = itemHud.GetItemLogo(0);
+            Image img = itemHud.GetSelectedItemLogo();
             IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
 
             Assert.NotNull(gameObject);

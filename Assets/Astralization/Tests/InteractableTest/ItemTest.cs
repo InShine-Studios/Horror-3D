@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class ItemTest : TestBase
 {
     protected IItemHudDisplay itemHud;
+    protected GameObject overworldItem;
 
     protected override void FindGameObjects(Scene scene)
     {
@@ -21,6 +22,10 @@ public class ItemTest : TestBase
             else if (gameObject.name == "UI")
             {
                 itemHud = gameObject.transform.Find("ItemHud").GetComponent<IItemHudDisplay>();
+            }
+            else if (gameObject.name == "OverworldItems")
+            {
+                overworldItem = gameObject;
             }
         }
     }
@@ -41,8 +46,9 @@ public class ItemTest : TestBase
         yield return new WaitWhile(() => sceneLoaded == false);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, 0.1f);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
-        GameObject flashlight = player.transform.Find("Rotate/InteractZone/DummyFlashlight").gameObject;
-        Assert.NotNull(flashlight);
+        GameObject flashlightOnPlayer = player.transform.Find("Rotate/InteractZone/DummyFlashlight").gameObject;
+        Assert.NotNull(flashlightOnPlayer);
+        Assert.Null(overworldItem.transform.Find("DummyFlashlight"));
 
         IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
         Assert.AreEqual(1, inventory.GetNumOfItem());
@@ -50,14 +56,15 @@ public class ItemTest : TestBase
         Assert.AreEqual(0, inventory.GetActiveIdx());
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
-        Assert.IsTrue(flashlight.GetComponentInChildren<Light>().enabled);
-        Image img = itemHud.GetItemLogo(0);
+        Assert.IsTrue(flashlightOnPlayer.GetComponentInChildren<Light>().enabled);
+        Image img = itemHud.GetSelectedItemLogo();
         Assert.IsTrue(img.enabled);
-        Assert.AreEqual(flashlight.name, img.sprite.name);
+        Assert.AreEqual(flashlightOnPlayer.name, img.sprite.name);
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.DiscardItem);
         GameObject overworldFlashlight = GameObject.Find("OverworldItems/DummyFlashlight");
         Assert.NotNull(overworldFlashlight);
+        Assert.Null(player.transform.Find("Rotate/InteractZone/DummyFlashlight"));
         Assert.IsFalse(img.enabled);
         Assert.AreEqual(0, inventory.GetNumOfItem());
         Assert.IsNull(inventory.GetActiveItem());
@@ -88,9 +95,9 @@ public class ItemTest : TestBase
         inputTestFixture.Set("Scroll/Y", inventory.GetScrollStep());
         yield return null;
 
-        Assert.AreEqual(Utils.MathCalcu.mod(idxBefore - 1, inventory.GetLength()), inventory.GetActiveIdx());
+        Assert.AreEqual(Utils.MathCalcu.mod(idxBefore - 1, inventory.Size), inventory.GetActiveIdx());
         Assert.AreEqual(inventory.GetItemByIndex(inventory.GetActiveIdx()), inventory.GetActiveItem());
-        Image img = itemHud.GetItemLogo(0);
+        Image img = itemHud.GetSelectedItemLogo();
         Assert.IsTrue(!img.enabled);
     }
 
@@ -128,6 +135,32 @@ public class ItemTest : TestBase
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.InventorySlot3);
         Assert.AreEqual(prevActiveIdx, inventory.GetActiveIdx());
         Assert.AreEqual(inventory.GetItemByIndex(prevActiveIdx), inventory.GetActiveItem());
+    }
+
+    [UnityTest]
+    public IEnumerator PlayerInventory_InventoryPlacementSequence()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.InventorySlot3);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, 0.1f);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
+        IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
+
+        for (int i = 0; i < inventory.Size; i++)
+        {
+            bool isNull = inventory.GetItemByIndex(i) is null;
+            if (i == 2) Assert.IsFalse(isNull);
+            else Assert.IsTrue(isNull);
+        }
+
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveLeft, false, 1f);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
+        for (int i = 0; i < inventory.Size; i++)
+        {
+            bool isNull = inventory.GetItemByIndex(i) is null;
+            if (i == 0 || i == 2) Assert.IsFalse(isNull);
+            else Assert.IsTrue(isNull);
+        }
     }
     #endregion
 }
