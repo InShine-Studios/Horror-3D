@@ -18,13 +18,23 @@ public interface IItemHudDisplay
  */
 public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
 {
+    #region Constants
+    private enum ExpandDirection
+    {
+        Left = -1,
+        Right = 1
+    }
+    #endregion
+
     #region Variables
     [SerializeField]
     private ItemSlot _itemSlotPrefab;
     [SerializeField]
+    private ExpandDirection _expandDirection = ExpandDirection.Left;
+    [SerializeField]
     private Vector3 _itemSlotGap = new Vector3(10f, 0f, 0f);
     [SerializeField]
-    private Vector3 _itemSlotStartingOffset = new Vector3(25f, 20f, 0f);
+    private Vector3 _itemSlotStartingPosition = new Vector3(1750f, 20f, 0f);
     [SerializeField]
     private float _tweenDuration = 0.5f;
     [SerializeField]
@@ -70,7 +80,7 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
         {
             ItemSlot instance = Instantiate(_itemSlotPrefab, transform);
             instance.name = "Slot " + (i + 1);
-            instance.transform.localPosition = CalculateExpandedPosition(_itemSlotStartingOffset, _itemSlotGap, 0);
+            instance.transform.localPosition = CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, AdjustIndexByDirection(0));
             instance.SetQuickslotNum(i + 1);
             if (i != currentActiveIdx) instance.gameObject.SetActive(false);
             itemSlots[i] = instance;
@@ -106,7 +116,7 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
 
         ItemSlot activeSlot = itemSlots[currentActiveIdx];
         activeSlot.transform.TweenLocalPosition(
-            CalculateExpandedPosition(_itemSlotStartingOffset, _itemSlotGap, currentActiveIdx),
+            CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, currentActiveIdx),
             _tweenDuration
         ).SetOnComplete(
             () =>
@@ -116,7 +126,7 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
                     if (i != currentActiveIdx)
                     {
                         itemSlots[i].gameObject.SetActive(true);
-                        itemSlots[i].transform.localPosition = CalculateExpandedPosition(_itemSlotStartingOffset, _itemSlotGap, i);
+                        itemSlots[i].transform.localPosition = CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, i);
                     }
                 }
                 onTransition = false;
@@ -136,7 +146,7 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
             if (i == currentActiveIdx)
             {
                 itemSlots[i].transform.TweenLocalPosition(
-                    CalculateExpandedPosition(_itemSlotStartingOffset, _itemSlotGap, 0),
+                    CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, AdjustIndexByDirection(0)),
                     _tweenDuration
                     ).SetOnComplete(
                         () =>
@@ -147,7 +157,7 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
             }
             else
             {
-                itemSlots[i].transform.localPosition = CalculateExpandedPosition(_itemSlotStartingOffset, _itemSlotGap, 0);
+                itemSlots[i].transform.localPosition = CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, AdjustIndexByDirection(0));
                 itemSlots[i].gameObject.SetActive(false);
             }
         }
@@ -173,9 +183,22 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     #endregion
 
     #region PositionCalculation
-    private Vector3 CalculateExpandedPosition(Vector3 offset, Vector3 gap, int index)
+    private Vector3 CalculateExpandedPosition(Vector3 startPosition, Vector3 gap, int index)
     {
-        return offset + ((gap + new Vector3(ItemSlot.GetScaledRadius(), 0, 0)) * index);
+        int directionMultiplier = (int)_expandDirection * AdjustIndexByDirection(index);
+        return startPosition + ((gap + new Vector3(ItemSlot.GetScaledRadius(), 0, 0)) * directionMultiplier);
+    }
+
+    private int AdjustIndexByDirection(int index)
+    {
+        if (_expandDirection == ExpandDirection.Left)
+        {
+            return (itemSlots.Length - index - 1);
+        }
+        else
+        {
+            return index;
+        }
     }
     #endregion
 }
