@@ -64,7 +64,7 @@ public class HudManager : MonoBehaviour
 
     private void ToggleItemHudDisplay()
     {
-        _itemHud.Expand();
+        _itemHud.ToggleDisplay();
     }
 
     private void UpdateActiveItem(int activeIdx)

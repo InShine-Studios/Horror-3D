@@ -110,11 +110,11 @@ public class PlayerDefaultState : PlayerState
         }
     }
 
-    public override void ExpandItemHud(InputAction.CallbackContext ctx)
+    public override void ToggleItemHudDisplay(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
         {
-            _inventory.ToggleItemHud();
+            _inventory.ToggleItemHudDisplay();
         }
     }
     #endregion

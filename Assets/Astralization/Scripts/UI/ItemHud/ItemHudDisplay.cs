@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public interface IItemHudDisplay
 {
-    void Expand();
+    void ToggleDisplay();
     void Init(int numSlot, int activeIdx);
     void SelectActiveSlot(int index);
     void SetItemLogo(int index, Sprite logo);
@@ -28,6 +28,7 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
 
     #region Variables
     [SerializeField]
+    [Tooltip("Item slot prefab")]
     private ItemSlot _itemSlotPrefab;
     [SerializeField]
     private ExpandDirection _expandDirection = ExpandDirection.Left;
@@ -36,11 +37,14 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     [SerializeField]
     private Vector3 _itemSlotStartingPosition = new Vector3(1750f, 20f, 0f);
     [SerializeField]
+    [Tooltip("How long (in seconds) for HUD to expand/shrink")]
     private float _tweenDuration = 0.5f;
     [SerializeField]
-    private float _expandDuration = 3f;
+    [Tooltip("HUD will shrink if there is no changes on slot selection for this second")]
+    private float _idleDuration = 2f;
 
     private ItemSlot[] _itemSlots;
+    private Utils.CooldownHelper _shrinkCooldown;
     private int _currentActiveIdx;
     private bool _isExpanded = false;
     private bool _onTransition = false;
@@ -64,11 +68,24 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     #endregion
 
     #region MonoBehaviour
+    public void Update()
+    {
+        if(_isExpanded)
+        {
+            _shrinkCooldown.AddAccumulatedTime();
+            if (_shrinkCooldown.IsFinished)
+            {
+                Shrink();
+                _shrinkCooldown.ResetCooldown();
+            }
+        }
+    }
     #endregion
 
     #region Initialization
     public void Init(int numSlot, int activeIdx)
     {
+        _shrinkCooldown = new Utils.CooldownHelper(_idleDuration);
         _currentActiveIdx = activeIdx;
         GenerateSlot(numSlot);
         SelectActiveSlot(activeIdx);
@@ -103,17 +120,22 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
         }
         _itemSlots[index].SetSelected(true);
         _currentActiveIdx = index;
+        _shrinkCooldown.ResetCooldown();
     }
     #endregion
 
     #region Transition
-    public void Expand()
+    public void ToggleDisplay()
     {
-        if (_onTransition || _isExpanded) return;
+        if (_onTransition) return;
 
         _onTransition = true;
-        StartCoroutine(UpdateSelectedSlot());
+        if (_isExpanded) Shrink();
+        else Expand();
+    }
 
+    private void Expand()
+    {
         ItemSlot activeSlot = _itemSlots[_currentActiveIdx];
         activeSlot.transform.TweenLocalPosition(
             CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, _currentActiveIdx),
@@ -131,16 +153,12 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
                 }
                 _onTransition = false;
                 _isExpanded = true;
-                StartCoroutine(AutoShrink());
             }
         );
     }
 
     private void Shrink()
     {
-        _onTransition = true;
-        StartCoroutine(UpdateSelectedSlot());
-
         for (int i = 0; i < _itemSlots.Length; i++)
         {
             if (i == _currentActiveIdx)
@@ -161,24 +179,6 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
                 _itemSlots[i].gameObject.SetActive(false);
             }
         }
-    }
-
-    private IEnumerator UpdateSelectedSlot()
-    {
-        yield return new WaitUntil(() => !_onTransition);
-        for (int i = 0; i < _itemSlots.Length; i++)
-        {
-            if (i != _currentActiveIdx)
-            {
-                _itemSlots[i].SetSelected(false);
-            }
-        }
-    }
-
-    private IEnumerator AutoShrink()
-    {
-        yield return new WaitForSeconds(_expandDuration);
-        Shrink();
     }
     #endregion
 

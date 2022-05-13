@@ -16,7 +16,7 @@ public interface IInventory
     void ScrollActiveItem(Vector2 scrollVector);
     void SetActiveItemByQuickSlot(int newIdx);
     void SetLength(int invenLength);
-    void ToggleItemHud();
+    void ToggleItemHudDisplay();
     void UseActiveItem();
 }
 
@@ -227,7 +227,7 @@ public class Inventory : MonoBehaviour, IInventory
     #endregion
 
     #region ItemHud
-    public void ToggleItemHud()
+    public void ToggleItemHudDisplay()
     {
 
         ToggleItemHudDisplayEvent.Invoke();
