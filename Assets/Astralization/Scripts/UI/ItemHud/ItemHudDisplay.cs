@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public interface IItemHudDisplay
 {
+    bool IsExpanded { get; }
+    bool OnTransition { get; }
+    float MaxIdleDuration { get; }
+
     void ToggleDisplay();
     void Init(int numSlot, int activeIdx);
     void SelectActiveSlot(int index);
@@ -41,13 +45,16 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     private float _tweenDuration = 0.5f;
     [SerializeField]
     [Tooltip("HUD will shrink if there is no changes on slot selection for this second")]
-    private float _idleDuration = 2f;
+    private float _maxIdleDuration = 2f;
+    public float MaxIdleDuration { get { return _maxIdleDuration; } }
 
     private ItemSlot[] _itemSlots;
     private Utils.CooldownHelper _shrinkCooldown;
     private int _currentActiveIdx;
     private bool _isExpanded = false;
+    public bool IsExpanded { get { return _isExpanded; } }
     private bool _onTransition = false;
+    public bool OnTransition { get { return _onTransition; } }
     #endregion
 
     #region SetGet
@@ -85,7 +92,7 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     #region Initialization
     public void Init(int numSlot, int activeIdx)
     {
-        _shrinkCooldown = new Utils.CooldownHelper(_idleDuration);
+        _shrinkCooldown = new Utils.CooldownHelper(_maxIdleDuration);
         _currentActiveIdx = activeIdx;
         GenerateSlot(numSlot);
         SelectActiveSlot(activeIdx);
@@ -129,13 +136,13 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     {
         if (_onTransition) return;
 
-        _onTransition = true;
         if (_isExpanded) Shrink();
         else Expand();
     }
 
     private void Expand()
     {
+        _onTransition = true;
         ItemSlot activeSlot = _itemSlots[_currentActiveIdx];
         activeSlot.transform.TweenLocalPosition(
             CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, _currentActiveIdx),
@@ -159,6 +166,7 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
 
     private void Shrink()
     {
+        _onTransition = true;
         for (int i = 0; i < _itemSlots.Length; i++)
         {
             if (i == _currentActiveIdx)

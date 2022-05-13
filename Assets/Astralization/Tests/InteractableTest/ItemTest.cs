@@ -127,6 +127,37 @@ public class ItemTest : TestBase
     }
 
     [UnityTest]
+    public IEnumerator ItemHud_ExpandAndShrink()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
+        // Expand Hud by pressing button
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ToggleItemHudDisplay);
+        yield return new WaitWhile(() => itemHud.OnTransition);
+        Assert.IsTrue(itemHud.IsExpanded);
+
+        // Shrink Hud by pressing button
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ToggleItemHudDisplay);
+        yield return new WaitUntil(() => !itemHud.OnTransition);
+        Assert.IsFalse(itemHud.IsExpanded);
+
+        // Keep Hud expanded when changing active item
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ToggleItemHudDisplay);
+        yield return new WaitUntil(() => !itemHud.OnTransition);
+        for (int i = 0; i < 5; i++)
+        {
+            inputTestFixture.Set("Scroll/Y", inventory.GetScrollStep());
+            yield return null;
+        }
+        Assert.IsTrue(itemHud.IsExpanded);
+
+        // Shrink Hud when idle for MaxIdleDuration seconds
+        yield return new WaitForSeconds(itemHud.MaxIdleDuration);
+        yield return new WaitWhile(() => itemHud.OnTransition);
+        Assert.IsFalse(itemHud.IsExpanded);
+    }
+
+    [UnityTest]
     public IEnumerator PlayerInventory_InventoryQuickslotOutOfRange()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
