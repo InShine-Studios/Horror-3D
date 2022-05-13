@@ -3,7 +3,8 @@ using UnityEngine;
 
 public interface IDoorController: IInteractable
 {
-    bool GetState();
+    bool IsOpen { get; }
+
     float GetAngle();
     void SetIsTransitioning(bool isTransitioning);
 }
@@ -24,6 +25,7 @@ public class DoorController : Interactable, IDoorController
     [SerializeField]
     [Tooltip("True if door is in open state")]
     private bool _isOpen = false;
+    public bool IsOpen { get { return _isOpen; } }
     [Tooltip("True if door is in open state")]
     private bool _isTransitioning = true;
 
@@ -31,11 +33,6 @@ public class DoorController : Interactable, IDoorController
     #endregion
 
     #region SetGet
-    public bool GetState()
-    {
-        return _isOpen;
-    }
-
     public float GetAngle()
     {
         return transform.parent.rotation.y;
