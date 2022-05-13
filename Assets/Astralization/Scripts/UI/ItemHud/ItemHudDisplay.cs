@@ -40,26 +40,26 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     [SerializeField]
     private float _expandDuration = 3f;
 
-    private ItemSlot[] itemSlots;
-    private int currentActiveIdx;
-    private bool isExpanded = false;
-    private bool onTransition = false;
+    private ItemSlot[] _itemSlots;
+    private int _currentActiveIdx;
+    private bool _isExpanded = false;
+    private bool _onTransition = false;
     #endregion
 
     #region SetGet
     public void SetItemLogo(int index, Sprite logo)
     {
-        itemSlots[index].SetItemImage(logo);
+        _itemSlots[index].SetItemImage(logo);
     }
 
     public Image GetItemLogo(int index)
     {
-        return itemSlots[index].GetItemImage();
+        return _itemSlots[index].GetItemImage();
     }
 
     public Image GetSelectedItemLogo()
     {
-        return itemSlots[currentActiveIdx].GetItemImage();
+        return _itemSlots[_currentActiveIdx].GetItemImage();
     }
     #endregion
 
@@ -69,21 +69,21 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     #region Initialization
     public void Init(int numSlot, int activeIdx)
     {
-        currentActiveIdx = activeIdx;
+        _currentActiveIdx = activeIdx;
         GenerateSlot(numSlot);
         SelectActiveSlot(activeIdx);
     }
     private void GenerateSlot(int numSlot)
     {
-        itemSlots = new ItemSlot[numSlot];
+        _itemSlots = new ItemSlot[numSlot];
         for (int i = 0; i < numSlot; i++)
         {
             ItemSlot instance = Instantiate(_itemSlotPrefab, transform);
             instance.name = "Slot " + (i + 1);
             instance.transform.localPosition = CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, AdjustIndexByDirection(0));
             instance.SetQuickslotNum(i + 1);
-            if (i != currentActiveIdx) instance.gameObject.SetActive(false);
-            itemSlots[i] = instance;
+            if (i != _currentActiveIdx) instance.gameObject.SetActive(false);
+            _itemSlots[i] = instance;
         }
     }
     #endregion
@@ -91,46 +91,46 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     #region SlotManager
     public void SelectActiveSlot(int index)
     {
-        if (onTransition) return;
+        if (_onTransition) return;
 
-        itemSlots[currentActiveIdx].SetSelected(false);
+        _itemSlots[_currentActiveIdx].SetSelected(false);
 
-        if (!isExpanded)
+        if (!_isExpanded)
         {
-            itemSlots[currentActiveIdx].gameObject.SetActive(false);
-            itemSlots[index].gameObject.SetActive(true);
+            _itemSlots[_currentActiveIdx].gameObject.SetActive(false);
+            _itemSlots[index].gameObject.SetActive(true);
 
         }
-        itemSlots[index].SetSelected(true);
-        currentActiveIdx = index;
+        _itemSlots[index].SetSelected(true);
+        _currentActiveIdx = index;
     }
     #endregion
 
     #region Transition
     public void Expand()
     {
-        if (onTransition || isExpanded) return;
+        if (_onTransition || _isExpanded) return;
 
-        onTransition = true;
+        _onTransition = true;
         StartCoroutine(UpdateSelectedSlot());
 
-        ItemSlot activeSlot = itemSlots[currentActiveIdx];
+        ItemSlot activeSlot = _itemSlots[_currentActiveIdx];
         activeSlot.transform.TweenLocalPosition(
-            CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, currentActiveIdx),
+            CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, _currentActiveIdx),
             _tweenDuration
         ).SetOnComplete(
             () =>
             {
-                for (int i = 0; i < itemSlots.Length; i++)
+                for (int i = 0; i < _itemSlots.Length; i++)
                 {
-                    if (i != currentActiveIdx)
+                    if (i != _currentActiveIdx)
                     {
-                        itemSlots[i].gameObject.SetActive(true);
-                        itemSlots[i].transform.localPosition = CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, i);
+                        _itemSlots[i].gameObject.SetActive(true);
+                        _itemSlots[i].transform.localPosition = CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, i);
                     }
                 }
-                onTransition = false;
-                isExpanded = true;
+                _onTransition = false;
+                _isExpanded = true;
                 StartCoroutine(AutoShrink());
             }
         );
@@ -138,39 +138,39 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
 
     private void Shrink()
     {
-        onTransition = true;
+        _onTransition = true;
         StartCoroutine(UpdateSelectedSlot());
 
-        for (int i = 0; i < itemSlots.Length; i++)
+        for (int i = 0; i < _itemSlots.Length; i++)
         {
-            if (i == currentActiveIdx)
+            if (i == _currentActiveIdx)
             {
-                itemSlots[i].transform.TweenLocalPosition(
+                _itemSlots[i].transform.TweenLocalPosition(
                     CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, AdjustIndexByDirection(0)),
                     _tweenDuration
                     ).SetOnComplete(
                         () =>
                         {
-                            isExpanded = false;
-                            onTransition = false;
+                            _isExpanded = false;
+                            _onTransition = false;
                         });
             }
             else
             {
-                itemSlots[i].transform.localPosition = CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, AdjustIndexByDirection(0));
-                itemSlots[i].gameObject.SetActive(false);
+                _itemSlots[i].transform.localPosition = CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, AdjustIndexByDirection(0));
+                _itemSlots[i].gameObject.SetActive(false);
             }
         }
     }
 
     private IEnumerator UpdateSelectedSlot()
     {
-        yield return new WaitUntil(() => !onTransition);
-        for (int i = 0; i < itemSlots.Length; i++)
+        yield return new WaitUntil(() => !_onTransition);
+        for (int i = 0; i < _itemSlots.Length; i++)
         {
-            if (i != currentActiveIdx)
+            if (i != _currentActiveIdx)
             {
-                itemSlots[i].SetSelected(false);
+                _itemSlots[i].SetSelected(false);
             }
         }
     }
@@ -193,7 +193,7 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     {
         if (_expandDirection == ExpandDirection.Left)
         {
-            return (itemSlots.Length - index - 1);
+            return (_itemSlots.Length - index - 1);
         }
         else
         {

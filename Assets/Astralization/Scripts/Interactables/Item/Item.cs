@@ -22,7 +22,7 @@ public abstract class Item : Interactable, IItem
     [Header("Item Logo")]
     [SerializeField]
     [Tooltip("The item logo for HUD")]
-    protected Sprite _HudLogo;
+    protected Sprite HudLogo;
 
     [Header("Item Behavior")]
     [SerializeField]
@@ -49,7 +49,7 @@ public abstract class Item : Interactable, IItem
 
     public Sprite GetHudLogo()
     {
-        return _HudLogo;
+        return HudLogo;
     }
     #endregion
 
