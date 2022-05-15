@@ -22,6 +22,7 @@ public class InteractableDetector : ObjectDetector
     {
         //Debug.Log("[PLAYER INTERACTION] Interacted with " + closest.name);
         closest.OnInteraction();
+        UpdateClosestInteractable();
     }
     #endregion
 }

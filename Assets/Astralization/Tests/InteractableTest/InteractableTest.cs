@@ -60,20 +60,22 @@ public class InteractableTest: TestBase
         float moveDuration = GetMovementDurationTowards(GameObject.Find("WoodenDoor").transform);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
 
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveLeft, false, 0.1f);
-
         IDoorController door = GameObject.Find("WoodenDoor/Model/Rotate").GetComponent<IDoorController>();
         float currentRotation = door.GetAngle();
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
         yield return new WaitForSeconds(1f);
-        Assert.IsTrue(door.GetState());
+        Assert.IsTrue(door.IsOpen);
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, 0.4f);
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
         yield return new WaitForSeconds(1f);
-        Assert.IsFalse(door.GetState());
+        Assert.IsFalse(door.IsOpen);
+
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, 1f);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
+        Assert.IsFalse(door.IsOpen);
     }
 
     [UnityTest]

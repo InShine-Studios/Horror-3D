@@ -70,6 +70,7 @@ public class InputManager : StateMachine
             case "DiscardItem": currentPlayerState.DiscardItemInput(ctx); break;
             case "SimulateGhostInteract": currentPlayerState.CheckInteractionGhost(ctx); break;
             case "InventoryQuickslot": currentPlayerState.ChangeActiveItemQuickslot(ctx); break;
+            case "ToggleItemHudDisplay": currentPlayerState.ToggleItemHudDisplay(ctx); break;
         }  
     }
 

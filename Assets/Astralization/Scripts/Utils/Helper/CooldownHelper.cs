@@ -12,8 +12,7 @@ namespace Utils
         private float _accumulatedTime = 0f;
         [Tooltip("Cooldown duration")]
         private float _duration;
-        [Tooltip("True if cooldown is finished")]
-        private bool _isFinished;
+        public bool IsFinished { get; private set; }
         #endregion
 
         #region Constructor
@@ -28,13 +27,10 @@ namespace Utils
         {
             return _accumulatedTime;
         }
-        public void SetAccumulatedTime(float accumulatedTime)
+        public void ResetCooldown()
         {
-            _accumulatedTime = accumulatedTime;
-        }
-        public bool IsFinished()
-        {
-            return _isFinished;
+            _accumulatedTime = 0f;
+            IsFinished = false;
         }
         #endregion
 
@@ -42,7 +38,7 @@ namespace Utils
         public void AddAccumulatedTime()
         {
             _accumulatedTime += Time.deltaTime;
-            _isFinished = (_accumulatedTime >= _duration);
+            IsFinished = (_accumulatedTime >= _duration);
         }
         #endregion
     }

@@ -67,6 +67,10 @@ public abstract class PlayerState : State
     {
         Utils.LoggerHelper.PrintStateDefaultLog("Player","CheckInteractionGhost");
     }
+    public virtual void ToggleItemHudDisplay(InputAction.CallbackContext ctx)
+    {
+        Utils.LoggerHelper.PrintStateDefaultLog("Player", "ToggleItemHud");
+    }
     #endregion
 
     #region Hiding Input Handler

@@ -28,6 +28,9 @@ public class ItemDetector : ObjectDetector
     {
         //Debug.Log("[PLAYER INTERACTION] Picked " + closest.name);
         _inventory.PickItem((Item)closest);
+        nearbyInteractables.Remove(closest);
+        closestInteractable = null;
+        UpdateClosestInteractable();
     }
     #endregion
 }

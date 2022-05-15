@@ -1,21 +1,23 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public interface IInventory
 {
+    int Size { get; }
+
     void DiscardItemInput();
     int GetActiveIdx();
     IItem GetActiveItem();
+    string GetActiveItemName();
     IItem GetItemByIndex(int idx);
-    void SetLength(int invenLength);
-    int GetLength();
     int GetNumOfItem();
     float GetScrollStep();
     void PickItem(Item item);
     void ScrollActiveItem(Vector2 scrollVector);
+    void SetActiveItemByQuickSlot(int newIdx);
+    void SetLength(int invenLength);
+    void ToggleItemHudDisplay();
     void UseActiveItem();
-    string GetActiveItemName();
 }
 
 /*
@@ -31,8 +33,10 @@ public interface IInventory
 public class Inventory : MonoBehaviour, IInventory
 {
     #region Events
-    public static event Action<bool, Sprite> ItemLogoEvent;
-
+    public static event Action<int, int> InitItemHudEvent;
+    public static event Action<int, Sprite> ItemLogoEvent;
+    public static event Action ToggleItemHudDisplayEvent;
+    public static event Action<int> UpdateActiveItemIndexEvent;
     public static event Action<Item> DiscardItemEvent;
     #endregion
 
@@ -41,9 +45,11 @@ public class Inventory : MonoBehaviour, IInventory
     [Tooltip("The list of items")]
     private Item[] _items;
 
+    [Range(3, 5)]
+    [SerializeField]
     [Tooltip("Inventory Length")]
-    [Range(3,5)]
-    public int InvenLength = 3;
+    private int _size = 3;
+    public int Size { get { return _size; } }
 
     [Tooltip("The current active item")]
     private Item _activeItem = null;
@@ -71,27 +77,27 @@ public class Inventory : MonoBehaviour, IInventory
     #endregion
 
     #region SetGet
-    public void SetLength(int invenLength) 
-    { 
-        InvenLength = invenLength;
-        _items = new Item[InvenLength];
-    }
-    public int GetLength() { return InvenLength; }
-    public int GetNumOfItem() { return _numOfItem; }
-    public void SetActiveItem(int newIdx) 
+    public void SetLength(int invenLength)
     {
-        if(newIdx >= InvenLength)
-        {
-            Debug.Log("[INVENTORY] IndexOutOfRangeError: Trying to quickslot with index out of range");
-        }
-        else
-        {
-            _activeIdx = newIdx;
-            _activeItem = _items[newIdx];
-            //Debug.Log("[INVENTORY] Change item by quickslot to index " + _activeIdx);
-        }
+        _size = invenLength;
+        _items = new Item[_size];
     }
+    public int GetNumOfItem() { return _numOfItem; }
     public int GetActiveIdx() { return _activeIdx; }
+    private void SetActiveItem(int newIdx)
+    {
+        // Hide active item
+        _activeItem?.ShowItem(false);
+
+        // Change active item
+        _activeIdx = newIdx;
+        _activeItem = _items[_activeIdx];
+
+        // Show active item
+        _activeItem?.ShowItem(true);
+
+        UpdateActiveItemIndexEvent.Invoke(newIdx);
+    }
     public IItem GetActiveItem() { return _activeItem; }
     public IItem GetItemByIndex(int idx) { return _items[idx]; }
     public float GetScrollStep() { return _scrollStep * ScrollSensitivity; }
@@ -99,16 +105,20 @@ public class Inventory : MonoBehaviour, IInventory
     #endregion
 
     #region MonoBehaviour
-    private void Awake()
+    private void Start()
     {
-        _items = new Item[InvenLength];
+        _items = new Item[_size];
+        InitItemHudEvent.Invoke(_size, _activeIdx);
     }
+    #endregion
+
+    #region Initialization
     #endregion
 
     #region Pick - Discard
     public void PickItem(Item item)
     {
-        if (_numOfItem == InvenLength)
+        if (_numOfItem == _size)
         {
             Debug.Log("[INVENTORY] Cannot pick item, inventory full");
         }
@@ -118,7 +128,7 @@ public class Inventory : MonoBehaviour, IInventory
 
             if (_activeItem)
             {
-                for (int i = 0; i < InvenLength; i++)
+                for (int i = 0; i < _size; i++)
                 {
                     // Find empty slot in inventory,
                     // search from start to the end of array
@@ -126,6 +136,7 @@ public class Inventory : MonoBehaviour, IInventory
                     {
                         _items[i] = item;
                         pickedIdx = i; // For logs
+                        ItemLogoEvent?.Invoke(i, item.GetHudLogo());
                         break;
                     }
                 }
@@ -137,7 +148,7 @@ public class Inventory : MonoBehaviour, IInventory
                 _items[_activeIdx] = item;
                 _activeItem = item;
 
-                ItemLogoEvent?.Invoke(true, _activeItem.GetItemLogo());
+                ItemLogoEvent?.Invoke(_activeIdx, item.GetHudLogo());
             }
 
             // Put item as child of Inventory
@@ -168,7 +179,7 @@ public class Inventory : MonoBehaviour, IInventory
         _items[_activeIdx] = null;
         _numOfItem--;
 
-        ItemLogoEvent?.Invoke(false, null);
+        ItemLogoEvent?.Invoke(_activeIdx, null);
     }
 
     public void DiscardItemInput()
@@ -185,27 +196,23 @@ public class Inventory : MonoBehaviour, IInventory
     public void ScrollActiveItem(Vector2 scrollVector)
     {
         float scrollValue = scrollVector.y;
-        int indexShift = (int) (scrollValue / GetScrollStep());
-        int newIdx = Utils.MathCalcu.mod(_activeIdx - indexShift, InvenLength);
-        ChangeActiveItem(newIdx);
+        int indexShift = (int)(scrollValue / GetScrollStep());
+        int newIdx = Utils.MathCalcu.mod(_activeIdx - indexShift, _size);
+        SetActiveItem(newIdx);
 
         //Debug.Log("[INVENTORY] Change active item to " + (activeItem ? activeItem.name : "nothing") + " with index " + activeIdx);
     }
-
-    private void ChangeActiveItem(int newIdx)
+    public void SetActiveItemByQuickSlot(int newIdx)
     {
-        // Hide active item
-        _activeItem?.ShowItem(false);
-
-        // Change active item
-        _activeIdx = newIdx;
-        _activeItem = _items[_activeIdx];
-
-        // Show active item
-        _activeItem?.ShowItem(true);
-
-        if(_activeItem) ItemLogoEvent?.Invoke(true, _activeItem.GetItemLogo());
-        else ItemLogoEvent?.Invoke(false, null);
+        if (newIdx >= _size)
+        {
+            Debug.Log("[INVENTORY] IndexOutOfRangeError: Trying to quickslot with index out of range");
+        }
+        else
+        {
+            SetActiveItem(newIdx);
+            //Debug.Log("[INVENTORY] Change item by quickslot to index " + _activeIdx);
+        }
     }
     #endregion
 
@@ -216,6 +223,14 @@ public class Inventory : MonoBehaviour, IInventory
 
         if (!_activeItem) Debug.Log("[INVENTORY] Missing active item");
         else if (_activeItem.IsDiscardedWhenUsed()) DiscardItem();
+    }
+    #endregion
+
+    #region ItemHud
+    public void ToggleItemHudDisplay()
+    {
+
+        ToggleItemHudDisplayEvent.Invoke();
     }
     #endregion
 }

@@ -1,8 +1,12 @@
 using UnityEngine;
 
-public interface IItem: IInteractable
+public interface IItem
 {
-    void SetMeshRenderer(bool enabled);
+    void Discard();
+    Sprite GetHudLogo();
+    bool IsDiscardedWhenUsed();
+    void OnInteraction();
+    void ShowItem(bool isShown);
     void Use();
 }
 
@@ -18,7 +22,7 @@ public abstract class Item : Interactable, IItem
     [Header("Item Logo")]
     [SerializeField]
     [Tooltip("The item logo for HUD")]
-    private Sprite _HudLogo;
+    protected Sprite HudLogo;
 
     [Header("Item Behavior")]
     [SerializeField]
@@ -27,7 +31,7 @@ public abstract class Item : Interactable, IItem
     #endregion
 
     #region SetGet
-    public void SetMeshRenderer(bool enabled)
+    private void SetMeshRenderer(bool enabled)
     {
         transform.Find("Model").gameObject.SetActive(enabled);
     }
@@ -38,21 +42,19 @@ public abstract class Item : Interactable, IItem
         this.gameObject.SetActive(isShown);
     }
 
-    public Sprite GetItemLogo()
-    {
-        return _HudLogo;
-    }
-
     public bool IsDiscardedWhenUsed()
     {
         return _discardedWhenUsed;
+    }
+
+    public Sprite GetHudLogo()
+    {
+        return HudLogo;
     }
     #endregion
 
     #region Use
     public abstract void Use();
-
-    public virtual void StopUse() { }
     #endregion
 
     #region Handler

@@ -74,7 +74,7 @@ public abstract class ObjectDetector : MonoBehaviour
     #endregion
 
     #region Handler
-    private void UpdateClosestInteractable()
+    protected void UpdateClosestInteractable()
     {
         float minDist = Mathf.Infinity;
         Interactable newClosest = null;

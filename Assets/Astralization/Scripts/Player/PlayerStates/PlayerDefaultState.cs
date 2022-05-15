@@ -106,7 +106,15 @@ public class PlayerDefaultState : PlayerState
         {
             Key pressedKey = ((KeyControl)ctx.control).keyCode;
             int newIdx = pressedKey - Key.Digit1;
-            _inventory.SetActiveItem(newIdx);
+            _inventory.SetActiveItemByQuickSlot(newIdx);
+        }
+    }
+
+    public override void ToggleItemHudDisplay(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            _inventory.ToggleItemHudDisplay();
         }
     }
     #endregion
