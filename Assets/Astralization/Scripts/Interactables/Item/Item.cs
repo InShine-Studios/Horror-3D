@@ -19,10 +19,11 @@ public interface IItem
 public abstract class Item : Interactable, IItem
 {
     #region Variables
-    [Header("Item Logo")]
+    [Header("Item Component")]
     [SerializeField]
     [Tooltip("The item logo for HUD")]
     protected Sprite HudLogo;
+    private GameObject _model;
 
     [Header("Item Behavior")]
     [SerializeField]
@@ -33,7 +34,7 @@ public abstract class Item : Interactable, IItem
     #region SetGet
     private void SetMeshRenderer(bool enabled)
     {
-        transform.Find("Model").gameObject.SetActive(enabled);
+        _model.gameObject.SetActive(enabled);
     }
 
     public void ShowItem(bool isShown)
@@ -50,6 +51,13 @@ public abstract class Item : Interactable, IItem
     public Sprite GetHudLogo()
     {
         return HudLogo;
+    }
+    #endregion
+
+    #region MonoBehaviour
+    private void Awake()
+    {
+        _model = transform.Find("Model").gameObject;
     }
     #endregion
 

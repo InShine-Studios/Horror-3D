@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /*
@@ -6,16 +7,26 @@ using UnityEngine;
  */
 public class AudioPlayer : MonoBehaviour
 {
-    #region Handler
+    #region Variables
+    private Dictionary<string, AudioSource> _audioMap;
+    #endregion
+
+    #region MonoBehaviour
+    private void Awake()
+    {
+        _audioMap = new Dictionary<string, AudioSource>();
+        for (int i = 0; i < transform.childCount; i++) 
+        {
+            Transform child = transform.GetChild(i);
+            _audioMap.Add(child.name, child.GetComponent<AudioSource>());
+        }
+    }
+    #endregion
+
+    #region AudioPlayer
     public void Play(string name)
     {
-        Transform sound = transform.Find(name);
-        if (sound == null)
-        {
-            Debug.LogWarning("[AUDIO SYSTEM] Sound: " + name + " not found!");
-            return;
-        }
-        sound.GetComponent<AudioSource>().Play();
+        _audioMap[name].Play();
     }
     #endregion
 }
