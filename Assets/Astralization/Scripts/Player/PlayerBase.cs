@@ -3,7 +3,7 @@ using UnityEngine;
 public interface IPlayerBase
 {
     float GetPlayerMovementSpeed();
-    float GetRotationSpeed();
+    //float GetRotationSpeed();
     float GetSprintSpeed();
 }
 
@@ -19,9 +19,9 @@ public class PlayerBase : IPlayerBase
     [Tooltip("Walk Speed")]
     [SerializeField] private float _movementSpeed;
 
-    [Header("Rotation Constants")]
-    [Tooltip("Rotation Speed")]
-    [SerializeField] private float _rotationSpeed;
+    //[Header("Rotation Constants")]
+    //[Tooltip("Rotation Speed")]
+    //[SerializeField] private float _rotationSpeed;
 
     [Header("Sprint Constants")]
     [Tooltip("Sprint Speed")]
@@ -34,10 +34,10 @@ public class PlayerBase : IPlayerBase
         return _movementSpeed;
     }
 
-    public float GetRotationSpeed()
-    {
-        return _rotationSpeed;
-    }
+    //public float GetRotationSpeed()
+    //{
+    //    return _rotationSpeed;
+    //}
 
     public float GetSprintSpeed()
     {

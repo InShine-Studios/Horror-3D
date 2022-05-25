@@ -33,13 +33,14 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     [SerializeField]
     [Tooltip("The PlayerBase for constants")]
     private PlayerBase _playerBase;
-    [SerializeField]
     [Tooltip("The camera that follows the player")]
     private Camera _mainCamera;
     [Tooltip("Rotating GameObjects of Player")]
     private GameObject _rotatable;
-    [Tooltip("Player animation of Player Sprite")]
-    private PlayerAnimation _animation;
+    [Tooltip("Camera Target for Facing Direction")]
+    private GameObject _cameraTarget;
+    //[Tooltip("Player animation of Player Sprite")]
+    //private PlayerAnimation _animation;
 
     [Space]
     [Header("Movement Constants")]
@@ -51,8 +52,9 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private Vector3 _moveDirection;
     [Tooltip("The move angle relative to camera and player position")]
     private float _moveAngle;
+    [SerializeField]
     [Tooltip("Gravity Strength")]
-    public float Gravity = -50.0f;
+    private float _gravity = -50.0f;
     [Tooltip("Force Grounding Flag")]
     [SerializeField]
     private bool _useForceGrounding = true;
@@ -78,7 +80,9 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     {
         _controller = GetComponent<CharacterController>();
         _rotatable = transform.Find("Rotate").gameObject;
-        _animation = GetComponentInChildren<PlayerAnimation>();
+        _mainCamera = transform.parent.GetComponentInChildren<Camera>();
+        _cameraTarget = transform.Find("CameraTarget").gameObject;
+        //_animation = GetComponentInChildren<PlayerAnimation>();
     }
 
     private void FixedUpdate()
@@ -91,7 +95,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
 
     private void Update()
     {
-        _animation.SetPlayerMoveAnim(_isMoving, _isSprinting);
+        //_animation.SetPlayerMoveAnim(_isMoving, _isSprinting);
     }
     #endregion
 
@@ -99,16 +103,16 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private void SetDirection()
     {
         Vector3 direction = new Vector3(
-            transform.position.x - _mainCamera.transform.position.x,
-            0f,
-            transform.position.z - _mainCamera.transform.position.z
-        ).normalized;
+            _cameraTarget.transform.position.x - _mainCamera.transform.position.x,
+            0,
+            _cameraTarget.transform.position.z - _mainCamera.transform.position.z
+            ).normalized;
         //Debug.DrawRay(transform.position, direction);
 
         _moveAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         _moveDirection = Quaternion.Euler(0f, _moveAngle, 0f) * _faceDirection;
 
-        _animation.transform.rotation = Quaternion.Euler(0f, _moveAngle, 0f);
+        //_animation.transform.rotation = Quaternion.Euler(0f, _moveAngle, 0f);
 
         if (_moveDirection.magnitude >= 0.1f)
         {
@@ -116,11 +120,11 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
             _rotatable.transform.rotation = Quaternion.Euler(0f, faceAngle, 0f);
             //Debug.DrawRay(transform.position, _rotatable.transform.rotation * Vector3.forward);
 
-            _animation.SetSpriteMovingDirection(_faceDirection);
+            //_animation.SetSpriteMovingDirection(_faceDirection);
         }
         else
         {
-            _animation.SetSpriteIdleDirection(_rotatable.transform, _mainCamera.transform);
+            //_animation.SetSpriteIdleDirection(_rotatable.transform, _mainCamera.transform);
         }
     }
 
@@ -134,7 +138,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     {
         if (!_controller.isGrounded)
         {
-            _controller.Move(new Vector3(0, Gravity, 0) * Time.deltaTime);
+            _controller.Move(new Vector3(0, _gravity, 0) * Time.deltaTime);
         }
     }
 

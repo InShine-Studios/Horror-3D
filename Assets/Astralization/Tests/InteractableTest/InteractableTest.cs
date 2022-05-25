@@ -68,6 +68,7 @@ public class InteractableTest: TestBase
         Assert.IsTrue(door.IsOpen);
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, 0.4f);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveRight, false, 0.2f);
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
         yield return new WaitForSeconds(1f);
@@ -129,7 +130,7 @@ public class InteractableTest: TestBase
         Assert.False(markFlash.gameObject.activeInHierarchy);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, 0.4f);
         Assert.False(markLight1.gameObject.activeInHierarchy);
-        Assert.True(markLight2.gameObject.activeInHierarchy);
+        Assert.True(markLight2.gameObject.activeInHierarchy); 
         Assert.True(markFlash.gameObject.activeInHierarchy);
     }
     #endregion
