@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 8057739223163586150}
   - component: {fileID: 8057739223163586145}
   - component: {fileID: 8057739223163586148}
+  - component: {fileID: 1300590331135469488}
   - component: {fileID: -2560991310140210103}
   - component: {fileID: 873121507167454745}
   - component: {fileID: 4055782327609846884}
@@ -583,6 +584,18 @@ MonoBehaviour:
     _sprintSpeed: 300
   _gravity: -50
   _useForceGrounding: 1
+--- !u!114 &1300590331135469488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8057739223163586147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 020df5be0146f3d4c8018a73fda969f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!81 &-2560991310140210103
 AudioListener:
   m_ObjectHideFlags: 0

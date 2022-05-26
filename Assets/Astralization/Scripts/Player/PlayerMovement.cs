@@ -39,8 +39,8 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private GameObject _rotatable;
     [Tooltip("Camera Target for Facing Direction")]
     private GameObject _cameraTarget;
-    //[Tooltip("Player animation of Player Sprite")]
-    //private PlayerAnimation _animation;
+    [Tooltip("Animator of Player Model")]
+    private PlayerAnimation _animation;
 
     [Space]
     [Header("Movement Constants")]
@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         _rotatable = transform.Find("Rotate").gameObject;
         _mainCamera = transform.parent.GetComponentInChildren<Camera>();
         _cameraTarget = transform.Find("CameraTarget").gameObject;
-        //_animation = GetComponentInChildren<PlayerAnimation>();
+        _animation = GetComponentInChildren<PlayerAnimation>();
     }
 
     private void FixedUpdate()
@@ -91,15 +91,11 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         _isMoving = MovePlayer();
         if (_isMoving) FindClosest?.Invoke();
         if (_useForceGrounding) ForceGrounding();
-    }
-
-    private void Update()
-    {
-        //_animation.SetPlayerMoveAnim(_isMoving, _isSprinting);
+        SetAnimation();
     }
     #endregion
 
-    #region Handler
+    #region MovementHandler
     private void SetDirection()
     {
         Vector3 direction = new Vector3(
@@ -148,6 +144,13 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         else _curMoveSpeed = _playerBase.GetPlayerMovementSpeed();
         _controller.SimpleMove(_curMoveSpeed * Time.deltaTime * _moveDirection.normalized);
         return _faceDirection.magnitude != 0;
+    }
+    #endregion
+
+    #region AnimationHandler
+    private void SetAnimation()
+    { 
+        _animation.SetMovementAnim(_isMoving, _isSprinting);
     }
     #endregion
 }
