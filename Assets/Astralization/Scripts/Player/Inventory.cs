@@ -155,7 +155,7 @@ public class Inventory : MonoBehaviour, IInventory
             item.gameObject.transform.parent = this.transform;
             item.transform.position = this.transform.position + ActiveItemYOffset;  // Reposition object to middle body of player
             item.transform.rotation = this.transform.rotation;  // Reset item rotation
-            item.OnInteraction();
+            item.Pick();
 
             _numOfItem++;
 

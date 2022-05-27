@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /*
@@ -7,30 +8,120 @@ using UnityEngine;
  * Will call the Inventory to pick this item.
  */
 [RequireComponent(typeof(CapsuleCollider))]
-public class ItemDetector : ObjectDetector
+public class ItemDetector : MonoBehaviour
 {
     #region Variables
     [Tooltip("The inventory of the player for this item detector")]
     private Inventory _inventory;
+
+    [Header("Dependant on Detectors")]
+    [Tooltip("Tag to distinguish interactable types")]
+    protected string detectionTag;
+
+    [Tooltip("Current closest object to this detector")]
+    protected List<Item> nearbyInteractables;
+
+    [Tooltip("Current closest object to this detector")]
+    protected Item closestItem;
+    #endregion
+
+    #region SetGet
+    public Item GetClosest()
+    {
+        return closestItem;
+    }
     #endregion
 
     #region MonoBehaviour
-    protected override void Awake()
+    protected virtual void Awake()
     {
-        base.Awake();
         detectionTag = "Item";
         _inventory = GetComponent<Inventory>();
+        nearbyInteractables = new List<Item>();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(detectionTag))
+        {
+            Item item = other.GetComponent<Item>();
+            // Add interactable to list
+            nearbyInteractables.Add(item);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag(detectionTag))
+        {
+            Item item = other.GetComponent<Item>();
+            // Remove interactable from list
+            nearbyInteractables.Remove(item);
+
+            if (item.Equals(closestItem))
+            {
+                // Turn off icon
+                closestItem.ShowGuideIcon(false);
+                closestItem = null;
+            }
+        }
+    }
+
+    private void OnEnable()
+    {
+        PlayerMovement.FindClosest += UpdateClosestItem;
+    }
+
+    private void OnDisable()
+    {
+        PlayerMovement.FindClosest -= UpdateClosestItem;
     }
     #endregion
 
     #region Handler
-    protected override void InteractClosest(Interactable closest)
+    protected virtual void InteractClosest(Item closest)
     {
         //Debug.Log("[PLAYER INTERACTION] Picked " + closest.name);
         _inventory.PickItem((Item)closest);
         nearbyInteractables.Remove(closest);
-        closestInteractable = null;
-        UpdateClosestInteractable();
+        closestItem = null;
+        UpdateClosestItem();
+    }
+
+    protected void UpdateClosestItem()
+    {
+        float minDist = Mathf.Infinity;
+        Item newClosest = null;
+
+        for (int i = 0; i < nearbyInteractables.Count; i++)
+        {
+            Item cur = nearbyInteractables[i];
+
+            // Calculate minimum distance and update closest interactable
+            float curDist = Utils.GeometryCalcu.GetDistance3D(transform.position, cur.transform.position);
+            if (curDist < minDist)
+            {
+                minDist = curDist;
+                newClosest = cur;
+            }
+        }
+
+        if (closestItem && !newClosest.Equals(closestItem))
+        {
+            closestItem.ShowGuideIcon(false);
+            //Debug.Log("[PLAYER INTERACTION] Updated closest interactable to " + closestInteractable.name);
+        }
+        closestItem = newClosest; // newClosest can be null when no nearby
+        closestItem?.ShowGuideIcon(true);
+    }
+
+    public void CheckInteraction()
+    {
+        //Debug.Log("[PLAYER INTERACTION] Initiate interaction");
+        if (closestItem)
+        {
+            InteractClosest(closestItem);
+        }
     }
     #endregion
 }
