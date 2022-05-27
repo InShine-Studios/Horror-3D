@@ -15,9 +15,9 @@ public class ItemTest : TestBase
         GameObject[] gameObjects = scene.GetRootGameObjects();
         foreach (GameObject gameObject in gameObjects)
         {
-            if (gameObject.name == "Iris")
+            if (gameObject.name == "Player")
             {
-                player = gameObject;
+                player = gameObject.transform.Find("Character").gameObject;
             }
             else if (gameObject.name == "UI")
             {
