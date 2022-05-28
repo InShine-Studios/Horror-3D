@@ -5,7 +5,7 @@ using UnityEngine;
  * Takes the current movement magnitude from PlayerMovement.
  * Takes the current rotation angle from PlayerRotation.
  */
-public class PlayerAnimation2D : MonoBehaviour
+public class PlayerSpriteAnim : MonoBehaviour
 {
     #region Variables
     [Header("Player Parts")]

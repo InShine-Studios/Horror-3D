@@ -33,11 +33,6 @@ public class PlayerDefaultState : PlayerState
         _playerMovement.SetFaceDirection(ctx.ReadValue<Vector2>());
     }
 
-    public override void OnMouseDelta(InputAction.CallbackContext ctx)
-    {
-        //Debug.Log("Mouse delta value: " + ctx.ReadValue<Vector2>());
-    }
-
     public override void SprintPressed(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
