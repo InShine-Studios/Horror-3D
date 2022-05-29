@@ -3,7 +3,6 @@ using UnityEngine;
 public interface IPlayerBase
 {
     float GetPlayerMovementSpeed();
-    //float GetRotationSpeed();
     float GetSprintSpeed();
 }
 

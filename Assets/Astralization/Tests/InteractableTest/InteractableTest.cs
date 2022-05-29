@@ -92,7 +92,7 @@ public class InteractableTest: TestBase
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
         yield return new WaitForSeconds(1.0f);
         Vector3 calOffset = GameObject.Find("Closets/Model/RotateRight").GetComponentInChildren<Renderer>().bounds.center;
-        //Assert.Less(Utils.GeometryCalcu.GetDistance3D(calOffset,player.transform.position),1f); //TODO #317
+        //Assert.Less(Utils.GeometryCalcu.GetDistance3D(calOffset,player.transform.position),1f); //TODO #312
         //Assert.True(anim.GetBool("isHiding"));
         Assert.AreEqual(_playerInput.currentActionMap.name, "Hiding");
 
