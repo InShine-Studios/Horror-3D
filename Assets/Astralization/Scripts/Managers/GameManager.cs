@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour, IGameManager
     public void InvokeDialogueState()
     {
         SendHudUiEvent(Utils.UiHelper.States.Dialogue, true);
-        SendPlayerStateEvent(Utils.PlayerHelper.States.UI);
+        SendPlayerStateEvent(Utils.PlayerHelper.States.Dialogue);
         //Debug.Log("[MANAGER] Change state to dialogue");
     }
 

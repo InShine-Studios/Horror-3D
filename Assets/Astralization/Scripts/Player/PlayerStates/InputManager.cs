@@ -38,7 +38,8 @@ public class InputManager : StateMachine
         {
             case Utils.PlayerHelper.States.Default: ChangeState<PlayerDefaultState>(); break;
             case Utils.PlayerHelper.States.Hiding: ChangeState<PlayerHidingState>(); break;
-            case Utils.PlayerHelper.States.UI: ChangeState<PlayerUiState>(); break;
+            case Utils.PlayerHelper.States.Dialogue: ChangeState<PlayerDialogueState>(); break;
+            case Utils.PlayerHelper.States.Tome: ChangeState<PlayerTomeState>(); break;
             case Utils.PlayerHelper.States.Exorcism: ChangeState<PlayerExorcismState>(); break;
         }
         //Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);
