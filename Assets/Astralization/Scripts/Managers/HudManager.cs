@@ -19,20 +19,13 @@ public class HudManager : MonoBehaviour
     #endregion
 
     #region SetGet
-    private void SetHudState(Utils.PlayerHelper.States hudKey, bool condition)
+    private void SetHudState(Utils.UiHelper.UiType hudKey, bool condition)
     {
         switch (hudKey)
         {
-            case Utils.PlayerHelper.States.Exorcism: ShowExorcism(condition); break;
-            case Utils.PlayerHelper.States.Hiding: ShowHidingHud(condition); break;
-        }
-    }
-
-    private void SetHudState(Utils.UiHelper.States hudKey, bool condition)
-    {
-        switch (hudKey)
-        {
-            case Utils.UiHelper.States.Dialogue: ShowDialogue(condition); break;
+            case Utils.UiHelper.UiType.Dialogue: ShowDialogue(condition); break;
+            case Utils.UiHelper.UiType.ExorcismBar: ShowExorcism(condition); break;
+            case Utils.UiHelper.UiType.HidingOverlay: ShowHidingHud(condition); break;
         }
     }
 
@@ -76,8 +69,7 @@ public class HudManager : MonoBehaviour
     #region MonoBehaviour
     private void OnEnable()
     {
-        GameManager.HudPlayerEvent += SetHudState;
-        GameManager.HudUiEvent += SetHudState;
+        GameManager.HudEvent += SetHudState;
         PlayerHidingState.StopHidingHudEvent += ShowHidingHud;
         Inventory.ItemLogoEvent += UpdateLogo;
         Inventory.InitItemHudEvent += GenerateItemHud;
@@ -87,8 +79,7 @@ public class HudManager : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.HudPlayerEvent -= SetHudState;
-        GameManager.HudUiEvent -= SetHudState;
+        GameManager.HudEvent -= SetHudState;
         PlayerHidingState.StopHidingHudEvent -= ShowHidingHud;
         Inventory.ItemLogoEvent -= UpdateLogo;
         Inventory.InitItemHudEvent -= GenerateItemHud;
