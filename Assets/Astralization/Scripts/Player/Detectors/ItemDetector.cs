@@ -19,7 +19,7 @@ public class ItemDetector : MonoBehaviour
     protected string detectionTag;
 
     [Tooltip("Current closest object to this detector")]
-    protected List<Item> nearbyInteractables;
+    protected List<Item> nearbyItems;
 
     [Tooltip("Current closest object to this detector")]
     protected Item closestItem;
@@ -37,7 +37,7 @@ public class ItemDetector : MonoBehaviour
     {
         detectionTag = "Item";
         _inventory = GetComponent<Inventory>();
-        nearbyInteractables = new List<Item>();
+        nearbyItems = new List<Item>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,7 +46,7 @@ public class ItemDetector : MonoBehaviour
         {
             Item item = other.GetComponent<Item>();
             // Add interactable to list
-            nearbyInteractables.Add(item);
+            nearbyItems.Add(item);
         }
     }
 
@@ -56,7 +56,7 @@ public class ItemDetector : MonoBehaviour
         {
             Item item = other.GetComponent<Item>();
             // Remove interactable from list
-            nearbyInteractables.Remove(item);
+            nearbyItems.Remove(item);
 
             if (item.Equals(closestItem))
             {
@@ -83,19 +83,19 @@ public class ItemDetector : MonoBehaviour
     {
         //Debug.Log("[PLAYER INTERACTION] Picked " + closest.name);
         _inventory.PickItem((Item)closest);
-        nearbyInteractables.Remove(closest);
+        nearbyItems.Remove(closest);
         closestItem = null;
         UpdateClosestItem();
     }
 
-    protected void UpdateClosestItem()
+    private void UpdateClosestItem()
     {
         float minDist = Mathf.Infinity;
         Item newClosest = null;
 
-        for (int i = 0; i < nearbyInteractables.Count; i++)
+        for (int i = 0; i < nearbyItems.Count; i++)
         {
-            Item cur = nearbyInteractables[i];
+            Item cur = nearbyItems[i];
 
             // Calculate minimum distance and update closest interactable
             float curDist = Utils.GeometryCalcu.GetDistance3D(transform.position, cur.transform.position);

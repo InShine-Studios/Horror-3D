@@ -34,7 +34,7 @@ public abstract class Item : MonoBehaviour, IItem
     [Tooltip("Audio Manager")]
     private AudioPlayer _audioPlayerObj;
 
-    [Header("Interactable Icons")]
+    [Header("Item Icons")]
     [Tooltip("True if there is an icon to be used")]
     [SerializeField]
     private bool _useIcon;

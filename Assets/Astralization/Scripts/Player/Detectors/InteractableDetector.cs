@@ -30,7 +30,7 @@ public class InteractableDetector : MonoBehaviour
     #endregion
 
     #region MonoBehaviour
-    protected virtual void Awake()
+    private void Awake()
     {
         detectionTag = "Interactable";
         nearbyInteractables = new List<Interactable>();
@@ -75,14 +75,14 @@ public class InteractableDetector : MonoBehaviour
     #endregion
 
     #region Handler
-    protected virtual void InteractClosest(Interactable closest)
+    private void InteractClosest(Interactable closest)
     {
         //Debug.Log("[PLAYER INTERACTION] Interacted with " + closest.name);
         closest.OnInteraction();
         UpdateClosestInteractable();
     }
 
-    protected void UpdateClosestInteractable()
+    private void UpdateClosestInteractable()
     {
         float minDist = Mathf.Infinity;
         Interactable newClosest = null;
