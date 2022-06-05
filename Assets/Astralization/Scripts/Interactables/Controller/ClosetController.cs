@@ -5,7 +5,7 @@ using UnityEngine;
  * Class to control closets door states.
  * Inherit Interactable.
  */
-public class ClosetsController : Interactable
+public class ClosetController : Interactable
 {
     #region Events
     public static event Action StartHidingEvent;
