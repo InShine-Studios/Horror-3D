@@ -7,7 +7,6 @@ public class PlayerDefaultState : PlayerState
     #region Variables
     [Header("Movement and Rotation")]
     private PlayerMovement _playerMovement;
-    private PlayerRotation _playerRotation;
 
     [Header("Inventory and Detector")]
     private Inventory _inventory;
@@ -21,7 +20,6 @@ public class PlayerDefaultState : PlayerState
     {
         base.Awake();
         _playerMovement = GetComponent<PlayerMovement>();
-        _playerRotation = GetComponentInChildren<PlayerRotation>();
         _inventory = GetComponentInChildren<Inventory>();
         _interactableDetector = GetComponentInChildren<InteractableDetector>();
         _itemDetector = GetComponentInChildren<ItemDetector>();
@@ -33,11 +31,6 @@ public class PlayerDefaultState : PlayerState
     public override void OnMovementInput(InputAction.CallbackContext ctx)
     {
         _playerMovement.SetFaceDirection(ctx.ReadValue<Vector2>());
-    }
-
-    public override void OnMousePosition(InputAction.CallbackContext ctx)
-    {
-        _playerRotation.SetMousePosition(ctx.ReadValue<Vector2>());
     }
 
     public override void SprintPressed(InputAction.CallbackContext ctx)
