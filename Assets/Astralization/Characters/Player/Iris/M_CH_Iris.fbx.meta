@@ -1,19 +1,56 @@
 fileFormatVersion: 2
-guid: 1a49daf1e448f3ab490e7c0f973bed7e
+guid: abc6deaa517d141a593e811e1e4e9dd0
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 4699274299699868179
+    second: Armature.001|Idle
+  - first:
+      74: 3973302715954354996
+    second: Armature.001|Idle Hold Item
+  - first:
+      74: -448239265334008587
+    second: Armature.001|Walk
+  - first:
+      74: 5411083219751928708
+    second: Armature.001|Walk Hold Item
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material
-    second: {fileID: 2100000, guid: d1f0ff8f41bf6f967bcb50606d593253, type: 2}
+      name: Body.001
+    second: {fileID: 2100000, guid: 43d0bcf30de68458896628cd2ee29349, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Outline
-    second: {fileID: 2100000, guid: e1283b8198988109b8ebe64e4492e439, type: 2}
+      name: Hair.001
+    second: {fileID: 2100000, guid: 0fa358db9eed34ee486741d0d66891e8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Headphones.001
+    second: {fileID: 2100000, guid: 500d312cfa9d148e78528c42eaed8940, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hoodie.001
+    second: {fileID: 2100000, guid: 49df5498eff204444a7d40b437ea028f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 7c9d461fbc4c54645bc17813305ca525, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shoes.001
+    second: {fileID: 2100000, guid: d2bd32141b8b6464bad385ced6c6bb3a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shorts.001
+    second: {fileID: 2100000, guid: 19bdcd3cd39f24a8fa4caf353b7938a3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
