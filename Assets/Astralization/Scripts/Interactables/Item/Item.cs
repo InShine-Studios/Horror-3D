@@ -34,7 +34,7 @@ public abstract class Item : Interactable, IItem
     #region SetGet
     private void SetMeshRenderer(bool enabled)
     {
-        _model.gameObject.SetActive(enabled);
+        _model.SetActive(enabled);
     }
 
     public void ShowItem(bool isShown)
