@@ -28,9 +28,9 @@ public class ClockItem : EvidenceItem
         _clockManager.ChangeState<ClockActiveState>();
     }
 
-    public override void OnInteraction()
+    public override void Pick()
     {
-        base.OnInteraction();
+        base.Pick();
         _clockManager.ChangeState<ClockInactiveState>();
     }
 

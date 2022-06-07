@@ -5,7 +5,7 @@ public interface IItem
     void Discard();
     Sprite GetHudLogo();
     bool IsDiscardedWhenUsed();
-    void OnInteraction();
+    void Pick();
     void ShowItem(bool isShown);
     void Use();
 }
@@ -16,7 +16,7 @@ public interface IItem
  * Implement Use() function on each child class.
  */
 [RequireComponent(typeof(MeshRenderer))]
-public abstract class Item : Interactable, IItem
+public abstract class Item : MonoBehaviour, IItem
 {
     #region Variables
     [Header("Item Logo")]
@@ -28,6 +28,20 @@ public abstract class Item : Interactable, IItem
     [SerializeField]
     [Tooltip("Determine whether discard after used or not")]
     private bool _discardedWhenUsed = false;
+
+    [Space]
+    [Header("Audio")]
+    [Tooltip("Audio Manager")]
+    private AudioPlayer _audioPlayerObj;
+
+    [Header("Item Icons")]
+    [Tooltip("True if there is an icon to be used")]
+    [SerializeField]
+    private bool _useIcon;
+
+    [Tooltip("The icon mark for guidance")]
+    [SerializeField]
+    private GameObject _guideIcon;
     #endregion
 
     #region SetGet
@@ -51,6 +65,33 @@ public abstract class Item : Interactable, IItem
     {
         return HudLogo;
     }
+
+    public void SetCollider(bool state)
+    {
+        //Debug.Log("[INTERACTABLE] Setting collider " + this.name + " to " + state);
+        GetComponent<Collider>().enabled = state;
+    }
+
+    public void ShowGuideIcon(bool state)
+    {
+        if (_useIcon)
+        {
+            //Debug.Log("[INTERACTABLE] Setting icon " + this.name + " to " + state);
+            _guideIcon.SetActive(state);
+        }
+    }
+
+    public void SetUseIcon(bool useIcon)
+    {
+        _useIcon = useIcon;
+    }
+    #endregion
+
+    #region Monobehavior
+    protected virtual void Awake()
+    {
+        _audioPlayerObj = GetComponentInChildren<AudioPlayer>();
+    }
     #endregion
 
     #region Use
@@ -58,20 +99,22 @@ public abstract class Item : Interactable, IItem
     #endregion
 
     #region Handler
-    public override void OnInteraction()
+
+    protected void PlayAudio(string name)
     {
-        Pick();
+        _audioPlayerObj.Play(name);
     }
     #endregion
 
     #region Pick - Discard
-    private void Pick()
+    public virtual void Pick()
     {
         SetCollider(false);
         SetMeshRenderer(false);
         ShowGuideIcon(false);
         SetUseIcon(false);
     }
+
     public void Discard()
     {
         SetCollider(true);

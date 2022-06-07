@@ -25,9 +25,9 @@ public class SilhouetteBowlItem : EvidenceItem
         _silhouetteBowlManager.ChangeState<SilhouetteBowlActiveState>();
     }
 
-    public override void OnInteraction()
+    public override void Pick()
     {
-        base.OnInteraction();
+        base.Pick();
         _silhouetteBowlManager.ChangeState<SilhouetteBowlInactiveState>();
     }
 

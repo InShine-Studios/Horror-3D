@@ -24,9 +24,9 @@ public class ThermometerItem : EvidenceItem
         _thermometerManager.ChangeState<ThermometerActiveState>();
     }
 
-    public override void OnInteraction()
+    public override void Pick()
     {
-        base.OnInteraction();
+        base.Pick();
         _thermometerManager.ChangeState<ThermometerInactiveState>();
     }
 
