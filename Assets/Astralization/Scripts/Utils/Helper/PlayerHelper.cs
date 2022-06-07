@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Utils
@@ -23,6 +24,14 @@ namespace Utils
             Default
         }
         public static int FixedUpdateCallsPerSecond = 50;
+        public static Dictionary<States,string> PlayerStateActionMapMapper = new Dictionary<States, string>()
+        {
+            {States.Dialogue, "UI" },
+            {States.Tome, "UI" },
+            {States.Hiding, "Hiding" },
+            {States.Exorcism, "Exorcism" },
+            {States.Default, "Default" }
+        };
 
         public static bool CheckIsInteractZone(Collider target)
         {

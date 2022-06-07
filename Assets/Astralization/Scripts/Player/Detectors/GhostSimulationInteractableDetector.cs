@@ -7,7 +7,7 @@ using UnityEngine;
  * Will call the onGhostInteraction function on the Interactable object.
  */
 [RequireComponent(typeof(CapsuleCollider))]
-public class GhostSimulationInteractableDetector : ObjectDetector
+public class GhostSimulationInteractableDetector : ItemDetector
 {
     #region MonoBehaviour
     protected override void Awake()
@@ -18,7 +18,7 @@ public class GhostSimulationInteractableDetector : ObjectDetector
     #endregion
 
     #region Handler
-    protected override void InteractClosest(Interactable closest)
+    protected override void InteractClosest(Item closest)
     {
         //Debug.Log("[PLAYER INTERACTION] Interacted with " + closest.name);
         if (closest is EvidenceItem)

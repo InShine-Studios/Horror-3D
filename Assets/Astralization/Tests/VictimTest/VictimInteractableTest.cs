@@ -14,9 +14,9 @@ public class VictimInteractableTest : TestBase
         GameObject[] gameObjects = scene.GetRootGameObjects();
         foreach (GameObject gameObject in gameObjects)
         {
-            if (gameObject.name == "Iris")
+            if (gameObject.name == "Player")
             {
-                player = gameObject;
+                player = gameObject.transform.Find("Character").gameObject;
                 playerMovement = player.GetComponent<IPlayerMovement>();
             }
         }

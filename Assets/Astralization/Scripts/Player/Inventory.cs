@@ -40,6 +40,10 @@ public class Inventory : MonoBehaviour, IInventory
     public static event Action<Item> DiscardItemEvent;
     #endregion
 
+    #region Variables - Dependencies
+    private PlayerAnimation _animation;
+    #endregion
+
     #region Variables - Item List
     [Header("Item List")]
     [Tooltip("The list of items")]
@@ -96,6 +100,8 @@ public class Inventory : MonoBehaviour, IInventory
         // Show active item
         _activeItem?.ShowItem(true);
 
+        _animation.SetHoldingItemAnim(_activeItem != null);
+
         UpdateActiveItemIndexEvent.Invoke(newIdx);
     }
     public IItem GetActiveItem() { return _activeItem; }
@@ -107,12 +113,10 @@ public class Inventory : MonoBehaviour, IInventory
     #region MonoBehaviour
     private void Start()
     {
+        _animation = transform.GetComponentInParent<PlayerAnimation>();
         _items = new Item[_size];
         InitItemHudEvent.Invoke(_size, _activeIdx);
     }
-    #endregion
-
-    #region Initialization
     #endregion
 
     #region Pick - Discard
@@ -155,9 +159,10 @@ public class Inventory : MonoBehaviour, IInventory
             item.gameObject.transform.parent = this.transform;
             item.transform.position = this.transform.position + ActiveItemYOffset;  // Reposition object to middle body of player
             item.transform.rotation = this.transform.rotation;  // Reset item rotation
-            item.OnInteraction();
+            item.Pick();
 
             _numOfItem++;
+            _animation.SetHoldingItemAnim(true);
 
             //Debug.Log("[INVENTORY] Pick " + item.name + " on position " + pickedIdx);
         }
@@ -178,6 +183,8 @@ public class Inventory : MonoBehaviour, IInventory
         _activeItem = null;
         _items[_activeIdx] = null;
         _numOfItem--;
+
+        _animation.SetHoldingItemAnim(false);
 
         ItemLogoEvent?.Invoke(_activeIdx, null);
     }

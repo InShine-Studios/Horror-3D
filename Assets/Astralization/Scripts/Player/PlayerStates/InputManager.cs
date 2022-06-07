@@ -31,10 +31,10 @@ public class InputManager : StateMachine
     #endregion
 
     #region SetGet
-    public void SetPlayerActionMap(Utils.PlayerHelper.States actionMap)
+    public void SetPlayerActionMap(Utils.PlayerHelper.States playerState)
     {
-        _playerInput.SwitchCurrentActionMap(actionMap.ToString());
-        switch (actionMap) // RACE CONDITION
+        _playerInput.SwitchCurrentActionMap(Utils.PlayerHelper.PlayerStateActionMapMapper[playerState]);
+        switch (playerState) // RACE CONDITION
         {
             case Utils.PlayerHelper.States.Default: ChangeState<PlayerDefaultState>(); break;
             case Utils.PlayerHelper.States.Hiding: ChangeState<PlayerHidingState>(); break;
@@ -61,7 +61,7 @@ public class InputManager : StateMachine
         switch (ctx.action.name)
         {
             case "Movement": currentPlayerState.OnMovementInput(ctx); break;
-            //case "MousePosition": _currentPlayerState.OnMousePosition(ctx); break;
+            case "MouseDelta": currentPlayerState.OnMouseDelta(ctx); break;
             case "ChangeItem": currentPlayerState.ScrollActiveItem(ctx); break;
             case "SprintStart": currentPlayerState.SprintPressed(ctx); break;
             case "SprintEnd": currentPlayerState.SprintReleased(ctx); break;
