@@ -8,13 +8,9 @@ using System;
 public class HudManager : MonoBehaviour
 {
     #region Variables
-    [SerializeField]
     private DialogueManager _dialogueManager;
-    [SerializeField]
     private HidingOverlay _hidingManager;
-    [SerializeField]
     private ItemHudDisplay _itemHud;
-    [SerializeField]
     private ExorcismBar _exorcismBar;
     #endregion
 
@@ -67,6 +63,13 @@ public class HudManager : MonoBehaviour
     #endregion
 
     #region MonoBehaviour
+    private void Awake()
+    {
+        _dialogueManager = GetComponentInChildren<DialogueManager>();
+        _hidingManager = GetComponentInChildren<HidingOverlay>();
+        _itemHud = GetComponentInChildren<ItemHudDisplay>();
+        _exorcismBar = GetComponentInChildren<ExorcismBar>();
+    }
     private void OnEnable()
     {
         GameManager.HudEvent += SetHudState;

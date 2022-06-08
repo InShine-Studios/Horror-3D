@@ -18,10 +18,7 @@ public class ItemTest : TestBase
             if (gameObject.name == "Player")
             {
                 player = gameObject.transform.Find("Character").gameObject;
-            }
-            else if (gameObject.name == "UI")
-            {
-                itemHud = gameObject.transform.Find("ItemHud").GetComponent<IItemHudDisplay>();
+                itemHud = gameObject.GetComponentInChildren<IItemHudDisplay>();
             }
             else if (gameObject.name == "OverworldItems")
             {

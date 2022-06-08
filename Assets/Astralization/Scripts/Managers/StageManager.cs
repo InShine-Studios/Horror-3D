@@ -29,7 +29,6 @@ public class StageManager : MonoBehaviour, IStageManager
     [SerializeField]
     private StageTransitionZoneData _stageTransitionZoneData;
 
-    // TODO: singleton belom berhasil
     private static StageManager _instance;
     public static StageManager Instance
     {
