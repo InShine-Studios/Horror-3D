@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour, IGameManager
         GhostManager.ChangeWorldGM += InvokeChangeWorld;
         VictimController.VictimInteractionEvent += InvokeDialogueState;
         DialogueManager.FinishDialogueEvent += ResetPlayerState;
-        ClosetsController.StartHidingEvent += InvokeHidingState;
+        ClosetController.StartHidingEvent += InvokeHidingState;
         ExorcismItem.ExorcismChannelingEvent += InvokeExorcismState;
         ExorcismBar.FinishExorcismChannelingEvent += ResetPlayerState;
     }
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour, IGameManager
         GhostManager.ChangeWorldGM -= InvokeChangeWorld;
         VictimController.VictimInteractionEvent -= InvokeDialogueState;
         DialogueManager.FinishDialogueEvent -= ResetPlayerState;
-        ClosetsController.StartHidingEvent -= InvokeHidingState;
+        ClosetController.StartHidingEvent -= InvokeHidingState;
         ExorcismItem.ExorcismChannelingEvent -= InvokeExorcismState;
         ExorcismBar.FinishExorcismChannelingEvent -= ResetPlayerState;
     }

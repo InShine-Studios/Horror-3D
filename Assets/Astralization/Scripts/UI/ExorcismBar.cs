@@ -59,7 +59,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
             _isUsed = true;
             _cooldownHelper.AddAccumulatedTime();
             SetSliderValue(_cooldownHelper.GetAccumulatedTime());
-            if (_cooldownHelper.IsFinished())
+            if (_cooldownHelper.IsFinished)
             {
                 _isExorcised = true;
                 StopExorcism();
@@ -124,7 +124,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
         {
             //Debug.Log("[HUD SYSTEM] Exorcism Cancelled");
         }
-        _cooldownHelper.SetAccumulatedTime(0f);
+        _cooldownHelper.ResetCooldown();
     }
     #endregion
 }

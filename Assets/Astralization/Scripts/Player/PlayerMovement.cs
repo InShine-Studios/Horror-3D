@@ -33,12 +33,13 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     [SerializeField]
     [Tooltip("The PlayerBase for constants")]
     private PlayerBase _playerBase;
-    [SerializeField]
     [Tooltip("The camera that follows the player")]
     private Camera _mainCamera;
     [Tooltip("Rotating GameObjects of Player")]
     private GameObject _rotatable;
-    [Tooltip("Player animation of Player Sprite")]
+    [Tooltip("Camera Target for Facing Direction")]
+    private GameObject _cameraTarget;
+    [Tooltip("Animator of Player Model")]
     private PlayerAnimation _animation;
 
     [Space]
@@ -51,8 +52,9 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private Vector3 _moveDirection;
     [Tooltip("The move angle relative to camera and player position")]
     private float _moveAngle;
+    [SerializeField]
     [Tooltip("Gravity Strength")]
-    public float Gravity = -50.0f;
+    private float _gravity = -50.0f;
     [Tooltip("Force Grounding Flag")]
     [SerializeField]
     private bool _useForceGrounding = true;
@@ -78,6 +80,8 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     {
         _controller = GetComponent<CharacterController>();
         _rotatable = transform.Find("Rotate").gameObject;
+        _mainCamera = transform.parent.GetComponentInChildren<Camera>();
+        _cameraTarget = transform.Find("CameraTarget").gameObject;
         _animation = GetComponentInChildren<PlayerAnimation>();
     }
 
@@ -87,40 +91,28 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         _isMoving = MovePlayer();
         if (_isMoving) FindClosest?.Invoke();
         if (_useForceGrounding) ForceGrounding();
-    }
-
-    private void Update()
-    {
-        _animation.SetPlayerMoveAnim(_isMoving, _isSprinting);
+        SetAnimation();
     }
     #endregion
 
-    #region Handler
+    #region MovementHandler
     private void SetDirection()
     {
         Vector3 direction = new Vector3(
-            transform.position.x - _mainCamera.transform.position.x,
-            0f,
-            transform.position.z - _mainCamera.transform.position.z
-        ).normalized;
+            _cameraTarget.transform.position.x - _mainCamera.transform.position.x,
+            0,
+            _cameraTarget.transform.position.z - _mainCamera.transform.position.z
+            ).normalized;
         //Debug.DrawRay(transform.position, direction);
 
         _moveAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         _moveDirection = Quaternion.Euler(0f, _moveAngle, 0f) * _faceDirection;
-
-        _animation.transform.rotation = Quaternion.Euler(0f, _moveAngle, 0f);
 
         if (_moveDirection.magnitude >= 0.1f)
         {
             float faceAngle = Mathf.Atan2(_moveDirection.x, _moveDirection.z) * Mathf.Rad2Deg;
             _rotatable.transform.rotation = Quaternion.Euler(0f, faceAngle, 0f);
             //Debug.DrawRay(transform.position, _rotatable.transform.rotation * Vector3.forward);
-
-            _animation.SetSpriteMovingDirection(_faceDirection);
-        }
-        else
-        {
-            _animation.SetSpriteIdleDirection(_rotatable.transform, _mainCamera.transform);
         }
     }
 
@@ -134,7 +126,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     {
         if (!_controller.isGrounded)
         {
-            _controller.Move(new Vector3(0, Gravity, 0) * Time.deltaTime);
+            _controller.Move(new Vector3(0, _gravity, 0) * Time.deltaTime);
         }
     }
 
@@ -144,6 +136,13 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         else _curMoveSpeed = _playerBase.GetPlayerMovementSpeed();
         _controller.SimpleMove(_curMoveSpeed * Time.deltaTime * _moveDirection.normalized);
         return _faceDirection.magnitude != 0;
+    }
+    #endregion
+
+    #region AnimationHandler
+    private void SetAnimation()
+    { 
+        _animation.SetMovementAnim(_isMoving, _isSprinting);
     }
     #endregion
 }

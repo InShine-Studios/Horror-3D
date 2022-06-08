@@ -8,21 +8,21 @@ using UnityEngine.UI;
 public class EvidenceItemTest : TestBase
 {
 
-    protected GameObject hud;
+    protected IItemHudDisplay itemHud;
 
     protected override void FindGameObjects(Scene scene)
     {
         GameObject[] gameObjects = scene.GetRootGameObjects();
         foreach (GameObject gameObject in gameObjects)
         {
-            if (gameObject.name == "Iris")
+            if (gameObject.name == "Player")
             {
-                player = gameObject;
+                player = gameObject.transform.Find("Character").gameObject;
                 playerMovement = player.GetComponent<IPlayerMovement>();
             }
             else if (gameObject.name == "UI")
             {
-                hud = gameObject;
+                itemHud = gameObject.transform.Find("ItemHud").GetComponent<IItemHudDisplay>();
             }
         }
     }
@@ -57,7 +57,7 @@ public class EvidenceItemTest : TestBase
             yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
 
             gameObject = GameObject.Find("OverworldItems/" + gameObjectName);
-            Image img = hud.transform.Find("ItemHud/Logo").GetComponent<Image>();
+            Image img = itemHud.GetSelectedItemLogo();
             IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
 
             Assert.NotNull(gameObject);

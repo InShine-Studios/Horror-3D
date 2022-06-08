@@ -60,7 +60,7 @@ public class InputManager : StateMachine
         switch (ctx.action.name)
         {
             case "Movement": currentPlayerState.OnMovementInput(ctx); break;
-            //case "MousePosition": _currentPlayerState.OnMousePosition(ctx); break;
+            case "MouseDelta": currentPlayerState.OnMouseDelta(ctx); break;
             case "ChangeItem": currentPlayerState.ScrollActiveItem(ctx); break;
             case "SprintStart": currentPlayerState.SprintPressed(ctx); break;
             case "SprintEnd": currentPlayerState.SprintReleased(ctx); break;
@@ -70,6 +70,7 @@ public class InputManager : StateMachine
             case "DiscardItem": currentPlayerState.DiscardItemInput(ctx); break;
             case "SimulateGhostInteract": currentPlayerState.CheckInteractionGhost(ctx); break;
             case "InventoryQuickslot": currentPlayerState.ChangeActiveItemQuickslot(ctx); break;
+            case "ToggleItemHudDisplay": currentPlayerState.ToggleItemHudDisplay(ctx); break;
         }  
     }
 
