@@ -17,6 +17,8 @@ public class DummyFlashlightItem : Item
     {
         base.Awake();
         _lightSource = GetComponentInChildren<Light>();
+        UseBehaviourType = Utils.ItemHelper.UseBehaviourType.None;
+        WorldConditionType = Utils.ItemHelper.WorldConditionType.Real;
     }
     #endregion
 

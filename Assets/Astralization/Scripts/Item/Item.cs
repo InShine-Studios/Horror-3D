@@ -4,7 +4,6 @@ public interface IItem
 {
     void Discard();
     Sprite GetHudLogo();
-    bool IsDiscardedWhenUsed();
     void Pick();
     void ShowItem(bool isShown);
     void Use();
@@ -25,10 +24,11 @@ public abstract class Item : MonoBehaviour, IItem
     protected Sprite HudLogo;
 
     [Header("Item Behavior")]
-    [SerializeField]
-    [Tooltip("Determine whether discard after used or not")]
-    private bool _discardedWhenUsed = false;
-
+    [Tooltip("Determine item usage behavior")]
+    protected Utils.ItemHelper.UseBehaviourType UseBehaviourType;
+    [Tooltip("Determine world condition type so the item can be used")]
+    protected Utils.ItemHelper.WorldConditionType WorldConditionType;
+    
     [Space]
     [Header("Audio")]
     [Tooltip("Audio Manager")]
@@ -54,11 +54,6 @@ public abstract class Item : MonoBehaviour, IItem
     {
         //Debug.Log("[ITEM] Show " + this.name + " visibility to:" + isShown);
         this.gameObject.SetActive(isShown);
-    }
-
-    public bool IsDiscardedWhenUsed()
-    {
-        return _discardedWhenUsed;
     }
 
     public Sprite GetHudLogo()
@@ -95,11 +90,14 @@ public abstract class Item : MonoBehaviour, IItem
     #endregion
 
     #region Use
+    private void ValidateUseCondition()
+    {
+        
+    }
     public abstract void Use();
     #endregion
 
     #region Handler
-
     protected void PlayAudio(string name)
     {
         _audioPlayerObj.Play(name);

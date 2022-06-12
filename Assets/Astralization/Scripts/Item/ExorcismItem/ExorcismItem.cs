@@ -15,6 +15,15 @@ public class ExorcismItem : Item, IExorcismItem
     public static event Action ExorcismChannelingEvent;
     #endregion
 
+    #region MonoBehaviour
+    protected override void Awake()
+    {
+        base.Awake();
+        UseBehaviourType = Utils.ItemHelper.UseBehaviourType.Handheld;
+        WorldConditionType = Utils.ItemHelper.WorldConditionType.Real;
+    }
+    #endregion
+
     #region Use
     public override void Use()
     {
