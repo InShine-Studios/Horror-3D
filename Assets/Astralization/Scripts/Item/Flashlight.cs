@@ -1,31 +1,43 @@
 using UnityEngine;
 
 /*
- * DummyFlashlightItem class.
+ * Flashlight class.
  * Implement mechanics related to flashlight, such as toggle on/off light source.
  * For item testing purpose, will not be implemented in final game.
  */
-public class DummyFlashlightItem : Item
+public class Flashlight : MonoBehaviour
 {
     #region Variables
     [Header("Light")]
     private Light _lightSource;
+
+    [Space]
+    [Header("Audio")]
+    [Tooltip("Audio Manager")]
+    private AudioPlayer _audioPlayerObj;
     #endregion
 
     #region MonoBehaviour
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         _lightSource = GetComponentInChildren<Light>();
     }
     #endregion
 
     #region Use
-    public override void Use()
+    public void ToggleOnOff()
     {
         //Debug.Log("[ITEM] Use " + this.name);
         _lightSource.enabled = !_lightSource.enabled;
         PlayAudio("Flashlight_Switch");
+    }
+    #endregion
+
+    #region Handler
+
+    protected void PlayAudio(string name)
+    {
+        _audioPlayerObj.Play(name);
     }
     #endregion
 }
