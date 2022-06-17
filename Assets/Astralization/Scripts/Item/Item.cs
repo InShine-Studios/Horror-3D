@@ -19,7 +19,7 @@ public interface IItem
 public abstract class Item : MonoBehaviour, IItem
 {
     #region Variables
-    [Header("Item Component")]
+    [Header("Item Marker")]
     [SerializeField]
     [Tooltip("The item logo for HUD")]
     protected Sprite HudLogo;

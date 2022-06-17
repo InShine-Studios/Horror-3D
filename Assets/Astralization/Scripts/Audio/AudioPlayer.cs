@@ -26,7 +26,14 @@ public class AudioPlayer : MonoBehaviour
     #region AudioPlayer
     public void Play(string name)
     {
-        _audioMap[name].Play();
+        if (_audioMap.TryGetValue(name, out AudioSource audioSource))
+        {
+            audioSource.Play();
+        }
+        else
+        {
+            Debug.Log("[AUDIO] Audio clip " + name + " of " + gameObject.name + " is not found.");
+        }
     }
     #endregion
 }
