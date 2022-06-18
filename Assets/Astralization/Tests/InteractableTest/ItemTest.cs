@@ -40,36 +40,6 @@ public class ItemTest : TestBase
     #endregion
 
     #region Item and Inventory
-    [UnityTest]
-    public IEnumerator PlayerItemDetector_PlayerInventory_PickUseDiscardDummyFlashlight()
-    {
-        yield return new WaitWhile(() => sceneLoaded == false);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, 0.1f);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
-        GameObject flashlightOnPlayer = player.transform.Find("Rotate/InteractZone/DummyFlashlight").gameObject;
-        Assert.NotNull(flashlightOnPlayer);
-        Assert.Null(overworldItem.transform.Find("DummyFlashlight"));
-
-        IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
-        Assert.AreEqual(1, inventory.GetNumOfItem());
-        Assert.NotNull(inventory.GetActiveItem());
-        Assert.AreEqual(0, inventory.GetActiveIdx());
-
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
-        Assert.IsTrue(flashlightOnPlayer.GetComponentInChildren<Light>().enabled);
-        Image img = itemHud.GetSelectedItemLogo();
-        Assert.IsTrue(img.enabled);
-        Assert.AreEqual(flashlightOnPlayer.name, img.sprite.name);
-        Assert.AreEqual(img, itemHud.GetItemLogo(0));
-
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.DiscardItem);
-        GameObject overworldFlashlight = GameObject.Find("OverworldItems/DummyFlashlight");
-        Assert.NotNull(overworldFlashlight);
-        Assert.Null(player.transform.Find("Rotate/InteractZone/DummyFlashlight"));
-        Assert.IsFalse(itemHud.GetSelectedItemLogo().enabled);
-        Assert.AreEqual(0, inventory.GetNumOfItem());
-        Assert.IsNull(inventory.GetActiveItem());
-    }
 
     [UnityTest]
     public IEnumerator PlayerItemDetector_ShowClosestItemIcon()

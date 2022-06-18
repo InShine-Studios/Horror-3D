@@ -236,64 +236,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1228df08d61cc4fbeabe2b643a4623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &329743172
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1966427844}
-    m_Modifications:
-    - target: {fileID: 5207594482978199625, guid: df65821b6aea95d4ca13b5d5c65f082e, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5207594482978199625, guid: df65821b6aea95d4ca13b5d5c65f082e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5207594482978199625, guid: df65821b6aea95d4ca13b5d5c65f082e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.831
-      objectReference: {fileID: 0}
-    - target: {fileID: 5207594482978199625, guid: df65821b6aea95d4ca13b5d5c65f082e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.379
-      objectReference: {fileID: 0}
-    - target: {fileID: 5207594482978199625, guid: df65821b6aea95d4ca13b5d5c65f082e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5207594482978199625, guid: df65821b6aea95d4ca13b5d5c65f082e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5207594482978199625, guid: df65821b6aea95d4ca13b5d5c65f082e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5207594482978199625, guid: df65821b6aea95d4ca13b5d5c65f082e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5207594482978199625, guid: df65821b6aea95d4ca13b5d5c65f082e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5207594482978199625, guid: df65821b6aea95d4ca13b5d5c65f082e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5207594482978199625, guid: df65821b6aea95d4ca13b5d5c65f082e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6365649799048422090, guid: df65821b6aea95d4ca13b5d5c65f082e, type: 3}
-      propertyPath: m_Name
-      value: DummyFlashlight
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7323683046042364107, guid: df65821b6aea95d4ca13b5d5c65f082e, type: 3}
-  m_SourcePrefab: {fileID: 100100000, guid: df65821b6aea95d4ca13b5d5c65f082e, type: 3}
 --- !u!1001 &501955636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2517,11 +2459,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 666020083460265777, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000019903081
+      value: -0.0000000019902784
       objectReference: {fileID: 0}
     - target: {fileID: 666020083460265777, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 1.2719793e-10
+      value: 1.2681031e-10
       objectReference: {fileID: 0}
     - target: {fileID: 2253895238881869186, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2529,11 +2471,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2253895238881869186, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.6813682e-11
+      value: -1.658043e-11
       objectReference: {fileID: 0}
     - target: {fileID: 2253895238881869186, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.681299e-11
+      value: 9.681298e-11
       objectReference: {fileID: 0}
     - target: {fileID: 2390651836000226549, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2557,11 +2499,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2390651836000226549, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000019843744
+      value: -0.0000000019843587
       objectReference: {fileID: 0}
     - target: {fileID: 2390651836000226549, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 1.9941183e-10
+      value: 1.990234e-10
       objectReference: {fileID: 0}
     - target: {fileID: 3726856873884554074, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_Name
@@ -2577,11 +2519,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4764845728766043148, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -9.171167e-10
+      value: -0.0000000030582066
       objectReference: {fileID: 0}
     - target: {fileID: 4764845728766043148, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 2.6522418e-10
+      value: 6.095592e-11
       objectReference: {fileID: 0}
     - target: {fileID: 5582924760804245336, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2605,11 +2547,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5582924760804245336, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -1.6183091e-10
+      value: -1.6183799e-10
       objectReference: {fileID: 0}
     - target: {fileID: 5582924760804245336, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -2.4694512e-11
+      value: -2.5083201e-11
       objectReference: {fileID: 0}
     - target: {fileID: 6394782924348329298, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_NeverAutoSwitchControlSchemes
