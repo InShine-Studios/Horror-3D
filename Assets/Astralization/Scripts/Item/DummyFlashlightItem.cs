@@ -23,7 +23,7 @@ public class DummyFlashlightItem : Item
     #endregion
 
     #region Use
-    public override void Use()
+    protected override void ActivateFunctionality()
     {
         //Debug.Log("[ITEM] Use " + this.name);
         _lightSource.enabled = !_lightSource.enabled;

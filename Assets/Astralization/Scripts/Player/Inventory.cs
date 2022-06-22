@@ -119,7 +119,7 @@ public class Inventory : MonoBehaviour, IInventory
     }
     #endregion
 
-    #region Pick - Discard
+    #region Item Management
     public void PickItem(Item item)
     {
         if (_numOfItem == _size)
@@ -197,6 +197,14 @@ public class Inventory : MonoBehaviour, IInventory
             Debug.Log("[INVENTORY] No item to discard, not holding an item");
         }
     }
+
+    private void RemoveActiveItem()
+    {
+        _activeItem.gameObject.SetActive(false);
+        _activeItem = null;
+        _items[_activeIdx] = null;
+        _numOfItem--;
+    }
     #endregion
 
     #region Change Active Item
@@ -226,10 +234,24 @@ public class Inventory : MonoBehaviour, IInventory
     #region Use Active Item
     public void UseActiveItem()
     {
-        _activeItem?.Use();
+        
 
         if (!_activeItem) Debug.Log("[INVENTORY] Missing active item");
-        //else if (_activeItem.IsDiscardedWhenUsed()) DiscardItem();
+        else
+        {
+            bool isUsed = _activeItem.Use();
+            if (isUsed)
+            {
+                if (_activeItem.UseBehaviourType.HasFlag(Utils.ItemHelper.UseBehaviourType.Environmental))
+                {
+                    DiscardItem();
+                }
+                else if (_activeItem.UseBehaviourType.HasFlag(Utils.ItemHelper.UseBehaviourType.Consumable))
+                {
+                    RemoveActiveItem();
+                }
+            }
+        }
     }
     #endregion
 

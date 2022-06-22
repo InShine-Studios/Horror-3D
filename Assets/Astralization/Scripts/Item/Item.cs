@@ -6,7 +6,7 @@ public interface IItem
     Sprite GetHudLogo();
     void Pick();
     void ShowItem(bool isShown);
-    void Use();
+    bool Use();
 }
 
 /*
@@ -23,11 +23,10 @@ public abstract class Item : MonoBehaviour, IItem
     [Tooltip("The item logo for HUD")]
     protected Sprite HudLogo;
 
-    [Header("Item Behavior")]
-    [Tooltip("Determine item usage behavior")]
-    protected Utils.ItemHelper.UseBehaviourType UseBehaviourType;
-    [Tooltip("Determine world condition type so the item can be used")]
-    protected Utils.ItemHelper.WorldConditionType WorldConditionType;
+    // Determine item usage behavior
+    public Utils.ItemHelper.UseBehaviourType UseBehaviourType { get; protected set; }
+    // Determine world condition type so the item can be used
+    public Utils.ItemHelper.WorldConditionType WorldConditionType { get; protected set; }
     
     [Space]
     [Header("Audio")]
@@ -50,7 +49,7 @@ public abstract class Item : MonoBehaviour, IItem
         transform.Find("Model").gameObject.SetActive(enabled);
     }
 
-    public void ShowItem(bool isShown)
+    public void ShowItem(bool isShown) 
     {
         //Debug.Log("[ITEM] Show " + this.name + " visibility to:" + isShown);
         this.gameObject.SetActive(isShown);
@@ -90,11 +89,38 @@ public abstract class Item : MonoBehaviour, IItem
     #endregion
 
     #region Use
-    private void ValidateUseCondition()
+    protected bool IsUsableOnCurrentWorld()
     {
-        
+        IWorldState currentWorldState = (IWorldState)WorldStateMachine.Instance.CurrentState;
+        if (currentWorldState is IWorldRealState && WorldConditionType.HasFlag(Utils.ItemHelper.WorldConditionType.Real))
+        {
+            return true;
+        }
+        else if (currentWorldState is IWorldAstralState && WorldConditionType.HasFlag(Utils.ItemHelper.WorldConditionType.Astral))
+        {
+            return true;
+        }
+        else if (WorldStateMachine.Instance.IsKillPhase() && WorldConditionType.HasFlag(Utils.ItemHelper.WorldConditionType.KillPhase))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
-    public abstract void Use();
+
+    public bool Use()
+    {
+        if (!IsUsableOnCurrentWorld())
+        {
+            return false;
+        }
+
+        ActivateFunctionality();
+        return true;
+    }
+    protected abstract void ActivateFunctionality();
     #endregion
 
     #region Handler

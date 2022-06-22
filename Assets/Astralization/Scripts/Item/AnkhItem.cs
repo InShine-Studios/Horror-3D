@@ -22,7 +22,7 @@ public class AnkhItem : Item
     #endregion
 
     #region Use
-    public override void Use()
+    protected override void ActivateFunctionality()
     {
         ChangeWorldGM?.Invoke();
         //TODO: Call PlayAudio for Ankh

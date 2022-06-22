@@ -2,7 +2,7 @@ using System;
 
 public interface IExorcismItem
 {
-    void Use();
+
 }
 
 /*
@@ -25,7 +25,7 @@ public class ExorcismItem : Item, IExorcismItem
     #endregion
 
     #region Use
-    public override void Use()
+    protected override void ActivateFunctionality()
     {
         ExorcismChannelingEvent?.Invoke();
     }

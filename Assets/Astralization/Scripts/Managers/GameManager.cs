@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Utils;
 
 public interface IGameManager
 {
@@ -9,9 +8,9 @@ public interface IGameManager
     void InvokeExorcismState();
     void InvokeHidingState();
     void ResetPlayerState();
-    void SendHudPlayerEvent(PlayerHelper.States hudKey, bool condition);
-    void SendHudUiEvent(UiHelper.States hudKey, bool condition);
-    void SendPlayerStateEvent(PlayerHelper.States actionMapKey);
+    void SendHudPlayerEvent(Utils.PlayerHelper.States hudKey, bool condition);
+    void SendHudUiEvent(Utils.UiHelper.States hudKey, bool condition);
+    void SendPlayerStateEvent(Utils.PlayerHelper.States actionMapKey);
 }
 
 public class GameManager : MonoBehaviour, IGameManager
@@ -47,6 +46,8 @@ public class GameManager : MonoBehaviour, IGameManager
         ExorcismItem.ExorcismChannelingEvent -= InvokeExorcismState;
         ExorcismBar.FinishExorcismChannelingEvent -= ResetPlayerState;
     }
+
+    
     #endregion
 
     #region SendEvents

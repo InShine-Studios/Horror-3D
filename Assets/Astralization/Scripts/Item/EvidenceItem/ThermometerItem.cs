@@ -19,7 +19,7 @@ public class ThermometerItem : EvidenceItem
     #endregion
 
     #region Handler
-    public override void Use()
+    protected override void ActivateFunctionality()
     {
         _thermometerManager.ChangeState<ThermometerActiveState>();
     }
