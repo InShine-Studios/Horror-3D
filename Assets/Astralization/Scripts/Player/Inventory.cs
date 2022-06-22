@@ -253,6 +253,10 @@ public class Inventory : MonoBehaviour, IInventory
                 {
                     RemoveActiveItem();
                 }
+                else if (_activeItem.UseBehaviourType.HasFlag(Utils.ItemHelper.UseBehaviourType.Handheld))
+                {
+                    ItemLogoEvent?.Invoke(_activeIdx, _activeItem.GetHudLogo()); //TODO: set to alternate logo
+                }
             }
         }
     }
