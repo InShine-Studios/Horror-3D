@@ -179,6 +179,11 @@ public class Inventory : MonoBehaviour, IInventory
         DiscardItemEvent?.Invoke(_activeItem);
         _activeItem.transform.position -= ActiveItemYOffset + new Vector3(0, this.transform.position.y, 0);
 
+        OnPostItemRemoval();
+    }
+
+    private void OnPostItemRemoval()
+    {
         // Reset active item state
         _activeItem = null;
         _items[_activeIdx] = null;
@@ -201,9 +206,7 @@ public class Inventory : MonoBehaviour, IInventory
     private void RemoveActiveItem()
     {
         _activeItem.gameObject.SetActive(false);
-        _activeItem = null;
-        _items[_activeIdx] = null;
-        _numOfItem--;
+        OnPostItemRemoval();
     }
     #endregion
 
