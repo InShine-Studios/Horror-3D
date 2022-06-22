@@ -107,5 +107,34 @@ public class ExorcismTest : TestBase
         Assert.IsFalse(exorcismSliderObj.activeSelf);
         Assert.IsFalse(exorcismBar.IsExorcised());
     }
+
+    [UnityTest]
+    public IEnumerator ExorcismItem_CantUseInAstralWorld()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        GameObject exorcismItemOW = GameObject.Find("OverworldItems/ExorcismItem");
+        float moveDuration = GetMovementDurationTowards(exorcismItemOW.transform);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveRight, false, moveDuration);
+
+        GameObject ankhItemOw = GameObject.Find("OverworldItems/Ankh");
+        moveDuration = GetMovementDurationTowards(ankhItemOw.transform);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.DiscardItem);
+
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveBack, false, moveDuration);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
+
+        GameObject exorcismItemObj = player.transform.Find("Rotate/InteractZone/ExorcismItem").gameObject;
+        GameObject exorcismBarObj = hud.transform.Find("ExorcismHud").gameObject;
+        GameObject exorcismSliderObj = hud.transform.Find("ExorcismHud/Slider").gameObject;
+        IExorcismBar exorcismBar = exorcismBarObj.GetComponent<IExorcismBar>();
+
+        Assert.IsFalse(exorcismBar.IsUsed());
+        Assert.IsFalse(exorcismSliderObj.activeSelf);
+        Assert.IsFalse(exorcismBar.IsExorcised());
+    }
     #endregion
 }
