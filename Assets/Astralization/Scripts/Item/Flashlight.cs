@@ -47,7 +47,7 @@ public class Flashlight : MonoBehaviour, IFlashlight
 
     #region Handler
 
-    protected void PlayAudio(string name)
+    private void PlayAudio(string name)
     {
         _audioPlayerObj.Play(name);
     }

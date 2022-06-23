@@ -56,13 +56,11 @@ public class PlayerTest: TestBase
 
         bool prevFlashlightState = playerFlashlight.IsOn;
 
-        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.ToggleFlashlight);
-        yield return null;
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ToggleFlashlight);
         Assert.AreEqual(!prevFlashlightState, playerFlashlight.IsOn);
 
-        inputTestFixture.Press(KeyboardMouseTestFixture.RegisteredInput.ToggleFlashlight);
-        yield return null;
-        Assert.AreEqual(!prevFlashlightState, playerFlashlight.IsOn);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ToggleFlashlight);
+        Assert.AreEqual(prevFlashlightState, playerFlashlight.IsOn);
     }
     #endregion
 }
