@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class ExorcismTest : TestBase
 {
-    protected GameObject hud;
+    IExorcismBar exorcismBar;
+    GameObject exorcismSliderObj;
 
     protected override void FindGameObjects(Scene scene)
     {
@@ -18,10 +19,8 @@ public class ExorcismTest : TestBase
             {
                 player = gameObject.transform.Find("Character").gameObject;
                 playerMovement = player.GetComponent<IPlayerMovement>();
-            }
-            else if (gameObject.name == "UI")
-            {
-                hud = gameObject;
+                exorcismBar = gameObject.transform.GetComponentInChildren<IExorcismBar>();
+                exorcismSliderObj = gameObject.transform.Find("UiCanvas/ExorcismHud/Slider").gameObject;
             }
         }
     }
@@ -47,11 +46,7 @@ public class ExorcismTest : TestBase
 
         yield return null;
         GameObject exorcismItemObj = player.transform.Find("Rotate/InteractZone/ExorcismItem").gameObject;
-        GameObject exorcismBarObj = hud.transform.Find("ExorcismHud").gameObject;
-        GameObject exorcismSliderObj = hud.transform.Find("ExorcismHud/Slider").gameObject;
         Assert.NotNull(exorcismItemObj);
-
-        IExorcismBar exorcismBar = exorcismBarObj.GetComponent<IExorcismBar>();
 
         IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
         Assert.AreEqual(1, inventory.GetNumOfItem());
@@ -83,11 +78,7 @@ public class ExorcismTest : TestBase
 
         yield return null;
         GameObject exorcismItemObj = player.transform.Find("Rotate/InteractZone/ExorcismItem").gameObject;
-        GameObject exorcismBarObj = hud.transform.Find("ExorcismHud").gameObject;
-        GameObject exorcismSliderObj = hud.transform.Find("ExorcismHud/Slider").gameObject;
         Assert.NotNull(exorcismItemObj);
-
-        IExorcismBar exorcismBar = exorcismBarObj.GetComponent<IExorcismBar>();
 
         IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
         Assert.AreEqual(1, inventory.GetNumOfItem());

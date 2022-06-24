@@ -15,7 +15,7 @@ public class WorldState : State, IWorldState
     protected virtual void Awake()
     {
         owner = GetComponent<WorldStateMachine>();
-        astralMeterLogic = GetComponent<AstralMeterLogic>();
+        astralMeterLogic = AstralMeterLogic.Instance;
     }
     #endregion
 

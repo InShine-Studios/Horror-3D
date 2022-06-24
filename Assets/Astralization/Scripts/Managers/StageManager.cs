@@ -28,6 +28,16 @@ public class StageManager : MonoBehaviour, IStageManager
     private StagePointsData _stagePointsData;
     [SerializeField]
     private StageTransitionZoneData _stageTransitionZoneData;
+
+    private static StageManager _instance;
+    public static StageManager Instance
+    {
+        get { return _instance; }
+    }
+    #endregion
+
+    #region Constructor
+    private StageManager() { }
     #endregion
 
     #region SetGet
@@ -47,6 +57,7 @@ public class StageManager : MonoBehaviour, IStageManager
     private void Awake()
     {
         Load();
+        _instance = this;
     }
     #endregion
 
