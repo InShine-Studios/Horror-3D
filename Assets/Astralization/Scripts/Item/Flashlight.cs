@@ -10,7 +10,6 @@ public interface IFlashlight
 /*
  * Flashlight class.
  * Implement mechanics related to flashlight, such as toggle on/off light source.
- * For item testing purpose, will not be implemented in final game.
  */
 public class Flashlight : MonoBehaviour, IFlashlight
 {
@@ -35,17 +34,16 @@ public class Flashlight : MonoBehaviour, IFlashlight
     }
     #endregion
 
-    #region Use
+    #region Functionality
     public void ToggleOnOff()
     {
-        //Debug.Log("[ITEM] Use " + this.name);
         _lightSource.enabled = !_lightSource.enabled;
         IsOn = _lightSource.enabled;
         PlayAudio("Flashlight_Switch");
     }
     #endregion
 
-    #region Handler
+    #region AudioHandler
 
     private void PlayAudio(string name)
     {

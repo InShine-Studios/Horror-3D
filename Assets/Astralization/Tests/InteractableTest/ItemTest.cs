@@ -47,7 +47,7 @@ public class ItemTest : TestBase
         yield return new WaitWhile(() => sceneLoaded == false);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveLeft, false, 1);
         GameObject overworldAnkh = GameObject.Find("OverworldItems/Ankh");
-        GameObject overworldAnkh2 = GameObject.Find("OverworldItems/Ankh(2)");
+        GameObject overworldAnkh2 = GameObject.Find("OverworldItems/Ankh (3)");
         Transform markItem = overworldAnkh.transform.Find("ExclamationMarkItem");
         Transform markItem2 = overworldAnkh2.transform.Find("ExclamationMarkItem");
         Assert.True(markItem.gameObject.activeInHierarchy);
