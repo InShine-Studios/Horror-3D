@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,12 @@ public class CameraDetector : MonoBehaviour
     private bool _processingSolid = false;
     private bool _alreadyProcessTransparant = false;
     private Transform _camera;
+
+    public enum SurfaceType
+    {
+        Opaque,
+        Transparent
+    }
 
     private void Awake()
     {
@@ -43,8 +50,9 @@ public class CameraDetector : MonoBehaviour
 
         foreach (var obj in rayCastCameraToPlayer)
         {
-            if (!obj.collider.CompareTag("Player"))
+            if (obj.collider.CompareTag("FadeProperty"))
             {
+                Debug.Log(obj.collider.gameObject.name);
                 int objId = obj.collider.GetInstanceID();
                 if (!_fadeObjectListId.Contains(objId))
                 {
@@ -56,8 +64,9 @@ public class CameraDetector : MonoBehaviour
 
         foreach (var obj in rayCastPlayerToCamera)
         {
-            if (!obj.collider.CompareTag("Player"))
+            if (obj.collider.CompareTag("FadeProperty"))
             {
+                Debug.Log(obj.collider.gameObject.name);
                 int objId = obj.collider.GetInstanceID();
                 if (!_fadeObjectListId.Contains(objId))
                 {
@@ -82,9 +91,15 @@ public class CameraDetector : MonoBehaviour
             if (!_fadedObjectListId.Contains(id))
             {
                 GameObject obj = GameObject.Find(id.ToString());
-                Color changeObjOp = obj.GetComponent<Renderer>().material.color;
-                changeObjOp.a = _transparantScale;
-                obj.GetComponent<Renderer>().material.color = changeObjOp;
+                foreach (Material mat in obj.GetComponent<Renderer>().materials)
+                {
+                    Color objCol = mat.color;
+                    Color newObjCol = new Color(objCol.r, objCol.g, objCol.b, _transparantScale);
+                    mat.color = newObjCol;
+                    mat.SetFloat("_Surface", (float)SurfaceType.Transparent);
+
+                    SetupMaterialBlendMode(mat);
+                }
 
                 _fadedObjectListId.Add(id);
             }
@@ -106,14 +121,55 @@ public class CameraDetector : MonoBehaviour
             if (!_fadeObjectListId.Contains(id))
             {
                 GameObject obj = GameObject.Find(id.ToString());
-                Color changeObjOp = obj.GetComponent<Renderer>().material.color;
-                changeObjOp.a = 1;
-                obj.GetComponent<Renderer>().material.color = changeObjOp;
+                foreach (Material mat in obj.GetComponent<Renderer>().materials)
+                {
+                    Color objCol = mat.color;
+                    Color newObjCol = new Color(objCol.r, objCol.g, objCol.b, 1);
+                    mat.color = newObjCol;
+                    mat.SetFloat("_Surface", (float)SurfaceType.Opaque);
+
+                    SetupMaterialBlendMode(mat);
+                }
 
                 _fadedObjectListId.Remove(id);
             }
 
         }
         _processingSolid = false;
+    }
+
+
+    void SetupMaterialBlendMode(Material material)
+    {
+        if (material == null)
+            throw new ArgumentNullException("material");
+
+        bool alphaClip = material.GetFloat("_AlphaClip") == 1;
+        if (alphaClip)
+            material.EnableKeyword("_ALPHATEST_ON");
+        else
+            material.DisableKeyword("_ALPHATEST_ON");
+
+        SurfaceType surfaceType = (SurfaceType)material.GetFloat("_Surface");
+        if (surfaceType == (float)SurfaceType.Opaque)
+        {
+            material.SetOverrideTag("RenderType", "");
+            material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+            material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+            material.SetInt("_ZWrite", 1);
+            material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+            material.renderQueue = -1;
+            material.SetShaderPassEnabled("ShadowCaster", true);
+        }
+        else
+        {
+        material.SetOverrideTag("RenderType", "Transparent");
+        material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        material.SetInt("_ZWrite", 0);
+        material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+        material.SetShaderPassEnabled("ShadowCaster", false);
+        }
     }
 }
