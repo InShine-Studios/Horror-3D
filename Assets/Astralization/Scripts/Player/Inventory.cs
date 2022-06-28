@@ -4,7 +4,6 @@ using UnityEngine;
 public interface IInventory
 {
     int Size { get; }
-
     void DiscardItemInput();
     int GetActiveIdx();
     IItem GetActiveItem();
@@ -140,7 +139,7 @@ public class Inventory : MonoBehaviour, IInventory
                     {
                         _items[i] = item;
                         pickedIdx = i; // For logs
-                        ItemLogoEvent?.Invoke(i, item.GetHudLogo());
+                        //ItemLogoEvent?.Invoke(i, item.GetHudLogo());
                         break;
                     }
                 }
@@ -152,7 +151,7 @@ public class Inventory : MonoBehaviour, IInventory
                 _items[_activeIdx] = item;
                 _activeItem = item;
 
-                ItemLogoEvent?.Invoke(_activeIdx, item.GetHudLogo());
+                //ItemLogoEvent?.Invoke(_activeIdx, item.GetHudLogo());
             }
 
             // Put item as child of Inventory

@@ -2,8 +2,8 @@ using UnityEngine;
 
 public interface IItem
 {
+    RuntimeAnimatorController GetHudLogoAnimatorController();
     void Discard();
-    Sprite GetHudLogo();
     bool IsDiscardedWhenUsed();
     void Pick();
     void ShowItem(bool isShown);
@@ -21,8 +21,8 @@ public abstract class Item : MonoBehaviour, IItem
     #region Variables
     [Header("Item Marker")]
     [SerializeField]
-    [Tooltip("The item logo for HUD")]
-    protected Sprite HudLogo;
+    [Tooltip("The item logo animation controller for HUD")]
+    protected RuntimeAnimatorController hudLogoAnimatorController;
     private GameObject _model;
 
     [Header("Item Behavior")]
@@ -62,9 +62,9 @@ public abstract class Item : MonoBehaviour, IItem
         return _discardedWhenUsed;
     }
 
-    public Sprite GetHudLogo()
+    public RuntimeAnimatorController GetHudLogoAnimatorController()
     {
-        return HudLogo;
+        return hudLogoAnimatorController;
     }
 
     public void SetCollider(bool state)

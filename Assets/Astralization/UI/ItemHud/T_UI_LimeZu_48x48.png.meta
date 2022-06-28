@@ -121,10 +121,10 @@ TextureImporter:
     second: UI_48x48_38
   - first:
       213: -6089208716520788384
-    second: UI_48x48_39
+    second: Clock_Inactive
   - first:
       213: 583735327572111815
-    second: UI_48x48_40
+    second: Clock_Active
   - first:
       213: 3392954864044211956
     second: UI_48x48_41
@@ -295,28 +295,28 @@ TextureImporter:
     second: UI_48x48_96
   - first:
       213: -7658558706663516087
-    second: UI_48x48_97
+    second: Clock_Positive_1
   - first:
       213: 962862607512418947
-    second: UI_48x48_98
+    second: Clock_Positive_2
   - first:
       213: -8890505410915673297
-    second: UI_48x48_99
+    second: Clock_Positive_3
   - first:
       213: 4555111990350578590
-    second: UI_48x48_100
+    second: Clock_Positive_4
   - first:
       213: -680817148717512815
-    second: UI_48x48_101
+    second: Clock_Positive_5
   - first:
       213: 4795649496570196064
-    second: UI_48x48_102
+    second: Clock_Positive_6
   - first:
       213: 8430988664528946369
-    second: UI_48x48_103
+    second: Clock_Positive_7
   - first:
       213: 7817872460969760080
-    second: UI_48x48_104
+    second: Clock_Positive_8
   - first:
       213: 8926592831083867718
     second: UI_48x48_105
@@ -337,28 +337,28 @@ TextureImporter:
     second: UI_48x48_110
   - first:
       213: -1218091386679899035
-    second: UI_48x48_111
+    second: Clock_Negative_1
   - first:
       213: -8899198274892183660
-    second: UI_48x48_112
+    second: Clock_Negative_2
   - first:
       213: 6460817292401170306
-    second: UI_48x48_113
+    second: Clock_Negative_3
   - first:
       213: 5906614517515071119
-    second: UI_48x48_114
+    second: Clock_Negative_4
   - first:
       213: 181698001602347916
-    second: UI_48x48_115
+    second: Clock_Negative_5
   - first:
       213: 3014829982846813331
-    second: UI_48x48_116
+    second: Clock_Negative_6
   - first:
       213: 4937087601613571125
-    second: UI_48x48_117
+    second: Clock_Negative_7
   - first:
       213: 6276099364415670055
-    second: UI_48x48_118
+    second: Clock_Negative_8
   - first:
       213: -1147286276092340310
     second: UI_48x48_119
@@ -1327,7 +1327,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_39
+      name: Clock_Inactive
       rect:
         serializedVersion: 2
         x: 630
@@ -1348,7 +1348,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_40
+      name: Clock_Active
       rect:
         serializedVersion: 2
         x: 678
@@ -2545,7 +2545,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_97
+      name: Clock_Positive_1
       rect:
         serializedVersion: 2
         x: 6
@@ -2566,7 +2566,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_98
+      name: Clock_Positive_2
       rect:
         serializedVersion: 2
         x: 54
@@ -2587,7 +2587,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_99
+      name: Clock_Positive_3
       rect:
         serializedVersion: 2
         x: 102
@@ -2608,7 +2608,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_100
+      name: Clock_Positive_4
       rect:
         serializedVersion: 2
         x: 150
@@ -2629,7 +2629,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_101
+      name: Clock_Positive_5
       rect:
         serializedVersion: 2
         x: 198
@@ -2650,7 +2650,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_102
+      name: Clock_Positive_6
       rect:
         serializedVersion: 2
         x: 246
@@ -2671,7 +2671,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_103
+      name: Clock_Positive_7
       rect:
         serializedVersion: 2
         x: 294
@@ -2692,7 +2692,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_104
+      name: Clock_Positive_8
       rect:
         serializedVersion: 2
         x: 342
@@ -2839,7 +2839,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_111
+      name: Clock_Negative_1
       rect:
         serializedVersion: 2
         x: 6
@@ -2860,7 +2860,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_112
+      name: Clock_Negative_2
       rect:
         serializedVersion: 2
         x: 54
@@ -2881,7 +2881,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_113
+      name: Clock_Negative_3
       rect:
         serializedVersion: 2
         x: 102
@@ -2902,7 +2902,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_114
+      name: Clock_Negative_4
       rect:
         serializedVersion: 2
         x: 150
@@ -2923,10 +2923,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_115
+      name: Clock_Negative_5
       rect:
         serializedVersion: 2
-        x: 198
+        x: 197
         y: 117
         width: 39
         height: 45
@@ -2944,7 +2944,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_116
+      name: Clock_Negative_6
       rect:
         serializedVersion: 2
         x: 246
@@ -2965,7 +2965,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_117
+      name: Clock_Negative_7
       rect:
         serializedVersion: 2
         x: 294
@@ -2986,7 +2986,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_48x48_118
+      name: Clock_Negative_8
       rect:
         serializedVersion: 2
         x: 342
