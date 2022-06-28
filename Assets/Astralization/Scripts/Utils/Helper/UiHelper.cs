@@ -5,10 +5,12 @@ namespace Utils
     */
     public static class UiHelper
     {
-        public enum States
+        public enum UiType
         {
             Tome,
             Dialogue,
+            ExorcismBar,
+            HidingOverlay
         }
     }
 }

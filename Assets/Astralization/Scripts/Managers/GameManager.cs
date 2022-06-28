@@ -8,8 +8,7 @@ public interface IGameManager
     void InvokeExorcismState();
     void InvokeHidingState();
     void ResetPlayerState();
-    void SendHudPlayerEvent(Utils.PlayerHelper.States hudKey, bool condition);
-    void SendHudUiEvent(Utils.UiHelper.States hudKey, bool condition);
+    void SendHudEvent(Utils.UiHelper.UiType hudKey, bool condition);
     void SendPlayerStateEvent(Utils.PlayerHelper.States actionMapKey);
 }
 
@@ -18,8 +17,7 @@ public class GameManager : MonoBehaviour, IGameManager
     #region Event
     public static event Action ChangeWorldEvent;
     public static event Action<Utils.PlayerHelper.States> PlayerStateEvent;
-    public static event Action<Utils.PlayerHelper.States, bool> HudPlayerEvent;
-    public static event Action<Utils.UiHelper.States, bool> HudUiEvent;
+    public static event Action<Utils.UiHelper.UiType, bool> HudEvent;
     // TODO: to be implemented
     public static event Action PlayerAudioDiesEvent;
     #endregion
@@ -51,14 +49,9 @@ public class GameManager : MonoBehaviour, IGameManager
     #endregion
 
     #region SendEvents
-    public void SendHudPlayerEvent(Utils.PlayerHelper.States hudKey, bool condition)
+    public void SendHudEvent(Utils.UiHelper.UiType hudKey, bool condition)
     {
-        HudPlayerEvent?.Invoke(hudKey, condition);
-    }
-
-    public void SendHudUiEvent(Utils.UiHelper.States hudKey, bool condition)
-    {
-        HudUiEvent?.Invoke(hudKey, condition);
+        HudEvent?.Invoke(hudKey, condition);
     }
 
     public void SendPlayerStateEvent(Utils.PlayerHelper.States actionMapKey)
@@ -76,8 +69,8 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void InvokeDialogueState()
     {
-        SendHudUiEvent(Utils.UiHelper.States.Dialogue, true);
-        SendPlayerStateEvent(Utils.PlayerHelper.States.UI);
+        SendHudEvent(Utils.UiHelper.UiType.Dialogue, true);
+        SendPlayerStateEvent(Utils.PlayerHelper.States.Dialogue);
         //Debug.Log("[MANAGER] Change state to dialogue");
     }
 
@@ -90,7 +83,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void InvokeExorcismState()
     {
-        SendHudPlayerEvent(Utils.PlayerHelper.States.Exorcism, true);
+        SendHudEvent(Utils.UiHelper.UiType.ExorcismBar, true);
         SendPlayerStateEvent(Utils.PlayerHelper.States.Exorcism);
         //Debug.Log("[MANAGER] Change state to exorcism");
     }

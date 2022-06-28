@@ -50,9 +50,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemSlotPrefab: {fileID: 8759142023437791162, guid: 709a089899f2f9745a6fe0479e0f70a9, type: 3}
+  _expandDirection: -1
   _itemSlotGap: {x: 10, y: 0, z: 0}
-  _itemSlotStartingOffset: {x: 25, y: 20, z: 0}
+  _itemSlotStartingPosition: {x: 1800, y: 100, z: 0}
   _tweenDuration: 0.1
+  _maxIdleDuration: 2
 --- !u!222 &774265070929433556
 CanvasRenderer:
   m_ObjectHideFlags: 0

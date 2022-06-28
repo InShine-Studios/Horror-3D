@@ -19,10 +19,7 @@ public class EvidenceItemTest : TestBase
             {
                 player = gameObject.transform.Find("Character").gameObject;
                 playerMovement = player.GetComponent<IPlayerMovement>();
-            }
-            else if (gameObject.name == "UI")
-            {
-                itemHud = gameObject.transform.Find("ItemHud").GetComponent<IItemHudDisplay>();
+                itemHud = gameObject.transform.GetComponentInChildren<IItemHudDisplay>();
             }
         }
     }

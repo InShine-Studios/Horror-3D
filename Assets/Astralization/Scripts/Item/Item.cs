@@ -18,10 +18,11 @@ public interface IItem
 public abstract class Item : MonoBehaviour, IItem
 {
     #region Variables
-    [Header("Item Logo")]
+    [Header("Item Marker")]
     [SerializeField]
     [Tooltip("The item logo for HUD")]
     protected Sprite HudLogo;
+    private GameObject _model;
 
     // Determine item usage behavior
     public Utils.ItemHelper.UseBehaviourType UseBehaviourType { get; protected set; }
@@ -46,7 +47,7 @@ public abstract class Item : MonoBehaviour, IItem
     #region SetGet
     private void SetMeshRenderer(bool enabled)
     {
-        transform.Find("Model").gameObject.SetActive(enabled);
+        _model.SetActive(enabled);
     }
 
     public void ShowItem(bool isShown) 
@@ -85,6 +86,7 @@ public abstract class Item : MonoBehaviour, IItem
     protected virtual void Awake()
     {
         _audioPlayerObj = GetComponentInChildren<AudioPlayer>();
+        _model = transform.Find("Model").gameObject;
     }
     #endregion
 
