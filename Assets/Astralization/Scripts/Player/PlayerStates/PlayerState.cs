@@ -27,7 +27,7 @@ public abstract class PlayerState : State
     {
         Utils.LoggerHelper.PrintStateDefaultLog("Player","OnMovementInput");
     }
-    public virtual void OnMousePosition(InputAction.CallbackContext ctx)
+    public virtual void OnMouseDelta(InputAction.CallbackContext ctx)
     {
         Utils.LoggerHelper.PrintStateDefaultLog("Player","OnMousePosition");
     }

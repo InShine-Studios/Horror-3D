@@ -15,13 +15,10 @@ public class ItemTest : TestBase
         GameObject[] gameObjects = scene.GetRootGameObjects();
         foreach (GameObject gameObject in gameObjects)
         {
-            if (gameObject.name == "Iris")
+            if (gameObject.name == "Player")
             {
-                player = gameObject;
-            }
-            else if (gameObject.name == "UI")
-            {
-                itemHud = gameObject.transform.Find("ItemHud").GetComponent<IItemHudDisplay>();
+                player = gameObject.transform.Find("Character").gameObject;
+                itemHud = gameObject.GetComponentInChildren<IItemHudDisplay>();
             }
             else if (gameObject.name == "OverworldItems")
             {
