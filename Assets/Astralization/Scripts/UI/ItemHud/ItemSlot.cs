@@ -5,6 +5,7 @@ public class ItemSlot : MonoBehaviour
 {
     #region Constants
     private const float DefaultRadius = 100f;
+    private const string AnimationParamName = "States";
     #endregion
 
     #region Variables
@@ -13,6 +14,7 @@ public class ItemSlot : MonoBehaviour
     private RectTransform _rectTransform;
     private Text _quickslotNumber;
     private Image _itemImage;
+    private Animator _animator;
     private static float _xScale;
     #endregion
 
@@ -21,11 +23,17 @@ public class ItemSlot : MonoBehaviour
     {
         _quickslotNumber.text = num.ToString();
     }
-    public void SetItemImage(Sprite sprite)
+    public void SetLogoAnimController(RuntimeAnimatorController animController)
     {
-        _itemImage.sprite = sprite;
-        _itemImage.enabled = sprite != null;
+        _itemImage.enabled = animController != null;
+        _animator.runtimeAnimatorController = animController;
     }
+
+    public void SetLogoAnimParam(int animParam)
+    {
+        _animator.SetInteger(AnimationParamName, animParam);
+    }
+
     public Image GetItemImage()
     {
         return _itemImage;
@@ -64,7 +72,7 @@ public class ItemSlot : MonoBehaviour
         _quickslotNumber = GetComponentInChildren<Text>();
         _itemImage = GetComponentInChildren<Image>();
         _xScale = GetComponent<RectTransform>().localScale.x;
-        SetItemImage(null);
+        _animator = GetComponent<Animator>();
         SetSelected(false);
     }
     #endregion

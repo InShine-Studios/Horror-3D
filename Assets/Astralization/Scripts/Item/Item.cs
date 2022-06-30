@@ -23,6 +23,7 @@ public abstract class Item : MonoBehaviour, IItem
     [SerializeField]
     [Tooltip("The item logo animation controller for HUD")]
     protected RuntimeAnimatorController hudLogoAnimatorController;
+    public int LogoState { get; protected set; }
     private GameObject _model;
 
     [Header("Item Behavior")]
@@ -43,6 +44,7 @@ public abstract class Item : MonoBehaviour, IItem
     [Tooltip("The icon mark for guidance")]
     [SerializeField]
     private GameObject _guideIcon;
+
     #endregion
 
     #region SetGet

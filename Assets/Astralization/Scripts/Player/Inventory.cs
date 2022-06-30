@@ -1,6 +1,58 @@
 using System;
 using UnityEngine;
 
+#region EventArgs
+// TODO: pindahin ke utils
+public abstract class InventoryHudEventArgs: EventArgs
+{
+    public int InventoryLength;
+    public int CurrentActiveIdx;
+    public int LogoAnimatorIdx;
+    public RuntimeAnimatorController HudLogoAnimatorController;
+    public int HudLogoAnimationParam;
+}
+
+public class InitInventoryHudEventArgs : InventoryHudEventArgs
+{
+    public InitInventoryHudEventArgs(int inventoryLenght, int currentActiveIdx)
+    {
+        InventoryLength = inventoryLenght;
+        CurrentActiveIdx = currentActiveIdx;
+    }
+}
+
+public class UpdateHudLogoEventArgs : InventoryHudEventArgs
+{
+    public UpdateHudLogoEventArgs(int logoAnimatorIdx, RuntimeAnimatorController hudLogoAnimatorController, int hudLogoAnimationParam = -1)
+    {
+        LogoAnimatorIdx = logoAnimatorIdx;
+        HudLogoAnimatorController = hudLogoAnimatorController;
+        HudLogoAnimationParam = hudLogoAnimationParam;
+    }
+}
+
+public class ChangeActiveItemIdxEventArgs : InventoryHudEventArgs
+{
+    public ChangeActiveItemIdxEventArgs(int currentActiveIdx)
+    {
+        CurrentActiveIdx = currentActiveIdx;
+    }
+}
+
+public class ChangeActiveItemAnimEventArgs : InventoryHudEventArgs
+{
+    public ChangeActiveItemAnimEventArgs(int hudLogoAnimationParam)
+    {
+        HudLogoAnimationParam = hudLogoAnimationParam;
+    }
+}
+
+public class ToggleExpandShrinkEventArgs : InventoryHudEventArgs
+{
+    public ToggleExpandShrinkEventArgs(){ }
+}
+#endregion
+
 public interface IInventory
 {
     int Size { get; }
@@ -32,10 +84,7 @@ public interface IInventory
 public class Inventory : MonoBehaviour, IInventory
 {
     #region Events
-    public static event Action<int, int> InitItemHudEvent;
-    public static event Action<int, Sprite> ItemLogoEvent;
-    public static event Action ToggleItemHudDisplayEvent;
-    public static event Action<int> UpdateActiveItemIndexEvent;
+    public static event Action<InventoryHudEventArgs> InventoryHudEvent;
     public static event Action<Item> DiscardItemEvent;
     #endregion
 
@@ -101,7 +150,7 @@ public class Inventory : MonoBehaviour, IInventory
 
         _animation.SetHoldingItemAnim(_activeItem != null);
 
-        UpdateActiveItemIndexEvent.Invoke(newIdx);
+        InvokeHudEvent(new ChangeActiveItemIdxEventArgs(newIdx));
     }
     public IItem GetActiveItem() { return _activeItem; }
     public IItem GetItemByIndex(int idx) { return _items[idx]; }
@@ -114,7 +163,14 @@ public class Inventory : MonoBehaviour, IInventory
     {
         _animation = transform.GetComponentInParent<PlayerAnimation>();
         _items = new Item[_size];
-        InitItemHudEvent.Invoke(_size, _activeIdx);
+        InvokeHudEvent(new InitInventoryHudEventArgs(_size,0));
+    }
+    #endregion
+
+    #region EventHandler
+    private void InvokeHudEvent(InventoryHudEventArgs args)
+    {
+        InventoryHudEvent.Invoke(args);
     }
     #endregion
 
@@ -139,7 +195,7 @@ public class Inventory : MonoBehaviour, IInventory
                     {
                         _items[i] = item;
                         pickedIdx = i; // For logs
-                        //ItemLogoEvent?.Invoke(i, item.GetHudLogo());
+                        InvokeHudEvent(new UpdateHudLogoEventArgs(i, item.GetHudLogoAnimatorController(), item.LogoState));
                         break;
                     }
                 }
@@ -151,7 +207,7 @@ public class Inventory : MonoBehaviour, IInventory
                 _items[_activeIdx] = item;
                 _activeItem = item;
 
-                //ItemLogoEvent?.Invoke(_activeIdx, item.GetHudLogo());
+                InvokeHudEvent(new UpdateHudLogoEventArgs(_activeIdx, item.GetHudLogoAnimatorController(), item.LogoState));
             }
 
             // Put item as child of Inventory
@@ -185,7 +241,7 @@ public class Inventory : MonoBehaviour, IInventory
 
         _animation.SetHoldingItemAnim(false);
 
-        ItemLogoEvent?.Invoke(_activeIdx, null);
+        InvokeHudEvent(new UpdateHudLogoEventArgs(_activeIdx,null));
     }
 
     public void DiscardItemInput()
@@ -226,6 +282,7 @@ public class Inventory : MonoBehaviour, IInventory
     public void UseActiveItem()
     {
         _activeItem?.Use();
+        InvokeHudEvent(new ChangeActiveItemAnimEventArgs(_activeItem.LogoState));
 
         if (!_activeItem) Debug.Log("[INVENTORY] Missing active item");
         else if (_activeItem.IsDiscardedWhenUsed()) DiscardItem();
@@ -235,8 +292,7 @@ public class Inventory : MonoBehaviour, IInventory
     #region ItemHud
     public void ToggleItemHudDisplay()
     {
-
-        ToggleItemHudDisplayEvent.Invoke();
+        InvokeHudEvent(new ToggleExpandShrinkEventArgs());
     }
     #endregion
 }

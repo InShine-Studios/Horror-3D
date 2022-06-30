@@ -2,6 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+enum AnkhState : int
+{
+    Inactive = 0,
+    Active = 1
+}
+
 /*
  * Ankh class.
  * Implement mechanics related to ankh item, such as toggle on/off astral world.
@@ -16,6 +22,7 @@ public class AnkhItem : Item
     protected override void Awake()
     {
         base.Awake();
+        LogoState = (int)AnkhState.Inactive;
     }
     #endregion
 
@@ -23,6 +30,7 @@ public class AnkhItem : Item
     public override void Use()
     {
         ChangeWorldGM?.Invoke();
+        LogoState = Utils.MathCalcu.mod(LogoState + 1, 2);
         //TODO: Call PlayAudio for Ankh
         //TODO: Implement transition animation
     }

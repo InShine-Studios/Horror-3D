@@ -12,7 +12,7 @@ public interface IItemHudDisplay
     void ToggleDisplay();
     void Init(int numSlot, int activeIdx);
     void SelectActiveSlot(int index);
-    void SetItemLogo(int index, Sprite logo);
+    void SetItemLogoAnimator(int index, RuntimeAnimatorController animController);
     Image GetItemLogo(int index);
     Image GetSelectedItemLogo();
 }
@@ -58,9 +58,14 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     #endregion
 
     #region SetGet
-    public void SetItemLogo(int index, Sprite logo)
+    public void SetItemLogoAnimator(int index, RuntimeAnimatorController animController)
     {
-        _itemSlots[index].SetItemImage(logo);
+        _itemSlots[index].SetLogoAnimController(animController);
+    }
+
+    public void SetItemLogoAnimation(int index, int animParam)
+    {
+        _itemSlots[index].SetLogoAnimParam(animParam);
     }
 
     public Image GetItemLogo(int index)
