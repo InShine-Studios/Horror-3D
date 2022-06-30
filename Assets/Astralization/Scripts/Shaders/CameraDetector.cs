@@ -1,26 +1,28 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraDetector : MonoBehaviour
 {
-
-    [SerializeField] private List<int> _fadeObjectListId;
-    [SerializeField] private List<int> _fadedObjectListId;
+    #region Variables - Adjustable
     [SerializeField] private Transform _player;
     [SerializeField] private float _transparantScale;
+    #endregion
 
+    #region Variables - Process
+    private List<int> _fadeObjectListId;
+    private List<int> _fadedObjectListId;
     private bool _processingTransparant = false;
     private bool _processingSolid = false;
     private bool _alreadyProcessTransparant = false;
     private Transform _camera;
-
     public enum SurfaceType
     {
         Opaque,
         Transparent
     }
+    #endregion
 
+    #region MonoBehaviour
     private void Awake()
     {
         _fadeObjectListId = new List<int>();
@@ -31,12 +33,14 @@ public class CameraDetector : MonoBehaviour
 
     private void Update()
     {
-        DetectAllObjectsToPlater();
+        DetectAllObjectsToPlayer();
         MakeTransparant();
         MakeSolid();
     }
+    #endregion
 
-    private void DetectAllObjectsToPlater()
+    #region Detect Object
+    private void DetectAllObjectsToPlayer()
     {
         _fadeObjectListId.Clear();
 
@@ -52,7 +56,6 @@ public class CameraDetector : MonoBehaviour
         {
             if (obj.collider.CompareTag("FadeProperty"))
             {
-                Debug.Log(obj.collider.gameObject.name);
                 int objId = obj.collider.GetInstanceID();
                 if (!_fadeObjectListId.Contains(objId))
                 {
@@ -66,7 +69,6 @@ public class CameraDetector : MonoBehaviour
         {
             if (obj.collider.CompareTag("FadeProperty"))
             {
-                Debug.Log(obj.collider.gameObject.name);
                 int objId = obj.collider.GetInstanceID();
                 if (!_fadeObjectListId.Contains(objId))
                 {
@@ -76,7 +78,9 @@ public class CameraDetector : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region Make Transparant and Solid
     private void MakeTransparant()
     {
         if (_alreadyProcessTransparant || _processingSolid)
@@ -141,9 +145,6 @@ public class CameraDetector : MonoBehaviour
 
     void SetupMaterialBlendMode(Material material)
     {
-        if (material == null)
-            throw new ArgumentNullException("material");
-
         bool alphaClip = material.GetFloat("_AlphaClip") == 1;
         if (alphaClip)
             material.EnableKeyword("_ALPHATEST_ON");
@@ -163,13 +164,14 @@ public class CameraDetector : MonoBehaviour
         }
         else
         {
-        material.SetOverrideTag("RenderType", "Transparent");
-        material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        material.SetInt("_ZWrite", 0);
-        material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-        material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
-        material.SetShaderPassEnabled("ShadowCaster", false);
+            material.SetOverrideTag("RenderType", "Transparent");
+            material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            material.SetInt("_ZWrite", 0);
+            material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+            material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+            material.SetShaderPassEnabled("ShadowCaster", false);
         }
     }
+    #endregion
 }
