@@ -9,6 +9,7 @@ public class WorldState : State, IWorldState
     protected Color colorInUse;
     protected AstralMeterLogic astralMeterLogic;
     protected GameObject volumeInUse;
+    protected Utils.ItemHelper.WorldConditionType worldCondition;
     #endregion
 
     #region MonoBehaviour

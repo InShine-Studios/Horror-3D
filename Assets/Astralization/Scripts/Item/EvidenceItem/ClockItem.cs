@@ -23,7 +23,7 @@ public class ClockItem : EvidenceItem
     #endregion
 
     #region ItemInputHandler
-    public override void Use()
+    protected override void ActivateFunctionality()
     {
         _clockManager.ChangeState<ClockActiveState>();
     }

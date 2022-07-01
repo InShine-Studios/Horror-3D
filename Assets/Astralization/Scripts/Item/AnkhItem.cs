@@ -16,11 +16,13 @@ public class AnkhItem : Item
     protected override void Awake()
     {
         base.Awake();
+        UseBehaviourType = Utils.ItemHelper.UseBehaviourType.Handheld;
+        WorldConditionType = Utils.ItemHelper.WorldConditionType.Real | Utils.ItemHelper.WorldConditionType.Astral;
     }
     #endregion
 
     #region Use
-    public override void Use()
+    protected override void ActivateFunctionality()
     {
         ChangeWorldGM?.Invoke();
         //TODO: Call PlayAudio for Ankh
