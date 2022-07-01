@@ -151,6 +151,10 @@ public class Inventory : MonoBehaviour, IInventory
         _animation.SetHoldingItemAnim(_activeItem != null);
 
         InvokeHudEvent(new ChangeActiveItemIdxEventArgs(newIdx));
+        if(_activeItem != null)
+        {
+            InvokeHudEvent(new UpdateHudLogoEventArgs(_activeIdx, _activeItem.GetHudLogoAnimatorController(), _activeItem.LogoState));
+        }
     }
     public IItem GetActiveItem() { return _activeItem; }
     public IItem GetItemByIndex(int idx) { return _items[idx]; }
