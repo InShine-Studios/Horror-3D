@@ -74,7 +74,7 @@ public class HudManager : MonoBehaviour
                 _itemHud.Init(args.InventoryLength, args.CurrentActiveIdx);
                 break;
             case nameof(UpdateHudLogoEventArgs):
-                _itemHud.SetItemLogoAnimator(args.LogoAnimatorIdx, args.HudLogoAnimatorController);
+                _itemHud.SetItemLogoAnimator(args.LogoAnimatorIdx, args.HudLogoAnimatorController, args.HudLogoAnimationParam);
                 break;
             case nameof(ChangeActiveItemAnimEventArgs):
                 _itemHud.SetItemLogoAnimation(args.CurrentActiveIdx, args.HudLogoAnimationParam);

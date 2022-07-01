@@ -26,12 +26,14 @@ public class ClockItem : EvidenceItem
     public override void Use()
     {
         _clockManager.ChangeState<ClockActiveState>();
+        LogoState = _clockManager.GetStateNum();
     }
 
     public override void Pick()
     {
         base.Pick();
         _clockManager.ChangeState<ClockInactiveState>();
+        LogoState = _clockManager.GetStateNum();
     }
 
     public override void OnGhostInteraction()
@@ -51,6 +53,7 @@ public class ClockItem : EvidenceItem
         else {
             _clockManager.ChangeState<ClockNegativeState>();
         }
+        LogoState = _clockManager.GetStateNum();
         PlayAudio(_stateAudio);
     }
     #endregion

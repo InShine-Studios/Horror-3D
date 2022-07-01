@@ -23,10 +23,11 @@ public class ItemSlot : MonoBehaviour
     {
         _quickslotNumber.text = num.ToString();
     }
-    public void SetLogoAnimController(RuntimeAnimatorController animController)
+    public void SetLogoAnimController(RuntimeAnimatorController animController, int animParam)
     {
         _itemImage.enabled = animController != null;
         _animator.runtimeAnimatorController = animController;
+        SetLogoAnimParam(animParam);
     }
 
     public void SetLogoAnimParam(int animParam)

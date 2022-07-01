@@ -281,11 +281,13 @@ public class Inventory : MonoBehaviour, IInventory
     #region Use Active Item
     public void UseActiveItem()
     {
-        _activeItem?.Use();
-        InvokeHudEvent(new ChangeActiveItemAnimEventArgs(_activeItem.LogoState));
-
         if (!_activeItem) Debug.Log("[INVENTORY] Missing active item");
-        else if (_activeItem.IsDiscardedWhenUsed()) DiscardItem();
+        else
+        {
+            _activeItem.Use();
+            InvokeHudEvent(new ChangeActiveItemAnimEventArgs(_activeItem.LogoState));
+            if (_activeItem.IsDiscardedWhenUsed()) DiscardItem();
+        }
     }
     #endregion
 
