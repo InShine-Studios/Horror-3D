@@ -33,7 +33,6 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
     [Tooltip("Target destination of movement")]
     private Vector3 _wanderTarget;
 
-    [SerializeField]
     private StageManager _stageManager;
     #endregion
 
@@ -60,6 +59,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         NavMeshAgent = GetComponent<NavMeshAgent>();
         _wanderTarget = transform.position;
         NavMeshAgent.SetDestination(_wanderTarget);
+        _stageManager = StageManager.Instance;
     }
     #endregion
 

@@ -7,21 +7,20 @@ using UnityEngine.SceneManagement;
 
 public class ExorcismTest : TestBase
 {
-    protected GameObject hud;
+    IExorcismBar exorcismBar;
+    GameObject exorcismSliderObj;
 
     protected override void FindGameObjects(Scene scene)
     {
         GameObject[] gameObjects = scene.GetRootGameObjects();
         foreach (GameObject gameObject in gameObjects)
         {
-            if (gameObject.name == "Iris")
+            if (gameObject.name == "Player")
             {
-                player = gameObject;
+                player = gameObject.transform.Find("Character").gameObject;
                 playerMovement = player.GetComponent<IPlayerMovement>();
-            }
-            else if (gameObject.name == "UI")
-            {
-                hud = gameObject;
+                exorcismBar = gameObject.transform.GetComponentInChildren<IExorcismBar>();
+                exorcismSliderObj = gameObject.transform.Find("UiCanvas/ExorcismHud/Slider").gameObject;
             }
         }
     }
@@ -47,11 +46,7 @@ public class ExorcismTest : TestBase
 
         yield return null;
         GameObject exorcismItemObj = player.transform.Find("Rotate/InteractZone/ExorcismItem").gameObject;
-        GameObject exorcismBarObj = hud.transform.Find("ExorcismHud").gameObject;
-        GameObject exorcismSliderObj = hud.transform.Find("ExorcismHud/Slider").gameObject;
         Assert.NotNull(exorcismItemObj);
-
-        IExorcismBar exorcismBar = exorcismBarObj.GetComponent<IExorcismBar>();
 
         IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
         Assert.AreEqual(1, inventory.GetNumOfItem());
@@ -83,11 +78,7 @@ public class ExorcismTest : TestBase
 
         yield return null;
         GameObject exorcismItemObj = player.transform.Find("Rotate/InteractZone/ExorcismItem").gameObject;
-        GameObject exorcismBarObj = hud.transform.Find("ExorcismHud").gameObject;
-        GameObject exorcismSliderObj = hud.transform.Find("ExorcismHud/Slider").gameObject;
         Assert.NotNull(exorcismItemObj);
-
-        IExorcismBar exorcismBar = exorcismBarObj.GetComponent<IExorcismBar>();
 
         IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
         Assert.AreEqual(1, inventory.GetNumOfItem());
@@ -103,6 +94,36 @@ public class ExorcismTest : TestBase
         yield return new WaitForSeconds(2.0f);
         inputTestFixture.Release(KeyboardMouseTestFixture.RegisteredInput.UseItem);
         yield return new WaitForSeconds(0.3f);
+        Assert.IsFalse(exorcismBar.IsUsed());
+        Assert.IsFalse(exorcismSliderObj.activeSelf);
+        Assert.IsFalse(exorcismBar.IsExorcised());
+    }
+
+    [UnityTest]
+    public IEnumerator ExorcismItem_CantUseInAstralWorld()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        GameObject exorcismItemOW = GameObject.Find("OverworldItems/ExorcismItem");
+        float moveDuration = GetMovementDurationTowards(exorcismItemOW.transform);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveRight, false, moveDuration);
+
+        GameObject ankhItemOw = GameObject.Find("OverworldItems/Ankh");
+        moveDuration = GetMovementDurationTowards(ankhItemOw.transform);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.DiscardItem);
+
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveBack, false, moveDuration);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
+
+        GameObject exorcismItemObj = player.transform.Find("Rotate/InteractZone/ExorcismItem").gameObject;
+        GameObject hud = GameObject.Find("Player/UiCanvas").gameObject;
+        GameObject exorcismBarObj = hud.transform.Find("ExorcismHud").gameObject;
+        GameObject exorcismSliderObj = hud.transform.Find("ExorcismHud/Slider").gameObject;
+        IExorcismBar exorcismBar = exorcismBarObj.GetComponent<IExorcismBar>();
+
         Assert.IsFalse(exorcismBar.IsUsed());
         Assert.IsFalse(exorcismSliderObj.activeSelf);
         Assert.IsFalse(exorcismBar.IsExorcised());

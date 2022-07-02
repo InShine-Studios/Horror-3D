@@ -23,7 +23,8 @@ public class KeyboardMouseTestFixture: InputTestFixture
         InventorySlot2,
         InventorySlot3,
         InventorySlot4,
-        InventorySlot5
+        InventorySlot5,
+        ToggleItemHudDisplay
     }
     private Keyboard keyboard;
     private Mouse mouse;
@@ -51,7 +52,8 @@ public class KeyboardMouseTestFixture: InputTestFixture
             {RegisteredInput.InventorySlot2, keyboard.digit2Key },
             {RegisteredInput.InventorySlot3, keyboard.digit3Key },
             {RegisteredInput.InventorySlot4, keyboard.digit4Key },
-            {RegisteredInput.InventorySlot5, keyboard.digit5Key }
+            {RegisteredInput.InventorySlot5, keyboard.digit5Key },
+            {RegisteredInput.ToggleItemHudDisplay, keyboard.tabKey },
         };
         buttonInputMap = new Dictionary<RegisteredInput, ButtonControl>(){
             {RegisteredInput.UseItem, mouse.rightButton},

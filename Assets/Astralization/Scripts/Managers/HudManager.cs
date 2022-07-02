@@ -8,31 +8,20 @@ using System;
 public class HudManager : MonoBehaviour
 {
     #region Variables
-    [SerializeField]
     private DialogueManager _dialogueManager;
-    [SerializeField]
     private HidingOverlay _hidingManager;
-    [SerializeField]
-    private ItemLogo _itemLogo;
-    [SerializeField]
+    private ItemHudDisplay _itemHud;
     private ExorcismBar _exorcismBar;
     #endregion
 
     #region SetGet
-    private void SetHudState(Utils.PlayerHelper.States hudKey, bool condition)
+    private void SetHudState(Utils.UiHelper.UiType hudKey, bool condition)
     {
         switch (hudKey)
         {
-            case Utils.PlayerHelper.States.Exorcism: ShowExorcism(condition); break;
-            case Utils.PlayerHelper.States.Hiding: ShowHidingHud(condition); break;
-        }
-    }
-
-    private void SetHudState(Utils.UiHelper.States hudKey, bool condition)
-    {
-        switch (hudKey)
-        {
-            case Utils.UiHelper.States.Dialogue: ShowDialogue(condition); break;
+            case Utils.UiHelper.UiType.Dialogue: ShowDialogue(condition); break;
+            case Utils.UiHelper.UiType.ExorcismBar: ShowExorcism(condition); break;
+            case Utils.UiHelper.UiType.HidingOverlay: ShowHidingHud(condition); break;
         }
     }
 
@@ -47,32 +36,58 @@ public class HudManager : MonoBehaviour
         _hidingManager.StartAnim(isHiding);
     }
 
-    private void UpdateLogo(bool state, Sprite logo)
-    {
-        _itemLogo.UpdateLogo(state, logo);
-    }
-
     private void ShowExorcism(bool isShowExorcism)
     {
         _exorcismBar.ShowBar(isShowExorcism);
     }
+
+    private void UpdateLogo(int index, Sprite logo)
+    {
+        _itemHud.SetItemLogo(index, logo);
+    }
+
+    private void GenerateItemHud(int inventoryLength, int activeIdx)
+    {
+        _itemHud.Init(inventoryLength, activeIdx);
+    }
+
+    private void ToggleItemHudDisplay()
+    {
+        _itemHud.ToggleDisplay();
+    }
+
+    private void UpdateActiveItem(int activeIdx)
+    {
+        _itemHud.SelectActiveSlot(activeIdx);
+    }
     #endregion
 
     #region MonoBehaviour
+    private void Awake()
+    {
+        _dialogueManager = GetComponentInChildren<DialogueManager>();
+        _hidingManager = GetComponentInChildren<HidingOverlay>();
+        _itemHud = GetComponentInChildren<ItemHudDisplay>();
+        _exorcismBar = GetComponentInChildren<ExorcismBar>();
+    }
     private void OnEnable()
     {
-        GameManager.HudPlayerEvent += SetHudState;
-        GameManager.HudUiEvent += SetHudState;
+        GameManager.HudEvent += SetHudState;
         PlayerHidingState.StopHidingHudEvent += ShowHidingHud;
         Inventory.ItemLogoEvent += UpdateLogo;
+        Inventory.InitItemHudEvent += GenerateItemHud;
+        Inventory.ToggleItemHudDisplayEvent += ToggleItemHudDisplay;
+        Inventory.UpdateActiveItemIndexEvent += UpdateActiveItem;
     }
 
     private void OnDisable()
     {
-        GameManager.HudPlayerEvent -= SetHudState;
-        GameManager.HudUiEvent -= SetHudState;
+        GameManager.HudEvent -= SetHudState;
         PlayerHidingState.StopHidingHudEvent -= ShowHidingHud;
         Inventory.ItemLogoEvent -= UpdateLogo;
+        Inventory.InitItemHudEvent -= GenerateItemHud;
+        Inventory.ToggleItemHudDisplayEvent -= ToggleItemHudDisplay;
+        Inventory.UpdateActiveItemIndexEvent -= UpdateActiveItem;
     }
     #endregion
 }
