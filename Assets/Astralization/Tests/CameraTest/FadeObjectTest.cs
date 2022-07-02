@@ -19,9 +19,9 @@ public class FadeObjectTest : TestBase
         GameObject[] gameObjects = scene.GetRootGameObjects();
         foreach (GameObject gameObject in gameObjects)
         {
-            if (gameObject.name == "Iris")
+            if (gameObject.name == "Player")
             {
-                player = gameObject;
+                player = gameObject.transform.Find("Character").gameObject;
                 playerMovement = player.GetComponent<IPlayerMovement>();
             }
         }
@@ -50,7 +50,7 @@ public class FadeObjectTest : TestBase
         }
         yield return new WaitForSeconds(1.0f);
 
-        float moveDuration = GetMovementDurationTowards(obj1.transform) - 0.2f;
+        float moveDuration = GetMovementDurationTowards(obj1.transform) - 0.5f;
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveRight, false, moveDuration);
 
         foreach (Material material in obj1.GetComponent<Renderer>().materials)
