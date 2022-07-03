@@ -177,9 +177,18 @@ public class ItemTest : TestBase
 
         for (int i = 0; i < inventory.Size; i++)
         {
-            bool isNull = inventory.GetItemByIndex(i) is null;
-            if (i == 2) Assert.IsFalse(isNull);
-            else Assert.IsTrue(isNull);
+            IItem currItem = inventory.GetItemByIndex(i);
+            RuntimeAnimatorController logoAnimController = GameObject.Find("Player/UiCanvas/ItemHud/Slot " + (i+1)).GetComponent<Animator>()?.runtimeAnimatorController;
+            if (i == 2)
+            {
+                Assert.IsNotNull(currItem);
+                Assert.IsNotNull(logoAnimController);
+            }
+            else
+            {
+                Assert.IsNull(currItem);
+                Assert.IsNull(logoAnimController);
+            }
         }
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveLeft, false, 1f);
