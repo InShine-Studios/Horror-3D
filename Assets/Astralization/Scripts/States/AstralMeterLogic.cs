@@ -41,6 +41,18 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     private float _sightAmount = 1.0f;
     private bool _isOnSight = false;
     private bool _isInAstralWorld = false;
+
+    private static AstralMeterLogic _instance = null;
+    public static AstralMeterLogic Instance 
+    { 
+        get {
+            return _instance; 
+        } 
+    }
+    #endregion
+
+    #region Constructor
+    private AstralMeterLogic() { }
     #endregion
 
     #region SetGet
@@ -84,6 +96,7 @@ public class AstralMeterLogic : MonoBehaviour, IAstralMeterLogic
     void Awake()
     {
         InvokeRepeating(nameof(Increment), 0.0f, 1.0f);
+        _instance = this;
     }
     #endregion
 

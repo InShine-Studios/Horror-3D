@@ -7,8 +7,6 @@ using UnityEngine.InputSystem;
 
 public class InteractableTest: TestBase
 {
-    private GameObject _hud;
-
     protected override void FindGameObjects(Scene scene)
     {
         GameObject[] gameObjects = scene.GetRootGameObjects();
@@ -18,10 +16,6 @@ public class InteractableTest: TestBase
             {
                 player = gameObject.transform.Find("Character").gameObject;
                 playerMovement = player.GetComponent<IPlayerMovement>();
-            }
-            else if (gameObject.name == "UI")
-            {
-                _hud = gameObject;
             }
         }
     }

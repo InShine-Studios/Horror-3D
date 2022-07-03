@@ -50,7 +50,6 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
     [Space]
     [Header("Event System")]
-    [SerializeField]
     private EventSystem _eventSystem;
     #endregion
 
@@ -85,6 +84,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         _nameText = transform.Find("Name").GetComponent<Text>();
         _dialogueText = transform.Find("Dialogue").GetComponent<Text>();
         _animator = transform.GetComponent<Animator>();
+        _eventSystem = transform.parent.parent.GetComponentInChildren<EventSystem>();
     }
 
     private void Start()
