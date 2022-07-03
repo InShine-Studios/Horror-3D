@@ -24,7 +24,8 @@ public class KeyboardMouseTestFixture: InputTestFixture
         InventorySlot3,
         InventorySlot4,
         InventorySlot5,
-        ToggleItemHudDisplay
+        ToggleItemHudDisplay,
+        ToggleFlashlight
     }
     private Keyboard keyboard;
     private Mouse mouse;
@@ -56,7 +57,8 @@ public class KeyboardMouseTestFixture: InputTestFixture
             {RegisteredInput.ToggleItemHudDisplay, keyboard.tabKey },
         };
         buttonInputMap = new Dictionary<RegisteredInput, ButtonControl>(){
-            {RegisteredInput.UseItem, mouse.rightButton},
+            {RegisteredInput.UseItem, mouse.leftButton},
+            {RegisteredInput.ToggleFlashlight, mouse.rightButton},
             {RegisteredInput.NextDialogueClick, mouse.leftButton }
         };
         axisInputMap = new Dictionary<RegisteredInput, AxisControl>() {

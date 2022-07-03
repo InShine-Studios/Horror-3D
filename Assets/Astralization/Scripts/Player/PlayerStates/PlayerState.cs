@@ -71,6 +71,10 @@ public abstract class PlayerState : State
     {
         Utils.LoggerHelper.PrintStateDefaultLog("Player", "ToggleItemHud");
     }
+    public virtual void ToggleFlashlight(InputAction.CallbackContext ctx)
+    {
+        Utils.LoggerHelper.PrintStateDefaultLog("Player", "ToggleFlashlight");
+    }
     #endregion
 
     #region Hiding Input Handler
