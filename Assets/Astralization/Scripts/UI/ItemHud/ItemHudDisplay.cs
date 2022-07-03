@@ -161,6 +161,7 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
                     {
                         _itemSlots[i].gameObject.SetActive(true);
                         _itemSlots[i].transform.localPosition = CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, i);
+                        _itemSlots[i].SetLogoAnimParam();
                     }
                 }
                 _onTransition = false;

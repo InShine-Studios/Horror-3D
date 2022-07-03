@@ -11,10 +11,10 @@ public class ItemSlot : MonoBehaviour
     #region Variables
     private GameObject _circleActive;
     private GameObject _circleInactive;
-    private RectTransform _rectTransform;
     private Text _quickslotNumber;
     private Image _itemImage;
     private Animator _animator;
+    private int _currentAnimParam;
     private static float _xScale;
     #endregion
 
@@ -33,6 +33,12 @@ public class ItemSlot : MonoBehaviour
     public void SetLogoAnimParam(int animParam)
     {
         _animator.SetInteger(AnimationParamName, animParam);
+        _currentAnimParam = animParam;
+    }
+
+    public void SetLogoAnimParam()
+    {
+        _animator?.SetInteger(AnimationParamName, _currentAnimParam);
     }
 
     public Image GetItemImage()
@@ -69,7 +75,6 @@ public class ItemSlot : MonoBehaviour
     {
         _circleActive = transform.Find("CircleActive").gameObject;
         _circleInactive = transform.Find("CircleInactive").gameObject;
-        _rectTransform = GetComponent<RectTransform>();
         _quickslotNumber = GetComponentInChildren<Text>();
         _itemImage = GetComponentInChildren<Image>();
         _xScale = GetComponent<RectTransform>().localScale.x;
