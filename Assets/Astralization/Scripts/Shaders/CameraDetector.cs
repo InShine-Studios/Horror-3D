@@ -4,17 +4,16 @@ using UnityEngine;
 public class CameraDetector : MonoBehaviour
 {
     #region Variables - Adjustable
-    [SerializeField] private Transform _player;
-    [SerializeField] private float _transparantScale;
+    [SerializeField] private float _transparentScale;
     #endregion
 
     #region Variables - Process
+    private Transform _player;
     private List<int> _fadeObjectListId;
     private List<int> _fadedObjectListId;
-    private bool _processingTransparant = false;
+    private bool _processingTransparent = false;
     private bool _processingSolid = false;
-    private bool _alreadyProcessTransparant = false;
-    private Transform _camera;
+    private bool _alreadyProcessTransparent = false;
     public enum SurfaceType
     {
         Opaque,
@@ -27,14 +26,13 @@ public class CameraDetector : MonoBehaviour
     {
         _fadeObjectListId = new List<int>();
         _fadedObjectListId = new List<int>();
-
-        _camera = transform;
+        _player = transform.parent.Find("Character").gameObject.transform;
     }
 
     private void Update()
     {
         DetectAllObjectsToPlayer();
-        MakeTransparant();
+        MakeTransparent();
         MakeSolid();
     }
     #endregion
@@ -44,15 +42,15 @@ public class CameraDetector : MonoBehaviour
     {
         _fadeObjectListId.Clear();
 
-        float cameraToPlayerDistance = Vector3.Magnitude(_camera.position - _player.position);
+        float cameraToPlayerDistance = Vector3.Magnitude(transform.position - _player.position);
 
-        Ray rayCameraToPlayer = new Ray(_camera.position, _player.position - _camera.position);
-        Ray rayPlayerToCamera = new Ray(_player.position, _camera.position - _player.position);
+        Ray rayCameraToPlayer = new Ray(transform.position, _player.position - transform.position);
+        Ray rayPlayerToCamera = new Ray(_player.position, transform.position - _player.position);
 
-        var rayCastCameraToPlayer = Physics.RaycastAll(rayCameraToPlayer, cameraToPlayerDistance);
-        var rayCastPlayerToCamera = Physics.RaycastAll(rayPlayerToCamera, cameraToPlayerDistance);
+        RaycastHit[] rayCastCameraToPlayer = Physics.RaycastAll(rayCameraToPlayer, cameraToPlayerDistance);
+        RaycastHit[] rayCastPlayerToCamera = Physics.RaycastAll(rayPlayerToCamera, cameraToPlayerDistance);
 
-        foreach (var obj in rayCastCameraToPlayer)
+        foreach (RaycastHit obj in rayCastCameraToPlayer)
         {
             if (obj.collider.CompareTag("FadeProperty"))
             {
@@ -65,7 +63,7 @@ public class CameraDetector : MonoBehaviour
             }
         }
 
-        foreach (var obj in rayCastPlayerToCamera)
+        foreach (RaycastHit obj in rayCastPlayerToCamera)
         {
             if (obj.collider.CompareTag("FadeProperty"))
             {
@@ -80,16 +78,16 @@ public class CameraDetector : MonoBehaviour
     }
     #endregion
 
-    #region Make Transparant and Solid
-    private void MakeTransparant()
+    #region Make Transparent and Solid
+    private void MakeTransparent()
     {
-        if (_alreadyProcessTransparant || _processingSolid)
+        if (_alreadyProcessTransparent || _processingSolid)
         {
             return;
         }
 
-        _alreadyProcessTransparant = true;
-        _processingTransparant = true;
+        _alreadyProcessTransparent = true;
+        _processingTransparent = true;
         foreach (int id in _fadeObjectListId.ToArray())
         {
             if (!_fadedObjectListId.Contains(id))
@@ -98,7 +96,7 @@ public class CameraDetector : MonoBehaviour
                 foreach (Material mat in obj.GetComponent<Renderer>().materials)
                 {
                     Color objCol = mat.color;
-                    Color newObjCol = new Color(objCol.r, objCol.g, objCol.b, _transparantScale);
+                    Color newObjCol = new Color(objCol.r, objCol.g, objCol.b, _transparentScale);
                     mat.color = newObjCol;
                     mat.SetFloat("_Surface", (float)SurfaceType.Transparent);
 
@@ -108,17 +106,17 @@ public class CameraDetector : MonoBehaviour
                 _fadedObjectListId.Add(id);
             }
         }
-        _processingTransparant = false;
+        _processingTransparent = false;
     }
 
     private void MakeSolid()
     {
-        if (!_alreadyProcessTransparant || _processingTransparant)
+        if (!_alreadyProcessTransparent || _processingTransparent)
         {
             return;
         }
 
-        _alreadyProcessTransparant = false;
+        _alreadyProcessTransparent = false;
         _processingSolid = true;
         foreach (int id in _fadedObjectListId.ToArray())
         {
