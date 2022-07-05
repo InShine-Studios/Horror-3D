@@ -119,7 +119,7 @@ public class Inventory : MonoBehaviour, IInventory
     }
     #endregion
 
-    #region Pick - Discard
+    #region Item Management
     public void PickItem(Item item)
     {
         if (_numOfItem == _size)
@@ -179,6 +179,11 @@ public class Inventory : MonoBehaviour, IInventory
         DiscardItemEvent?.Invoke(_activeItem);
         _activeItem.transform.position -= ActiveItemYOffset + new Vector3(0, this.transform.position.y, 0);
 
+        OnPostItemRemoval();
+    }
+
+    private void OnPostItemRemoval()
+    {
         // Reset active item state
         _activeItem = null;
         _items[_activeIdx] = null;
@@ -196,6 +201,12 @@ public class Inventory : MonoBehaviour, IInventory
         {
             Debug.Log("[INVENTORY] No item to discard, not holding an item");
         }
+    }
+
+    private void RemoveActiveItem()
+    {
+        _activeItem.gameObject.SetActive(false);
+        OnPostItemRemoval();
     }
     #endregion
 
@@ -226,10 +237,28 @@ public class Inventory : MonoBehaviour, IInventory
     #region Use Active Item
     public void UseActiveItem()
     {
-        _activeItem?.Use();
+        
 
         if (!_activeItem) Debug.Log("[INVENTORY] Missing active item");
-        else if (_activeItem.IsDiscardedWhenUsed()) DiscardItem();
+        else
+        {
+            bool isUsed = _activeItem.Use();
+            if (isUsed)
+            {
+                if (_activeItem.UseBehaviourType.HasFlag(Utils.ItemHelper.UseBehaviourType.Environmental))
+                {
+                    DiscardItem();
+                }
+                else if (_activeItem.UseBehaviourType.HasFlag(Utils.ItemHelper.UseBehaviourType.Consumable))
+                {
+                    RemoveActiveItem();
+                }
+                else if (_activeItem.UseBehaviourType.HasFlag(Utils.ItemHelper.UseBehaviourType.Handheld))
+                {
+                    ItemLogoEvent?.Invoke(_activeIdx, _activeItem.GetHudLogo()); //TODO: set to alternate logo
+                }
+            }
+        }
     }
     #endregion
 

@@ -13,6 +13,15 @@ public interface IEvidenceItem : IItem
  */
 public abstract class EvidenceItem : Item, IEvidenceItem
 {
+    #region MonoBehaviour
+    protected override void Awake()
+    {
+        base.Awake();
+        UseBehaviourType = Utils.ItemHelper.UseBehaviourType.Environmental;
+        WorldConditionType = Utils.ItemHelper.WorldConditionType.Real | Utils.ItemHelper.WorldConditionType.Astral;
+    }
+    #endregion
+
     #region GhostInput
     public abstract void OnGhostInteraction();
 

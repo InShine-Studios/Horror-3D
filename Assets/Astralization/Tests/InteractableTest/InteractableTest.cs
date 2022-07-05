@@ -113,10 +113,10 @@ public class InteractableTest: TestBase
         yield return new WaitWhile(() => sceneLoaded == false);
         GameObject lightSwitch = GameObject.Find("LightSwitch");
         GameObject lightSwitch2 = GameObject.Find("LightSwitch(2)");
-        GameObject overworldFlash = GameObject.Find("OverworldItems/DummyFlashlight(2)");
+        GameObject overworldAnkh = GameObject.Find("OverworldItems/Ankh (2)");
         Transform markLight1 = lightSwitch.transform.Find("ExclamationMarkSwitch");
         Transform markLight2 = lightSwitch2.transform.Find("ExclamationMarkSwitch");
-        Transform markFlash = overworldFlash.transform.Find("ExclamationMarkItem");
+        Transform markFlash = overworldAnkh.transform.Find("ExclamationMarkItem");
         float moveDuration = GetMovementDurationTowards(lightSwitch.transform);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveRight, false, moveDuration);
         Assert.True(markLight1.gameObject.activeInHierarchy);

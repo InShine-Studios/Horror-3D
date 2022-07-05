@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour, IGameManager
         ExorcismItem.ExorcismChannelingEvent -= InvokeExorcismState;
         ExorcismBar.FinishExorcismChannelingEvent -= ResetPlayerState;
     }
+
+    
     #endregion
 
     #region SendEvents

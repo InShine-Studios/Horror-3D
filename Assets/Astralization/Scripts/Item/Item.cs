@@ -4,10 +4,9 @@ public interface IItem
 {
     void Discard();
     Sprite GetHudLogo();
-    bool IsDiscardedWhenUsed();
     void Pick();
     void ShowItem(bool isShown);
-    void Use();
+    bool Use();
 }
 
 /*
@@ -25,11 +24,11 @@ public abstract class Item : MonoBehaviour, IItem
     protected Sprite HudLogo;
     private GameObject _model;
 
-    [Header("Item Behavior")]
-    [SerializeField]
-    [Tooltip("Determine whether discard after used or not")]
-    private bool _discardedWhenUsed = false;
-
+    // Determine item usage behavior
+    public Utils.ItemHelper.UseBehaviourType UseBehaviourType { get; protected set; }
+    // Determine world condition type so the item can be used
+    public Utils.ItemHelper.WorldConditionType WorldConditionType { get; protected set; }
+    
     [Space]
     [Header("Audio")]
     [Tooltip("Audio Manager")]
@@ -51,15 +50,10 @@ public abstract class Item : MonoBehaviour, IItem
         _model.SetActive(enabled);
     }
 
-    public void ShowItem(bool isShown)
+    public void ShowItem(bool isShown) 
     {
         //Debug.Log("[ITEM] Show " + this.name + " visibility to:" + isShown);
         this.gameObject.SetActive(isShown);
-    }
-
-    public bool IsDiscardedWhenUsed()
-    {
-        return _discardedWhenUsed;
     }
 
     public Sprite GetHudLogo()
@@ -97,11 +91,41 @@ public abstract class Item : MonoBehaviour, IItem
     #endregion
 
     #region Use
-    public abstract void Use();
+    protected bool IsUsableOnCurrentWorld()
+    {
+        IWorldState currentWorldState = (IWorldState)WorldStateMachine.Instance.CurrentState;
+        if (currentWorldState is IWorldRealState && WorldConditionType.HasFlag(Utils.ItemHelper.WorldConditionType.Real))
+        {
+            return true;
+        }
+        else if (currentWorldState is IWorldAstralState && WorldConditionType.HasFlag(Utils.ItemHelper.WorldConditionType.Astral))
+        {
+            return true;
+        }
+        else if (WorldStateMachine.Instance.IsKillPhase() && WorldConditionType.HasFlag(Utils.ItemHelper.WorldConditionType.KillPhase))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool Use()
+    {
+        if (!IsUsableOnCurrentWorld())
+        {
+            return false;
+        }
+
+        ActivateFunctionality();
+        return true;
+    }
+    protected abstract void ActivateFunctionality();
     #endregion
 
     #region Handler
-
     protected void PlayAudio(string name)
     {
         _audioPlayerObj.Play(name);
