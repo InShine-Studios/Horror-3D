@@ -22,12 +22,14 @@ public class AnkhItem : Item
     protected override void Awake()
     {
         base.Awake();
+        UseBehaviourType = Utils.ItemHelper.UseBehaviourType.Handheld;
+        WorldConditionType = Utils.ItemHelper.WorldConditionType.Real | Utils.ItemHelper.WorldConditionType.Astral;
         LogoState = (int)AnkhState.Inactive;
     }
     #endregion
 
     #region Use
-    public override void Use()
+    protected override void ActivateFunctionality()
     {
         ChangeWorldGM?.Invoke();
         LogoState = Utils.MathCalcu.mod(LogoState + 1, 2);

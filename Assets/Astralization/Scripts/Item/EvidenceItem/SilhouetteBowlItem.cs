@@ -20,7 +20,7 @@ public class SilhouetteBowlItem : EvidenceItem
     #endregion
 
     #region ItemInputHandler
-    public override void Use()
+    protected override void ActivateFunctionality()
     {
         _silhouetteBowlManager.ChangeState<SilhouetteBowlActiveState>();
         LogoState = _silhouetteBowlManager.GetStateNum();

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-public class MovementTest: TestBase
+public class PlayerTest: TestBase
 {
     protected override void FindGameObjects(Scene scene)
     {
@@ -44,6 +44,23 @@ public class MovementTest: TestBase
         yield return new WaitForSeconds(0.3f);
         Assert.IsFalse(playerMovement.IsSprinting());
         Assert.AreEqual(playerBase.GetPlayerMovementSpeed(), playerMovement.GetCurMoveSpeed());
+    }
+    #endregion
+
+    #region Flashlight
+    [UnityTest]
+    public IEnumerator Player_Flashlight()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        IFlashlight playerFlashlight = player.GetComponentInChildren<IFlashlight>();
+
+        bool prevFlashlightState = playerFlashlight.IsOn;
+
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ToggleFlashlight);
+        Assert.AreEqual(!prevFlashlightState, playerFlashlight.IsOn);
+
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ToggleFlashlight);
+        Assert.AreEqual(prevFlashlightState, playerFlashlight.IsOn);
     }
     #endregion
 }

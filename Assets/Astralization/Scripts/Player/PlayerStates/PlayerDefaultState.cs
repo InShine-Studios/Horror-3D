@@ -8,6 +8,9 @@ public class PlayerDefaultState : PlayerState
     [Header("Movement and Rotation")]
     private PlayerMovement _playerMovement;
 
+    [Header("Accessory")]
+    private Flashlight _flashlight;
+
     [Header("Inventory and Detector")]
     private Inventory _inventory;
     private InteractableDetector _interactableDetector;
@@ -24,6 +27,7 @@ public class PlayerDefaultState : PlayerState
         _interactableDetector = GetComponentInChildren<InteractableDetector>();
         _itemDetector = GetComponentInChildren<ItemDetector>();
         _ghostSimulationInteractableDetector = GetComponentInChildren<GhostSimulationInteractableDetector>();
+        _flashlight = GetComponentInChildren<Flashlight>();
     }
     #endregion
 
@@ -134,6 +138,16 @@ public class PlayerDefaultState : PlayerState
         if (ctx.performed)
         {
             _ghostSimulationInteractableDetector.CheckInteraction();
+        }
+    }
+    #endregion
+
+    #region Accessory Input Handler
+    public override void ToggleFlashlight(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            _flashlight.ToggleOnOff();
         }
     }
     #endregion
