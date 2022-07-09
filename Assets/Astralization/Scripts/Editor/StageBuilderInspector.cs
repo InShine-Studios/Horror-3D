@@ -5,7 +5,7 @@ using UnityEditor;
  * The editor script to edit rooms of a stage.
  */
 [CustomEditor(typeof(StageBuilder))]
-public class StageRoomInspector : Editor
+public class StageBuilderInspector : Editor
 {
     public StageBuilder current
     {
@@ -14,6 +14,8 @@ public class StageRoomInspector : Editor
             return (StageBuilder)target;
         }
     }
+
+    private string pointName;
 
     public override void OnInspectorGUI()
     {
@@ -24,13 +26,17 @@ public class StageRoomInspector : Editor
             current.Save();
         if (GUILayout.Button("Load All"))
             current.Load();
-        if (GUILayout.Button("Clear All Child"))
+        if (GUILayout.Button("Clear All Data"))
             current.ClearAll();
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Stage Point", EditorStyles.boldLabel);
-        if (GUILayout.Button("Create Stage Point"))
-            current.CreateStagePoint();
+        pointName = GUILayout.TextField(pointName);
+        if (GUILayout.Button("Display Stage Point"))
+        {
+            current.DisplayStagePoint(pointName);
+        }
+
         if (GUILayout.Button("Save Stage Points"))
             current.SaveStagePoints();
         if (GUILayout.Button("Load Stage Points"))
@@ -38,8 +44,6 @@ public class StageRoomInspector : Editor
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Ghost Transition Zone", EditorStyles.boldLabel);
-        if (GUILayout.Button("Create Ghost Transition Zone"))
-            current.CreateGhostTransitionZone();
         if (GUILayout.Button("Save Ghost Transition Zones"))
             current.SaveTransitionZones();
         if (GUILayout.Button("Load Ghost Transition Zones"))

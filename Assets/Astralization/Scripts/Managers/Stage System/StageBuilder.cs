@@ -2,6 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using System;
+
+[Serializable]
+public class StagePointsDictionary: SerializableDictionary<string, StagePointData> { }
 
 /*
  * General builder for a stage.
@@ -10,13 +14,14 @@ using System.IO;
 public class StageBuilder : MonoBehaviour
 {
     #region Variables
-    [Header("Prefab")]
     [SerializeField]
-    private StagePoint _stagePointPrefab;
+    public StagePointsDictionary _stagePointsDict = new StagePointsDictionary();
+
+    [Header("Prefab")]
+    private StagePoint _stagePoint;
     private static Dictionary<string, StagePoint> _stagePoints = new Dictionary<string, StagePoint>();
 
-    [SerializeField]
-    private GhostTransitionZone _ghostTransitionZonePrefab;
+    private GhostTransitionZone _ghostTransitionZone;
     private static Dictionary<string, GhostTransitionZone> _ghostTransitionZones = new Dictionary<string, GhostTransitionZone>();
 
     [Space]
@@ -32,13 +37,6 @@ public class StageBuilder : MonoBehaviour
     {
         for (int i = transform.childCount - 1; i >= 0; --i)
             DestroyImmediate(transform.GetChild(i).gameObject);
-    }
-
-    public StagePoint CreateStagePoint()
-    {
-        StagePoint instance = Instantiate(_stagePointPrefab);
-        instance.transform.parent = transform;
-        return instance;
     }
 
     private void RenameRoomPoint()
@@ -64,16 +62,23 @@ public class StageBuilder : MonoBehaviour
             _stagePoints.Add(r.PointName, r);
         }
     }
+
+    public void AddStagePoint(StagePointData stagePointData)
+    {
+        if (_stagePointsDict.ContainsKey(stagePointData.PointName)) _stagePointsDict[stagePointData.PointName] = stagePointData;
+        else _stagePointsDict.Add(stagePointData.PointName, stagePointData);
+    }
+
+    public void DisplayStagePoint(string pointName)
+    {
+        if (_stagePoint == null) _stagePoint = GetComponentInChildren<StagePoint>();
+
+        if (_stagePointsDict.ContainsKey(pointName)) _stagePoint.Display(_stagePointsDict[pointName]);
+        else Debug.Log("Stage point with name: \"" + pointName + "\" is not found");
+    }
     #endregion
 
     #region GhostTransitionZoneHandler
-    public GhostTransitionZone CreateGhostTransitionZone()
-    {
-        GhostTransitionZone instance = Instantiate(_ghostTransitionZonePrefab);
-        instance.transform.parent = transform;
-        return instance;
-    }
-
     private void RenameEndpoints()
     {
         for (int i = transform.childCount - 1; i >= 0; --i)
@@ -172,11 +177,11 @@ public class StageBuilder : MonoBehaviour
     {
         if (!_stagePointsData) return;
 
-        for (int i = 0; i < _stagePointsData.Positions.Count; i++)
-        {
-            StagePoint r = CreateStagePoint();
-            r.Load(_stagePointsData.Positions[i], _stagePointsData.Names[i], _stagePointsData.Rads[i]);
-        }
+        //for (int i = 0; i < _stagePointsData.Positions.Count; i++)
+        //{
+        //    StagePoint r = CreateStagePoint();
+        //    r.Load(_stagePointsData.Positions[i], _stagePointsData.Names[i], _stagePointsData.Rads[i]);
+        //}
 
         RenameRoomPoint();
         UpdatePoints();
@@ -186,16 +191,16 @@ public class StageBuilder : MonoBehaviour
     {
         if (!_stageTransitionZoneData) return;
 
-        for (int i = 0; i < _stageTransitionZoneData.GhostTransitionZonePosition.Count; i++)
-        {
-            GhostTransitionZone zone = CreateGhostTransitionZone();
-            zone.Load(
-                _stageTransitionZoneData.GhostTransitionZonePosition[i],
-                _stageTransitionZoneData.GhostTransitionZoneCenter[i],
-                _stageTransitionZoneData.GhostTransitionZoneSize[i],
-                _stageTransitionZoneData.GhostTransitionZoneEndpoint[i].list
-            );
-        }
+        //for (int i = 0; i < _stageTransitionZoneData.GhostTransitionZonePosition.Count; i++)
+        //{
+        //    GhostTransitionZone zone = CreateGhostTransitionZone();
+        //    zone.Load(
+        //        _stageTransitionZoneData.GhostTransitionZonePosition[i],
+        //        _stageTransitionZoneData.GhostTransitionZoneCenter[i],
+        //        _stageTransitionZoneData.GhostTransitionZoneSize[i],
+        //        _stageTransitionZoneData.GhostTransitionZoneEndpoint[i].list
+        //    );
+        //}
 
         RenameEndpoints();
         UpdateTransitionEndpoints();

@@ -94,7 +94,11 @@ public class GhostTransitionZone : MonoBehaviour
     }
     #endregion
 
-    #region Loader
+    #region SaveLoad
+    public void Save()
+    {
+
+    }
     public void Load(Vector3 zonePos, Vector3 zoneCenter, Vector3 zoneSize, List<TransitionEndpoint> endpoints)
     {
         SetZoneLocalPosition(zonePos);
