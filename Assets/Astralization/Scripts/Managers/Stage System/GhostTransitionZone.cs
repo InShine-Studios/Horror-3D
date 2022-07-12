@@ -1,11 +1,18 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#region SerializableClass
 [Serializable]
 public class TransitionEndpointList
 {
     public List<TransitionEndpoint> list;
+
+    public TransitionEndpointList (List<TransitionEndpoint> list)
+    {
+        this.list = list;
+    }
 }
 
 [Serializable]
@@ -13,63 +20,77 @@ public class TransitionEndpoint
 {
     public string AreaName;
     public Vector3 Position;
+
+    public TransitionEndpoint(string areaName, Vector3 position)
+    {
+        this.AreaName = areaName;
+        this.Position = position;
+    }
 }
+[Serializable]
+public class TransitionZoneFieldValue
+{
+    public string ZoneName;
+    public Vector3 LocalPosition;
+    public Vector3 ZoneCenter;
+    public Vector3 ZoneSize;
+    public TransitionEndpointList EndpointList;
+
+    public TransitionZoneFieldValue(string zoneName, Vector3 localPosition, Vector3 zoneCenter, Vector3 zoneSize, TransitionEndpointList endpointList)
+    {
+        this.ZoneName = zoneName;
+        this.LocalPosition = localPosition;
+        this.ZoneCenter = zoneCenter;
+        this.ZoneSize = zoneSize;
+        this.EndpointList = endpointList;
+    }
+}
+#endregion
 
 public class GhostTransitionZone : MonoBehaviour
 {
     #region Variables
-    public TransitionEndpointList Endpoints;
+    private TransitionEndpointList Endpoints;
+    private StageBuilder _builder;
+    private BoxCollider _boxCollider;
+    private bool _isUpdatingEndpoint = false;
 
     public Transform EnterPoint { get; private set; }
     public Transform ExitPoint { get; private set; }
     #endregion
 
     #region SetGet
-    public void SetZoneName()
+    public static string GenerateZoneName(TransitionEndpointList endpoints, string prefix = "")
     {
-        string zoneName = "Zone ";
-        for (int j = transform.childCount - 1; j >= 0; --j)
+        string zoneName = prefix;
+        if (prefix != "") zoneName += " ";
+
+        for (int i = 0; i < endpoints.list.Count; i++)
         {
-            GameObject endpointGameObject = transform.GetChild(j).gameObject;
-            endpointGameObject.name = GetComponent<GhostTransitionZone>().Endpoints.list[j].AreaName;
-            zoneName += endpointGameObject.name;
-            if (j > 0) zoneName += " - ";
+            zoneName += endpoints.list[i].AreaName;
+            if (i < endpoints.list.Count - 1) zoneName += " - ";
         }
-        name = zoneName;
+        return zoneName;
     }
-    public void SetZonePosition(Vector3 pos)
+    public void SetZoneName(string prefix = "")
     {
-        transform.position = pos;
+        name = GenerateZoneName(Endpoints,prefix);
     }
+    #endregion
 
-    public void SetZoneLocalPosition(Vector3 pos)
+    #region FieldUpdater
+    private void UpdateEndpointList()
     {
-        transform.localPosition = pos;
-    }
+        _isUpdatingEndpoint = true;
+        GhostTransitionZoneEndpoint[] ghostTransitionZoneEndpoints = GetComponentsInChildren<GhostTransitionZoneEndpoint>();
+        List<TransitionEndpoint> transitionEndpoints = new List<TransitionEndpoint>();
+        for (int i = 0; i < ghostTransitionZoneEndpoints.Length; i++)
+        {
+            transitionEndpoints.Add(new TransitionEndpoint(ghostTransitionZoneEndpoints[i].AreaName, ghostTransitionZoneEndpoints[i].transform.localPosition));
+        }
+        Endpoints = new TransitionEndpointList(transitionEndpoints);
 
-    public Vector3 GetZoneLocalPosition()
-    {
-        return transform.localPosition;
-    }
-
-    public void SetZoneColliderCenter(Vector3 center)
-    {
-        GetComponent<BoxCollider>().center = center;
-    }
-
-    public Vector3 GetZoneColliderCenter()
-    {
-        return GetComponent<BoxCollider>().center;
-    }
-
-    public void SetZoneColliderSize(Vector3 size)
-    {
-        GetComponent<BoxCollider>().size = size;
-    }
-
-    public Vector3 GetZoneColliderSize()
-    {
-        return GetComponent<BoxCollider>().size;
+        _isUpdatingEndpoint = false;
     }
     #endregion
 
@@ -95,24 +116,60 @@ public class GhostTransitionZone : MonoBehaviour
     #endregion
 
     #region SaveLoad
-    public void Save()
+    public IEnumerable Save()
     {
+        if (_builder == null) _builder = GetComponentInParent<StageBuilder>();
 
+        UpdateEndpointList();
+        string zoneName = GenerateZoneName(Endpoints);
+
+        if (_boxCollider == null) _boxCollider = GetComponent<BoxCollider>();
+
+        yield return new WaitWhile(() => _isUpdatingEndpoint);
+        _builder.AddTransitionZone(new TransitionZoneFieldValue(
+            zoneName,
+            transform.localPosition,
+            _boxCollider.center,
+            _boxCollider.size,
+            Endpoints
+        ));
     }
-    public void Load(Vector3 zonePos, Vector3 zoneCenter, Vector3 zoneSize, List<TransitionEndpoint> endpoints)
-    {
-        SetZoneLocalPosition(zonePos);
-        BoxCollider boxCollider = GetComponent<BoxCollider>();
-        boxCollider.center = zoneCenter;
-        boxCollider.size = zoneSize;
-        Endpoints.list = endpoints;
 
-        for (int i = transform.childCount - 1; i >= 0; --i)
+    private void UpdateEndpoints(bool renameEndppoint = false)
+    {
+        GhostTransitionZoneEndpoint[] transitionZoneEndpoints = GetComponentsInChildren<GhostTransitionZoneEndpoint>();
+        for (int i = 0; i < Endpoints.list.Count; i++)
         {
-            Transform endpoint = transform.GetChild(i);
-            endpoint.name = endpoints[i].AreaName;
-            endpoint.localPosition = endpoints[i].Position;
+            transitionZoneEndpoints[i].AreaName = Endpoints.list[i].AreaName;
+            transitionZoneEndpoints[i].transform.localPosition = Endpoints.list[i].Position;
+            if (renameEndppoint) transitionZoneEndpoints[i].name = Endpoints.list[i].AreaName;
         }
+    }
+
+    public void Load(Vector3 zoneLocalPos, Vector3 zoneCenter, Vector3 zoneSize, List<TransitionEndpoint> endpoints, bool renameEndpoint = false)
+    {
+        transform.localPosition = zoneLocalPos;
+
+        if (_boxCollider == null) _boxCollider = GetComponent<BoxCollider>();
+        _boxCollider.center = zoneCenter;
+        _boxCollider.size = zoneSize;
+
+        Endpoints = new TransitionEndpointList(endpoints);
+
+        UpdateEndpoints(renameEndpoint);
+    }
+
+    public void Load(TransitionZoneFieldValue fieldValue, bool renameEndpoint = false)
+    {
+        transform.localPosition = fieldValue.LocalPosition;
+
+        if (_boxCollider == null) _boxCollider = GetComponent<BoxCollider>();
+        _boxCollider.center = fieldValue.ZoneCenter;
+        _boxCollider.size = fieldValue.ZoneSize;
+
+        Endpoints = new TransitionEndpointList(fieldValue.EndpointList.list);
+
+        UpdateEndpoints(renameEndpoint);
     }
     #endregion
 

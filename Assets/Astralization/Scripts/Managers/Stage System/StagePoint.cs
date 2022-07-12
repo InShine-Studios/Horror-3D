@@ -1,20 +1,22 @@
 using System;
 using UnityEngine;
 
+#region SerializableClass
 [Serializable]
-public class StagePointData
+public class StagePointFieldValue
 {
     public string PointName;
-    public Vector3 Position;
+    public Vector3 LocalPosition;
     public float Radius;
 
-    public StagePointData(string pointName, Vector3 position, float radius)
+    public StagePointFieldValue(string pointName, Vector3 position, float radius)
     {
         PointName = pointName;
-        Position = position;
+        LocalPosition = position;
         Radius = radius;
     }
 }
+#endregion
 
 /*
  * A class that can keep data about a stage point
@@ -30,24 +32,9 @@ public class StagePoint : MonoBehaviour
     #endregion
 
     #region SetGet
-    public void SetPosition(Vector3 pos)
-    {
-        transform.position = pos;
-    }
-
     public Vector3 GetPosition()
     {
         return transform.position;
-    }
-
-    public void SetLocalPosition(Vector3 pos)
-    {
-        transform.localPosition = pos;
-    }
-
-    public Vector3 GetLocalPosition()
-    {
-        return transform.localPosition;
     }
     #endregion
 
@@ -63,20 +50,21 @@ public class StagePoint : MonoBehaviour
     {
         if (_builder == null) _builder = GetComponentInParent<StageBuilder>();
 
-        _builder.AddStagePoint(new StagePointData(PointName,transform.position,Radius));
+        _builder.AddStagePoint(new StagePointFieldValue(PointName,transform.localPosition,Radius));
     }
-    public void Load(Vector3 pos, string pointName, float radius)
+
+    public void Load(Vector3 localPos, string pointName, float radius)
     {
-        SetLocalPosition(pos);
+        transform.localPosition = localPos;
         PointName = pointName;
         Radius = radius;
     }
-
-    public void Display(StagePointData stagePointData)
+    
+    public void Load(StagePointFieldValue fieldValue)
     {
-        PointName = stagePointData.PointName;
-        Radius = stagePointData.Radius;
-        transform.position = stagePointData.Position;
+        transform.localPosition = fieldValue.LocalPosition;
+        PointName = fieldValue.PointName;
+        Radius = fieldValue.Radius;
     }
     #endregion
 }

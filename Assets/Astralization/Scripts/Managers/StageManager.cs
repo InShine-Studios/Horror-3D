@@ -85,8 +85,10 @@ public class StageManager : MonoBehaviour, IStageManager
                 _stageTransitionZoneData.GhostTransitionZonePosition[i],
                 _stageTransitionZoneData.GhostTransitionZoneCenter[i],
                 _stageTransitionZoneData.GhostTransitionZoneSize[i],
-                _stageTransitionZoneData.GhostTransitionZoneEndpoint[i].list);
-            instance.SetZoneName();
+                _stageTransitionZoneData.GhostTransitionZoneEndpoint[i].list,
+                renameEndpoint: true
+                );
+            instance.SetZoneName("Zone");
             _ghostTransitionZones.Add(instance.name, instance);
         }
     }
