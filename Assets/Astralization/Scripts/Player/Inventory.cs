@@ -4,7 +4,6 @@ using UnityEngine;
 public interface IInventory
 {
     int Size { get; }
-
     void DiscardItemInput();
     int GetActiveIdx();
     IItem GetActiveItem();
@@ -33,10 +32,7 @@ public interface IInventory
 public class Inventory : MonoBehaviour, IInventory
 {
     #region Events
-    public static event Action<int, int> InitItemHudEvent;
-    public static event Action<int, Sprite> ItemLogoEvent;
-    public static event Action ToggleItemHudDisplayEvent;
-    public static event Action<int> UpdateActiveItemIndexEvent;
+    public static event Action<InventoryHudEventArgs> InventoryHudEvent;
     public static event Action<Item> DiscardItemEvent;
     #endregion
 
@@ -102,7 +98,11 @@ public class Inventory : MonoBehaviour, IInventory
 
         _animation.SetHoldingItemAnim(_activeItem != null);
 
-        UpdateActiveItemIndexEvent.Invoke(newIdx);
+        InvokeHudEvent(new ChangeActiveItemIdxEventArgs(newIdx));
+        if(_activeItem != null)
+        {
+            InvokeHudEvent(new UpdateHudLogoEventArgs(_activeIdx, _activeItem.GetHudLogoAnimatorController(), _activeItem.LogoState));
+        }
     }
     public IItem GetActiveItem() { return _activeItem; }
     public IItem GetItemByIndex(int idx) { return _items[idx]; }
@@ -115,7 +115,14 @@ public class Inventory : MonoBehaviour, IInventory
     {
         _animation = transform.GetComponentInParent<PlayerAnimation>();
         _items = new Item[_size];
-        InitItemHudEvent.Invoke(_size, _activeIdx);
+        InvokeHudEvent(new InitInventoryHudEventArgs(_size,0));
+    }
+    #endregion
+
+    #region EventHandler
+    private void InvokeHudEvent(InventoryHudEventArgs args)
+    {
+        InventoryHudEvent.Invoke(args);
     }
     #endregion
 
@@ -140,7 +147,7 @@ public class Inventory : MonoBehaviour, IInventory
                     {
                         _items[i] = item;
                         pickedIdx = i; // For logs
-                        ItemLogoEvent?.Invoke(i, item.GetHudLogo());
+                        InvokeHudEvent(new UpdateHudLogoEventArgs(i, item.GetHudLogoAnimatorController(), item.LogoState));
                         break;
                     }
                 }
@@ -152,7 +159,7 @@ public class Inventory : MonoBehaviour, IInventory
                 _items[_activeIdx] = item;
                 _activeItem = item;
 
-                ItemLogoEvent?.Invoke(_activeIdx, item.GetHudLogo());
+                InvokeHudEvent(new UpdateHudLogoEventArgs(_activeIdx, item.GetHudLogoAnimatorController(), item.LogoState));
             }
 
             // Put item as child of Inventory
@@ -191,7 +198,7 @@ public class Inventory : MonoBehaviour, IInventory
 
         _animation.SetHoldingItemAnim(false);
 
-        ItemLogoEvent?.Invoke(_activeIdx, null);
+        InvokeHudEvent(new UpdateHudLogoEventArgs(_activeIdx,null));
     }
 
     public void DiscardItemInput()
@@ -237,8 +244,6 @@ public class Inventory : MonoBehaviour, IInventory
     #region Use Active Item
     public void UseActiveItem()
     {
-        
-
         if (!_activeItem) Debug.Log("[INVENTORY] Missing active item");
         else
         {
@@ -255,7 +260,7 @@ public class Inventory : MonoBehaviour, IInventory
                 }
                 else if (_activeItem.UseBehaviourType.HasFlag(Utils.ItemHelper.UseBehaviourType.Handheld))
                 {
-                    ItemLogoEvent?.Invoke(_activeIdx, _activeItem.GetHudLogo()); //TODO: set to alternate logo
+                    InvokeHudEvent(new UpdateHudLogoEventArgs(_activeIdx, _activeItem.GetHudLogoAnimatorController(), _activeItem.LogoState));
                 }
             }
         }
@@ -265,8 +270,7 @@ public class Inventory : MonoBehaviour, IInventory
     #region ItemHud
     public void ToggleItemHudDisplay()
     {
-
-        ToggleItemHudDisplayEvent.Invoke();
+        InvokeHudEvent(new ToggleExpandShrinkEventArgs());
     }
     #endregion
 }

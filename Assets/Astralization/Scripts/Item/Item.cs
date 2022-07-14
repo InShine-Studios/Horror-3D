@@ -2,8 +2,8 @@ using UnityEngine;
 
 public interface IItem
 {
+    RuntimeAnimatorController GetHudLogoAnimatorController();
     void Discard();
-    Sprite GetHudLogo();
     void Pick();
     void ShowItem(bool isShown);
     bool Use();
@@ -20,8 +20,9 @@ public abstract class Item : MonoBehaviour, IItem
     #region Variables
     [Header("Item Marker")]
     [SerializeField]
-    [Tooltip("The item logo for HUD")]
-    protected Sprite HudLogo;
+    [Tooltip("The item logo animation controller for HUD")]
+    protected RuntimeAnimatorController hudLogoAnimatorController;
+    public int LogoState { get; protected set; }
     private GameObject _model;
 
     // Determine item usage behavior
@@ -42,6 +43,7 @@ public abstract class Item : MonoBehaviour, IItem
     [Tooltip("The icon mark for guidance")]
     [SerializeField]
     private GameObject _guideIcon;
+
     #endregion
 
     #region SetGet
@@ -56,9 +58,9 @@ public abstract class Item : MonoBehaviour, IItem
         this.gameObject.SetActive(isShown);
     }
 
-    public Sprite GetHudLogo()
+    public RuntimeAnimatorController GetHudLogoAnimatorController()
     {
-        return HudLogo;
+        return hudLogoAnimatorController;
     }
 
     public void SetCollider(bool state)

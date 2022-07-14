@@ -30,7 +30,7 @@ public class AstralWorldEntryTest : TestBase
 
     #region Astral World
     [UnityTest]
-    public IEnumerator AstralWorld_MoveToAstralWorld()
+    public IEnumerator AstralWorld_UseAnkh_MoveToAstralWorld()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
         IAstralMeterLogic astralMeterLogic = GameObject.Find("WorldState").GetComponent<IAstralMeterLogic>();
@@ -50,8 +50,13 @@ public class AstralWorldEntryTest : TestBase
         Assert.NotNull(inventory.GetActiveItem());
         Assert.AreEqual(0, inventory.GetActiveIdx());
 
+        Animator logoAnimator = GameObject.Find("Player/UiCanvas/ItemHud/Slot 1").GetComponent<Animator>();
+        Assert.IsNotNull(logoAnimator.runtimeAnimatorController);
+        Assert.AreEqual(0, logoAnimator.GetInteger("States"));
+
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
-        yield return null;
+
+        Assert.AreEqual(1, logoAnimator.GetInteger("States"));
 
         GameObject volume = GameObject.Find("WorldState");
         IStateMachine script = volume.GetComponent<IStateMachine>();
