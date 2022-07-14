@@ -29,7 +29,7 @@ public class SilhouetteBowlItem : EvidenceItem
     public override void Pick()
     {
         base.Pick();
-        //_silhouetteBowlManager.ChangeState<SilhouetteBowlInactiveState>(); //commented for the sake of logo testing
+        _silhouetteBowlManager.ChangeState<SilhouetteBowlInactiveState>(); //comment this for logo testing of another states
         LogoState = _silhouetteBowlManager.GetStateNum();
     }
 
