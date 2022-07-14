@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System;
+using System.Collections;
 
 #region SerializableClass
 [Serializable]
@@ -45,8 +46,12 @@ public class StageBuilder : MonoBehaviour
     #endregion
 
     #region StagePoint
-    public void AddStagePoint(StagePointFieldValue fieldValue)
+    public void AddCurrentStagePoint()
     {
+        if (_stagePoint == null) _stagePoint = GetComponentInChildren<StagePoint>();
+
+        StagePointFieldValue fieldValue = new StagePointFieldValue(_stagePoint.PointName, _stagePoint.transform.localPosition, _stagePoint.Radius);
+
         if (_stagePointsDict.ContainsKey(fieldValue.PointName)) _stagePointsDict[fieldValue.PointName] = fieldValue;
         else _stagePointsDict.Add(fieldValue.PointName, fieldValue);
     }
@@ -66,8 +71,15 @@ public class StageBuilder : MonoBehaviour
     #endregion
 
     #region GhostTransitionZone
-    public void AddTransitionZone(TransitionZoneFieldValue fieldValue)
+    public IEnumerable AddCurrentTransitionZone()
     {
+        if (_ghostTransitionZone == null) _ghostTransitionZone = GetComponentInChildren<GhostTransitionZone>();
+
+        _ghostTransitionZone.Save();
+        yield return new WaitUntil(() => !_ghostTransitionZone.IsSaving);
+
+        TransitionZoneFieldValue fieldValue = _ghostTransitionZone.GetZoneFieldValue();
+
         if (_transitionZoneDict.ContainsKey(fieldValue.ZoneName)) _transitionZoneDict[fieldValue.ZoneName] = fieldValue;
         else _transitionZoneDict.Add(fieldValue.ZoneName, fieldValue);
     }

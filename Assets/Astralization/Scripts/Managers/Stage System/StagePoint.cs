@@ -27,8 +27,6 @@ public class StagePoint : MonoBehaviour
     public string PointName;
 
     public float Radius;
-
-    private StageBuilder _builder;
     #endregion
 
     #region SetGet
@@ -38,21 +36,7 @@ public class StagePoint : MonoBehaviour
     }
     #endregion
 
-    #region MonoBehaviour
-    private void Awake()
-    {
-        _builder = transform.GetComponentInParent<StageBuilder>();
-    }
-    #endregion
-
     #region SaveLoad
-    public void Save()
-    {
-        if (_builder == null) _builder = GetComponentInParent<StageBuilder>();
-
-        _builder.AddStagePoint(new StagePointFieldValue(PointName,transform.localPosition,Radius));
-    }
-
     public void Load(Vector3 localPos, string pointName, float radius)
     {
         transform.localPosition = localPos;

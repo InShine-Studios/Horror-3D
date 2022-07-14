@@ -16,17 +16,20 @@ public class GhostTransitionZoneInspector : Editor
         }
     }
 
+    private StageBuilder _stageBuilder;
+
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        if (current.transform.parent.GetComponent<StageBuilder>() == null) return;
+        _stageBuilder = current.GetComponentInParent<StageBuilder>();
+        if (_stageBuilder == null) return;
 
         EditorGUILayout.Space();
         if (GUILayout.Button("Save"))
         {
-            IEnumerator enumerator = current.Save().GetEnumerator();
-            while(enumerator.MoveNext()) { }
+            IEnumerator enumerator = _stageBuilder.AddCurrentTransitionZone().GetEnumerator();
+            while (enumerator.MoveNext()) { }
         }
     }
 

@@ -51,9 +51,11 @@ public class GhostTransitionZone : MonoBehaviour
 {
     #region Variables
     private TransitionEndpointList Endpoints;
-    private StageBuilder _builder;
     private BoxCollider _boxCollider;
     private bool _isUpdatingEndpoint = false;
+    private bool _isSaving = false;
+    public bool IsSaving { get { return _isSaving; } }
+    private TransitionZoneFieldValue _zoneFieldValue;
 
     public Transform EnterPoint { get; private set; }
     public Transform ExitPoint { get; private set; }
@@ -76,23 +78,13 @@ public class GhostTransitionZone : MonoBehaviour
     {
         name = GenerateZoneName(Endpoints,prefix);
     }
-    #endregion
 
-    #region FieldUpdater
-    private void UpdateEndpointList()
+    public TransitionZoneFieldValue GetZoneFieldValue()
     {
-        _isUpdatingEndpoint = true;
-        GhostTransitionZoneEndpoint[] ghostTransitionZoneEndpoints = GetComponentsInChildren<GhostTransitionZoneEndpoint>();
-        List<TransitionEndpoint> transitionEndpoints = new List<TransitionEndpoint>();
-        for (int i = 0; i < ghostTransitionZoneEndpoints.Length; i++)
-        {
-            transitionEndpoints.Add(new TransitionEndpoint(ghostTransitionZoneEndpoints[i].AreaName, ghostTransitionZoneEndpoints[i].transform.localPosition));
-        }
-        Endpoints = new TransitionEndpointList(transitionEndpoints);
-
-        _isUpdatingEndpoint = false;
+        return _zoneFieldValue;
     }
     #endregion
+
 
     #region MonoBehaviour
     private void OnTriggerEnter(Collider other)
@@ -116,23 +108,29 @@ public class GhostTransitionZone : MonoBehaviour
     #endregion
 
     #region SaveLoad
-    public IEnumerable Save()
+    public void Save()
     {
-        if (_builder == null) _builder = GetComponentInParent<StageBuilder>();
-
-        UpdateEndpointList();
-        string zoneName = GenerateZoneName(Endpoints);
-
+        _isSaving = true;
         if (_boxCollider == null) _boxCollider = GetComponent<BoxCollider>();
+        
+        // Update Endpoints
+        GhostTransitionZoneEndpoint[] ghostTransitionZoneEndpoints = GetComponentsInChildren<GhostTransitionZoneEndpoint>();
+        List<TransitionEndpoint> transitionEndpoints = new List<TransitionEndpoint>();
+        for (int i = 0; i < ghostTransitionZoneEndpoints.Length; i++)
+        {
+            transitionEndpoints.Add(new TransitionEndpoint(ghostTransitionZoneEndpoints[i].AreaName, ghostTransitionZoneEndpoints[i].transform.localPosition));
+        }
+        Endpoints = new TransitionEndpointList(transitionEndpoints);
 
-        yield return new WaitWhile(() => _isUpdatingEndpoint);
-        _builder.AddTransitionZone(new TransitionZoneFieldValue(
-            zoneName,
+        _zoneFieldValue = new TransitionZoneFieldValue(
+            GenerateZoneName(Endpoints),
             transform.localPosition,
             _boxCollider.center,
             _boxCollider.size,
             Endpoints
-        ));
+        );
+
+        _isSaving = false;
     }
 
     private void UpdateEndpoints(bool renameEndppoint = false)

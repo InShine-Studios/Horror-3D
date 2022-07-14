@@ -15,15 +15,18 @@ public class StagePointInspector : Editor
         }
     }
 
+    private StageBuilder _stageBuilder;
+
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        if (current.transform.parent.GetComponent<StageBuilder>() == null) return;
+        _stageBuilder = current.GetComponentInParent<StageBuilder>();
+        if (_stageBuilder == null) return;
 
         EditorGUILayout.Space();
         if (GUILayout.Button("Save"))
-            current.Save();
+            _stageBuilder.AddCurrentStagePoint();
     }
 
 }
