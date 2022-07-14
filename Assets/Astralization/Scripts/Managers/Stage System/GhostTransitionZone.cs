@@ -83,8 +83,12 @@ public class GhostTransitionZone : MonoBehaviour
     {
         return _zoneFieldValue;
     }
-    #endregion
 
+    public string GetZoneName()
+    {
+        return GenerateZoneName(Endpoints);
+    }
+    #endregion
 
     #region MonoBehaviour
     private void OnTriggerEnter(Collider other)

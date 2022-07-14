@@ -17,6 +17,7 @@ public class GhostTransitionZoneInspector : Editor
     }
 
     private StageBuilder _stageBuilder;
+    private string _name;
 
     public override void OnInspectorGUI()
     {
@@ -26,6 +27,7 @@ public class GhostTransitionZoneInspector : Editor
         if (_stageBuilder == null) return;
 
         EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Current Transition Zone: " + current.GetZoneName());
         if (GUILayout.Button("Save"))
         {
             IEnumerator enumerator = _stageBuilder.AddCurrentTransitionZone().GetEnumerator();
