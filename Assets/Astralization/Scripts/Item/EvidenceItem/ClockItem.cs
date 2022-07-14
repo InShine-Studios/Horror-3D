@@ -32,7 +32,7 @@ public class ClockItem : EvidenceItem
     public override void Pick()
     {
         base.Pick();
-        //_clockManager.ChangeState<ClockInactiveState>();
+        //_clockManager.ChangeState<ClockInactiveState>(); //commented for the sake of logo testing
         LogoState = _clockManager.GetStateNum();
     }
 

@@ -28,7 +28,7 @@ public class ThermometerItem : EvidenceItem
     public override void Pick()
     {
         base.Pick();
-        //_thermometerManager.ChangeState<ThermometerInactiveState>();
+        //_thermometerManager.ChangeState<ThermometerInactiveState>(); //commented for the sake of logo testing
         LogoState = _thermometerManager.GetStateNum();
     }
 
