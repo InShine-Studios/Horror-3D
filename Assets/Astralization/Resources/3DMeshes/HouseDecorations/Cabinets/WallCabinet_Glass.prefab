@@ -364,6 +364,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2036079391066473674}
+  - component: {fileID: 5369760702181959633}
   m_Layer: 0
   m_Name: WallCabinet_Glass
   m_TagString: Untagged
@@ -386,6 +387,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5369760702181959633
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5639680442240167111}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.3367767, y: 1.7177606, z: 1.6715375}
+  m_Center: {x: -0.04068184, y: 1.0469851, z: -0.0008775592}
 --- !u!1 &6432191712510645935
 GameObject:
   m_ObjectHideFlags: 0

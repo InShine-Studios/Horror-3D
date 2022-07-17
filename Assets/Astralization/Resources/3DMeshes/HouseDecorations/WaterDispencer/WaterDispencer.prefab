@@ -154,6 +154,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9181467265925779158}
+  - component: {fileID: 5590900371590773678}
+  - component: {fileID: 4543206066759071813}
   m_Layer: 0
   m_Name: WaterDispencer
   m_TagString: Untagged
@@ -176,6 +178,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5590900371590773678
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5615761549599856475}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.9685638, z: 1}
+  m_Center: {x: 0, y: 1.4949905, z: 0}
+--- !u!65 &4543206066759071813
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5615761549599856475}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5164423, y: 1.008054, z: 1.5237656}
+  m_Center: {x: -1.6679082, y: 0.5248306, z: 0.26188278}
 --- !u!1 &5958686820019880166
 GameObject:
   m_ObjectHideFlags: 0

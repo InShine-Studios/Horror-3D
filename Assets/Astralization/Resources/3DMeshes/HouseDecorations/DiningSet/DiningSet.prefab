@@ -1311,6 +1311,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3647122038676612712}
+  - component: {fileID: 8212322494750329800}
   m_Layer: 0
   m_Name: DiningSet
   m_TagString: Untagged
@@ -1333,6 +1334,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8212322494750329800
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2676557212114366895}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.1876788, y: 1.7401772, z: 2.6083002}
+  m_Center: {x: -0.020129919, y: 0.7833233, z: 0.18557215}
 --- !u!1 &2823190097773543641
 GameObject:
   m_ObjectHideFlags: 0

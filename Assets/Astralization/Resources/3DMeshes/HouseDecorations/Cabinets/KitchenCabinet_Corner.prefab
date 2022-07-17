@@ -738,6 +738,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4439506527921038046}
+  - component: {fileID: 6018733619455072421}
+  - component: {fileID: 6696043914742896938}
   m_Layer: 0
   m_Name: KitchenCabinet_Corner
   m_TagString: Untagged
@@ -760,6 +762,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6018733619455072421
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5906529355160003062}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8254833, y: 1.6864507, z: 1.2553825}
+  m_Center: {x: 0.018172264, y: 0.8975936, z: 0.0462265}
+--- !u!65 &6696043914742896938
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5906529355160003062}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1401005, y: 1.7705407, z: 0.6920662}
+  m_Center: {x: 0.38565922, y: 0.8752563, z: -0.87525463}
 --- !u!1 &6672529690637122767
 GameObject:
   m_ObjectHideFlags: 0
