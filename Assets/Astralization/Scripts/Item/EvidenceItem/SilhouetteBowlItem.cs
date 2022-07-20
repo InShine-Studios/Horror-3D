@@ -23,12 +23,14 @@ public class SilhouetteBowlItem : EvidenceItem
     protected override void ActivateFunctionality()
     {
         _silhouetteBowlManager.ChangeState<SilhouetteBowlActiveState>();
+        LogoState = _silhouetteBowlManager.GetStateNum();
     }
 
     public override void Pick()
     {
         base.Pick();
-        _silhouetteBowlManager.ChangeState<SilhouetteBowlInactiveState>();
+        _silhouetteBowlManager.ChangeState<SilhouetteBowlInactiveState>(); //comment this for logo testing of another states
+        LogoState = _silhouetteBowlManager.GetStateNum();
     }
 
     public override void OnGhostInteraction()
@@ -46,6 +48,7 @@ public class SilhouetteBowlItem : EvidenceItem
             _silhouetteBowlManager.ChangeState<SilhouetteBowlPositiveState>();
         }
         else _silhouetteBowlManager.ChangeState<SilhouetteBowlNegativeState>();
+        LogoState = _silhouetteBowlManager.GetStateNum();
     }
     #endregion
 }

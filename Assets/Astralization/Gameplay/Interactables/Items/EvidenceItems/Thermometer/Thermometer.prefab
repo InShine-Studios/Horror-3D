@@ -102,15 +102,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 702483fbdc390fc0997370720f68f99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hudLogoAnimatorController: {fileID: 9100000, guid: df0a5f23b03417c4589d686f2d800a07, type: 2}
+  _discardedWhenUsed: 1
   _useIcon: 0
   _guideIcon: {fileID: 0}
-  _HudLogo: {fileID: 0}
-  _discardedWhenUsed: 1
-  state: 0
-  _baseMaterial: {fileID: 2100000, guid: 40d48c34dd1762321aa0439bd84fb7f8, type: 2}
-  _activeMaterial: {fileID: 2100000, guid: 062116c317e6f29d88d48f9609e7db10, type: 2}
-  _positiveMaterial: {fileID: 2100000, guid: 2fb4d7f5de93b10f9967eb3170f689ba, type: 2}
-  _negativeMaterial: {fileID: 2100000, guid: b467fd4452de9777abe114a393b42921, type: 2}
 --- !u!114 &1099225383577469023
 MonoBehaviour:
   m_ObjectHideFlags: 0

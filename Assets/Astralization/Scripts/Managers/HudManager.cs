@@ -40,26 +40,6 @@ public class HudManager : MonoBehaviour
     {
         _exorcismBar.ShowBar(isShowExorcism);
     }
-
-    private void UpdateLogo(int index, Sprite logo)
-    {
-        _itemHud.SetItemLogo(index, logo);
-    }
-
-    private void GenerateItemHud(int inventoryLength, int activeIdx)
-    {
-        _itemHud.Init(inventoryLength, activeIdx);
-    }
-
-    private void ToggleItemHudDisplay()
-    {
-        _itemHud.ToggleDisplay();
-    }
-
-    private void UpdateActiveItem(int activeIdx)
-    {
-        _itemHud.SelectActiveSlot(activeIdx);
-    }
     #endregion
 
     #region MonoBehaviour
@@ -74,20 +54,40 @@ public class HudManager : MonoBehaviour
     {
         GameManager.HudEvent += SetHudState;
         PlayerHidingState.StopHidingHudEvent += ShowHidingHud;
-        Inventory.ItemLogoEvent += UpdateLogo;
-        Inventory.InitItemHudEvent += GenerateItemHud;
-        Inventory.ToggleItemHudDisplayEvent += ToggleItemHudDisplay;
-        Inventory.UpdateActiveItemIndexEvent += UpdateActiveItem;
+        Inventory.InventoryHudEvent += HandleInventoryEvent;
     }
 
     private void OnDisable()
     {
         GameManager.HudEvent -= SetHudState;
         PlayerHidingState.StopHidingHudEvent -= ShowHidingHud;
-        Inventory.ItemLogoEvent -= UpdateLogo;
-        Inventory.InitItemHudEvent -= GenerateItemHud;
-        Inventory.ToggleItemHudDisplayEvent -= ToggleItemHudDisplay;
-        Inventory.UpdateActiveItemIndexEvent -= UpdateActiveItem;
+        Inventory.InventoryHudEvent -= HandleInventoryEvent;
+    }
+    #endregion
+
+    #region EventHandler
+    private void HandleInventoryEvent(InventoryHudEventArgs args)
+    {
+        switch (args.GetType().Name)
+        {
+            case nameof(InitInventoryHudEventArgs):
+                _itemHud.Init(args.InventoryLength, args.CurrentActiveIdx);
+                break;
+            case nameof(UpdateHudLogoEventArgs):
+                _itemHud.SetItemLogoAnimator(args.LogoAnimatorIdx, args.HudLogoAnimatorController, args.HudLogoAnimationParam);
+                break;
+            case nameof(ChangeActiveItemAnimEventArgs):
+                _itemHud.SetItemLogoAnimation(args.CurrentActiveIdx, args.HudLogoAnimationParam);
+                break;
+            case nameof(ChangeActiveItemIdxEventArgs):
+                _itemHud.SelectActiveSlot(args.CurrentActiveIdx);
+                break;
+            case nameof(ToggleExpandShrinkEventArgs):
+                _itemHud.ToggleDisplay();
+                break;
+            default:
+                break;
+        }
     }
     #endregion
 }
