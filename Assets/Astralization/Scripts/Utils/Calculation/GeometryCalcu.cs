@@ -31,5 +31,14 @@ namespace Utils
             Vector3 detectorCenter = source.position + BoxDetector.center;
             return Physics.OverlapBox(detectorCenter, BoxDetector.size / 2);
         }
+
+        public static Vector3 ExcludeScalingFromParent(Vector3 targetLocalScale, Vector3 parentLocalScale)
+        {
+            Vector3 scaleTmp = targetLocalScale;
+            scaleTmp.x /= parentLocalScale.x;
+            scaleTmp.y /= parentLocalScale.y;
+            scaleTmp.z /= parentLocalScale.z;
+            return scaleTmp;
+        }
     }
 }

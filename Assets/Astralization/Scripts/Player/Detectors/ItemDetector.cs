@@ -61,7 +61,7 @@ public class ItemDetector : MonoBehaviour
             if (item.Equals(closestItem))
             {
                 // Turn off icon
-                closestItem.ShowGuideIcon(false);
+                closestItem.ShowMarker(false);
                 closestItem = null;
             }
         }
@@ -108,11 +108,11 @@ public class ItemDetector : MonoBehaviour
 
         if (closestItem && !newClosest.Equals(closestItem))
         {
-            closestItem.ShowGuideIcon(false);
+            closestItem.ShowMarker(false);
             //Debug.Log("[PLAYER INTERACTION] Updated closest interactable to " + closestInteractable.name);
         }
         closestItem = newClosest; // newClosest can be null when no nearby
-        closestItem?.ShowGuideIcon(true);
+        closestItem?.ShowMarker(true);
     }
 
     public void CheckInteraction()
