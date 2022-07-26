@@ -64,6 +64,8 @@ public class GhostTransitionZone : MonoBehaviour
     #region SetGet
     public static string GenerateZoneName(TransitionEndpointList endpoints, string prefix = "")
     {
+        if (endpoints == null) return "";
+
         string zoneName = prefix;
         if (prefix != "") zoneName += " ";
 
