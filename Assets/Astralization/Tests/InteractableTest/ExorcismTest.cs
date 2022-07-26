@@ -20,7 +20,7 @@ public class ExorcismTest : TestBase
                 player = gameObject.transform.Find("Character").gameObject;
                 playerMovement = player.GetComponent<IPlayerMovement>();
                 exorcismBar = gameObject.transform.GetComponentInChildren<IExorcismBar>();
-                exorcismSliderObj = gameObject.transform.Find("UiCanvas/ExorcismHud/Slider").gameObject;
+                exorcismSliderObj = gameObject.transform.Find(UiCanvas + "/ExorcismHud/Slider").gameObject;
             }
         }
     }

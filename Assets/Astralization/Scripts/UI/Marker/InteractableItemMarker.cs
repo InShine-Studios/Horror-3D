@@ -3,15 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InteractableItemMarker : MonoBehaviour
+public interface IInteractableItemMarker
 {
+    bool IsEnabled();
+    void SetAnimation(int animationParam);
+    void SetAnimator(RuntimeAnimatorController animatorController, int animationParam = -1);
+    void SetEnabled(bool isEnabled);
+}
+
+public class InteractableItemMarker : MonoBehaviour, IInteractableItemMarker
+{
+    #region Variables
     private Canvas _canvas;
     private CircleGraphic _border;
     private Image _logo;
     private bool _enabled;
-    private Vector3 _basePosition;
     private Animator _animator;
+    #endregion
 
+    #region SetGer
     public void SetEnabled(bool isEnabled)
     {
         _border.enabled = isEnabled;
@@ -30,6 +40,12 @@ public class InteractableItemMarker : MonoBehaviour
         if (animationParam != -1) SetAnimation(animationParam);
     }
 
+    public bool IsEnabled()
+    {
+        return _enabled;
+    }
+    #endregion
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -39,9 +55,7 @@ public class InteractableItemMarker : MonoBehaviour
         _border = GetComponentInChildren<CircleGraphic>();
         _logo = GetComponentInChildren<Image>();
 
-        _basePosition = transform.position;
-
-        transform.localScale = Utils.GeometryCalcu.ExcludeScalingFromParent(transform.localScale,transform.parent.localScale);
+        transform.localScale = Utils.GeometryCalcu.ExcludeScalingFromParent(transform.localScale, transform.parent.localScale);
 
         SetEnabled(false);
     }

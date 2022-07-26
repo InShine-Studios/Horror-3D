@@ -23,7 +23,7 @@ public class VictimInteractableTest : TestBase
                 player = gameObject.transform.Find("Character").gameObject;
                 playerMovement = gameObject.GetComponentInChildren<IPlayerMovement>();
                 _dialogueManager = gameObject.GetComponentInChildren<IDialogueManager>();
-                _dialogue = gameObject.transform.Find("UiCanvas/Dialogue Box").gameObject;
+                _dialogue = gameObject.transform.Find(UiCanvas + "/Dialogue Box").gameObject;
             }
             else if (gameObject.name == "Victim")
             {
@@ -46,13 +46,13 @@ public class VictimInteractableTest : TestBase
     public IEnumerator PlayerInteractableDetector_InteractVictim()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        GameObject exclamationMark = _victim.transform.Find("ExclamationMark").gameObject;
+        IInteractableItemMarker interactableMarker = _victim.transform.GetComponentInChildren<IInteractableItemMarker>();
 
         float moveDuration = GetMovementDurationTowards(_victim.transform);
 
-        Assert.IsFalse(exclamationMark.activeInHierarchy);
+        Assert.IsFalse(interactableMarker.IsEnabled());
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
-        Assert.IsTrue(exclamationMark.activeInHierarchy);
+        Assert.IsTrue(interactableMarker.IsEnabled());
 
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
 
