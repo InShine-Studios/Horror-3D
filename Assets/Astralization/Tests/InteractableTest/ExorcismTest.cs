@@ -119,7 +119,7 @@ public class ExorcismTest : TestBase
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.UseItem);
 
         GameObject exorcismItemObj = player.transform.Find("Rotate/InteractZone/ExorcismItem").gameObject;
-        GameObject hud = GameObject.Find("Player/UiCanvas").gameObject;
+        GameObject hud = GameObject.Find("Player/" + UiCanvas).gameObject;
         GameObject exorcismBarObj = hud.transform.Find("ExorcismHud").gameObject;
         GameObject exorcismSliderObj = hud.transform.Find("ExorcismHud/Slider").gameObject;
         IExorcismBar exorcismBar = exorcismBarObj.GetComponent<IExorcismBar>();
