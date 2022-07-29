@@ -2,17 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeslotState : MonoBehaviour
+public class TimeslotState : State
 {
-    // Start is called before the first frame update
-    void Start()
+    #region Variables
+    protected TimeslotStateMachine owner;
+    protected int TimeNum;
+    #endregion
+
+    #region SetGet
+    public int GetTimeNum()
     {
-        
+        return TimeNum;
+    }
+    #endregion
+
+    #region MonoBehaviour
+    protected virtual void Awake()
+    {
+        owner = GetComponent<TimeslotStateMachine>();
+    }
+    #endregion
+
+    #region StateHandler
+    public override void Enter()
+    {
+        base.Enter();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Exit()
     {
-        
+        base.Exit();
     }
+    #endregion
 }

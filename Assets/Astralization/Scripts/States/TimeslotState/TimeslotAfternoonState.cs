@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeslotAfternoonState : MonoBehaviour
+public class TimeslotAfternoonState : TimeslotState
 {
-    // Start is called before the first frame update
-    void Start()
+    #region MonoBehaviour
+    protected override void Awake()
     {
-        
+        base.Awake();
+        TimeNum = 2;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #endregion
 }
