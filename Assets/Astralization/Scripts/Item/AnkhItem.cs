@@ -21,10 +21,10 @@ public class AnkhItem : Item
     #region MonoBehaviour
     protected override void Awake()
     {
-        base.Awake();
         UseBehaviourType = Utils.ItemHelper.UseBehaviourType.Handheld;
         WorldConditionType = Utils.ItemHelper.WorldConditionType.Real | Utils.ItemHelper.WorldConditionType.Astral;
         LogoState = (int)AnkhState.Inactive;
+        base.Awake();
     }
     #endregion
 
