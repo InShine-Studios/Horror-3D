@@ -8,7 +8,7 @@ public class TimeslotInitState : TimeslotState
     protected override void Awake()
     {
         base.Awake();
-        TimeNum = 0;
+        TimeNum = -1;
         StartCoroutine(Init());
     }
     #endregion

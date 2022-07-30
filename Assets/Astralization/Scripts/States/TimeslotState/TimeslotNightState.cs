@@ -8,7 +8,7 @@ public class TimeslotNightState : TimeslotState
     protected override void Awake()
     {
         base.Awake();
-        TimeNum = 3;
+        TimeNum = 2;
     }
     #endregion
 }

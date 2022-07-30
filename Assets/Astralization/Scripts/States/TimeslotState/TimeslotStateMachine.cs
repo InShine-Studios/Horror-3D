@@ -7,9 +7,9 @@ public class TimeslotStateMachine : StateMachine
     #region Variables
     private Dictionary<int, string> timeNumMapper = new Dictionary<int, string>()
     {
-        {1, nameof(TimeslotMorningState) },
-        {2, nameof(TimeslotAfternoonState) },
-        {3, nameof(TimeslotNightState) }
+        {0, nameof(TimeslotMorningState) },
+        {1, nameof(TimeslotAfternoonState) },
+        {2, nameof(TimeslotNightState) }
     };
 
     private int timeslotCount;
