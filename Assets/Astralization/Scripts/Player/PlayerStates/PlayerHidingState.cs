@@ -25,6 +25,7 @@ public class PlayerHidingState : PlayerState
         base.Awake();
         _playerMovement = GetComponent<PlayerMovement>();
         _interactableDetector = GetComponentInChildren<InteractableDetector>();
+        //_playerCamera = this.transform.Find('Camera');
     }
     #endregion
 
@@ -36,7 +37,8 @@ public class PlayerHidingState : PlayerState
         _closets = _interactableDetector.GetClosest().transform.parent;
         _prevPosition = this.transform.position;
         Vector3 calOffset = _closets.GetComponentInChildren<Renderer>().bounds.center;
-        this.transform.position = calOffset;
+        Debug.Log(this.name);
+        this.transform.position = new Vector3(calOffset.x, 0 , calOffset.z);
     }
 
     public override void Exit()
