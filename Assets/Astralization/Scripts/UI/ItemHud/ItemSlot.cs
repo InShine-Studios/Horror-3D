@@ -38,7 +38,10 @@ public class ItemSlot : MonoBehaviour
 
     public void SetLogoAnimParam()
     {
-        _animator?.SetInteger(AnimationParamName, _currentAnimParam);
+        if(_animator != null && _animator.runtimeAnimatorController != null)
+        {
+            _animator.SetInteger(AnimationParamName, _currentAnimParam);
+        }
     }
 
     public Image GetItemImage()

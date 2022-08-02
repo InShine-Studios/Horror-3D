@@ -27,6 +27,7 @@ public class ItemManager : MonoBehaviour
     public void AddItemChild(Item item)
     {
         item.gameObject.transform.parent = this.transform;
+        item.UpdateMarker();
     }
     #endregion
 }
