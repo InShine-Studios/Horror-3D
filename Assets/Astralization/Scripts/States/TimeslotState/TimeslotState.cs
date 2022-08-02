@@ -2,18 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeslotState : State
+public interface ITimeslotState
+{
+    string TimeName { get; }
+    int TimeNum { get; }
+}
+
+public class TimeslotState : State, ITimeslotState
 {
     #region Variables
     protected TimeslotStateMachine owner;
-    protected int TimeNum;
+    protected int timeNum;
+    protected string timeName;
     #endregion
 
     #region SetGet
-    public int GetTimeNum()
-    {
-        return TimeNum;
-    }
+    public int TimeNum { get { return timeNum; } }
+    public string TimeName { get { return timeName; } }
     #endregion
 
     #region MonoBehaviour

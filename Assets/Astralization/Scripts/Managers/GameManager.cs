@@ -97,7 +97,6 @@ public class GameManager : MonoBehaviour, IGameManager
     public void InvokeTimeJump(int jumpCount)
     {
         TimeslotStateMachine.Instance.AdvanceTime(jumpCount);
-        //SendHudEvent(Utils.UiHelper.UiType.Timeslot);
     }
     #endregion
 }

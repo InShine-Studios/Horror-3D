@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeslotNightState : TimeslotState
+public class TimeslotEveningState : TimeslotState
 {
     #region MonoBehaviour
     protected override void Awake()
     {
         base.Awake();
-        TimeNum = 2;
+        timeNum = 2;
+        timeName = "Evening";
     }
     #endregion
 }
