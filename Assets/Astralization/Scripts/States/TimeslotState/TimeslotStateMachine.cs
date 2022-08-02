@@ -47,7 +47,7 @@ public class TimeslotStateMachine : StateMachine
     #region MonoBehaviour
     private void Awake()
     {
-        ChangeState<TimeslotInitState>();
+        ChangeState<TimeslotMorningState>();
 
         _timeslotCount = timeNumMapper.Count;
         _currentDateTimeslot.Date = new DateTime(1, 1, 1);
@@ -55,6 +55,7 @@ public class TimeslotStateMachine : StateMachine
 
         _timeslotHud = TimeslotHud.Instance;
         _timeslotHud.SetDateDay(_currentDateTimeslot.Date);
+        _timeslotHud.SetTimeslot(_currentDateTimeslot.Timeslot);
         _instance = this;
     }
     #endregion
