@@ -50,7 +50,7 @@ public class AstralWorldEntryTest : TestBase
         Assert.NotNull(inventory.GetActiveItem());
         Assert.AreEqual(0, inventory.GetActiveIdx());
 
-        Animator logoAnimator = GameObject.Find("Player/UiCanvas/ItemHud/Slot 1").GetComponent<Animator>();
+        Animator logoAnimator = GameObject.Find(string.Format("Player/{0}/ItemHud/Slot 1",UiCanvas)).GetComponent<Animator>();
         Assert.IsNotNull(logoAnimator.runtimeAnimatorController);
         Assert.AreEqual(0, logoAnimator.GetInteger("States"));
 

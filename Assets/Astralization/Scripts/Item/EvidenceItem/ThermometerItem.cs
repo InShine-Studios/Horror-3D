@@ -35,6 +35,7 @@ public class ThermometerItem : EvidenceItem
     public override void OnGhostInteraction()
     {
         if (!(_thermometerManager.CurrentState is ThermometerInactiveState)) DetermineEvidence();
+        base.OnGhostInteraction();
     }
     #endregion
 

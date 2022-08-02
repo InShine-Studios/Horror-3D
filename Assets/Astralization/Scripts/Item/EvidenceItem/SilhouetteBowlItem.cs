@@ -36,6 +36,7 @@ public class SilhouetteBowlItem : EvidenceItem
     public override void OnGhostInteraction()
     {
         if (!(_silhouetteBowlManager.CurrentState is SilhouetteBowlInactiveState)) DetermineEvidence();
+        base.OnGhostInteraction();
     }
     #endregion
 

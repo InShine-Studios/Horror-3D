@@ -108,24 +108,24 @@ public class InteractableTest: TestBase
     }
 
     [UnityTest]
-    public IEnumerator PlayerInteractableDetector_ShowClosestInteractableIcon()
+    public IEnumerator PlayerInteractableDetector_ShowClosestInteractableMarker()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
         GameObject lightSwitch = GameObject.Find("LightSwitch");
         GameObject lightSwitch2 = GameObject.Find("LightSwitch(2)");
         GameObject overworldAnkh = GameObject.Find("OverworldItems/Ankh (2)");
-        Transform markLight1 = lightSwitch.transform.Find("ExclamationMarkSwitch");
-        Transform markLight2 = lightSwitch2.transform.Find("ExclamationMarkSwitch");
-        Transform markFlash = overworldAnkh.transform.Find("ExclamationMarkItem");
+        IInteractableItemMarker markLight1 = lightSwitch.transform.GetComponentInChildren<IInteractableItemMarker>();
+        IInteractableItemMarker markLight2 = lightSwitch2.transform.GetComponentInChildren<IInteractableItemMarker>();
+        IInteractableItemMarker markFlash = overworldAnkh.transform.GetComponentInChildren<IInteractableItemMarker>();
         float moveDuration = GetMovementDurationTowards(lightSwitch.transform);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveRight, false, moveDuration);
-        Assert.True(markLight1.gameObject.activeInHierarchy);
-        Assert.False(markLight2.gameObject.activeInHierarchy);
-        Assert.False(markFlash.gameObject.activeInHierarchy);
+        Assert.True(markLight1.IsEnabled());
+        Assert.False(markLight2.IsEnabled());
+        Assert.False(markFlash.IsEnabled());
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, 0.4f);
-        Assert.False(markLight1.gameObject.activeInHierarchy);
-        Assert.True(markLight2.gameObject.activeInHierarchy); 
-        Assert.True(markFlash.gameObject.activeInHierarchy);
+        Assert.False(markLight1.IsEnabled());
+        Assert.True(markLight2.IsEnabled()); 
+        Assert.True(markFlash.IsEnabled());
     }
     #endregion
 }
