@@ -45,13 +45,13 @@ public class ItemTest : TestBase
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveLeft, false, 1);
         GameObject overworldAnkh = GameObject.Find("OverworldItems/Ankh");
         GameObject overworldAnkh2 = GameObject.Find("OverworldItems/Ankh (3)");
-        Transform markItem = overworldAnkh.transform.Find("ExclamationMarkItem");
-        Transform markItem2 = overworldAnkh2.transform.Find("ExclamationMarkItem");
-        Assert.True(markItem.gameObject.activeInHierarchy);
-        Assert.False(markItem2.gameObject.activeInHierarchy);
+        IInteractableItemMarker markItem = overworldAnkh.transform.GetComponentInChildren<IInteractableItemMarker>();
+        IInteractableItemMarker markItem2 = overworldAnkh2.transform.GetComponentInChildren<IInteractableItemMarker>();
+        Assert.True(markItem.IsEnabled());
+        Assert.False(markItem2.IsEnabled());
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, 0.25f);
-        Assert.True(markItem2.gameObject.activeInHierarchy);
-        Assert.False(markItem.gameObject.activeInHierarchy);
+        Assert.True(markItem2.IsEnabled());
+        Assert.False(markItem.IsEnabled());
     }
 
     [UnityTest]
@@ -147,9 +147,18 @@ public class ItemTest : TestBase
 
         for (int i = 0; i < inventory.Size; i++)
         {
-            bool isNull = inventory.GetItemByIndex(i) is null;
-            if (i == 2) Assert.IsFalse(isNull);
-            else Assert.IsTrue(isNull);
+            IItem currItem = inventory.GetItemByIndex(i);
+            RuntimeAnimatorController logoAnimController = GameObject.Find("Player/HudCanvas/ItemHud/Slot " + (i+1)).GetComponent<Animator>()?.runtimeAnimatorController;
+            if (i == 2)
+            {
+                Assert.IsNotNull(currItem);
+                Assert.IsNotNull(logoAnimController);
+            }
+            else
+            {
+                Assert.IsNull(currItem);
+                Assert.IsNull(logoAnimController);
+            }
         }
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveLeft, false, 1f);

@@ -5,8 +5,10 @@ public interface IInteractable
 {
     void OnInteraction();
     void SetCollider(bool state);
-    void ShowGuideIcon(bool state);
+    void SetUseIcon(bool useIcon);
+    void ShowMarker(bool isVisible);
 }
+
 
 /*
  * Interactable abstract class.
@@ -16,15 +18,17 @@ public interface IInteractable
 [RequireComponent(typeof(Collider))]
 public abstract class Interactable : MonoBehaviour, IInteractable
 {
+
     #region Variables
     [Header("Interactable Icons")]
-    [Tooltip("True if there is an icon to be used")]
+    [Tooltip("True if marker is used")]
     [SerializeField]
-    private bool _useIcon;
+    private bool _useMarker;
 
-    [Tooltip("The icon mark for guidance")]
+    [Tooltip("The animator of marker for guidance")]
     [SerializeField]
-    private GameObject _guideIcon;
+    private RuntimeAnimatorController _markerAnimatorController;
+    private InteractableItemMarker _marker;
 
     [Space]
     [Header("Audio")]
@@ -33,13 +37,9 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     #endregion
 
     #region SetGet
-    public void ShowGuideIcon(bool state)
+    public void ShowMarker(bool isVisible)
     {
-        if (_useIcon)
-        {
-            //Debug.Log("[INTERACTABLE] Setting icon " + this.name + " to " + state);
-            _guideIcon.SetActive(state);
-        }
+        _marker.SetEnabled(isVisible);
     }
 
     // Function to set Collider state
@@ -52,7 +52,7 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     // Function to set Collider state
     public void SetUseIcon(bool useIcon)
     {
-        _useIcon = useIcon;
+        _useMarker = useIcon;
     }
     #endregion
 
@@ -60,6 +60,8 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     protected virtual void Awake()
     {
         _audioPlayerObj = GetComponentInChildren<AudioPlayer>();
+        _marker = GetComponentInChildren<InteractableItemMarker>();
+        _marker.SetAnimator(_markerAnimatorController);
     }
 
     private void Reset()

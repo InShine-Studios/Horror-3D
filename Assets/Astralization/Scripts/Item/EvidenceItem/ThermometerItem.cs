@@ -22,17 +22,20 @@ public class ThermometerItem : EvidenceItem
     protected override void ActivateFunctionality()
     {
         _thermometerManager.ChangeState<ThermometerActiveState>();
+        LogoState = _thermometerManager.GetStateNum();
     }
 
     public override void Pick()
     {
         base.Pick();
-        _thermometerManager.ChangeState<ThermometerInactiveState>();
+        _thermometerManager.ChangeState<ThermometerInactiveState>(); //comment this for logo testing of another states
+        LogoState = _thermometerManager.GetStateNum();
     }
 
     public override void OnGhostInteraction()
     {
         if (!(_thermometerManager.CurrentState is ThermometerInactiveState)) DetermineEvidence();
+        base.OnGhostInteraction();
     }
     #endregion
 
@@ -45,6 +48,7 @@ public class ThermometerItem : EvidenceItem
             _thermometerManager.ChangeState<ThermometerPositiveState>();
         }
         else _thermometerManager.ChangeState<ThermometerNegativeState>();
+        LogoState = _thermometerManager.GetStateNum();
     }
     #endregion
 }

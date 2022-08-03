@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public abstract class TestBase
 {
+    protected const string UiCanvas = "HudCanvas";
     protected string sceneName = "SceneBase";
     protected bool sceneLoaded = false;
     protected GameObject player;

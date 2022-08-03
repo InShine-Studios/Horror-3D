@@ -1,11 +1,20 @@
 using UnityEngine;
+using Utils;
 
 public interface IItem
 {
+    int LogoState { get; }
+    ItemHelper.UseBehaviourType UseBehaviourType { get; }
+    ItemHelper.WorldConditionType WorldConditionType { get; }
+
     void Discard();
-    Sprite GetHudLogo();
+    RuntimeAnimatorController GetHudLogoAnimatorController();
     void Pick();
+    void SetCollider(bool state);
+    void SetUseMarker(bool useMarker);
     void ShowItem(bool isShown);
+    void ShowMarker(bool state);
+    void UpdateMarker(bool updateAnimator = false);
     bool Use();
 }
 
@@ -18,17 +27,19 @@ public interface IItem
 public abstract class Item : MonoBehaviour, IItem
 {
     #region Variables
-    [Header("Item Marker")]
+    [Header("Item UI")]
     [SerializeField]
-    [Tooltip("The item logo for HUD")]
-    protected Sprite HudLogo;
+    [Tooltip("The item logo animation controller for HUD")]
+    protected RuntimeAnimatorController logoAnimatorController;
+    public int LogoState { get; protected set; }
     private GameObject _model;
+
 
     // Determine item usage behavior
     public Utils.ItemHelper.UseBehaviourType UseBehaviourType { get; protected set; }
     // Determine world condition type so the item can be used
     public Utils.ItemHelper.WorldConditionType WorldConditionType { get; protected set; }
-    
+
     [Space]
     [Header("Audio")]
     [Tooltip("Audio Manager")]
@@ -37,11 +48,11 @@ public abstract class Item : MonoBehaviour, IItem
     [Header("Item Icons")]
     [Tooltip("True if there is an icon to be used")]
     [SerializeField]
-    private bool _useIcon;
+    private bool _useMarker;
 
     [Tooltip("The icon mark for guidance")]
-    [SerializeField]
-    private GameObject _guideIcon;
+    private InteractableItemMarker _marker;
+
     #endregion
 
     #region SetGet
@@ -50,15 +61,15 @@ public abstract class Item : MonoBehaviour, IItem
         _model.SetActive(enabled);
     }
 
-    public void ShowItem(bool isShown) 
+    public void ShowItem(bool isShown)
     {
         //Debug.Log("[ITEM] Show " + this.name + " visibility to:" + isShown);
         this.gameObject.SetActive(isShown);
     }
 
-    public Sprite GetHudLogo()
+    public RuntimeAnimatorController GetHudLogoAnimatorController()
     {
-        return HudLogo;
+        return logoAnimatorController;
     }
 
     public void SetCollider(bool state)
@@ -67,18 +78,18 @@ public abstract class Item : MonoBehaviour, IItem
         GetComponent<Collider>().enabled = state;
     }
 
-    public void ShowGuideIcon(bool state)
+    public void ShowMarker(bool state)
     {
-        if (_useIcon)
+        if (_useMarker)
         {
             //Debug.Log("[INTERACTABLE] Setting icon " + this.name + " to " + state);
-            _guideIcon.SetActive(state);
+            _marker.SetEnabled(state);
         }
     }
 
-    public void SetUseIcon(bool useIcon)
+    public void SetUseMarker(bool useMarker)
     {
-        _useIcon = useIcon;
+        _useMarker = useMarker;
     }
     #endregion
 
@@ -87,6 +98,8 @@ public abstract class Item : MonoBehaviour, IItem
     {
         _audioPlayerObj = GetComponentInChildren<AudioPlayer>();
         _model = transform.Find("Model").gameObject;
+        _marker = GetComponentInChildren<InteractableItemMarker>();
+        UpdateMarker(updateAnimator: true);
     }
     #endregion
 
@@ -137,15 +150,29 @@ public abstract class Item : MonoBehaviour, IItem
     {
         SetCollider(false);
         SetMeshRenderer(false);
-        ShowGuideIcon(false);
-        SetUseIcon(false);
+        ShowMarker(false);
+        SetUseMarker(false);
     }
 
     public void Discard()
     {
         SetCollider(true);
         SetMeshRenderer(true);
-        SetUseIcon(true);
+        SetUseMarker(true);
+    }
+    #endregion
+
+    #region MarkerHandler
+    public void UpdateMarker(bool updateAnimator = false)
+    {
+        if (updateAnimator)
+        {
+            _marker.SetAnimator(logoAnimatorController, LogoState);
+        }
+        else
+        {
+            _marker.SetAnimation(LogoState);
+        }
     }
     #endregion
 }
