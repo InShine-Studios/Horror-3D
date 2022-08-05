@@ -55,6 +55,7 @@ public class HudManager : MonoBehaviour
         GameManager.HudEvent += SetHudState;
         PlayerHidingState.StopHidingHudEvent += ShowHidingHud;
         Inventory.InventoryHudEvent += HandleInventoryEvent;
+        TimeslotStateMachine.UpdateTimeHudEvent += UpdateTimeDisplay;
     }
 
     private void OnDisable()
@@ -62,6 +63,7 @@ public class HudManager : MonoBehaviour
         GameManager.HudEvent -= SetHudState;
         PlayerHidingState.StopHidingHudEvent -= ShowHidingHud;
         Inventory.InventoryHudEvent -= HandleInventoryEvent;
+        TimeslotStateMachine.UpdateTimeHudEvent -= UpdateTimeDisplay;
     }
     #endregion
 
@@ -88,6 +90,11 @@ public class HudManager : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private void UpdateTimeDisplay(TimeslotState timeslotState)
+    {
+        //throw new NotImplementedException();
     }
     #endregion
 }
