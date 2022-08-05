@@ -29,7 +29,7 @@ public class TimeslotStateMachine : StateMachine
 
     private DateTimeslot _currentDateTimeslot;
 
-    private ITimeslotHud _timeslotHud;
+    private TimeslotHud _timeslotHud;
 
     private static TimeslotStateMachine _instance;
     public static TimeslotStateMachine Instance { get { return _instance; } }
@@ -42,6 +42,8 @@ public class TimeslotStateMachine : StateMachine
     }
 
     public DateTimeslot CurrentDateTimeslot { get { return _currentDateTimeslot; } }
+
+    public int TimeslotCount { get { return _timeslotCount; } }
     #endregion
 
     #region MonoBehaviour
@@ -61,7 +63,7 @@ public class TimeslotStateMachine : StateMachine
     #endregion
 
     #region StateHandler
-    private void ChangeTime(string timeName)
+    private void ChangeTimeTo(string timeName)
     {
         switch (timeName)
         {
@@ -89,7 +91,7 @@ public class TimeslotStateMachine : StateMachine
         }
         string newTimeName = timeNumMapper[Utils.MathCalcu.mod(newTime,_timeslotCount)];
         
-        ChangeTime(newTimeName);
+        ChangeTimeTo(newTimeName);
         UpdateTimeHudEvent.Invoke(currentState);
 
         _timeslotHud.SetTimeslot(_currentDateTimeslot.Timeslot);

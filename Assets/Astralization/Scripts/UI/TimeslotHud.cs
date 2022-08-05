@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public interface ITimeslotHud
 {
+    int GetCurrentAnimatorParam();
     void SetDateDay(DateTime date);
     void SetTimeslot(ITimeslotState timeslotState);
 }
@@ -49,7 +50,7 @@ public class TimeslotHud : MonoBehaviour, ITimeslotHud
     public void SetDateDay(DateTime date)
     {
         string dayName = date.DayOfWeek.ToString();
-        SetDay(dayName.Substring(0,3).ToUpperInvariant());
+        SetDay(dayName.Substring(0, 3).ToUpperInvariant());
         SetDate(date);
     }
 
@@ -57,6 +58,11 @@ public class TimeslotHud : MonoBehaviour, ITimeslotHud
     {
         _timeslotLogoAnimator.SetInteger(TimeStateParamAnimator, timeslotState.TimeNum);
         _timeslotText.text = timeslotState.TimeName;
+    }
+
+    public int GetCurrentAnimatorParam()
+    {
+        return _timeslotLogoAnimator.GetInteger(TimeStateParamAnimator);
     }
     #endregion
 
