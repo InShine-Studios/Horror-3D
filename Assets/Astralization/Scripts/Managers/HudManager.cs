@@ -12,6 +12,7 @@ public class HudManager : MonoBehaviour
     private HidingOverlay _hidingManager;
     private ItemHudDisplay _itemHud;
     private ExorcismBar _exorcismBar;
+    private TimeslotHud _timeslotHud;
     #endregion
 
     #region SetGet
@@ -49,6 +50,7 @@ public class HudManager : MonoBehaviour
         _hidingManager = GetComponentInChildren<HidingOverlay>();
         _itemHud = GetComponentInChildren<ItemHudDisplay>();
         _exorcismBar = GetComponentInChildren<ExorcismBar>();
+        _timeslotHud = GetComponentInChildren<TimeslotHud>();
     }
     private void OnEnable()
     {
@@ -92,9 +94,9 @@ public class HudManager : MonoBehaviour
         }
     }
 
-    private void UpdateTimeDisplay(TimeslotState timeslotState)
+    private void UpdateTimeDisplay(DateTimeslot dateTimeslot)
     {
-        //throw new NotImplementedException();
+        _timeslotHud.SetDateTimeslot(dateTimeslot);
     }
     #endregion
 }

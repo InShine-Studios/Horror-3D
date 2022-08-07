@@ -58,7 +58,7 @@ public class TimeslotTest : TestBase
     public IEnumerator Timeslot_AdvanceTimeslotBy_DoingRegularActivity()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        TimeslotState currentState = _timeslotStateMachine.GetCurrentState();
+        TimeslotState currentState = _timeslotStateMachine.CurrentDateTimeslot.Timeslot;
         DateTime currentDate = _timeslotStateMachine.CurrentDateTimeslot.Date;
 
         float moveDuration = GetMovementDurationTowards(_activityTimeslotChanger.transform);
@@ -70,7 +70,7 @@ public class TimeslotTest : TestBase
         {
             yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
             interactionCount++;
-            TimeslotState nextState = _timeslotStateMachine.GetCurrentState();
+            TimeslotState nextState = _timeslotStateMachine.CurrentDateTimeslot.Timeslot;
             int currentTimeNum = Utils.MathCalcu.mod(currentState.TimeNum + interactionCount, _timeslotStateMachine.TimeslotCount);
             Assert.AreEqual(currentTimeNum, nextState.TimeNum);
             Assert.AreEqual(currentTimeNum, _timeslotHud.GetCurrentAnimatorParam());
@@ -83,7 +83,7 @@ public class TimeslotTest : TestBase
     public IEnumerator Timeslot_AdvanceTimeslotBy_EnteringDungeon()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        TimeslotState currentState = _timeslotStateMachine.GetCurrentState();
+        TimeslotState currentState = _timeslotStateMachine.CurrentDateTimeslot.Timeslot;
         DateTime currentDate = _timeslotStateMachine.CurrentDateTimeslot.Date;
 
         float moveDuration = GetMovementDurationTowards(_dungeonTimeslotChanger.transform);
@@ -95,7 +95,7 @@ public class TimeslotTest : TestBase
         {
             yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
             interactionCount++;
-            TimeslotState nextState = _timeslotStateMachine.GetCurrentState();
+            TimeslotState nextState = _timeslotStateMachine.CurrentDateTimeslot.Timeslot;
             int currentTimeNum = Utils.MathCalcu.mod(currentState.TimeNum + (interactionCount*2), _timeslotStateMachine.TimeslotCount);
             Assert.AreEqual(currentTimeNum, nextState.TimeNum);
             Assert.AreEqual(currentTimeNum, _timeslotHud.GetCurrentAnimatorParam());

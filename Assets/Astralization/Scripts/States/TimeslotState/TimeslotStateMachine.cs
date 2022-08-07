@@ -6,13 +6,13 @@ using UnityEngine;
 public struct DateTimeslot
 {
     public DateTime Date;
-    public ITimeslotState Timeslot;
+    public TimeslotState Timeslot;
 }
 
 public class TimeslotStateMachine : StateMachine
 {
     #region Events
-    public static event Action<TimeslotState> UpdateTimeHudEvent;
+    public static event Action<DateTimeslot> UpdateTimeHudEvent;
     #endregion
 
     #region Const
@@ -29,17 +29,12 @@ public class TimeslotStateMachine : StateMachine
 
     private DateTimeslot _currentDateTimeslot;
 
-    private TimeslotHud _timeslotHud;
-
     private static TimeslotStateMachine _instance;
     public static TimeslotStateMachine Instance { get { return _instance; } }
     #endregion
 
     #region SetGet
-    public TimeslotState GetCurrentState()
-    {
-        return (TimeslotState)CurrentState;
-    }
+    private TimeslotState CurrentTime { get { return (TimeslotState)CurrentState; } }
 
     public DateTimeslot CurrentDateTimeslot { get { return _currentDateTimeslot; } }
 
@@ -53,11 +48,9 @@ public class TimeslotStateMachine : StateMachine
 
         _timeslotCount = timeNumMapper.Count;
         _currentDateTimeslot.Date = new DateTime(1, 1, 1);
-        _currentDateTimeslot.Timeslot = GetCurrentState();
+        _currentDateTimeslot.Timeslot = CurrentTime;
 
-        _timeslotHud = TimeslotHud.Instance;
-        _timeslotHud.SetDateDay(_currentDateTimeslot.Date);
-        _timeslotHud.SetTimeslot(_currentDateTimeslot.Timeslot);
+        UpdateTimeHudEvent.Invoke(_currentDateTimeslot);
         _instance = this;
     }
     #endregion
@@ -77,24 +70,21 @@ public class TimeslotStateMachine : StateMachine
                 ChangeState<TimeslotEveningState>();
                 break;
         }
-        _currentDateTimeslot.Timeslot = GetCurrentState();
+        _currentDateTimeslot.Timeslot = CurrentTime;
+        UpdateTimeHudEvent.Invoke(_currentDateTimeslot);
     }
 
     public void AdvanceTime(int timeStep)
     {
-        TimeslotState currentState = GetCurrentState();
+        TimeslotState currentState = CurrentTime;
         int newTime = (currentState).TimeNum + timeStep;
         if (newTime >= _timeslotCount)
         {
             _currentDateTimeslot.Date = _currentDateTimeslot.Date.AddDays(1);
-            _timeslotHud.SetDateDay(_currentDateTimeslot.Date);
         }
         string newTimeName = timeNumMapper[Utils.MathCalcu.mod(newTime,_timeslotCount)];
         
         ChangeTimeTo(newTimeName);
-        UpdateTimeHudEvent.Invoke(currentState);
-
-        _timeslotHud.SetTimeslot(_currentDateTimeslot.Timeslot);
 
         //Debug.Log(string.Format("[TIMESLOT] Advance timeslot by {0}", timeStep));
     }
