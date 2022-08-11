@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using ElRaccoone.Tweens;
 
 public class PlayerHidingState : PlayerState
 {
@@ -17,6 +18,12 @@ public class PlayerHidingState : PlayerState
     private InteractableDetector _interactableDetector;
     [Tooltip("Player previous position")]
     private Vector3 _prevPosition;
+    private float _prevTopRigRadius;
+    private float _prevBotRigRadius;
+    private float _prevMidRigRadius;
+    private GameObject _playerLookAt;
+    private GameObject _playerTarget;
+    private Cinemachine.CinemachineFreeLook _freelook;
     #endregion
 
     #region MonoBehaviour
@@ -25,7 +32,9 @@ public class PlayerHidingState : PlayerState
         base.Awake();
         _playerMovement = GetComponent<PlayerMovement>();
         _interactableDetector = GetComponentInChildren<InteractableDetector>();
-        //_playerCamera = this.transform.Find('Camera');
+        _freelook = this.transform.parent.GetComponentInChildren<Cinemachine.CinemachineFreeLook>();
+        _playerLookAt = GameObject.Find("Character/CameraLookAt");
+        _playerTarget = GameObject.Find("Character/CameraTarget");
     }
     #endregion
 
@@ -36,15 +45,28 @@ public class PlayerHidingState : PlayerState
         PlayerMovementChangeState();
         _closets = _interactableDetector.GetClosest().transform.parent;
         _prevPosition = this.transform.position;
+        Debug.Log(_freelook.name);
         Vector3 calOffset = _closets.GetComponentInChildren<Renderer>().bounds.center;
-        Debug.Log(this.name);
         this.transform.position = new Vector3(calOffset.x, 0 , calOffset.z);
+        _prevTopRigRadius = _freelook.m_Orbits[0].m_Radius;
+        _prevBotRigRadius = _freelook.m_Orbits[1].m_Radius;
+        _prevMidRigRadius = _freelook.m_Orbits[2].m_Radius;
+        _freelook.m_LookAt = _closets;
+        _freelook.m_Follow = _closets;
+        _freelook.m_Orbits[0].m_Radius = 5;
+        _freelook.m_Orbits[1].m_Radius = 5;
+        _freelook.m_Orbits[2].m_Radius = 5;
     }
 
     public override void Exit()
     {
         base.Exit();
         this.transform.position = _prevPosition;
+        _freelook.m_LookAt = _playerLookAt.transform;
+        _freelook.m_Follow = _playerTarget.transform;
+        _freelook.m_Orbits[0].m_Radius = _prevTopRigRadius;
+        _freelook.m_Orbits[1].m_Radius = _prevBotRigRadius;
+        _freelook.m_Orbits[2].m_Radius = _prevMidRigRadius;
         _closets = null;
         Invoke("PlayerMovementChangeState", 0.1f);
     }
