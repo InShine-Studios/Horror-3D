@@ -12,7 +12,7 @@ public struct DateTimeslot
 public class TimeslotStateMachine : StateMachine
 {
     #region Events
-    public static event Action<DateTimeslot> UpdateTimeHudEvent;
+    public static event Action<DateTimeslot> UpdateTimeslotHudEvent;
     #endregion
 
     #region Const
@@ -50,7 +50,7 @@ public class TimeslotStateMachine : StateMachine
         _currentDateTimeslot.Date = new DateTime(1, 1, 1);
         _currentDateTimeslot.Timeslot = CurrentTime;
 
-        UpdateTimeHudEvent.Invoke(_currentDateTimeslot);
+        UpdateTimeslotHudEvent.Invoke(_currentDateTimeslot);
         _instance = this;
     }
     #endregion
@@ -71,7 +71,7 @@ public class TimeslotStateMachine : StateMachine
                 break;
         }
         _currentDateTimeslot.Timeslot = CurrentTime;
-        UpdateTimeHudEvent.Invoke(_currentDateTimeslot);
+        UpdateTimeslotHudEvent.Invoke(_currentDateTimeslot);
     }
 
     public void AdvanceTime(int timeStep)

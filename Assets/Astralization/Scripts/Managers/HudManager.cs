@@ -57,7 +57,7 @@ public class HudManager : MonoBehaviour
         GameManager.HudEvent += SetHudState;
         PlayerHidingState.StopHidingHudEvent += ShowHidingHud;
         Inventory.InventoryHudEvent += HandleInventoryEvent;
-        TimeslotStateMachine.UpdateTimeHudEvent += UpdateTimeDisplay;
+        TimeslotStateMachine.UpdateTimeslotHudEvent += UpdateTimeslotDisplay;
     }
 
     private void OnDisable()
@@ -65,7 +65,7 @@ public class HudManager : MonoBehaviour
         GameManager.HudEvent -= SetHudState;
         PlayerHidingState.StopHidingHudEvent -= ShowHidingHud;
         Inventory.InventoryHudEvent -= HandleInventoryEvent;
-        TimeslotStateMachine.UpdateTimeHudEvent -= UpdateTimeDisplay;
+        TimeslotStateMachine.UpdateTimeslotHudEvent -= UpdateTimeslotDisplay;
     }
     #endregion
 
@@ -94,7 +94,7 @@ public class HudManager : MonoBehaviour
         }
     }
 
-    private void UpdateTimeDisplay(DateTimeslot dateTimeslot)
+    private void UpdateTimeslotDisplay(DateTimeslot dateTimeslot)
     {
         _timeslotHud.SetDateTimeslot(dateTimeslot);
     }
