@@ -10,7 +10,8 @@ namespace Utils
             Tome,
             Dialogue,
             ExorcismBar,
-            HidingOverlay
+            HidingOverlay,
+            Timeslot
         }
     }
 }

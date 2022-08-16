@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour, IGameManager
         ClosetController.StartHidingEvent += InvokeHidingState;
         ExorcismItem.ExorcismChannelingEvent += InvokeExorcismState;
         ExorcismBar.FinishExorcismChannelingEvent += ResetPlayerState;
+        DummyTimeslotChanger.TimeslotIncrementEvent += InvokeTimeIncrement;
     }
 
     private void OnDisable()
@@ -43,9 +44,8 @@ public class GameManager : MonoBehaviour, IGameManager
         ClosetController.StartHidingEvent -= InvokeHidingState;
         ExorcismItem.ExorcismChannelingEvent -= InvokeExorcismState;
         ExorcismBar.FinishExorcismChannelingEvent -= ResetPlayerState;
+        DummyTimeslotChanger.TimeslotIncrementEvent -= InvokeTimeIncrement;
     }
-
-    
     #endregion
 
     #region SendEvents
@@ -92,6 +92,11 @@ public class GameManager : MonoBehaviour, IGameManager
     {
         SendPlayerStateEvent(Utils.PlayerHelper.States.Default);
         //Debug.Log("[MANAGER] Reset player state to default");
+    }
+
+    public void InvokeTimeIncrement(int incrementCount)
+    {
+        TimeslotStateMachine.Instance.AdvanceTime(incrementCount);
     }
     #endregion
 }
