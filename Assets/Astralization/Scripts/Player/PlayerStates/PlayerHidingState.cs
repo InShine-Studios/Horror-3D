@@ -18,21 +18,22 @@ public class PlayerHidingState : PlayerState
     private InteractableDetector _interactableDetector;
     [Tooltip("Player previous position")]
     private Vector3 _prevPosition;
-    private GameObject _playerLookAt;
-    private GameObject _playerTarget;
+    private Vector2 _mouseDeltaInput;
     private GameObject _closetsPoint;
     private Cinemachine.CinemachineFreeLook _freelook;
+    private Cinemachine.CinemachineVirtualCamera _vcam;
+    private CinemachinePOVExtension _cinemachinePOVExtension;
     #endregion
 
     #region MonoBehaviour
     protected override void Awake()
     {
         base.Awake();
+        _cinemachinePOVExtension = this.transform.parent.GetComponentInChildren<CinemachinePOVExtension>();
         _playerMovement = GetComponent<PlayerMovement>();
         _interactableDetector = GetComponentInChildren<InteractableDetector>();
+        _vcam = this.transform.parent.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>();
         _freelook = this.transform.parent.GetComponentInChildren<Cinemachine.CinemachineFreeLook>();
-        _playerLookAt = GameObject.Find("Character/CameraLookAt");
-        _playerTarget = GameObject.Find("Character/CameraTarget");
         _closetsPoint = GameObject.Find("Closets/CameraPointTo");
     }
     #endregion
@@ -43,21 +44,21 @@ public class PlayerHidingState : PlayerState
         base.Enter();
         PlayerMovementChangeState();
         _closets = _interactableDetector.GetClosest().transform.parent;
-        Debug.Log(_closets.name);
         _prevPosition = this.transform.position;
-        Debug.Log(_freelook.name);
         Vector3 calOffset = _closets.GetComponentInChildren<Renderer>().bounds.center;
         this.transform.position = new Vector3(calOffset.x, 0 , calOffset.z);
-        _freelook.m_LookAt = _closetsPoint.transform;
-        _freelook.m_Follow = _closetsPoint.transform;
+        _freelook.enabled = false;
+        _vcam.enabled = true;
+        _vcam.m_Follow = _closetsPoint.transform;
     }
 
     public override void Exit()
     {
         base.Exit();
         this.transform.position = _prevPosition;
-        _freelook.m_LookAt = _playerLookAt.transform;
-        _freelook.m_Follow = _playerTarget.transform;
+        _vcam.m_Follow = null;
+        _freelook.enabled = true;
+        _vcam.enabled = false;
         _closets = null;
         Invoke("PlayerMovementChangeState", 0.1f);
     }
@@ -74,6 +75,14 @@ public class PlayerHidingState : PlayerState
         if (ctx.performed)
         {
             owner.SetPlayerActionMap(Utils.PlayerHelper.States.Default);
+        }
+    }
+
+    public override void OnMouseDelta(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            _cinemachinePOVExtension.SetMouseDeltaInput(ctx.ReadValue<Vector2>());
         }
     }
     #endregion

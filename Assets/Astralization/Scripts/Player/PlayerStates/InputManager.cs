@@ -93,6 +93,7 @@ public class InputManager : StateMachine
         switch (ctx.action.name)
         {
             case "Interact": currentPlayerState.UnhidePlayer(ctx); break;
+            case "MouseDelta": currentPlayerState.OnMouseDelta(ctx); break;
         }
     }
     #endregion
