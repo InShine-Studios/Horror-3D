@@ -18,8 +18,8 @@ public class PlayerHidingState : PlayerState
     private InteractableDetector _interactableDetector;
     [Tooltip("Player previous position")]
     private Vector3 _prevPosition;
-    private Vector2 _mouseDeltaInput;
-    private GameObject _closetsPoint;
+    private ClosetCameraSetting _closetCameraSetting;
+    private Transform _closetsPoint;
     private Cinemachine.CinemachineFreeLook _freelook;
     private Cinemachine.CinemachineVirtualCamera _vcam;
     private CinemachinePOVExtension _cinemachinePOVExtension;
@@ -34,7 +34,6 @@ public class PlayerHidingState : PlayerState
         _interactableDetector = GetComponentInChildren<InteractableDetector>();
         _vcam = this.transform.parent.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>();
         _freelook = this.transform.parent.GetComponentInChildren<Cinemachine.CinemachineFreeLook>();
-        _closetsPoint = GameObject.Find("Closets/CameraPointTo");
     }
     #endregion
 
@@ -43,13 +42,21 @@ public class PlayerHidingState : PlayerState
     {
         base.Enter();
         PlayerMovementChangeState();
-        _closets = _interactableDetector.GetClosest().transform.parent;
+        _closets = _interactableDetector.GetClosest().transform;
+        _closetCameraSetting = _closets.GetComponent<ClosetCameraSetting>();
+        _closetsPoint = new GameObject().transform;
+        _closetsPoint.position = _closetCameraSetting.startingPosition;
+        _cinemachinePOVExtension.SetClampAngleX(_closetCameraSetting.clampAngleX);
+        _cinemachinePOVExtension.SetClampAngleY(_closetCameraSetting.clampAngleY);
+        _cinemachinePOVExtension.SetHorizontalSpeed(_closetCameraSetting.horizontalSpeed);
+        _cinemachinePOVExtension.SetVerticalSpeed(_closetCameraSetting.verticalSpeed);
+        _cinemachinePOVExtension.SetStartingDirection(_closetCameraSetting.startingDirection);
         _prevPosition = this.transform.position;
         Vector3 calOffset = _closets.GetComponentInChildren<Renderer>().bounds.center;
         this.transform.position = new Vector3(calOffset.x, 0 , calOffset.z);
         _freelook.enabled = false;
         _vcam.enabled = true;
-        _vcam.m_Follow = _closetsPoint.transform;
+        _vcam.m_Follow = _closetsPoint;
     }
 
     public override void Exit()
