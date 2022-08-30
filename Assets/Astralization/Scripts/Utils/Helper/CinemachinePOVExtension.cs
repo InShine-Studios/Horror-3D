@@ -4,7 +4,6 @@ using Cinemachine;
 public class CinemachinePOVExtension : CinemachineExtension
 {
     #region Variables
-    [SerializeField]
     private float _horizontalSpeed = 15f;
     private float _verticalSpeed = 15f;
     private Vector2 _clampAngleX;
