@@ -45,7 +45,8 @@ public class PlayerHidingState : PlayerState
         _closets = _interactableDetector.GetClosest().transform;
         _closetCameraSetting = _closets.GetComponent<ClosetCameraSetting>();
         _closetsPoint = new GameObject().transform;
-        _closetsPoint.position = _closetCameraSetting.startingPosition;
+        _closetsPoint.parent = _closets;
+        _closetsPoint.localPosition = _closetCameraSetting.startingPosition;
         _cinemachinePOVExtension.SetClampAngleX(_closetCameraSetting.clampAngleX);
         _cinemachinePOVExtension.SetClampAngleY(_closetCameraSetting.clampAngleY);
         _cinemachinePOVExtension.SetHorizontalSpeed(_closetCameraSetting.horizontalSpeed);
