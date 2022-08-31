@@ -152,6 +152,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4735329177293784102}
+  - component: {fileID: 824698713055516468}
   m_Layer: 0
   m_Name: Sketchfab_model
   m_TagString: Untagged
@@ -174,6 +175,19 @@ Transform:
   m_Father: {fileID: 2632070981180874258}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &824698713055516468
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3311945808421986820}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 38.955784, y: 27.73776, z: 16.739935}
+  m_Center: {x: 19.711267, y: 14.158009, z: -15.048179}
 --- !u!1 &3527438493805907615
 GameObject:
   m_ObjectHideFlags: 0

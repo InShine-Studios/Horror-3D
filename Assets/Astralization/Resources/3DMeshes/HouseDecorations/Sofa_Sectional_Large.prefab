@@ -121,6 +121,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8490081836431560937}
+  - component: {fileID: 7173410944468559299}
+  - component: {fileID: 8054522499962353359}
   m_Layer: 0
   m_Name: Sketchfab_model
   m_TagString: Untagged
@@ -143,6 +145,32 @@ Transform:
   m_Father: {fileID: 2961238756051963077}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7173410944468559299
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3651816843260690091}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.3377723, y: 4.9745793, z: 1.0414057}
+  m_Center: {x: -1.6149572, y: -0.37704828, z: -0.48445868}
+--- !u!65 &8054522499962353359
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3651816843260690091}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.358672, y: 1.4665546, z: 1.0444342}
+  m_Center: {x: 0.7572113, y: 1.3441304, z: -0.4887746}
 --- !u!1 &6732194002167267481
 GameObject:
   m_ObjectHideFlags: 0
