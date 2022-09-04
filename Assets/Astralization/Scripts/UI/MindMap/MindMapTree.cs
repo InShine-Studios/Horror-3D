@@ -9,6 +9,7 @@ public interface IMindMapTree
     int NodeCount { get; }
     MindMapNode Root { get; }
 
+    bool IsNodeRelated();
     void AddNode();
     void BuildNodeRelation();
     void ClearAllNodes();
@@ -74,7 +75,8 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     {
         if (IsNodeRelated())
         {
-            Debug.LogWarning("[MIND MAP] Nodes are already connected with each other");
+            Debug.LogWarning("[MIND MAP] Nodes are already connected with each other. " +
+                "Ignore this when you're trying to save tree data.");
             return;
         }
 
@@ -90,7 +92,7 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     #endregion
 
     #region NodeHandler
-    private bool IsNodeRelated()
+    public bool IsNodeRelated()
     {
         foreach (MindMapNode mindMapNode in GetComponentsInChildren<MindMapNode>())
         {

@@ -17,7 +17,8 @@ public class MindMapNode : MonoBehaviour
     public string NodeDescription;
     public MindMapNodeType NodeType;
     public RuntimeAnimatorController AnimController;
-    internal List<MindMapNode> Children = new List<MindMapNode>();
+    [HideInInspector]
+    public List<MindMapNode> Children = new List<MindMapNode>();
     public bool IsDiscovered = false;
     public MindMapNode Parent = null;
     #endregion
