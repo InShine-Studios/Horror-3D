@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,11 +17,9 @@ public class MindMapNode : MonoBehaviour
     public string NodeDescription;
     public MindMapNodeType NodeType;
     public RuntimeAnimatorController AnimController;
-    public List<MindMapNode> Children = new List<MindMapNode>();
+    internal List<MindMapNode> Children = new List<MindMapNode>();
     public bool IsDiscovered = false;
-    internal MindMapNode Parent = null;
-
-    //private readonly Dictionary<string, MindMapNode> childrenDict = new Dictionary<string,MindMapNode>();  // Do we need optimization for this?
+    public MindMapNode Parent = null;
     #endregion
 
     #region SetGet
