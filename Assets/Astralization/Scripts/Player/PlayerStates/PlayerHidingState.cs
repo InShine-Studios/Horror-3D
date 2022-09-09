@@ -1,8 +1,10 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using ElRaccoone.Tweens;
 
+/*
+ * Class to manage hiding state
+ */
 public class PlayerHidingState : PlayerState
 {
     #region Events
@@ -46,12 +48,8 @@ public class PlayerHidingState : PlayerState
         _closetCameraSetting = _closets.GetComponent<ClosetCameraSetting>();
         _closetsPoint = new GameObject().transform;
         _closetsPoint.parent = _closets;
-        _closetsPoint.localPosition = _closetCameraSetting.startingPosition;
-        _cinemachinePOVExtension.SetClampAngleX(_closetCameraSetting.clampAngleX);
-        _cinemachinePOVExtension.SetClampAngleY(_closetCameraSetting.clampAngleY);
-        _cinemachinePOVExtension.SetHorizontalSpeed(_closetCameraSetting.horizontalSpeed);
-        _cinemachinePOVExtension.SetVerticalSpeed(_closetCameraSetting.verticalSpeed);
-        _cinemachinePOVExtension.SetStartingDirection(_closetCameraSetting.startingDirection);
+        _closetsPoint.localPosition = _closetCameraSetting.StartingPosition;
+        _cinemachinePOVExtension.SetClosetCameraSetting(_closetCameraSetting);
         _prevPosition = this.transform.position;
         Vector3 calOffset = _closets.GetComponentInChildren<Renderer>().bounds.center;
         this.transform.position = new Vector3(calOffset.x, 0 , calOffset.z);
