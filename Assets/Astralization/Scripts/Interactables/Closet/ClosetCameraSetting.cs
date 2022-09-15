@@ -8,9 +8,7 @@ using UnityEngine;
 public class ClosetCameraSetting : MonoBehaviour
 {
     #region Variables
-    [Header("Interactable Icons")]
-    public float HorizontalSpeed;
-    public float VerticalSpeed;
+    [Header("Camera Configs")]
     [Tooltip("Limit for X rotation, 2D Vector where X is min degree and Y is max degree")]
     public Vector2 ClampAngleX;
     [Tooltip("Limit for Y rotation, 2D Vector where X is min degree and Y is max degree")]
@@ -22,10 +20,8 @@ public class ClosetCameraSetting : MonoBehaviour
     #endregion
 
     #region Handler
-    public ClosetCameraSetting(float horizontalSpeed, float verticalSpeed, Vector2 clampAngleX, Vector2 clampAngleY, Vector3 startingDirection, Vector3 startingPosition)
+    public ClosetCameraSetting(Vector2 clampAngleX, Vector2 clampAngleY, Vector3 startingDirection, Vector3 startingPosition)
     {
-        this.HorizontalSpeed = horizontalSpeed;
-        this.VerticalSpeed = verticalSpeed;
         this.ClampAngleX = clampAngleX;
         this.ClampAngleY = clampAngleY;
         this.StartingDirection = startingDirection;

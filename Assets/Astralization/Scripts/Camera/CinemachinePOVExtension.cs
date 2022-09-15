@@ -9,6 +9,8 @@ public class CinemachinePOVExtension : CinemachineExtension
     #region Variables
     private ClosetCameraSetting _closetCameraSetting;
     private Vector2 _deltaInput;
+    private float _horizontalSpeed = 15f;
+    private float _verticalSpeed = 15f;
     #endregion
 
     #region SetGet
@@ -37,8 +39,8 @@ public class CinemachinePOVExtension : CinemachineExtension
         {
             if (stage == CinemachineCore.Stage.Aim)
             {
-                _closetCameraSetting.StartingDirection.x += _deltaInput.x * _closetCameraSetting.VerticalSpeed * Time.deltaTime;
-                _closetCameraSetting.StartingDirection.y += _deltaInput.y * _closetCameraSetting.HorizontalSpeed * Time.deltaTime;
+                _closetCameraSetting.StartingDirection.x += _deltaInput.x * _verticalSpeed * Time.deltaTime;
+                _closetCameraSetting.StartingDirection.y += _deltaInput.y * _horizontalSpeed * Time.deltaTime;
                 _closetCameraSetting.StartingDirection.x = Mathf.Clamp(_closetCameraSetting.StartingDirection.x, _closetCameraSetting.ClampAngleX.x, _closetCameraSetting.ClampAngleX.y);
                 _closetCameraSetting.StartingDirection.y = Mathf.Clamp(_closetCameraSetting.StartingDirection.y, _closetCameraSetting.ClampAngleY.x, _closetCameraSetting.ClampAngleY.y);
                 state.RawOrientation = Quaternion.Euler(-_closetCameraSetting.StartingDirection.y, _closetCameraSetting.StartingDirection.x, 0f);

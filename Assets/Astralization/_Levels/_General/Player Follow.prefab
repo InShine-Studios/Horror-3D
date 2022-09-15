@@ -387,19 +387,7 @@ MonoBehaviour:
     m_InheritPosition: 0
     m_OnCameraLive:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 11500000, guid: c4170d1ee645aea468b49e80ed5c6319, type: 3}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 3273256044973961243}
 --- !u!114 &7306437283336965075
@@ -414,11 +402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4170d1ee645aea468b49e80ed5c6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalSpeed: 15
-  verticalSpeed: 15
-  clampAngleX: 80
-  clampAngleY: 80
-  startingPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &3273256044410928801
 GameObject:
   m_ObjectHideFlags: 0
