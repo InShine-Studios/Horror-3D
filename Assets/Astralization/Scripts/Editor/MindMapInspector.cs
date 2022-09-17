@@ -32,7 +32,7 @@ public class MindMapBuilderInspector : Editor
         if (GUILayout.Button("Save"))
             current.Save(filename);
         if (GUILayout.Button("Load"))
-            current.Load();
+            filename = current.Load();
     }
 
 }
