@@ -7,7 +7,8 @@ using Cinemachine;
 public class CinemachinePOVExtension : CinemachineExtension
 {
     #region Variables
-    private ClosetCameraSetting _closetCameraSetting;
+    private HidingCameraConfigs _hidingCameraConfigs;
+    private Vector3 _startingDirection;
     private Vector2 _deltaInput;
     private float _horizontalSpeed = 15f;
     private float _verticalSpeed = 15f;
@@ -19,9 +20,10 @@ public class CinemachinePOVExtension : CinemachineExtension
         _deltaInput = deltaInput;
     }
 
-    public void SetClosetCameraSetting(ClosetCameraSetting closetCameraSetting)
+    public void SetClosetCameraSetting(HidingCameraConfigs hidingCameraConfigs)
     {
-        _closetCameraSetting = closetCameraSetting;
+        _hidingCameraConfigs = hidingCameraConfigs;
+        _startingDirection = _hidingCameraConfigs.StartingDirection;
     }
     #endregion
 
@@ -39,11 +41,11 @@ public class CinemachinePOVExtension : CinemachineExtension
         {
             if (stage == CinemachineCore.Stage.Aim)
             {
-                _closetCameraSetting.StartingDirection.x += _deltaInput.x * _verticalSpeed * Time.deltaTime;
-                _closetCameraSetting.StartingDirection.y += _deltaInput.y * _horizontalSpeed * Time.deltaTime;
-                _closetCameraSetting.StartingDirection.x = Mathf.Clamp(_closetCameraSetting.StartingDirection.x, _closetCameraSetting.ClampAngleX.x, _closetCameraSetting.ClampAngleX.y);
-                _closetCameraSetting.StartingDirection.y = Mathf.Clamp(_closetCameraSetting.StartingDirection.y, _closetCameraSetting.ClampAngleY.x, _closetCameraSetting.ClampAngleY.y);
-                state.RawOrientation = Quaternion.Euler(-_closetCameraSetting.StartingDirection.y, _closetCameraSetting.StartingDirection.x, 0f);
+                _startingDirection.x += _deltaInput.x * _verticalSpeed * Time.deltaTime;
+                _startingDirection.y += _deltaInput.y * _horizontalSpeed * Time.deltaTime;
+                _startingDirection.x = Mathf.Clamp(_startingDirection.x, _hidingCameraConfigs.ClampDownUp.x, _hidingCameraConfigs.ClampDownUp.y);
+                _startingDirection.y = Mathf.Clamp(_startingDirection.y, _hidingCameraConfigs.ClampLeftRight.x, _hidingCameraConfigs.ClampLeftRight.y);
+                state.RawOrientation = Quaternion.Euler(-_startingDirection.y, _startingDirection.x, 0f);
             }
         }
     }

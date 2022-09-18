@@ -20,7 +20,7 @@ public class PlayerHidingState : PlayerState
     private InteractableDetector _interactableDetector;
     [Tooltip("Player previous position")]
     private Vector3 _prevPosition;
-    private ClosetCameraSetting _closetCameraSetting;
+    private HidingCameraConfigs _hidingCameraConfigs;
     private Transform _closetsPoint;
     private Cinemachine.CinemachineFreeLook _freelook;
     private Cinemachine.CinemachineVirtualCamera _vcam;
@@ -45,11 +45,11 @@ public class PlayerHidingState : PlayerState
         base.Enter();
         PlayerMovementChangeState();
         _closets = _interactableDetector.GetClosest().transform;
-        _closetCameraSetting = _closets.GetComponent<ClosetCameraSetting>();
+        _hidingCameraConfigs = _closets.GetComponent<HidingCameraConfigs>();
         _closetsPoint = new GameObject().transform;
         _closetsPoint.parent = _closets;
-        _closetsPoint.localPosition = _closetCameraSetting.StartingPosition;
-        _cinemachinePOVExtension.SetClosetCameraSetting(_closetCameraSetting);
+        _closetsPoint.localPosition = _hidingCameraConfigs.StartingPosition;
+        _cinemachinePOVExtension.SetClosetCameraSetting(_hidingCameraConfigs);
         _prevPosition = this.transform.position;
         Vector3 calOffset = _closets.GetComponentInChildren<Renderer>().bounds.center;
         this.transform.position = new Vector3(calOffset.x, 0 , calOffset.z);
