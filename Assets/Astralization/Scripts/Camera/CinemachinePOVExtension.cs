@@ -8,7 +8,7 @@ public class CinemachinePOVExtension : CinemachineExtension
 {
     #region Variables
     private HidingCameraConfigs _hidingCameraConfigs;
-    private Vector3 _startingDirection;
+    private Vector3 _currentDirection;
     private Vector2 _deltaInput;
     private float _horizontalSpeed = 15f;
     private float _verticalSpeed = 15f;
@@ -23,7 +23,7 @@ public class CinemachinePOVExtension : CinemachineExtension
     public void SetClosetCameraSetting(HidingCameraConfigs hidingCameraConfigs)
     {
         _hidingCameraConfigs = hidingCameraConfigs;
-        _startingDirection = _hidingCameraConfigs.StartingDirection;
+        _currentDirection = _hidingCameraConfigs.StartingDirection;
     }
     #endregion
 
@@ -41,11 +41,11 @@ public class CinemachinePOVExtension : CinemachineExtension
         {
             if (stage == CinemachineCore.Stage.Aim)
             {
-                _startingDirection.x += _deltaInput.x * _verticalSpeed * Time.deltaTime;
-                _startingDirection.y += _deltaInput.y * _horizontalSpeed * Time.deltaTime;
-                _startingDirection.x = Mathf.Clamp(_startingDirection.x, _hidingCameraConfigs.ClampDownUp.x, _hidingCameraConfigs.ClampDownUp.y);
-                _startingDirection.y = Mathf.Clamp(_startingDirection.y, _hidingCameraConfigs.ClampLeftRight.x, _hidingCameraConfigs.ClampLeftRight.y);
-                state.RawOrientation = Quaternion.Euler(-_startingDirection.y, _startingDirection.x, 0f);
+                _currentDirection.x += _deltaInput.x * _verticalSpeed * Time.deltaTime;
+                _currentDirection.y += _deltaInput.y * _horizontalSpeed * Time.deltaTime;
+                _currentDirection.x = Mathf.Clamp(_currentDirection.x, _hidingCameraConfigs.ClampDownUp.x, _hidingCameraConfigs.ClampDownUp.y);
+                _currentDirection.y = Mathf.Clamp(_currentDirection.y, _hidingCameraConfigs.ClampLeftRight.x, _hidingCameraConfigs.ClampLeftRight.y);
+                state.RawOrientation = Quaternion.Euler(-_currentDirection.y, _currentDirection.x, 0f);
             }
         }
     }
