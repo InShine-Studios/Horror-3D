@@ -23,7 +23,10 @@ public abstract class EvidenceItem : Item, IEvidenceItem
     #endregion
 
     #region GhostInput
-    public abstract void OnGhostInteraction();
+    public virtual void OnGhostInteraction()
+    {
+        UpdateMarker();
+    }
 
     #endregion
 

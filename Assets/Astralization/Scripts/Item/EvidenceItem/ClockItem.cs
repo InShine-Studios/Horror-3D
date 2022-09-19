@@ -39,6 +39,7 @@ public class ClockItem : EvidenceItem
     public override void OnGhostInteraction()
     {
         if (!(_clockManager.CurrentState is ClockInactiveState)) DetermineEvidence();
+        base.OnGhostInteraction();
     }
     #endregion
 
