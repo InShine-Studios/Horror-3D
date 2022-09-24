@@ -77,18 +77,28 @@ public class InteractableTest: TestBase
     public IEnumerator PlayerInteractableDetector_InteractClosets()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        float moveDuration = GetMovementDurationTowards(GameObject.Find("Closets").transform);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveLeft, false, 0.3f);
+        GameObject closets = GameObject.Find("Closets");
+        float moveDuration = GetMovementDurationTowards(closets.transform);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveLeft, false, 0.7f);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, moveDuration);
 
         PlayerInput _playerInput = player.GetComponent<PlayerInput>();
         //Animator anim = _hud.transform.Find("HidingOverlay").GetComponent<Animator>();
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
         yield return new WaitForSeconds(1.0f);
-        Vector3 calOffset = GameObject.Find("Closets/Model/RotateRight").GetComponentInChildren<Renderer>().bounds.center;
+        Vector3 calOffset = closets.GetComponentInChildren<Renderer>().bounds.center;
+        calOffset.y = 0;
         //Assert.Less(Utils.GeometryCalcu.GetDistance3D(calOffset,player.transform.position),1f); //TODO #312
         //Assert.True(anim.GetBool("isHiding"));
         Assert.AreEqual(_playerInput.currentActionMap.name, "Hiding");
+
+        // Closets camera
+        HidingCameraConfigs hidingCameraConfigs = closets.GetComponentInChildren<HidingCameraConfigs>();
+        Vector3 startingPosition = hidingCameraConfigs.StartingPosition;
+        GameObject cameraHiding = GameObject.Find("Player/Camera/Camera Hiding");
+        Cinemachine.CinemachineVirtualCamera vcam = cameraHiding.GetComponent<Cinemachine.CinemachineVirtualCamera>();
+        Vector3 cameraPosition = vcam.m_Follow.position;
+        Assert.AreEqual(cameraPosition, startingPosition);
 
         // Try moving while hiding
         Transform currentPosition = player.transform;
@@ -122,7 +132,7 @@ public class InteractableTest: TestBase
         Assert.True(markLight1.IsEnabled());
         Assert.False(markLight2.IsEnabled());
         Assert.False(markFlash.IsEnabled());
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, 0.4f);
+        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, 0.6f);
         Assert.False(markLight1.IsEnabled());
         Assert.True(markLight2.IsEnabled()); 
         Assert.True(markFlash.IsEnabled());
