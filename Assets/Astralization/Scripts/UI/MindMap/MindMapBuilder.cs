@@ -5,7 +5,7 @@ public interface IMindMapBuilder
 {
     void AddNode();
     void ClearChild();
-    void Load();
+    string Load();
     void Save(string filename);
 }
 
@@ -113,15 +113,17 @@ public class MindMapBuilder : MonoBehaviour, IMindMapBuilder
         SaveTree(filename);
     }
 
-    public void Load()
+    public string Load()
     {
         if (_mindMapTreeData == null)
         {
             Debug.LogError("[MIND MAP BUILDER] Mind map tree data has not been assigned");
-            return;
+            return null;
         }
         if (_mindMapTree == null) _mindMapTree = GetComponent<MindMapTree>();
 
         _mindMapTree.LoadTree(_mindMapTreeData);
+
+        return _mindMapTreeData.name;
     }
 }
