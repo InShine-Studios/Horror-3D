@@ -139,10 +139,6 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     #region Transition
     public void ToggleDisplay()
     {
-        //if (_onTransition) return;
-
-        //if (_isExpanded) Shrink();
-        //else Expand();
         Expand();
     }
 
