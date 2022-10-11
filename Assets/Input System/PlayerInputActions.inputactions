@@ -115,9 +115,9 @@
                 },
                 {
                     "name": "ToggleItemHudDisplay",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "e01af031-4251-430b-895c-73c989bc478d",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "Press",
                     "initialStateCheck": false
@@ -400,7 +400,7 @@
                 {
                     "name": "",
                     "id": "388c222b-544c-409a-b9e6-4c1f7875ecb1",
-                    "path": "<Keyboard>/tab",
+                    "path": "<Mouse>/scroll",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",

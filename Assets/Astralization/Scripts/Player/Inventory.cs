@@ -45,8 +45,8 @@ public class Inventory : MonoBehaviour, IInventory
     [Tooltip("The list of items")]
     private Item[] _items;
 
-    [Range(3, 5)]
-    [SerializeField]
+    //[Range(3, 5)]
+    //[SerializeField]
     [Tooltip("Inventory Length")]
     private int _size = 3;
     public int Size { get { return _size; } }

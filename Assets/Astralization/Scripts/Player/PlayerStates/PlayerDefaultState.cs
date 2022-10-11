@@ -97,15 +97,15 @@ public class PlayerDefaultState : PlayerState
         }
     }
 
-    public override void ChangeActiveItemQuickslot(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
-        {
-            Key pressedKey = ((KeyControl)ctx.control).keyCode;
-            int newIdx = pressedKey - Key.Digit1;
-            _inventory.SetActiveItemByQuickSlot(newIdx);
-        }
-    }
+    //public override void ChangeActiveItemQuickslot(InputAction.CallbackContext ctx)
+    //{
+    //    if (ctx.performed)
+    //    {
+    //        Key pressedKey = ((KeyControl)ctx.control).keyCode;
+    //        int newIdx = pressedKey - Key.Digit1;
+    //        _inventory.SetActiveItemByQuickSlot(newIdx);
+    //    }
+    //}
 
     public override void ToggleItemHudDisplay(InputAction.CallbackContext ctx)
     {
