@@ -25,6 +25,9 @@ public class PlayerHidingState : PlayerState
         base.Awake();
         _playerMovement = GetComponent<PlayerMovement>();
         _interactableDetector = GetComponentInChildren<InteractableDetector>();
+        _vcam = this.transform.parent.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>();
+        _freelook = this.transform.parent.GetComponentInChildren<Cinemachine.CinemachineFreeLook>();
+        _hidingCameraConfigs = _closets.GetComponent<HidingCameraConfigs>();
     }
     #endregion
 
@@ -33,17 +36,33 @@ public class PlayerHidingState : PlayerState
     {
         base.Enter();
         PlayerMovementChangeState();
-        _closets = _interactableDetector.GetClosest().transform.parent;
+
+        _closets = _interactableDetector.GetClosest().transform;
+        _closetsPoint = new GameObject().transform;
+        _closetsPoint.parent = _closets;
+
+        _closetsPoint.localPosition = _hidingCameraConfigs.StartingPosition;
+        _cinemachinePOVExtension.SetClosetCameraSetting(_hidingCameraConfigs);
+
         _prevPosition = this.transform.position;
         Vector3 calOffset = _closets.GetComponentInChildren<Renderer>().bounds.center;
-        this.transform.position = calOffset;
+        this.transform.position = new Vector3(calOffset.x, 0 , calOffset.z);
+
+        _freelook.enabled = false;
+        _vcam.enabled = true;
+        _vcam.m_Follow = _closetsPoint;
     }
 
     public override void Exit()
     {
         base.Exit();
         this.transform.position = _prevPosition;
+
+        _vcam.m_Follow = null;
+        _freelook.enabled = true;
+        _vcam.enabled = false;
         _closets = null;
+
         Invoke("PlayerMovementChangeState", 0.1f);
     }
 
