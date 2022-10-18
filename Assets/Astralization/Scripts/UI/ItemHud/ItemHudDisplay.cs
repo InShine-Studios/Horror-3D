@@ -9,7 +9,6 @@ public interface IItemHudDisplay
     bool OnTransition { get; }
     float MaxIdleDuration { get; }
 
-    void ToggleDisplay();
     void Init(int numSlot, int activeIdx);
     void SelectActiveSlot(int index);
     void SetItemLogoAnimator(int index, RuntimeAnimatorController animController, int animParam);
@@ -137,12 +136,8 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     #endregion
 
     #region Transition
-    public void ToggleDisplay()
-    {
-        Expand();
-    }
 
-    private void Expand()
+    public void Expand()
     {
         _onTransition = true;
         ItemSlot activeSlot = _itemSlots[_currentActiveIdx];

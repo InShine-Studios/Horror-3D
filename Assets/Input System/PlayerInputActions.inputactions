@@ -105,15 +105,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToggleItemHudDisplay",
-                    "type": "PassThrough",
-                    "id": "e01af031-4251-430b-895c-73c989bc478d",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "ToggleFlashlight",
                     "type": "Button",
                     "id": "817726e9-d97f-4a73-bda0-9910130bb8ce",
@@ -330,17 +321,6 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "MouseDelta",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "388c222b-544c-409a-b9e6-4c1f7875ecb1",
-                    "path": "<Mouse>/scroll",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "ToggleItemHudDisplay",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

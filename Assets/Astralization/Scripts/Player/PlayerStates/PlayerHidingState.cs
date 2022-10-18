@@ -49,6 +49,7 @@ public class PlayerHidingState : PlayerState
         _closetsPoint = new GameObject().transform;
         _closetsPoint.parent = _closets;
         _closetsPoint.localPosition = _hidingCameraConfigs.StartingPosition;
+        Debug.Log(_closetsPoint.localPosition);
         _cinemachinePOVExtension.SetClosetCameraSetting(_hidingCameraConfigs);
         _prevPosition = this.transform.position;
         Vector3 calOffset = _closets.GetComponentInChildren<Renderer>().bounds.center;

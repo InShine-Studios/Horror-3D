@@ -19,12 +19,6 @@ public class KeyboardMouseTestFixture: InputTestFixture
         NextDialogueEnter,
         NextDialogueClick,
         SimulateGhostInteract,
-        InventorySlot1,
-        InventorySlot2,
-        InventorySlot3,
-        InventorySlot4,
-        InventorySlot5,
-        ToggleItemHudDisplay,
         ToggleFlashlight
     }
     private Keyboard keyboard;
@@ -49,12 +43,6 @@ public class KeyboardMouseTestFixture: InputTestFixture
             {RegisteredInput.DiscardItem, keyboard.gKey },
             {RegisteredInput.NextDialogueEnter, keyboard.enterKey },
             {RegisteredInput.SimulateGhostInteract, keyboard.zKey }, // [TODO] Remove when Ghost Interaction fully implemented
-            {RegisteredInput.InventorySlot1, keyboard.digit1Key },
-            {RegisteredInput.InventorySlot2, keyboard.digit2Key },
-            {RegisteredInput.InventorySlot3, keyboard.digit3Key },
-            {RegisteredInput.InventorySlot4, keyboard.digit4Key },
-            {RegisteredInput.InventorySlot5, keyboard.digit5Key },
-            {RegisteredInput.ToggleItemHudDisplay, keyboard.tabKey },
         };
         buttonInputMap = new Dictionary<RegisteredInput, ButtonControl>(){
             {RegisteredInput.UseItem, mouse.leftButton},

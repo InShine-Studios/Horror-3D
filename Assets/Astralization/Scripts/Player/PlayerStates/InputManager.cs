@@ -70,8 +70,6 @@ public class InputManager : StateMachine
             case "UseItem": currentPlayerState.UseActiveItem(ctx); break;
             case "DiscardItem": currentPlayerState.DiscardItemInput(ctx); break;
             case "SimulateGhostInteract": currentPlayerState.CheckInteractionGhost(ctx); break;
-            case "InventoryQuickslot": currentPlayerState.ChangeActiveItemQuickslot(ctx); break;
-            case "ToggleItemHudDisplay": currentPlayerState.ToggleItemHudDisplay(ctx); break;
             case "ToggleFlashlight": currentPlayerState.ToggleFlashlight(ctx); break;
         }  
     }

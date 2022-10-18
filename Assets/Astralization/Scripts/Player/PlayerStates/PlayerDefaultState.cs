@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -97,6 +98,18 @@ public class PlayerDefaultState : PlayerState
         }
     }
 
+    [Obsolete("Method is obsolete.", false)]
+    public override void ChangeActiveItemQuickslot(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            Key pressedKey = ((KeyControl)ctx.control).keyCode;
+            int newIdx = pressedKey - Key.Digit1;
+            _inventory.SetActiveItemByQuickSlot(newIdx);
+        }
+    }
+
+    [Obsolete("Method is obsolete.", false)]
     public override void ToggleItemHudDisplay(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
