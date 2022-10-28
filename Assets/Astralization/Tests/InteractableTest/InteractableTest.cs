@@ -97,7 +97,7 @@ public class InteractableTest: TestBase
         Vector3 hidingCameraStartingPosition = hidingCameraConfigs.StartingPosition;
         GameObject cameraHiding = GameObject.Find("Player/Camera/Camera Hiding");
         Cinemachine.CinemachineVirtualCamera vcam = cameraHiding.GetComponent<Cinemachine.CinemachineVirtualCamera>();
-        Vector3 cameraPosition = vcam.m_Follow.position;
+        Vector3 cameraPosition = vcam.m_Follow.localPosition;
         Assert.AreEqual(cameraPosition, hidingCameraStartingPosition);
 
         // Try moving while hiding

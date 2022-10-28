@@ -46,6 +46,7 @@ public class ChangeActiveItemAnimEventArgs : InventoryHudEventArgs
     }
 }
 
+[Obsolete("Method is obsolete.", false)]
 public class ToggleExpandShrinkEventArgs : InventoryHudEventArgs
 {
     public ToggleExpandShrinkEventArgs() { }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -97,6 +98,7 @@ public class PlayerDefaultState : PlayerState
         }
     }
 
+    [Obsolete("Method is obsolete.", false)]
     public override void ChangeActiveItemQuickslot(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
@@ -107,6 +109,7 @@ public class PlayerDefaultState : PlayerState
         }
     }
 
+    [Obsolete("Method is obsolete.", false)]
     public override void ToggleItemHudDisplay(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
