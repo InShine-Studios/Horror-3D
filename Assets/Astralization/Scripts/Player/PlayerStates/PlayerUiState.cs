@@ -10,6 +10,7 @@ public abstract class PlayerUiState : PlayerState
 {
     #region Variables
     protected CinemachineBrain _cinemachineBrain;
+    protected bool _confineCursor = false;
     #endregion
 
     #region MonoBehaviour
@@ -24,7 +25,7 @@ public abstract class PlayerUiState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        Cursor.lockState = CursorLockMode.Confined;
+        if(_confineCursor) Cursor.lockState = CursorLockMode.Confined;
         StartCoroutine(Utils.DelayerHelper.Delay(0.25f, () => _cinemachineBrain.enabled = false));
     }
 

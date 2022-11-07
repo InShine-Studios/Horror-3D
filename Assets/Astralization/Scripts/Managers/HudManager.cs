@@ -13,6 +13,7 @@ public class HudManager : MonoBehaviour
     private ItemHudDisplay _itemHud;
     private ExorcismBar _exorcismBar;
     private TimeslotHud _timeslotHud;
+    private Canvas _canvas;
     #endregion
 
     #region SetGet
@@ -51,6 +52,8 @@ public class HudManager : MonoBehaviour
         _itemHud = GetComponentInChildren<ItemHudDisplay>();
         _exorcismBar = GetComponentInChildren<ExorcismBar>();
         _timeslotHud = GetComponentInChildren<TimeslotHud>();
+        _canvas = GetComponent<Canvas>();
+        _canvas.enabled = false;
     }
     private void OnEnable()
     {

@@ -41,6 +41,7 @@ public class InputManager : StateMachine
             case Utils.PlayerHelper.States.Dialogue: ChangeState<PlayerDialogueState>(); break;
             case Utils.PlayerHelper.States.Tome: ChangeState<PlayerTomeState>(); break;
             case Utils.PlayerHelper.States.Exorcism: ChangeState<PlayerExorcismState>(); break;
+            case Utils.PlayerHelper.States.MindMap: ChangeState<PlayerCluesMindMapState>(); break;
         }
         //Debug.Log("[INPUT MAP] New Map: " + _playerInput.currentActionMap);
     }
@@ -93,6 +94,17 @@ public class InputManager : StateMachine
         switch (ctx.action.name)
         {
             case "Interact": currentPlayerState.UnhidePlayer(ctx); break;
+        }
+    }
+
+    public void HandleInputMindMap(InputAction.CallbackContext ctx)
+    {
+        PlayerState currentPlayerState = (PlayerState)CurrentState;
+        if (!CanHandleInput()) return;
+        switch (ctx.action.name)
+        {
+            case "ChangeCore": currentPlayerState.ChangeCore(ctx); break;
+            case "ChangeClue": currentPlayerState.ChangeClue(ctx); break;
         }
     }
     #endregion

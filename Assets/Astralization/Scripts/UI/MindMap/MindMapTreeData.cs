@@ -13,5 +13,9 @@ public class MindMapTreeData : ScriptableObject
     public List<string> NodeDescriptions = new List<string>();
     public List<MindMapNodeType> NodeTypes = new List<MindMapNodeType>();
     public List<RuntimeAnimatorController> NodeAnimationControllers = new List<RuntimeAnimatorController>();
-    public List<Transform> NodeTransforms = new List<Transform>();
+    public List<Vector3> NodePositions = new List<Vector3>();
+    public List<Quaternion> NodeRotations = new List<Quaternion>();
+    public List<Vector3> NodeScales = new List<Vector3>();
+    public List<Vector3> NodeCameraPosition = new List<Vector3>();
+    public List<Vector3> NodeCameraAngle= new List<Vector3>();
 }

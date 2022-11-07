@@ -21,6 +21,7 @@ namespace Utils
             Tome,
             Hiding,
             Exorcism,
+            MindMap,
             Default
         }
         public static int FixedUpdateCallsPerSecond = 50;
@@ -30,6 +31,7 @@ namespace Utils
             {States.Tome, "UI" },
             {States.Hiding, "Hiding" },
             {States.Exorcism, "Exorcism" },
+            {States.MindMap, "MindMap" },
             {States.Default, "Default" }
         };
 

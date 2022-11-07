@@ -473,6 +473,86 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 817726e9-d97f-4a73-bda0-9910130bb8ce
     m_ActionName: Default/ToggleFlashlight[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 873121507167454745}
+        m_TargetAssemblyTypeName: InputManager, Scripts
+        m_MethodName: HandleInputHiding
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bb91cff9-1e1e-4991-b44c-3d5e784a1966
+    m_ActionName: Hiding/MouseDelta[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 873121507167454745}
+        m_TargetAssemblyTypeName: InputManager, Scripts
+        m_MethodName: HandleInputMindMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7e5b1a13-9988-4385-8c4a-973d8fc3554f
+    m_ActionName: MindMap/Change Core[/Keyboard/q,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 873121507167454745}
+        m_TargetAssemblyTypeName: InputManager, Scripts
+        m_MethodName: HandleInputMindMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 144798a8-c6a9-4d83-a43d-a9ac47fb3532
+    m_ActionName: MindMap/Change Clue[/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 873121507167454745}
+        m_TargetAssemblyTypeName: InputManager, Scripts
+        m_MethodName: HandleInputMindMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e1ff8559-f8cb-4f13-8167-39508426fac0
+    m_ActionName: MindMap/Exit[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 873121507167454745}
+        m_TargetAssemblyTypeName: InputManager, Scripts
+        m_MethodName: HandleInputMindMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6888f6ad-3ea4-4bae-b101-49d66327a043
+    m_ActionName: MindMap/MouseDelta[/Mouse/delta]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Default
