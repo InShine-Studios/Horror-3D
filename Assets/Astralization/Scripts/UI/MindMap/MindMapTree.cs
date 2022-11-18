@@ -194,6 +194,8 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
             newNode.transform.position = _mindMapTreeData.NodePositions[i];
             newNode.transform.rotation = _mindMapTreeData.NodeRotations[i];
             newNode.transform.localScale = _mindMapTreeData.NodeScales[i];
+            newNode.SetCameraFollowPosition(_mindMapTreeData.NodeCameraFollowPosition[i]);
+            newNode.SetCameraLookAtPosition(_mindMapTreeData.NodeCameraLookAtPosition[i]);
 
             newNode.gameObject.layer = LayerMask.NameToLayer(LayerName);
 
@@ -249,7 +251,7 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     #region Camera Manipulation
     public void SetCameraFocus(MindMapNode node)
     {
-        _mindMapCameraManager.FocusOn(node.CameraFollow, node.transform);
+        _mindMapCameraManager.FocusOn(node.CameraFollow, node.CameraLookAt);
         selectedNode = node;
     }
     #endregion

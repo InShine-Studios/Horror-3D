@@ -14,6 +14,7 @@ public class MindMapNode : MonoBehaviour
 {
     #region Const
     public static string CameraFollowGameobjectName = "CameraFollow";
+    public static string CameraLookAtGameobjectName = "CameraLookAt";
     #endregion
 
     #region Variables
@@ -33,18 +34,27 @@ public class MindMapNode : MonoBehaviour
     [Tooltip("Degree around each axis")]
     private Vector3 _cameraStartingAngle;
 
-    public Vector3 CameraStartingPosition { get { return _cameraStartingPosition; } }
-    public Vector3 CameraStartingAngle { get { return _cameraStartingAngle; } }
     public Transform CameraFollow { get; private set; }
+    public Transform CameraLookAt { get; private set; }
     #endregion
 
     #region SetGet
+    public void SetCameraFollowPosition(Vector3 position)
+    {
+        CameraFollow.transform.localPosition = position;
+    }
+
+    public void SetCameraLookAtPosition(Vector3 position)
+    {
+        CameraLookAt.transform.localPosition = position;
+    }
     #endregion
 
     #region MonoBehaviour
     private void Awake()
     {
         CameraFollow = transform.Find(CameraFollowGameobjectName);
+        CameraLookAt = transform.Find(CameraLookAtGameobjectName);
     }
     #endregion
 }

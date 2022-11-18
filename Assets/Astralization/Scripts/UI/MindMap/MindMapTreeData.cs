@@ -16,6 +16,6 @@ public class MindMapTreeData : ScriptableObject
     public List<Vector3> NodePositions = new List<Vector3>();
     public List<Quaternion> NodeRotations = new List<Quaternion>();
     public List<Vector3> NodeScales = new List<Vector3>();
-    public List<Vector3> NodeCameraPosition = new List<Vector3>();
-    public List<Vector3> NodeCameraAngle= new List<Vector3>();
+    public List<Vector3> NodeCameraFollowPosition = new List<Vector3>();
+    public List<Vector3> NodeCameraLookAtPosition= new List<Vector3>();
 }
