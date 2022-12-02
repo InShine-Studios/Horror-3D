@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System;
+using System.Collections;
 
 /*
  * Class to manage general HUD stuff.
@@ -85,9 +85,7 @@ public class HudManager : MonoBehaviour
                 break;
             case nameof(ChangeActiveItemIdxEventArgs):
                 _itemHud.SelectActiveSlot(args.CurrentActiveIdx);
-                break;
-            case nameof(ToggleExpandShrinkEventArgs):
-                _itemHud.ToggleDisplay();
+                _itemHud.Expand();
                 break;
             default:
                 break;
