@@ -11,12 +11,18 @@ public interface IMindMapTree
     int NodeCount { get; }
     MindMapNode Root { get; }
 
-    bool IsNodeRelated();
     void AddNode();
     void BuildNodeRelation();
+    void ChangeClue(int indexStep);
+    void ChangeCore(int indexStep);
     void ClearAllNodes();
+    int GetClueNodeIdx();
+    int GetCoreNodeIdx();
+    MindMapNode GetSelectedNode();
+    bool IsNodeRelated();
     void LoadTree();
     void LoadTree(MindMapTreeData data);
+    void SetCameraFocus(MindMapNode node);
 }
 
 #region SerializableClass
@@ -91,6 +97,21 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     private void SelectNode(MindMapNode node)
     {
         selectedNode = node;
+    }
+
+    public MindMapNode GetSelectedNode()
+    {
+        return selectedNode;
+    }
+
+    public int GetCoreNodeIdx()
+    {
+        return coreNodeIdx;
+    }
+
+    public int GetClueNodeIdx()
+    {
+        return clueNodeIdx;
     }
     #endregion
 
@@ -172,7 +193,7 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
             newNode.NodeName = _mindMapTreeData.NodeNames[i];
             newNode.NodeDescription = _mindMapTreeData.NodeDescriptions[i];
             newNode.AnimController = _mindMapTreeData.NodeAnimationControllers[i];
-            
+
             // Type-related assignments
             newNode.NodeType = _mindMapTreeData.NodeTypes[i];
             GameObject nodeModel = Instantiate(_nodeModelDictionary[newNode.NodeType]);
@@ -219,7 +240,7 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
         if (coreNodeIdx == -1)
         {
             coreNodeIdx = 0;
-        } 
+        }
         else
         {
             List<MindMapNode> coreNodes = Root.Children;

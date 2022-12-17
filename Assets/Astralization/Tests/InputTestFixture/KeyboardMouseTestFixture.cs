@@ -25,7 +25,11 @@ public class KeyboardMouseTestFixture: InputTestFixture
         InventorySlot4,
         InventorySlot5,
         ToggleItemHudDisplay,
-        ToggleFlashlight
+        ToggleFlashlight,
+        ChangeCoreForward,
+        ChangeCoreBack,
+        ChangeClueForward,
+        ChangeClueBack
     }
     private Keyboard keyboard;
     private Mouse mouse;
@@ -55,6 +59,10 @@ public class KeyboardMouseTestFixture: InputTestFixture
             {RegisteredInput.InventorySlot4, keyboard.digit4Key },
             {RegisteredInput.InventorySlot5, keyboard.digit5Key },
             {RegisteredInput.ToggleItemHudDisplay, keyboard.tabKey },
+            {RegisteredInput.ChangeCoreForward, keyboard.eKey },
+            {RegisteredInput.ChangeCoreBack, keyboard.qKey },
+            {RegisteredInput.ChangeClueForward, keyboard.dKey },
+            {RegisteredInput.ChangeClueBack, keyboard.aKey },
         };
         buttonInputMap = new Dictionary<RegisteredInput, ButtonControl>(){
             {RegisteredInput.UseItem, mouse.leftButton},
