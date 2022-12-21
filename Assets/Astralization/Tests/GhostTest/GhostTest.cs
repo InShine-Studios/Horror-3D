@@ -36,7 +36,7 @@ public class GhostTest : TestBase
     #endregion
 
     #region Ghost Movement
-    [UnityTest]
+    //[UnityTest]  // Deprecated test case
     public IEnumerator Ghost_WanderToTargetRoom()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
@@ -57,7 +57,7 @@ public class GhostTest : TestBase
         Assert.IsTrue(delta <= ghostMovement.GetDistanceThreshold());
     }
 
-    [UnityTest]
+    //[UnityTest] // Deprecated test case
     public IEnumerator Ghost_WanderingRandomly()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
@@ -68,7 +68,7 @@ public class GhostTest : TestBase
         Assert.AreNotEqual(initialPosition, ghost.transform.position);
     }
 
-    [UnityTest]
+    //[UnityTest] // Deprecated test case
     public IEnumerator Ghost_RotatingWhileIdle()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
@@ -80,7 +80,7 @@ public class GhostTest : TestBase
     #endregion
 
     #region GhostKillAndChase
-    [UnityTest]
+    //[UnityTest] // Deprecated test case
     public IEnumerator Ghost_ChasingWhileKillPhase()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
