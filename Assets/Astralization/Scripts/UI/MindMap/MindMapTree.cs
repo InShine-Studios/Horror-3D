@@ -148,6 +148,16 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
                 _root = newNode;
             }
 
+            // Transform assignments
+            newNode.transform.parent = transform;
+            newNode.transform.position = _mindMapTreeData.NodePositions[i];
+            newNode.transform.rotation = _mindMapTreeData.NodeRotations[i];
+            newNode.transform.localScale = _mindMapTreeData.NodeScales[i];
+            newNode.SetCameraFollowPosition(_mindMapTreeData.NodeCameraFollowPosition[i]);
+            newNode.SetCameraLookAtPosition(_mindMapTreeData.NodeCameraLookAtPosition[i]);
+
+            newNode.gameObject.layer = LayerMask.NameToLayer(LayerName);
+
             newNode.name = newNode.NodeName + " node";
             newNode.transform.parent = transform;
             nodeInstances[i] = newNode;
@@ -160,6 +170,14 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     {
         _mindMapTreeData = data;
         LoadTree();
+    }
+    #endregion
+
+    #region Camera Manipulation
+    public void SetCameraFocus(MindMapNode node)
+    {
+        _mindMapCameraManager.FocusOn(node.CameraFollow, node.CameraLookAt);
+        selectedNode = node;
     }
     #endregion
 }
