@@ -1,3 +1,5 @@
+using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +19,10 @@ public interface IMindMapTree
     void LoadTree(MindMapTreeData data);
 }
 
+#region SerializableClass
+[Serializable]
+public class NodeModelDictionary : SerializableDictionary<MindMapNodeType, GameObject> { }
+#endregion
 
 /**
  * Class for managing and manipulating mind map tree.
@@ -24,14 +30,30 @@ public interface IMindMapTree
  */
 public class MindMapTree : MonoBehaviour, IMindMapTree
 {
+    #region Const
+    public static string LayerName = "MindMap";
+    #endregion
+
     #region Variables
+    [Header("Prefabs")]
     [SerializeField]
-    private MindMapNode _mindMapNodePrefab;
+    private MindMapNode _mindMapNodeBase;
+    [SerializeField]
+    private NodeModelDictionary _nodeModelDictionary;
+
+    [Header("Tree Data")]
     [SerializeField]
     private MindMapNode _root;
     [SerializeField]
     private MindMapTreeData _mindMapTreeData;
+
+    [Header("Camera and Navigation")]
+    [SerializeField]
+    private MindMapCameraManager _mindMapCameraManager; // TODO: make this non-serializable and integrate with UiState
+
     private MindMapNode selectedNode = null;
+    private int coreNodeIdx;
+    private int clueNodeIdx;
 
     public MindMapNode Root { get { return _root; } }
     public int NodeCount { get { return transform.childCount; } }
@@ -56,17 +78,29 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
         return null;
     }
 
+    private MindMapNode GetChildrenOfNode(MindMapNode node, int childIdx)
+    {
+        return node.Children[childIdx];
+    }
+
     private void SelectNode(string nodeName)
     {
         selectedNode = GetNode(nodeName);
+    }
+
+    private void SelectNode(MindMapNode node)
+    {
+        selectedNode = node;
     }
     #endregion
 
     #region MonoBehaviour
     private void Start()
     {
+        coreNodeIdx = -1;
+        clueNodeIdx = -1;
         LoadTree();
-        BuildNodeRelation();
+        SetCameraFocus(_root);
     }
     #endregion
 
@@ -114,7 +148,7 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
 
     public void AddNode()
     {
-        MindMapNode mindMapNode = Instantiate(_mindMapNodePrefab);
+        MindMapNode mindMapNode = Instantiate(_mindMapNodeBase);
         mindMapNode.transform.parent = transform;
     }
 
@@ -133,12 +167,19 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
 
         for (int i = 0; i < nodeCount; i++)
         {
-            MindMapNode newNode = Instantiate(_mindMapNodePrefab);
+            MindMapNode newNode = Instantiate(_mindMapNodeBase);
+            // General assignments
             newNode.NodeName = _mindMapTreeData.NodeNames[i];
-            newNode.NodeType = _mindMapTreeData.NodeTypes[i];
             newNode.NodeDescription = _mindMapTreeData.NodeDescriptions[i];
             newNode.AnimController = _mindMapTreeData.NodeAnimationControllers[i];
+            
+            // Type-related assignments
+            newNode.NodeType = _mindMapTreeData.NodeTypes[i];
+            GameObject nodeModel = Instantiate(_nodeModelDictionary[newNode.NodeType]);
+            nodeModel.transform.parent = newNode.transform;
+            nodeModel.gameObject.layer = LayerMask.NameToLayer(LayerName);
 
+            // Parent reference assignments
             if (_mindMapTreeData.ParentReferenceIdx[i] != -1)
             {
                 newNode.Parent = nodeInstances[_mindMapTreeData.ParentReferenceIdx[i]];
@@ -159,7 +200,6 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
             newNode.gameObject.layer = LayerMask.NameToLayer(LayerName);
 
             newNode.name = newNode.NodeName + " node";
-            newNode.transform.parent = transform;
             nodeInstances[i] = newNode;
         }
 
@@ -170,6 +210,41 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     {
         _mindMapTreeData = data;
         LoadTree();
+    }
+
+    public void ChangeCore(int indexStep)
+    {
+        if (_mindMapCameraManager.IsOnTransition) return;
+
+        if (coreNodeIdx == -1)
+        {
+            coreNodeIdx = 0;
+        } 
+        else
+        {
+            List<MindMapNode> coreNodes = Root.Children;
+            coreNodeIdx = Utils.MathCalcu.mod(coreNodeIdx + indexStep, coreNodes.Count);
+        }
+        SetCameraFocus(Root.Children[coreNodeIdx]);
+    }
+
+    public void ChangeClue(int indexStep)
+    {
+        if (_mindMapCameraManager.IsOnTransition) return;
+
+        if (coreNodeIdx == -1) return;
+
+        if (selectedNode.NodeType == MindMapNodeType.CORE)
+        {
+            clueNodeIdx = 0;
+        }
+        else
+        {
+            List<MindMapNode> clueNodes = Root.Children[coreNodeIdx].Children;
+            clueNodeIdx = Utils.MathCalcu.mod(clueNodeIdx + indexStep, clueNodes.Count);
+        }
+        SetCameraFocus(Root.Children[coreNodeIdx].Children[clueNodeIdx]);
+
     }
     #endregion
 
