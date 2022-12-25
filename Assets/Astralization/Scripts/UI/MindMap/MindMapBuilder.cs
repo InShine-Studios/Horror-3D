@@ -70,6 +70,8 @@ public class MindMapBuilder : MonoBehaviour, IMindMapBuilder
             mindMapTreeData.NodePositions.Add(currentNode.transform.position);
             mindMapTreeData.NodeRotations.Add(currentNode.transform.rotation);
             mindMapTreeData.NodeScales.Add(currentNode.transform.localScale);
+            mindMapTreeData.NodeCameraFollowPosition.Add(currentNode.GetCameraFollow().position);
+            mindMapTreeData.NodeCameraLookAtPosition.Add(currentNode.GetCameraLookAt().position);
 
             foreach (MindMapNode child in currentNode.Children)
             {

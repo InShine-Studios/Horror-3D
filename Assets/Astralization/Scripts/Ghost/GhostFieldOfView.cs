@@ -11,12 +11,6 @@ public interface IGhostFieldOfView
 
 public class GhostFieldOfView : MonoBehaviour, IGhostFieldOfView
 {
-    #region Const
-    private const string _playerLayerName = "Player";
-    private const string _buildingLayerName = "Building";
-    private const string _hidingLayerName = "HidingPlace";
-    #endregion
-
     #region Variables
     [SerializeField]
     [Tooltip("Sight radius of the ghost")]
@@ -37,8 +31,8 @@ public class GhostFieldOfView : MonoBehaviour, IGhostFieldOfView
     #region MonoBehaviour
     private void Awake()
     {
-        targetMask = LayerMask.GetMask(_playerLayerName);
-        obstructionMask = LayerMask.GetMask(_buildingLayerName, _hidingLayerName);
+        targetMask = LayerMask.GetMask(CameraConstants.PlayerLayer);
+        obstructionMask = LayerMask.GetMask(CameraConstants.BuildingLayer, CameraConstants.HidingPlaceLayer);
     }
     #endregion
 

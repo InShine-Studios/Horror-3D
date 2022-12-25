@@ -251,7 +251,7 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     #region Camera Manipulation
     public void SetCameraFocus(MindMapNode node)
     {
-        _mindMapCameraManager.FocusOn(node.CameraFollow, node.CameraLookAt);
+        _mindMapCameraManager.FocusOn(node.GetCameraFollow(), node.GetCameraLookAt());
         selectedNode = node;
     }
     #endregion
