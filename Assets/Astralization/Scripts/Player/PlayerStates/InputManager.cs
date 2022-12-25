@@ -9,14 +9,24 @@ public class InputManager : StateMachine
 {
     #region Variables
     [Tooltip("The Player Input component")]
-    [SerializeField]
     private PlayerInput _playerInput;
+    private InputActionMap _uiActionMap;
     #endregion
 
     #region MonoBehaviour
     private void Awake()
     {
         ChangeState<PlayerInitState>();
+        _playerInput = GetComponent<PlayerInput>();
+        foreach(InputActionMap actionMap in _playerInput.actions.actionMaps)
+        {
+            if (actionMap.name == Utils.PlayerHelper.UiInputActionName)
+            {
+                _uiActionMap = actionMap;
+                break;
+            }
+        }
+        
     }
 
     private void OnEnable()
@@ -33,7 +43,7 @@ public class InputManager : StateMachine
     #region SetGet
     public void SetPlayerActionMap(Utils.PlayerHelper.States playerState)
     {
-        _playerInput.SwitchCurrentActionMap(Utils.PlayerHelper.PlayerStateActionMapMapper[playerState]);
+        SwitchActionMap(playerState);
         switch (playerState) // RACE CONDITION
         {
             case Utils.PlayerHelper.States.Default: ChangeState<PlayerDefaultState>(); break;
@@ -48,6 +58,19 @@ public class InputManager : StateMachine
     #endregion
 
     #region Input Handler
+    private void SwitchActionMap(Utils.PlayerHelper.States playerState)
+    {
+        _playerInput.SwitchCurrentActionMap(Utils.PlayerHelper.PlayerStateActionMapMapper[playerState]);
+        if (Utils.PlayerHelper.UseUiActionMap.Contains(playerState))
+        {
+            _uiActionMap.Enable();
+        } 
+        else
+        {
+            _uiActionMap.Disable();
+        }
+    }
+
     private bool CanHandleInput()
     {
         if (CurrentState == null) return false;

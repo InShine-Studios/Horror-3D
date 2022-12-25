@@ -26,11 +26,13 @@ public class PlayerCluesMindMapState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     public override void Exit()
     {
         base.Exit();
+        Cursor.lockState = CursorLockMode.Locked;
     }
     #endregion
 

@@ -123,6 +123,16 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
         LoadTree();
         SetCameraFocus(_root);
     }
+
+    private void OnEnable()
+    {
+        NodeNavigation.ChangeNodeEvent += ChangeNodeFromButton;
+    }
+
+    private void OnDisable()
+    {
+        NodeNavigation.ChangeNodeEvent -= ChangeNodeFromButton;
+    }
     #endregion
 
     #region Loader
@@ -231,6 +241,21 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     {
         _mindMapTreeData = data;
         LoadTree();
+    }
+
+    private void ChangeNodeFromButton(int jumpIdx)
+    {
+        switch (selectedNode.NodeType)
+        {
+            case MindMapNodeType.CORE:
+                ChangeCore(jumpIdx);
+                break;
+            case MindMapNodeType.CLUE:
+                ChangeClue(jumpIdx);
+                break;
+            default:
+                break;
+        }
     }
 
     public void ChangeCore(int indexStep)

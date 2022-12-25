@@ -55,6 +55,7 @@ public abstract class TestBase
     {
         inputTestFixture.TearDown();
         //SceneManager.UnloadSceneAsync(sceneName);
+        Debug.Log("dsfa");
     }
     #endregion
 }

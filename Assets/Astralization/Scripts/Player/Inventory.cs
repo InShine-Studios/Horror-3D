@@ -122,7 +122,7 @@ public class Inventory : MonoBehaviour, IInventory
     #region EventHandler
     private void InvokeHudEvent(InventoryHudEventArgs args)
     {
-        InventoryHudEvent.Invoke(args);
+        InventoryHudEvent?.Invoke(args);
     }
     #endregion
 

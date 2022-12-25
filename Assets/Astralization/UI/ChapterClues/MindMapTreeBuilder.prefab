@@ -51,6 +51,8 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 7026165431072713707}
+  _cameraStartingPosition: {x: 0, y: 0, z: 0}
+  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &7026165430434203804
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,6 +104,8 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 7026165431072713707}
+  _cameraStartingPosition: {x: 0, y: 0, z: 0}
+  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &7026165430570434816
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,6 +157,8 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 7026165432073349600}
+  _cameraStartingPosition: {x: 0, y: 0, z: 0}
+  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &7026165430834885103
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,6 +210,8 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 7026165430570434823}
+  _cameraStartingPosition: {x: 0, y: 0, z: 0}
+  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &7026165431072713700
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,6 +263,8 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 7026165432073349600}
+  _cameraStartingPosition: {x: 0, y: 0, z: 0}
+  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &7026165431077624490
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,6 +316,8 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 7026165430570434823}
+  _cameraStartingPosition: {x: 0, y: 0, z: 0}
+  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &7026165431232447444
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,6 +369,8 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 7026165432073349600}
+  _cameraStartingPosition: {x: 0, y: 0, z: 0}
+  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &7026165431321343401
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,6 +422,8 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 7026165430570434823}
+  _cameraStartingPosition: {x: 0, y: 0, z: 0}
+  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &7026165431834933874
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,6 +475,8 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 7026165431232447451}
+  _cameraStartingPosition: {x: 0, y: 0, z: 0}
+  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &7026165431855881086
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,6 +528,8 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 7026165431232447451}
+  _cameraStartingPosition: {x: 0, y: 0, z: 0}
+  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &7026165431883083450
 GameObject:
   m_ObjectHideFlags: 0
@@ -561,6 +581,8 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 7026165431072713707}
+  _cameraStartingPosition: {x: 0, y: 0, z: 0}
+  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &7026165432026688381
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,6 +634,8 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 7026165431232447451}
+  _cameraStartingPosition: {x: 0, y: 0, z: 0}
+  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &7026165432073349601
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,6 +687,8 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 0}
+  _cameraStartingPosition: {x: 0, y: 0, z: 0}
+  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &7026165432199854188
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,6 +755,7 @@ MonoBehaviour:
     - {fileID: 6627780778903583924, guid: e6fafdf0f0ec89d489e9231a2e1ea46b, type: 3}
   _root: {fileID: 0}
   _mindMapTreeData: {fileID: 11400000, guid: 1d5910d920feecb44b4a91e8c06a46f6, type: 2}
+  _mindMapCameraManager: {fileID: 0}
 --- !u!114 &7026165432199854225
 MonoBehaviour:
   m_ObjectHideFlags: 0
