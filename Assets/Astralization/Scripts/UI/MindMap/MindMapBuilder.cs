@@ -14,6 +14,7 @@ public interface IMindMapBuilder
  * Class to build mind map with unity scene viewer and inspector.
  */
 [RequireComponent(typeof(MindMapTree))]
+[ExecuteInEditMode]
 public class MindMapBuilder : MonoBehaviour, IMindMapBuilder
 {
     #region Const
@@ -70,8 +71,8 @@ public class MindMapBuilder : MonoBehaviour, IMindMapBuilder
             mindMapTreeData.NodePositions.Add(currentNode.transform.position);
             mindMapTreeData.NodeRotations.Add(currentNode.transform.rotation);
             mindMapTreeData.NodeScales.Add(currentNode.transform.localScale);
-            mindMapTreeData.NodeCameraFollowPosition.Add(currentNode.GetCameraFollow().position);
-            mindMapTreeData.NodeCameraLookAtPosition.Add(currentNode.GetCameraLookAt().position);
+            mindMapTreeData.NodeCameraFollowPosition.Add(currentNode.GetCameraFollow().localPosition) ;
+            mindMapTreeData.NodeCameraLookAtPosition.Add(currentNode.GetCameraLookAt().localPosition);
 
             foreach (MindMapNode child in currentNode.Children)
             {
@@ -99,7 +100,6 @@ public class MindMapBuilder : MonoBehaviour, IMindMapBuilder
 
     public void Save(string filename)
     {
-        if (_mindMapTree == null) _mindMapTree = GetComponent<MindMapTree>();
         if (CountRootNodes() > 1)
         {
             Debug.LogError("[MIND MAP BUILDER] Root node can't be more than one. " +

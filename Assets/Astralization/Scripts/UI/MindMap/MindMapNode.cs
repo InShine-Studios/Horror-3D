@@ -10,6 +10,7 @@ public enum MindMapNodeType
     CLUE
 }
 
+[ExecuteInEditMode]
 public class MindMapNode : MonoBehaviour
 {
     #region Const
@@ -41,19 +42,11 @@ public class MindMapNode : MonoBehaviour
     #region SetGet
     public void SetCameraFollowPosition(Vector3 position)
     {
-        if(_cameraFollow == null) 
-        {
-           _cameraFollow = transform.Find(CameraFollowGameobjectName);
-        }
         _cameraFollow.localPosition = position; 
     }
 
     public void SetCameraLookAtPosition(Vector3 position)
     {
-        if (_cameraLookAt == null)
-        {
-            _cameraLookAt = transform.Find(CameraLookAtGameobjectName);
-        }
         _cameraLookAt.localPosition = position;
     }
 
@@ -71,7 +64,6 @@ public class MindMapNode : MonoBehaviour
     #region MonoBehaviour
     private void Awake()
     {
-        Debug.Log("Awake Called");
         _cameraFollow = transform.Find(CameraFollowGameobjectName);
         _cameraLookAt = transform.Find(CameraLookAtGameobjectName);
     }

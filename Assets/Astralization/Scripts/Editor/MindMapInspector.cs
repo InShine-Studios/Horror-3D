@@ -5,6 +5,7 @@ using UnityEditor;
  * The editor script to edit clue nodes in Mind Map.
  */
 [CustomEditor(typeof(MindMapBuilder))]
+[ExecuteInEditMode]
 public class MindMapBuilderInspector : Editor
 {
     private string filename = "MindMapTree_Chapter1";
