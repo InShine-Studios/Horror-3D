@@ -105,24 +105,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "InventoryQuickslot",
-                    "type": "Button",
-                    "id": "b31d57e4-19a3-4fb5-9d7b-b45bad74352a",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ToggleItemHudDisplay",
-                    "type": "Button",
-                    "id": "e01af031-4251-430b-895c-73c989bc478d",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "ToggleFlashlight",
                     "type": "Button",
                     "id": "817726e9-d97f-4a73-bda0-9910130bb8ce",
@@ -344,72 +326,6 @@
                 },
                 {
                     "name": "",
-                    "id": "22befc02-1be2-4d4a-8a70-2ab7deb795e2",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "InventoryQuickslot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b9a5447c-f155-4f01-b274-a8f048b99a7b",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "InventoryQuickslot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "932e2537-6159-439e-b7de-627e9479d384",
-                    "path": "<Keyboard>/3",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "InventoryQuickslot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "64cc3111-8dfc-4b3b-855b-6027bd7a6f1e",
-                    "path": "<Keyboard>/4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "InventoryQuickslot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4ad64115-9b0e-42e9-9e99-dfaf0b8ce573",
-                    "path": "<Keyboard>/5",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "InventoryQuickslot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "388c222b-544c-409a-b9e6-4c1f7875ecb1",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "ToggleItemHudDisplay",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "03aa3334-398d-4af3-9abe-427f097f0619",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
@@ -433,6 +349,15 @@
                     "processors": "",
                     "interactions": "Press",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MouseDelta",
+                    "type": "PassThrough",
+                    "id": "bb91cff9-1e1e-4991-b44c-3d5e784a1966",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -444,6 +369,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "29cbaa32-0716-4c73-bee8-80896f46d6f6",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MouseDelta",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

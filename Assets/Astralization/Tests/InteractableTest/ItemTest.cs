@@ -70,48 +70,21 @@ public class ItemTest : TestBase
     }
 
     [UnityTest]
-    public IEnumerator PlayerInventory_InventoryQuickslot()
-    {
-        yield return new WaitWhile(() => sceneLoaded == false);
-        IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
-        inventory.SetLength(5);
-        KeyboardMouseTestFixture.RegisteredInput[] quickslots =
-        {
-            KeyboardMouseTestFixture.RegisteredInput.InventorySlot1,
-            KeyboardMouseTestFixture.RegisteredInput.InventorySlot2,
-            KeyboardMouseTestFixture.RegisteredInput.InventorySlot3,
-            KeyboardMouseTestFixture.RegisteredInput.InventorySlot4,
-            KeyboardMouseTestFixture.RegisteredInput.InventorySlot5
-        };
-
-        for (int i = 0; i < quickslots.Length; i++)
-        {
-            KeyboardMouseTestFixture.RegisteredInput quickslot = quickslots[i];
-            yield return SimulateInput(quickslot);
-            Assert.AreEqual(i, inventory.GetActiveIdx());
-            Assert.AreEqual(inventory.GetItemByIndex(i), inventory.GetActiveItem());
-        }
-    }
-
-    [UnityTest]
     public IEnumerator ItemHud_ExpandAndShrink()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
         IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
-        // Expand Hud by pressing button
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ToggleItemHudDisplay);
+        // Expand Hud by scrolling mouse
+        inputTestFixture.Set("Scroll/Y", inventory.GetScrollStep());
+        yield return null;
         yield return new WaitWhile(() => itemHud.OnTransition);
         Assert.IsTrue(itemHud.IsExpanded);
 
-        // Shrink Hud by pressing button
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ToggleItemHudDisplay);
-        yield return new WaitUntil(() => !itemHud.OnTransition);
-        Assert.IsFalse(itemHud.IsExpanded);
-
         // Keep Hud expanded when changing active item
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ToggleItemHudDisplay);
+        inputTestFixture.Set("Scroll/Y", inventory.GetScrollStep());
+        yield return null;
         yield return new WaitUntil(() => !itemHud.OnTransition);
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 3; i++)
         {
             inputTestFixture.Set("Scroll/Y", inventory.GetScrollStep());
             yield return null;
@@ -125,25 +98,20 @@ public class ItemTest : TestBase
     }
 
     [UnityTest]
-    public IEnumerator PlayerInventory_InventoryQuickslotOutOfRange()
-    {
-        yield return new WaitWhile(() => sceneLoaded == false);
-        IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
-        inventory.SetLength(2);
-        int prevActiveIdx = inventory.GetActiveIdx();
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.InventorySlot3);
-        Assert.AreEqual(prevActiveIdx, inventory.GetActiveIdx());
-        Assert.AreEqual(inventory.GetItemByIndex(prevActiveIdx), inventory.GetActiveItem());
-    }
-
-    [UnityTest]
     public IEnumerator PlayerInventory_InventoryPlacementSequence()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.InventorySlot3);
+        IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
+        inputTestFixture.Set("Scroll/Y", inventory.GetScrollStep());
+        yield return null;
+        yield return new WaitUntil(() => !itemHud.OnTransition);
+        for (int i = 0; i < 3; i++)
+        {
+            inputTestFixture.Set("Scroll/Y", inventory.GetScrollStep());
+            yield return null;
+        }
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveForward, false, 0.1f);
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.PickItem);
-        IInventory inventory = player.transform.Find("Rotate/InteractZone").GetComponent<IInventory>();
 
         for (int i = 0; i < inventory.Size; i++)
         {

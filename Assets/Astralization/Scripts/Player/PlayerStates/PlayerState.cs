@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -35,6 +36,7 @@ public abstract class PlayerState : State
     {
         Utils.LoggerHelper.PrintStateDefaultLog("Player","ScrollActiveItem");
     }
+    [Obsolete("Method is obsolete.", false)]
     public virtual void ChangeActiveItemQuickslot(InputAction.CallbackContext ctx)
     {
         Utils.LoggerHelper.PrintStateDefaultLog("Player", "ChangeActiveItemQuickslot");
@@ -67,6 +69,7 @@ public abstract class PlayerState : State
     {
         Utils.LoggerHelper.PrintStateDefaultLog("Player","CheckInteractionGhost");
     }
+    [Obsolete("Method is obsolete.", false)]
     public virtual void ToggleItemHudDisplay(InputAction.CallbackContext ctx)
     {
         Utils.LoggerHelper.PrintStateDefaultLog("Player", "ToggleItemHud");

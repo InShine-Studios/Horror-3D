@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/*
+ * Class to manage hiding state
+ */
 public class PlayerHidingState : PlayerState
 {
     #region Events
@@ -17,12 +20,18 @@ public class PlayerHidingState : PlayerState
     private InteractableDetector _interactableDetector;
     [Tooltip("Player previous position")]
     private Vector3 _prevPosition;
+    private HidingCameraConfigs _hidingCameraConfigs;
+    private Transform _closetsPoint;
+    private Cinemachine.CinemachineFreeLook _freelook;
+    private Cinemachine.CinemachineVirtualCamera _vcam;
+    private CinemachinePOVExtension _cinemachinePOVExtension;
     #endregion
 
     #region MonoBehaviour
     protected override void Awake()
     {
         base.Awake();
+        _cinemachinePOVExtension = this.transform.parent.GetComponentInChildren<CinemachinePOVExtension>();
         _playerMovement = GetComponent<PlayerMovement>();
         _interactableDetector = GetComponentInChildren<InteractableDetector>();
         _vcam = this.transform.parent.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>();
@@ -78,6 +87,14 @@ public class PlayerHidingState : PlayerState
         if (ctx.performed)
         {
             owner.SetPlayerActionMap(Utils.PlayerHelper.States.Default);
+        }
+    }
+
+    public override void OnMouseDelta(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            _cinemachinePOVExtension.SetMouseDeltaInput(ctx.ReadValue<Vector2>());
         }
     }
     #endregion

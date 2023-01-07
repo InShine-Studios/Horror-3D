@@ -13,7 +13,6 @@ public interface IInventory
     float GetScrollStep();
     void PickItem(Item item);
     void ScrollActiveItem(Vector2 scrollVector);
-    void SetActiveItemByQuickSlot(int newIdx);
     void SetLength(int invenLength);
     void ToggleItemHudDisplay();
     void UseActiveItem();
@@ -45,8 +44,6 @@ public class Inventory : MonoBehaviour, IInventory
     [Tooltip("The list of items")]
     private Item[] _items;
 
-    [Range(3, 5)]
-    [SerializeField]
     [Tooltip("Inventory Length")]
     private int _size = 3;
     public int Size { get { return _size; } }
@@ -227,6 +224,7 @@ public class Inventory : MonoBehaviour, IInventory
 
         //Debug.Log("[INVENTORY] Change active item to " + (activeItem ? activeItem.name : "nothing") + " with index " + activeIdx);
     }
+    [Obsolete("Method is obsolete.", false)]
     public void SetActiveItemByQuickSlot(int newIdx)
     {
         if (newIdx >= _size)
@@ -268,6 +266,7 @@ public class Inventory : MonoBehaviour, IInventory
     #endregion
 
     #region ItemHud
+    [Obsolete("Method is obsolete.", false)]
     public void ToggleItemHudDisplay()
     {
         InvokeHudEvent(new ToggleExpandShrinkEventArgs());
