@@ -382,8 +382,6 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 727856770}
-  _cameraStartingPosition: {x: 0, y: 0, z: 0}
-  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &325339008
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,8 +418,6 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 657973800}
-  _cameraStartingPosition: {x: 0, y: 0, z: 0}
-  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!4 &325339010
 Transform:
   m_ObjectHideFlags: 0
@@ -619,8 +615,6 @@ MonoBehaviour:
   - {fileID: 1625259818}
   IsDiscovered: 0
   Parent: {fileID: 1411679070}
-  _cameraStartingPosition: {x: 0, y: 0, z: 0}
-  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!4 &657973801
 Transform:
   m_ObjectHideFlags: 0
@@ -758,8 +752,6 @@ MonoBehaviour:
   - {fileID: 286127090}
   IsDiscovered: 0
   Parent: {fileID: 1411679070}
-  _cameraStartingPosition: {x: 0, y: 0, z: 0}
-  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!4 &727856771
 Transform:
   m_ObjectHideFlags: 0
@@ -813,8 +805,6 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 727856770}
-  _cameraStartingPosition: {x: 0, y: 0, z: 0}
-  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!4 &769417990
 Transform:
   m_ObjectHideFlags: 0
@@ -1575,8 +1565,6 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 727856770}
-  _cameraStartingPosition: {x: 0, y: 0, z: 0}
-  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!4 &1147219093
 Transform:
   m_ObjectHideFlags: 0
@@ -1876,8 +1864,6 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 657973800}
-  _cameraStartingPosition: {x: 0, y: 0, z: 0}
-  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!4 &1313210027
 Transform:
   m_ObjectHideFlags: 0
@@ -2092,27 +2078,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3909178229630203392, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.1875
+      value: 1.6875
       objectReference: {fileID: 0}
     - target: {fileID: 3909178229630203392, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6
+      value: -2.16
       objectReference: {fileID: 0}
     - target: {fileID: 3909178229630203392, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99456584
+      value: -0.6753904
       objectReference: {fileID: 0}
     - target: {fileID: 3909178229630203392, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.10410984
+      value: -0.7136864
       objectReference: {fileID: 0}
     - target: {fileID: 3909178229630203392, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 6.1324106e-11
+      value: -0.18572766
       objectReference: {fileID: 0}
     - target: {fileID: 3909178229630203392, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 6.431698e-12
+      value: 0.0022073556
       objectReference: {fileID: 0}
     - target: {fileID: 3991003131970349445, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2232,15 +2218,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7683486304251642307, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.016108e-10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7683486304251642307, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.6722648
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7683486304251642307, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.06739
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7683486304251642307, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2284,15 +2270,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8416845825363393499, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.1819458
+      value: -1.0405502
       objectReference: {fileID: 0}
     - target: {fileID: 8416845825363393499, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.04889512
+      value: 3.1045365
       objectReference: {fileID: 0}
     - target: {fileID: 8416845825363393499, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.40223
+      value: -0.906621
       objectReference: {fileID: 0}
     - target: {fileID: 8416845825363393499, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2437,8 +2423,6 @@ MonoBehaviour:
   - {fileID: 727856770}
   IsDiscovered: 0
   Parent: {fileID: 0}
-  _cameraStartingPosition: {x: 0, y: 0, z: 0}
-  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!4 &1411679071
 Transform:
   m_ObjectHideFlags: 0
@@ -2522,8 +2506,6 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 2021472881}
-  _cameraStartingPosition: {x: 0, y: 0, z: 0}
-  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!4 &1472249725
 Transform:
   m_ObjectHideFlags: 0
@@ -2577,8 +2559,6 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 2021472881}
-  _cameraStartingPosition: {x: 0, y: 0, z: 0}
-  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!4 &1478044805
 Transform:
   m_ObjectHideFlags: 0
@@ -2803,8 +2783,6 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 657973800}
-  _cameraStartingPosition: {x: 0, y: 0, z: 0}
-  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!4 &1625259819
 Transform:
   m_ObjectHideFlags: 0
@@ -2858,8 +2836,6 @@ MonoBehaviour:
   Children: []
   IsDiscovered: 0
   Parent: {fileID: 2021472881}
-  _cameraStartingPosition: {x: 0, y: 0, z: 0}
-  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!4 &1629642936
 Transform:
   m_ObjectHideFlags: 0
@@ -3466,8 +3442,6 @@ MonoBehaviour:
   - {fileID: 1472249724}
   IsDiscovered: 0
   Parent: {fileID: 1411679070}
-  _cameraStartingPosition: {x: 0, y: 0, z: 0}
-  _cameraStartingAngle: {x: 0, y: 0, z: 0}
 --- !u!4 &2021472882
 Transform:
   m_ObjectHideFlags: 0

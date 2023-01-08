@@ -14,7 +14,6 @@ public interface IMindMapBuilder
  * Class to build mind map with unity scene viewer and inspector.
  */
 [RequireComponent(typeof(MindMapTree))]
-[ExecuteInEditMode]
 public class MindMapBuilder : MonoBehaviour, IMindMapBuilder
 {
     #region Const
@@ -90,11 +89,13 @@ public class MindMapBuilder : MonoBehaviour, IMindMapBuilder
 
     public void AddNode()
     {
+        if (_mindMapTree == null) _mindMapTree = GetComponent<MindMapTree>();
         _mindMapTree.AddNode();
     }
 
     public void ClearChild()
     {
+        if (_mindMapTree == null) _mindMapTree = GetComponent<MindMapTree>();
         _mindMapTree.ClearAllNodes();
     }
 
@@ -106,6 +107,7 @@ public class MindMapBuilder : MonoBehaviour, IMindMapBuilder
                 "Check parent node assignment on every node to ensure only one node that has no parent.");
             return;
         }
+        if (_mindMapTree == null) _mindMapTree = GetComponent<MindMapTree>();
         if (_mindMapTree.Root == null)
         {
             Debug.LogError("[MIND MAP BUILDER] Root node of MindMapTree has not been assigned.");

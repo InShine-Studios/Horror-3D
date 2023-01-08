@@ -12,21 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302c24ccf302ee24fb6146f32e73c56a, type: 3}
   m_Name: MindMapTree_Chapter1
   m_EditorClassIdentifier: 
-  ParentReferenceIdx: ffffffff
+  ParentReferenceIdx: ffffffff00000000
   NodeNames:
-  - 
+  - blablabla
+  - core
   NodeDescriptions:
   - 
-  NodeTypes: 00000000
+  - 
+  NodeTypes: 0000000001000000
   NodeAnimationControllers:
+  - {fileID: 0}
   - {fileID: 0}
   NodePositions:
   - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   NodeRotations:
+  - {x: -0, y: -0, z: -0, w: 1}
   - {x: -0, y: -0, z: -0, w: 1}
   NodeScales:
   - {x: 1, y: 1, z: 1}
+  - {x: 1, y: 1, z: 1}
   NodeCameraFollowPosition:
   - {x: 0, y: -5, z: 0}
+  - {x: 0, y: -5, z: 0}
   NodeCameraLookAtPosition:
+  - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}

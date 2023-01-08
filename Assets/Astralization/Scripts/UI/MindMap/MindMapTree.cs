@@ -28,7 +28,6 @@ public class NodeModelDictionary : SerializableDictionary<MindMapNodeType, GameO
  * Class for managing and manipulating mind map tree.
  * Current intended usage: Chapter Clues implementation 
  */
-[ExecuteInEditMode]
 public class MindMapTree : MonoBehaviour, IMindMapTree
 {
     #region Const
