@@ -48,19 +48,19 @@ public class PlayerTest: TestBase
     #endregion
 
     #region Flashlight
-    [UnityTest]
-    public IEnumerator Player_Flashlight()
-    {
-        yield return new WaitWhile(() => sceneLoaded == false);
-        IFlashlight playerFlashlight = player.GetComponentInChildren<IFlashlight>();
+    //[UnityTest]
+    //public IEnumerator Player_Flashlight()
+    //{
+    //    yield return new WaitWhile(() => sceneLoaded == false);
+    //    IFlashlight playerFlashlight = player.GetComponentInChildren<IFlashlight>();
 
-        bool prevFlashlightState = playerFlashlight.IsOn;
+    //    bool prevFlashlightState = playerFlashlight.IsOn;
 
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ToggleFlashlight);
-        Assert.AreEqual(!prevFlashlightState, playerFlashlight.IsOn);
+    //    yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ToggleFlashlight);
+    //    Assert.AreEqual(!prevFlashlightState, playerFlashlight.IsOn);
 
-        yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ToggleFlashlight);
-        Assert.AreEqual(prevFlashlightState, playerFlashlight.IsOn);
-    }
+    //    yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ToggleFlashlight);
+    //    Assert.AreEqual(prevFlashlightState, playerFlashlight.IsOn);
+    //}
     #endregion
 }

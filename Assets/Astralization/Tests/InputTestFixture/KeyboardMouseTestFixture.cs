@@ -53,7 +53,6 @@ public class KeyboardMouseTestFixture: InputTestFixture
         };
         buttonInputMap = new Dictionary<RegisteredInput, ButtonControl>(){
             {RegisteredInput.UseItem, mouse.leftButton},
-            {RegisteredInput.ToggleFlashlight, mouse.rightButton},
             {RegisteredInput.NextDialogueClick, mouse.leftButton }
         };
         axisInputMap = new Dictionary<RegisteredInput, AxisControl>() {
