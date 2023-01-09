@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// TODO: implement pause menu control here, rename to PlayerPauseState
 public class PlayerCluesMindMapState : PlayerState
 {
     #region Events
