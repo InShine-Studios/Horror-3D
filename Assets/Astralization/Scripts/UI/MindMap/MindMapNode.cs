@@ -41,12 +41,12 @@ public class MindMapNode : MonoBehaviour
     #region SetGet
     public void SetCameraFollowPosition(Vector3 position)
     {
-        CameraFollow.transform.localPosition = position;
+        CameraFollow.localPosition = position;
     }
 
     public void SetCameraLookAtPosition(Vector3 position)
     {
-        CameraLookAt.transform.localPosition = position;
+        CameraLookAt.localPosition = position;
     }
     #endregion
 
