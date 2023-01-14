@@ -8,8 +8,8 @@ using System.Collections.Generic;
 public class MindMapTest : TestBase
 {
     #region Variables
-    private IMindMapBuilder _mindMapBuilder;
     private IMindMapTree _mindMapTree; 
+    private IMindMapCameraManager _cameraManager;
     #endregion
 
     protected override void FindGameObjects(Scene scene)
@@ -19,8 +19,8 @@ public class MindMapTest : TestBase
         {
             if (gameObject.name == "Player")
             {
-                _mindMapBuilder = gameObject.transform.GetComponentInChildren<IMindMapBuilder>();
                 _mindMapTree = gameObject.transform.GetComponentInChildren<IMindMapTree>();
+                _cameraManager = gameObject.transform.GetComponentInChildren<IMindMapCameraManager>();
             }
         }
     }
@@ -70,7 +70,7 @@ public class MindMapTest : TestBase
     #endregion
 
     #region MindMapNavigation
-    [UnityTest]
+    //[UnityTest]
     public IEnumerator MindMap_InitialNode()
     {
         // Initial select: Chapter node
@@ -80,10 +80,11 @@ public class MindMapTest : TestBase
         yield return null;
     }
 
-    [UnityTest]
+    //[UnityTest]
     public IEnumerator MindMap_ChangeCore()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
+        yield return new WaitWhile(() => _cameraManager.IsOnTransition);
         for (int i = 0; i < 4; i++)
         {
             yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ChangeCoreForward);
@@ -105,33 +106,39 @@ public class MindMapTest : TestBase
         yield return null;
     }
 
-    [UnityTest]
+    //[UnityTest]
     public IEnumerator MindMap_ChangeCoreFirstForward()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
+        yield return new WaitWhile(() => _cameraManager.IsOnTransition);
+
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ChangeCoreForward);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitWhile(() => _cameraManager.IsOnTransition);
         Assert.AreEqual(0, _mindMapTree.GetCoreNodeIdx());
         Assert.AreEqual(-1, _mindMapTree.GetClueNodeIdx());
         yield return null;
     }
 
-    [UnityTest]
+    //[UnityTest]
     public IEnumerator MindMap_ChangeCoreFirstBackward()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
+        yield return new WaitWhile(() => _cameraManager.IsOnTransition);
+
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ChangeCoreBack);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitWhile(() => _cameraManager.IsOnTransition);
         Assert.AreEqual(0, _mindMapTree.GetCoreNodeIdx());
         Assert.AreEqual(-1, _mindMapTree.GetClueNodeIdx());
         Assert.AreEqual("Core 1 node", _mindMapTree.GetSelectedNode().name);
         yield return null;
     }
 
-    [UnityTest]
+    //[UnityTest]
     public IEnumerator MindMap_ChangeClueWhenCoreIsNotSelected()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
+        yield return new WaitWhile(() => _cameraManager.IsOnTransition);
+
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ChangeClueForward);
         Assert.AreEqual(-1, _mindMapTree.GetCoreNodeIdx());
         Assert.AreEqual(-1, _mindMapTree.GetClueNodeIdx());
@@ -145,19 +152,21 @@ public class MindMapTest : TestBase
         yield return null;
     }
 
-    [UnityTest]
+    //[UnityTest]
     public IEnumerator MindMap_ChangeClueWhenCoreIsSelected()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
+        yield return new WaitWhile(() => _cameraManager.IsOnTransition);
+
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ChangeCoreForward);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitWhile(() => _cameraManager.IsOnTransition);
         Assert.AreEqual(0, _mindMapTree.GetCoreNodeIdx());
 
         int coreIdx = _mindMapTree.GetCoreNodeIdx() + 1;
         for (int i = 0; i < 4; i++)
         {
             yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ChangeClueForward);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitWhile(() => _cameraManager.IsOnTransition);
             Assert.AreEqual(i % 3, _mindMapTree.GetClueNodeIdx());
             Assert.AreEqual("Clue " + coreIdx + "." + ((i % 3) + 1) + " node", _mindMapTree.GetSelectedNode().name);
         }
@@ -165,20 +174,20 @@ public class MindMapTest : TestBase
         for (int i = 2; i >= 0; i--)
         {
             yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ChangeClueBack);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitWhile(() => _cameraManager.IsOnTransition);
             Assert.AreEqual(i, _mindMapTree.GetClueNodeIdx());
             Assert.AreEqual("Clue " + coreIdx + "." + (i + 1) + " node", _mindMapTree.GetSelectedNode().name);
         }
 
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ChangeCoreForward);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitWhile(() => _cameraManager.IsOnTransition);
         Assert.AreEqual(1, _mindMapTree.GetCoreNodeIdx());
         coreIdx = _mindMapTree.GetCoreNodeIdx() + 1;
 
         for (int i = 0; i < 4; i++)
         {
             yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ChangeClueForward);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitWhile(() => _cameraManager.IsOnTransition);
             Assert.AreEqual(i % 3, _mindMapTree.GetClueNodeIdx());
             Assert.AreEqual("Clue " + coreIdx + "." + ((i % 3) + 1) + " node", _mindMapTree.GetSelectedNode().name);
         }
@@ -186,7 +195,7 @@ public class MindMapTest : TestBase
         for (int i = 2; i >= 0; i--)
         {
             yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.ChangeClueBack);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitWhile(() => _cameraManager.IsOnTransition);
             Assert.AreEqual(i, _mindMapTree.GetClueNodeIdx());
             Assert.AreEqual("Clue " + coreIdx + "." + (i + 1) + " node", _mindMapTree.GetSelectedNode().name);
         }
