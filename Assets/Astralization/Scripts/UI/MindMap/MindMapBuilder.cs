@@ -67,7 +67,9 @@ public class MindMapBuilder : MonoBehaviour, IMindMapBuilder
             mindMapTreeData.NodeDescriptions.Add(currentNode.NodeDescription);
             mindMapTreeData.NodeTypes.Add(currentNode.NodeType);
             mindMapTreeData.NodeAnimationControllers.Add(currentNode.AnimController);
-            mindMapTreeData.NodeTransforms.Add(currentNode.transform);
+            mindMapTreeData.NodePositions.Add(currentNode.transform.position);
+            mindMapTreeData.NodeRotations.Add(currentNode.transform.rotation);
+            mindMapTreeData.NodeScales.Add(currentNode.transform.localScale);
 
             foreach (MindMapNode child in currentNode.Children)
             {

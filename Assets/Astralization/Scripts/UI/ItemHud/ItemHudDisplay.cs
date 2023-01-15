@@ -110,6 +110,7 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
             instance.name = "Slot " + (i + 1);
             instance.transform.localPosition = CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, AdjustIndexByDirection(0));
             instance.SetQuickslotNum(i + 1);
+            instance.gameObject.layer = LayerMask.NameToLayer(CameraHelper.UiLayer);
             if (i != _currentActiveIdx) instance.gameObject.SetActive(false);
             _itemSlots[i] = instance;
         }

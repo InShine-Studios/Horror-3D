@@ -93,4 +93,15 @@ public abstract class PlayerState : State
         Utils.LoggerHelper.PrintStateDefaultLog("Player","UseReleasedExorcism");
     }
     #endregion
+
+    #region MindMap Input Handler
+    public virtual void ChangeCore(InputAction.CallbackContext ctx)
+    {
+        Utils.LoggerHelper.PrintStateDefaultLog("Player", "ChangeCore");
+    }
+    public virtual void ChangeClue(InputAction.CallbackContext ctx)
+    {
+        Utils.LoggerHelper.PrintStateDefaultLog("Player", "ChangeClue");
+    }
+    #endregion
 }
