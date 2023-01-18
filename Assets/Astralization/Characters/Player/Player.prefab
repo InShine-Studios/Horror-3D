@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 2211792406612616171}
+  m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!114 &8550226611902898488
@@ -714,6 +714,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8057739223163586145, guid: 2d3f6796a3438a749be2b4685e9fdb33, type: 3}
+      propertyPath: m_UIInputModule
+      value: 
+      objectReference: {fileID: 8550226611902898488}
     - target: {fileID: 8057739223163586147, guid: 2d3f6796a3438a749be2b4685e9fdb33, type: 3}
       propertyPath: m_Name
       value: Character
@@ -904,11 +908,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 233b81b35f9a44045a2374a3cf4a9c92, type: 3}
---- !u!1 &2211792406612616171 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6350672342054818366, guid: 233b81b35f9a44045a2374a3cf4a9c92, type: 3}
-  m_PrefabInstance: {fileID: 5085623498879955413}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2211792407807688474 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6350672343250374351, guid: 233b81b35f9a44045a2374a3cf4a9c92, type: 3}

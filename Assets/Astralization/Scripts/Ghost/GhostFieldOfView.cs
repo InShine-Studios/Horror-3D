@@ -31,8 +31,8 @@ public class GhostFieldOfView : MonoBehaviour, IGhostFieldOfView
     #region MonoBehaviour
     private void Awake()
     {
-        targetMask = LayerMask.GetMask(CameraConstants.PlayerLayer);
-        obstructionMask = LayerMask.GetMask(CameraConstants.BuildingLayer, CameraConstants.HidingPlaceLayer);
+        targetMask = LayerMask.GetMask(CameraHelper.PlayerLayer);
+        obstructionMask = LayerMask.GetMask(CameraHelper.BuildingLayer, CameraHelper.HidingPlaceLayer);
     }
     #endregion
 

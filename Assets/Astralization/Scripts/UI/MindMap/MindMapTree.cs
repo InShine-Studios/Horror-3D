@@ -11,12 +11,18 @@ public interface IMindMapTree
     int NodeCount { get; }
     MindMapNode Root { get; }
 
-    bool IsNodeRelated();
     void AddNode();
     void BuildNodeRelation();
+    void ChangeClue(int indexStep);
+    void ChangeCore(int indexStep);
     void ClearAllNodes();
+    int GetClueNodeIdx();
+    int GetCoreNodeIdx();
+    MindMapNode GetSelectedNode();
+    bool IsNodeRelated();
     void LoadTree();
     void LoadTree(MindMapTreeData data);
+    void SetCameraFocus(MindMapNode node);
 }
 
 #region SerializableClass
@@ -92,6 +98,21 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     {
         selectedNode = node;
     }
+
+    public MindMapNode GetSelectedNode()
+    {
+        return selectedNode;
+    }
+
+    public int GetCoreNodeIdx()
+    {
+        return coreNodeIdx;
+    }
+
+    public int GetClueNodeIdx()
+    {
+        return clueNodeIdx;
+    }
     #endregion
 
     #region MonoBehaviour
@@ -101,6 +122,16 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
         clueNodeIdx = -1;
         LoadTree();
         SetCameraFocus(_root);
+    }
+
+    private void OnEnable()
+    {
+        NodeNavigation.ChangeNodeEvent += ChangeNodeFromButton;
+    }
+
+    private void OnDisable()
+    {
+        NodeNavigation.ChangeNodeEvent -= ChangeNodeFromButton;
     }
     #endregion
 
@@ -179,6 +210,12 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
             nodeModel.transform.parent = newNode.transform;
             nodeModel.gameObject.layer = LayerMask.NameToLayer(LayerName);
 
+            // Type-related assignments
+            newNode.NodeType = _mindMapTreeData.NodeTypes[i];
+            GameObject nodeModel = Instantiate(_nodeModelDictionary[newNode.NodeType]);
+            nodeModel.transform.parent = newNode.transform;
+            nodeModel.gameObject.layer = LayerMask.NameToLayer(LayerName);
+
             // Parent reference assignments
             if (_mindMapTreeData.ParentReferenceIdx[i] != -1)
             {
@@ -210,6 +247,21 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     {
         _mindMapTreeData = data;
         LoadTree();
+    }
+
+    private void ChangeNodeFromButton(int jumpIdx)
+    {
+        switch (selectedNode.NodeType)
+        {
+            case MindMapNodeType.CORE:
+                ChangeCore(jumpIdx);
+                break;
+            case MindMapNodeType.CLUE:
+                ChangeClue(jumpIdx);
+                break;
+            default:
+                break;
+        }
     }
 
     public void ChangeCore(int indexStep)

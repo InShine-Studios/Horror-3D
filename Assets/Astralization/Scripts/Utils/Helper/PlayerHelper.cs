@@ -25,6 +25,7 @@ namespace Utils
             Default
         }
         public static int FixedUpdateCallsPerSecond = 50;
+        public static string UiInputActionName = "UI";
         public static Dictionary<States,string> PlayerStateActionMapMapper = new Dictionary<States, string>()
         {
             {States.Dialogue, "UI" },
@@ -33,6 +34,13 @@ namespace Utils
             {States.Exorcism, "Exorcism" },
             {States.MindMap, "MindMap" },
             {States.Default, "Default" }
+        };
+
+        public static List<States> UseUiActionMap = new List<States>()
+        {
+            States.Dialogue,
+            States.Tome,
+            States.MindMap
         };
 
         public static bool CheckIsInteractZone(Collider target)

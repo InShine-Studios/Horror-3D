@@ -3,7 +3,14 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 
-public class MindMapCameraManager : MonoBehaviour
+public interface IMindMapCameraManager
+{
+    bool IsOnTransition { get; }
+
+    void FocusOn(Transform follow, Transform lookAt);
+}
+
+public class MindMapCameraManager : MonoBehaviour, IMindMapCameraManager
 {
     #region Variables
     private CinemachineVirtualCamera[] _virtualCameras;

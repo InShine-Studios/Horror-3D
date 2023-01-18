@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// TODO: implement pause menu control here, rename to PlayerPauseState
 public class PlayerCluesMindMapState : PlayerState
 {
     #region Events
@@ -26,11 +27,13 @@ public class PlayerCluesMindMapState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     public override void Exit()
     {
         base.Exit();
+        Cursor.lockState = CursorLockMode.Locked;
     }
     #endregion
 
