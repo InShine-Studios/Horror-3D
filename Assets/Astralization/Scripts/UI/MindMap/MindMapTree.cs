@@ -212,7 +212,7 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
 
             // Type-related assignments
             newNode.NodeType = _mindMapTreeData.NodeTypes[i];
-            GameObject nodeModel = Instantiate(_nodeModelDictionary[newNode.NodeType]);
+            nodeModel = Instantiate(_nodeModelDictionary[newNode.NodeType]);
             nodeModel.transform.parent = newNode.transform;
             nodeModel.gameObject.layer = LayerMask.NameToLayer(LayerName);
 
