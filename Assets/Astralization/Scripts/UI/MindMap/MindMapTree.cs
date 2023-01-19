@@ -210,12 +210,6 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
             nodeModel.transform.parent = newNode.transform;
             nodeModel.gameObject.layer = LayerMask.NameToLayer(LayerName);
 
-            // Type-related assignments
-            newNode.NodeType = _mindMapTreeData.NodeTypes[i];
-            nodeModel = Instantiate(_nodeModelDictionary[newNode.NodeType]);
-            nodeModel.transform.parent = newNode.transform;
-            nodeModel.gameObject.layer = LayerMask.NameToLayer(LayerName);
-
             // Parent reference assignments
             if (_mindMapTreeData.ParentReferenceIdx[i] != -1)
             {
