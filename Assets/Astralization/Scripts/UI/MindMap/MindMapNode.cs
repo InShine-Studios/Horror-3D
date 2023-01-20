@@ -27,34 +27,53 @@ public class MindMapNode : MonoBehaviour
     public bool IsDiscovered = false;
     public MindMapNode Parent = null;
 
-    [SerializeField]
-    [Tooltip("Position relative to node")]
-    private Vector3 _cameraStartingPosition;
-    [SerializeField]
-    [Tooltip("Degree around each axis")]
-    private Vector3 _cameraStartingAngle;
-
-    public Transform CameraFollow { get; private set; }
-    public Transform CameraLookAt { get; private set; }
+    private Transform _cameraFollow;
+    private Transform _cameraLookAt;
     #endregion
 
     #region SetGet
     public void SetCameraFollowPosition(Vector3 position)
     {
-        CameraFollow.localPosition = position;
+        if (_cameraFollow == null)
+        {
+            _cameraFollow = transform.Find(CameraFollowGameobjectName);
+        }
+        _cameraFollow.localPosition = position; 
     }
 
     public void SetCameraLookAtPosition(Vector3 position)
     {
-        CameraLookAt.localPosition = position;
+        if (_cameraLookAt == null)
+        {
+            _cameraLookAt = transform.Find(CameraLookAtGameobjectName);
+        }
+        _cameraLookAt.localPosition = position;
+    }
+
+    public Transform GetCameraFollow()
+    {
+        if (_cameraFollow == null)
+        {
+            _cameraFollow = transform.Find(CameraFollowGameobjectName);
+        }
+        return _cameraFollow;
+    }
+
+    public Transform GetCameraLookAt()
+    {
+        if(_cameraLookAt == null)
+        {
+            _cameraLookAt = transform.Find(CameraLookAtGameobjectName);
+        }
+        return _cameraLookAt;
     }
     #endregion
 
     #region MonoBehaviour
     private void Awake()
     {
-        CameraFollow = transform.Find(CameraFollowGameobjectName);
-        CameraLookAt = transform.Find(CameraLookAtGameobjectName);
+        _cameraFollow = transform.Find(CameraFollowGameobjectName);
+        _cameraLookAt = transform.Find(CameraLookAtGameobjectName);
     }
     #endregion
 }

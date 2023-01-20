@@ -203,7 +203,7 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
             newNode.NodeName = _mindMapTreeData.NodeNames[i];
             newNode.NodeDescription = _mindMapTreeData.NodeDescriptions[i];
             newNode.AnimController = _mindMapTreeData.NodeAnimationControllers[i];
-
+            
             // Type-related assignments
             newNode.NodeType = _mindMapTreeData.NodeTypes[i];
             GameObject nodeModel = Instantiate(_nodeModelDictionary[newNode.NodeType]);
@@ -265,7 +265,7 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
         if (coreNodeIdx == -1)
         {
             coreNodeIdx = 0;
-        }
+        } 
         else
         {
             List<MindMapNode> coreNodes = Root.Children;
@@ -297,7 +297,7 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     #region Camera Manipulation
     public void SetCameraFocus(MindMapNode node)
     {
-        _mindMapCameraManager.FocusOn(node.CameraFollow, node.CameraLookAt);
+        _mindMapCameraManager.FocusOn(node.GetCameraFollow(), node.GetCameraLookAt());
         selectedNode = node;
     }
     #endregion
