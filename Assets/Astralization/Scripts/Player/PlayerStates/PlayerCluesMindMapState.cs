@@ -6,9 +6,6 @@ using UnityEngine.InputSystem;
 // TODO: implement pause menu control here, rename to PlayerPauseState
 public class PlayerCluesMindMapState : PlayerState
 {
-    #region Events
-    #endregion
-
     #region Variables
     private MindMapCameraManager _mindMapCameraManager;
     private MindMapTree _mindMapTree;
@@ -28,12 +25,14 @@ public class PlayerCluesMindMapState : PlayerState
     {
         base.Enter();
         Cursor.lockState = CursorLockMode.Confined;
+        owner.InvokeOpenMindMap();
     }
 
     public override void Exit()
     {
         base.Exit();
         Cursor.lockState = CursorLockMode.Locked;
+        owner.InvokeCloseMindMap();
     }
     #endregion
 

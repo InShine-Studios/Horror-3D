@@ -7,6 +7,14 @@ public class CameraManager : MonoBehaviour
 {
     #region Variables
     private Dictionary<string, CinemachineBrain> _cinemachineBrains = new Dictionary<string, CinemachineBrain>();
+    private Dictionary<string, Camera> _cameras = new Dictionary<string, Camera>();
+    #endregion
+
+    #region SetGet
+    private string GetCameraName(Utils.PlayerHelper.States state)
+    {
+        return state.ToString() + "Camera"; //ALL CAMERA SHOULD FOLLOW THIS NAMING FORMAT
+    }
     #endregion
 
     #region MonoBehaviour
@@ -18,6 +26,22 @@ public class CameraManager : MonoBehaviour
         {
             _cinemachineBrains.Add(c.name, c);
         }
+
+        Camera[] cameras = GetComponentsInChildren<Camera>();
+        foreach (Camera c in cameras)
+        {
+            _cameras.Add(c.name, c);
+        }
+    }
+
+    private void OnEnable()
+    {
+        GameManager.PlayerStateEvent += ActivateCinemachineBrain;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.PlayerStateEvent -= ActivateCinemachineBrain;
     }
     #endregion
 
@@ -28,12 +52,18 @@ public class CameraManager : MonoBehaviour
         {
             c.enabled = false;
         }
+
+        foreach (Camera c in _cameras.Values)
+        {
+            c.enabled = false;
+        }
     }
 
-    public void ActivateCinemachineBrain(string cineBrainName)
+    public void ActivateCinemachineBrain(Utils.PlayerHelper.States state)
     {
-        //DeactivateAllCinemachineBrain();
-        _cinemachineBrains[cineBrainName].enabled = true;
+        DeactivateAllCinemachineBrain();
+        _cinemachineBrains[GetCameraName(state)].enabled = true;
+        _cameras[GetCameraName(state)].enabled = true;
     }
     #endregion
 }

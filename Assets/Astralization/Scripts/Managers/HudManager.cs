@@ -13,24 +13,44 @@ public class HudManager : MonoBehaviour
     private ItemHudDisplay _itemHud;
     private ExorcismBar _exorcismBar;
     private TimeslotHud _timeslotHud;
+    private MindMapCanvas _mindMapCanvas;
     private Canvas _canvas;
     #endregion
 
     #region SetGet
     private void SetHudState(Utils.UiHelper.UiType hudKey, bool condition)
     {
+        HideAll();
         switch (hudKey)
         {
             case Utils.UiHelper.UiType.Dialogue: ShowDialogue(condition); break;
             case Utils.UiHelper.UiType.ExorcismBar: ShowExorcism(condition); break;
             case Utils.UiHelper.UiType.HidingOverlay: ShowHidingHud(condition); break;
+            case Utils.UiHelper.UiType.MindMap: ShowMindMap(condition); break;
+            case Utils.UiHelper.UiType.Default: ShowDefaultHud(condition); break;
         }
     }
 
-    private void ShowDialogue(bool isShowDialogue)
+    private void HideAll()
+    {
+        _itemHud.ShowDisplay(false);
+        _timeslotHud.gameObject.SetActive(false);
+        //_hidingManager.gameObject.SetActive(false);
+        _dialogueManager.ShowDialogueBox(false);
+        _exorcismBar.gameObject.SetActive(false);
+        _mindMapCanvas.gameObject.SetActive(false);
+    }
+
+    private void ShowDefaultHud(bool isShown)
+    {
+       _itemHud.ShowDisplay(isShown);
+       _timeslotHud.gameObject.SetActive(isShown);
+    }
+
+    private void ShowDialogue(bool isShown)
     {
         //Debug.Log("[HUD SYSTEM] Set dialogue box visibility to " + isShowDialogue);
-        _dialogueManager.ShowDialogueBox(isShowDialogue);
+        _dialogueManager.ShowDialogueBox(isShown);
     }
 
     private void ShowHidingHud(bool isHiding)
@@ -38,9 +58,14 @@ public class HudManager : MonoBehaviour
         _hidingManager.StartAnim(isHiding);
     }
 
-    private void ShowExorcism(bool isShowExorcism)
+    private void ShowExorcism(bool isShown)
     {
-        _exorcismBar.ShowBar(isShowExorcism);
+        _exorcismBar.ShowBar(isShown);
+    }
+
+    private void ShowMindMap(bool isShown)
+    {
+        _mindMapCanvas.EnableCanvas(isShown);
     }
     #endregion
 
@@ -52,8 +77,8 @@ public class HudManager : MonoBehaviour
         _itemHud = GetComponentInChildren<ItemHudDisplay>();
         _exorcismBar = GetComponentInChildren<ExorcismBar>();
         _timeslotHud = GetComponentInChildren<TimeslotHud>();
+        _mindMapCanvas = GetComponentInChildren<MindMapCanvas>();
         _canvas = GetComponent<Canvas>();
-        _canvas.enabled = false;
     }
     private void OnEnable()
     {

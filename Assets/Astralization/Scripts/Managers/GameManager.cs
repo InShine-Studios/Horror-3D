@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour, IGameManager
         ExorcismItem.ExorcismChannelingEvent += InvokeExorcismState;
         ExorcismBar.FinishExorcismChannelingEvent += ResetPlayerState;
         DummyTimeslotChanger.TimeslotIncrementEvent += InvokeTimeIncrement;
+        InputManager.OpenMindMap += InvokeOpenMindMap;
+        InputManager.CloseMindMap += ResetPlayerState;
+        InputManager.ResetToDefault += ResetPlayerState;
     }
 
     private void OnDisable()
@@ -45,6 +48,9 @@ public class GameManager : MonoBehaviour, IGameManager
         ExorcismItem.ExorcismChannelingEvent -= InvokeExorcismState;
         ExorcismBar.FinishExorcismChannelingEvent -= ResetPlayerState;
         DummyTimeslotChanger.TimeslotIncrementEvent -= InvokeTimeIncrement;
+        InputManager.OpenMindMap -= InvokeOpenMindMap;
+        InputManager.CloseMindMap -= ResetPlayerState;
+        InputManager.ResetToDefault -= ResetPlayerState;
     }
     #endregion
 
@@ -97,12 +103,19 @@ public class GameManager : MonoBehaviour, IGameManager
     public void ResetPlayerState()
     {
         SendPlayerStateEvent(Utils.PlayerHelper.States.Default);
+        SendHudEvent(Utils.UiHelper.UiType.Default,true);
         //Debug.Log("[MANAGER] Reset player state to default");
     }
 
     public void InvokeTimeIncrement(int incrementCount)
     {
         TimeslotStateMachine.Instance.AdvanceTime(incrementCount);
+    }
+
+    public void InvokeOpenMindMap()
+    {
+        InvokeMindMapState();
+        SendHudEvent(Utils.UiHelper.UiType.MindMap,true);
     }
     #endregion
 }

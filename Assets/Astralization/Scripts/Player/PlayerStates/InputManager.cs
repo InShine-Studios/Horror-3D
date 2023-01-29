@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 /*
@@ -7,6 +8,12 @@ using UnityEngine.InputSystem;
  */
 public class InputManager : StateMachine
 {
+    #region Events
+    public static event Action ResetToDefault;
+    public static event Action OpenMindMap;
+    public static event Action CloseMindMap;
+    #endregion
+
     #region Variables
     [Tooltip("The Player Input component")]
     private PlayerInput _playerInput;
@@ -95,6 +102,7 @@ public class InputManager : StateMachine
             case "DiscardItem": currentPlayerState.DiscardItemInput(ctx); break;
             case "SimulateGhostInteract": currentPlayerState.CheckInteractionGhost(ctx); break;
             case "ToggleFlashlight": currentPlayerState.ToggleFlashlight(ctx); break;
+            case "OpenMindMap": currentPlayerState.OpenMindMap(ctx); break;
         }  
     }
 
@@ -128,6 +136,23 @@ public class InputManager : StateMachine
             case "ChangeCore": currentPlayerState.ChangeCore(ctx); break;
             case "ChangeClue": currentPlayerState.ChangeClue(ctx); break;
         }
+    }
+    #endregion
+
+    #region EventInvoker
+    public void InvokeOpenMindMap()
+    {
+        OpenMindMap.Invoke();
+    }
+
+    public void InvokeCloseMindMap()
+    {
+        CloseMindMap.Invoke();
+    }
+
+    public void InvokeResetToDefault()
+    {
+        ResetToDefault.Invoke();
     }
     #endregion
 }
