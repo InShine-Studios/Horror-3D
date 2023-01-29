@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using System.IO;
 using System;
 using System.Collections;
@@ -18,6 +17,10 @@ public class TransitionZoneDictionary: SerializableDictionary<string, Transition
  */
 public class StageBuilder : MonoBehaviour
 {
+    #region Const
+    private readonly string[] DirectoryPathSequence = new string[] { "Resources", "Stages" };
+    #endregion
+
     #region Variables
     [Header("Dictionaries")]
     [SerializeField]
@@ -98,18 +101,6 @@ public class StageBuilder : MonoBehaviour
     #endregion
 
     #region Save Load
-    private void CreateSaveDirectory()
-    {
-        string filePath = Application.dataPath + "/Astralization/Resources";
-        if (!Directory.Exists(filePath))
-            AssetDatabase.CreateFolder("Assets/Astralization", "Resources");
-
-        filePath += "/Stages";
-        if (!Directory.Exists(filePath))
-            AssetDatabase.CreateFolder("Assets/Astralization/Resources", "Stages");
-        AssetDatabase.Refresh();
-    }
-
     public string SaveStagePoints(string filename)
     {
         _stagePointsData = null;
@@ -128,8 +119,7 @@ public class StageBuilder : MonoBehaviour
 
         if (filename == null || filename == "") filename = string.Format("{0} - {1}", transform.root.name, "StagePoint");
 
-        string stagePointsFilename = string.Format("Assets/Astralization/Resources/Stages/{0}.asset", filename);
-        AssetDatabase.CreateAsset(stagePoints, stagePointsFilename);
+        Utils.FileSystemHelper.CreateAsset(stagePoints, DirectoryPathSequence, filename + ".asset");
         return filename;
     }
 
@@ -153,16 +143,13 @@ public class StageBuilder : MonoBehaviour
 
         if (filename == null || filename == "") filename = string.Format("{0} - {1}", transform.root.name, "GhostTransitionZone");
 
-        string stageZoneFilename = string.Format("Assets/Astralization/Resources/Stages/{0}.asset", filename);
-        AssetDatabase.CreateAsset(stageZones, stageZoneFilename);
+        Utils.FileSystemHelper.CreateAsset(stageZones, DirectoryPathSequence, filename + ".asset");
         return filename;
     }
 
     public (string,string) Save(string pointFilename, string transitionZoneFilename)
     {
-        string filePath = Application.dataPath + "/Astralization/Resources/Stages";
-        if (!Directory.Exists(filePath))
-            CreateSaveDirectory();
+        Utils.FileSystemHelper.CreateDirectories(DirectoryPathSequence);
 
         SaveStagePoints(pointFilename);
         SaveTransitionZones(transitionZoneFilename);

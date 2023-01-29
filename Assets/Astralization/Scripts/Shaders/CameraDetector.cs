@@ -26,7 +26,7 @@ public class CameraDetector : MonoBehaviour
     {
         _fadeObjectListId = new List<int>();
         _fadedObjectListId = new List<int>();
-        _player = transform.parent.Find("Character");
+        _player = transform.parent.parent.Find("Character");
     }
 
     private void Update()

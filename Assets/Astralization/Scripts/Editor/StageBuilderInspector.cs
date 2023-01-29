@@ -63,8 +63,8 @@ public class StageBuilderInspector : Editor
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Ghost Transition Zone", EditorStyles.boldLabel);
         EditorGUILayout.LabelField("Display");
-        zoneName = EditorGUILayout.TextField("Point name: ", zoneName);
-        if (GUILayout.Button("Display Stage Point"))
+        zoneName = EditorGUILayout.TextField("Zone name: ", zoneName);
+        if (GUILayout.Button("Display Transition Zone"))
         {
             current.DisplayTransitionZone(zoneName);
         }

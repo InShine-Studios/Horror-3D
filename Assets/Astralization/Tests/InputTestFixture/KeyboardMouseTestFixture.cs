@@ -19,13 +19,10 @@ public class KeyboardMouseTestFixture: InputTestFixture
         NextDialogueEnter,
         NextDialogueClick,
         SimulateGhostInteract,
-        InventorySlot1,
-        InventorySlot2,
-        InventorySlot3,
-        InventorySlot4,
-        InventorySlot5,
-        ToggleItemHudDisplay,
-        ToggleFlashlight
+        ChangeCoreForward,
+        ChangeCoreBack,
+        ChangeClueForward,
+        ChangeClueBack
     }
     private Keyboard keyboard;
     private Mouse mouse;
@@ -49,16 +46,13 @@ public class KeyboardMouseTestFixture: InputTestFixture
             {RegisteredInput.DiscardItem, keyboard.gKey },
             {RegisteredInput.NextDialogueEnter, keyboard.enterKey },
             {RegisteredInput.SimulateGhostInteract, keyboard.zKey }, // [TODO] Remove when Ghost Interaction fully implemented
-            {RegisteredInput.InventorySlot1, keyboard.digit1Key },
-            {RegisteredInput.InventorySlot2, keyboard.digit2Key },
-            {RegisteredInput.InventorySlot3, keyboard.digit3Key },
-            {RegisteredInput.InventorySlot4, keyboard.digit4Key },
-            {RegisteredInput.InventorySlot5, keyboard.digit5Key },
-            {RegisteredInput.ToggleItemHudDisplay, keyboard.tabKey },
+            {RegisteredInput.ChangeCoreForward, keyboard.eKey },
+            {RegisteredInput.ChangeCoreBack, keyboard.qKey },
+            {RegisteredInput.ChangeClueForward, keyboard.dKey },
+            {RegisteredInput.ChangeClueBack, keyboard.aKey },
         };
         buttonInputMap = new Dictionary<RegisteredInput, ButtonControl>(){
             {RegisteredInput.UseItem, mouse.leftButton},
-            {RegisteredInput.ToggleFlashlight, mouse.rightButton},
             {RegisteredInput.NextDialogueClick, mouse.leftButton }
         };
         axisInputMap = new Dictionary<RegisteredInput, AxisControl>() {

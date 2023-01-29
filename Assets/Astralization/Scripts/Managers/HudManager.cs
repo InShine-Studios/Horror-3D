@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System;
+using System.Collections;
 
 /*
  * Class to manage general HUD stuff.
@@ -13,6 +13,7 @@ public class HudManager : MonoBehaviour
     private ItemHudDisplay _itemHud;
     private ExorcismBar _exorcismBar;
     private TimeslotHud _timeslotHud;
+    private Canvas _canvas;
     #endregion
 
     #region SetGet
@@ -51,6 +52,8 @@ public class HudManager : MonoBehaviour
         _itemHud = GetComponentInChildren<ItemHudDisplay>();
         _exorcismBar = GetComponentInChildren<ExorcismBar>();
         _timeslotHud = GetComponentInChildren<TimeslotHud>();
+        _canvas = GetComponent<Canvas>();
+        _canvas.enabled = false;
     }
     private void OnEnable()
     {
@@ -85,9 +88,7 @@ public class HudManager : MonoBehaviour
                 break;
             case nameof(ChangeActiveItemIdxEventArgs):
                 _itemHud.SelectActiveSlot(args.CurrentActiveIdx);
-                break;
-            case nameof(ToggleExpandShrinkEventArgs):
-                _itemHud.ToggleDisplay();
+                _itemHud.Expand();
                 break;
             default:
                 break;

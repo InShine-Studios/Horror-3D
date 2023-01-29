@@ -9,7 +9,6 @@ public interface IItemHudDisplay
     bool OnTransition { get; }
     float MaxIdleDuration { get; }
 
-    void ToggleDisplay();
     void Init(int numSlot, int activeIdx);
     void SelectActiveSlot(int index);
     void SetItemLogoAnimator(int index, RuntimeAnimatorController animController, int animParam);
@@ -111,6 +110,7 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
             instance.name = "Slot " + (i + 1);
             instance.transform.localPosition = CalculateExpandedPosition(_itemSlotStartingPosition, _itemSlotGap, AdjustIndexByDirection(0));
             instance.SetQuickslotNum(i + 1);
+            instance.gameObject.layer = LayerMask.NameToLayer(CameraHelper.UiLayer);
             if (i != _currentActiveIdx) instance.gameObject.SetActive(false);
             _itemSlots[i] = instance;
         }
@@ -137,15 +137,8 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     #endregion
 
     #region Transition
-    public void ToggleDisplay()
-    {
-        if (_onTransition) return;
 
-        if (_isExpanded) Shrink();
-        else Expand();
-    }
-
-    private void Expand()
+    public void Expand()
     {
         _onTransition = true;
         ItemSlot activeSlot = _itemSlots[_currentActiveIdx];
