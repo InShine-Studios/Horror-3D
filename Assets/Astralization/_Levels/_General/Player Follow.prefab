@@ -415,6 +415,7 @@ GameObject:
   - component: {fileID: 3273256044410928813}
   - component: {fileID: 3273256044410928814}
   - component: {fileID: 2109490165983602430}
+  - component: {fileID: 9022140482443821591}
   m_Layer: 0
   m_Name: Player Follow
   m_TagString: MainCamera
@@ -563,6 +564,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _transparentScale: 0
+--- !u!114 &9022140482443821591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3273256044410928801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f13d373b43cb4af48a72e2fd6966636d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3273256044973961242
 GameObject:
   m_ObjectHideFlags: 0

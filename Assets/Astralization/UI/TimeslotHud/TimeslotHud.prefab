@@ -89,6 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1064931754843743797}
   - component: {fileID: 1799254061696441355}
+  - component: {fileID: 8970078021268599760}
   m_Layer: 5
   m_Name: TimeslotHud
   m_TagString: Untagged
@@ -131,6 +132,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7704a9d0a79de645b505695ccf00fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!223 &8970078021268599760
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2671033899912446108}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &4568596064956081805
 GameObject:
   m_ObjectHideFlags: 0

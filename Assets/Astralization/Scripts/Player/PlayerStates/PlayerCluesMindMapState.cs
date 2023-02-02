@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 public class PlayerCluesMindMapState : PlayerState
 {
     #region Variables
-    private MindMapCameraManager _mindMapCameraManager;
     private MindMapTree _mindMapTree;
     #endregion
 
@@ -15,7 +14,6 @@ public class PlayerCluesMindMapState : PlayerState
     protected override void Awake()
     {
         base.Awake();
-        _mindMapCameraManager = this.transform.parent.GetComponentInChildren<MindMapCameraManager>();
         _mindMapTree = this.transform.parent.GetComponentInChildren<MindMapTree>();
     }
     #endregion
@@ -33,11 +31,12 @@ public class PlayerCluesMindMapState : PlayerState
         base.Exit();
         Cursor.lockState = CursorLockMode.Locked;
         owner.InvokeCloseMindMap();
+        _mindMapTree.FocusOnRoot();
     }
     #endregion
 
     #region InputHandler
-        public override void ChangeCore(InputAction.CallbackContext ctx)
+    public override void ChangeCore(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
         {
@@ -50,6 +49,14 @@ public class PlayerCluesMindMapState : PlayerState
         if (ctx.performed)
         {
             _mindMapTree.ChangeClue((int)ctx.ReadValue<float>());
+        }
+    }
+
+    public override void CloseMindMap(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            owner.ChangeState<PlayerDefaultState>();
         }
     }
     #endregion

@@ -54,7 +54,8 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     public bool IsExpanded { get { return _isExpanded; } }
     private bool _onTransition = false;
     public bool OnTransition { get { return _onTransition; } }
-    private bool _onInit = false;
+
+    private Canvas _canvas;
     #endregion
 
     #region SetGet
@@ -78,20 +79,18 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
         return _itemSlots[_currentActiveIdx].GetItemImage();
     }
 
-    private IEnumerator ShowDisplayAsync(bool isShown)
+    public void EnableCanvas(bool isShown)
     {
-        yield return new WaitWhile(() => _onInit);
-
-        gameObject.SetActive(isShown);
-    }
-
-    public void ShowDisplay(bool isShown)
-    {
-        StartCoroutine(ShowDisplayAsync(isShown));
+        _canvas.enabled = isShown;
     }
     #endregion
 
     #region MonoBehaviour
+    private void Awake()
+    {
+        _canvas = GetComponent<Canvas>();
+    }
+
     public void Update()
     {
         if(_isExpanded)
@@ -109,12 +108,10 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     #region Initialization
     public void Init(int numSlot, int activeIdx)
     {
-        _onInit = true;
         _shrinkCooldown = new Utils.CooldownHelper(_maxIdleDuration);
         _currentActiveIdx = activeIdx;
         GenerateSlot(numSlot);
         SelectActiveSlot(activeIdx);
-        _onInit = false;
     }
     private void GenerateSlot(int numSlot)
     {

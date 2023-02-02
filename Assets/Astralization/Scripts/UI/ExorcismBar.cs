@@ -24,6 +24,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     #region Variable
     public Slider slider;
     private Utils.CooldownHelper _cooldownHelper;
+    private Canvas _canvas;
 
     [SerializeField]
     private float _holdTime = 5.0f;
@@ -40,6 +41,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     {
         SetSliderMinValue(_minValue);
         _cooldownHelper = new Utils.CooldownHelper(_holdTime);
+        _canvas = GetComponent<Canvas>();
     }
 
     private void OnEnable()
@@ -69,6 +71,10 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
     #endregion
 
     #region SetGet
+    public void EnableCanvas(bool isShown)
+    {
+        _canvas.enabled = isShown;
+    }
     public Utils.CooldownHelper GetCooldownHelper()
     {
         return _cooldownHelper;

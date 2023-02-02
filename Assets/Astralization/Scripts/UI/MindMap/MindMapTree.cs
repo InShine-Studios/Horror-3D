@@ -113,15 +113,20 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     {
         return clueNodeIdx;
     }
+
+    public void FocusOnRoot()
+    {
+        coreNodeIdx = -1;
+        clueNodeIdx = -1;
+        SetCameraFocus(_root);
+    }
     #endregion
 
     #region MonoBehaviour
     private void Start()
     {
-        coreNodeIdx = -1;
-        clueNodeIdx = -1;
         LoadTree();
-        SetCameraFocus(_root);
+        FocusOnRoot();
     }
 
     private void OnEnable()

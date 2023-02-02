@@ -33,18 +33,18 @@ public class HudManager : MonoBehaviour
 
     private void HideAll()
     {
-        _itemHud.ShowDisplay(false);
-        _timeslotHud.gameObject.SetActive(false);
+        _itemHud.EnableCanvas(false);
+        _timeslotHud.EnableCanvas(false);
         //_hidingManager.gameObject.SetActive(false);
         _dialogueManager.ShowDialogueBox(false);
-        _exorcismBar.gameObject.SetActive(false);
-        _mindMapCanvas.gameObject.SetActive(false);
+        _exorcismBar.EnableCanvas(false);
+        _mindMapCanvas.EnableCanvas(false);
     }
 
     private void ShowDefaultHud(bool isShown)
     {
-       _itemHud.ShowDisplay(isShown);
-       _timeslotHud.gameObject.SetActive(isShown);
+       _itemHud.EnableCanvas(isShown);
+       _timeslotHud.EnableCanvas(isShown);
     }
 
     private void ShowDialogue(bool isShown)

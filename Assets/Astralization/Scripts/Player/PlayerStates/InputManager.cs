@@ -135,6 +135,7 @@ public class InputManager : StateMachine
         {
             case "ChangeCore": currentPlayerState.ChangeCore(ctx); break;
             case "ChangeClue": currentPlayerState.ChangeClue(ctx); break;
+            case "Exit": currentPlayerState.CloseMindMap(ctx); break;
         }
     }
     #endregion
