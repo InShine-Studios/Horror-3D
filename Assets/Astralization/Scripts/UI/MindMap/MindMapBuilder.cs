@@ -67,7 +67,11 @@ public class MindMapBuilder : MonoBehaviour, IMindMapBuilder
             mindMapTreeData.NodeDescriptions.Add(currentNode.NodeDescription);
             mindMapTreeData.NodeTypes.Add(currentNode.NodeType);
             mindMapTreeData.NodeAnimationControllers.Add(currentNode.AnimController);
-            mindMapTreeData.NodeTransforms.Add(currentNode.transform);
+            mindMapTreeData.NodePositions.Add(currentNode.transform.position);
+            mindMapTreeData.NodeRotations.Add(currentNode.transform.rotation);
+            mindMapTreeData.NodeScales.Add(currentNode.transform.localScale);
+            mindMapTreeData.NodeCameraFollowPosition.Add(currentNode.GetCameraFollow().localPosition);
+            mindMapTreeData.NodeCameraLookAtPosition.Add(currentNode.GetCameraLookAt().localPosition);
 
             foreach (MindMapNode child in currentNode.Children)
             {
@@ -85,23 +89,25 @@ public class MindMapBuilder : MonoBehaviour, IMindMapBuilder
 
     public void AddNode()
     {
+        if (_mindMapTree == null) _mindMapTree = GetComponent<MindMapTree>();
         _mindMapTree.AddNode();
     }
 
     public void ClearChild()
     {
+        if (_mindMapTree == null) _mindMapTree = GetComponent<MindMapTree>();
         _mindMapTree.ClearAllNodes();
     }
 
     public void Save(string filename)
     {
-        if (_mindMapTree == null) _mindMapTree = GetComponent<MindMapTree>();
         if (CountRootNodes() > 1)
         {
             Debug.LogError("[MIND MAP BUILDER] Root node can't be more than one. " +
                 "Check parent node assignment on every node to ensure only one node that has no parent.");
             return;
         }
+        if (_mindMapTree == null) _mindMapTree = GetComponent<MindMapTree>();
         if (_mindMapTree.Root == null)
         {
             Debug.LogError("[MIND MAP BUILDER] Root node of MindMapTree has not been assigned.");

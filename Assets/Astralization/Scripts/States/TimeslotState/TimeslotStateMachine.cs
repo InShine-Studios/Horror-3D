@@ -50,7 +50,7 @@ public class TimeslotStateMachine : StateMachine
         _currentDateTimeslot.Date = new DateTime(1, 1, 1);
         _currentDateTimeslot.Timeslot = CurrentTime;
 
-        UpdateTimeslotHudEvent.Invoke(_currentDateTimeslot);
+        UpdateTimeslotHudEvent?.Invoke(_currentDateTimeslot);
         _instance = this;
     }
     #endregion

@@ -21,16 +21,26 @@ namespace Utils
             Tome,
             Hiding,
             Exorcism,
+            MindMap,
             Default
         }
         public static int FixedUpdateCallsPerSecond = 50;
+        public static string UiInputActionName = "UI";
         public static Dictionary<States,string> PlayerStateActionMapMapper = new Dictionary<States, string>()
         {
             {States.Dialogue, "UI" },
             {States.Tome, "UI" },
             {States.Hiding, "Hiding" },
             {States.Exorcism, "Exorcism" },
+            {States.MindMap, "MindMap" },
             {States.Default, "Default" }
+        };
+
+        public static List<States> UseUiActionMap = new List<States>()
+        {
+            States.Dialogue,
+            States.Tome,
+            States.MindMap
         };
 
         public static bool CheckIsInteractZone(Collider target)

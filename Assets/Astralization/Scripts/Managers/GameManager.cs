@@ -88,6 +88,12 @@ public class GameManager : MonoBehaviour, IGameManager
         //Debug.Log("[MANAGER] Change state to exorcism");
     }
 
+    public void InvokeMindMapState()
+    {
+        SendPlayerStateEvent(Utils.PlayerHelper.States.MindMap);
+        //Debug.Log("[MANAGER] Reset player state to default");
+    }
+
     public void ResetPlayerState()
     {
         SendPlayerStateEvent(Utils.PlayerHelper.States.Default);
