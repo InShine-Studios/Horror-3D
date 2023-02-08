@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -25,7 +26,10 @@ public class MindMapCameraManager : MonoBehaviour, IMindMapCameraManager
     #endregion
 
     #region SetGet
-
+    public CinemachineBrain GetCinemachineBrain()
+    {
+        return _cinemachineBrain;
+    }
     #endregion
 
     #region MonoBehaviour
