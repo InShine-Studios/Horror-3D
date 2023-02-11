@@ -26,9 +26,9 @@ public class MindMapCameraManager : MonoBehaviour, IMindMapCameraManager
     #endregion
 
     #region SetGet
-    public CinemachineBrain GetCinemachineBrain()
+    public float GetCameraBlendTime()
     {
-        return _cinemachineBrain;
+        return _cinemachineBrain.m_DefaultBlend.m_Time;
     }
     #endregion
 

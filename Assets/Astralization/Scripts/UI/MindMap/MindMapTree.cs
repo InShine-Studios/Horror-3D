@@ -127,6 +127,8 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
         clueNodeIdx = -1;
         LoadTree();
         SetCameraFocus(_root);
+        SendNodeActiveInfo(true);
+        SendNodeInfo(_root);
     }
 
     private void OnEnable()
@@ -316,12 +318,17 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
         SetNodeInfo?.Invoke(node);
     }
 
+    public void SendNodeActiveInfo(bool is_active)
+    {
+        ActivatedModal?.Invoke(is_active);
+    }
+
     private IEnumerator ModalTransitioning()
     {
-        CinemachineBrain _cinemachineBrain = _mindMapCameraManager.GetCinemachineBrain();
-        ActivatedModal?.Invoke(false);
-        yield return new WaitForSeconds(_cinemachineBrain.m_DefaultBlend.m_Time);
-        ActivatedModal?.Invoke(true);
+        float _cameraBlendTime = _mindMapCameraManager.GetCameraBlendTime();
+        SendNodeActiveInfo(false);
+        yield return new WaitForSeconds(_cameraBlendTime);
+        SendNodeActiveInfo(true);
     }
     #endregion
 }
