@@ -53,7 +53,7 @@ public class HudManager : MonoBehaviour
         _itemHud = GetComponentInChildren<ItemHudDisplay>();
         _exorcismBar = GetComponentInChildren<ExorcismBar>();
         _timeslotHud = GetComponentInChildren<TimeslotHud>();
-        _mindMapModal = GameObject.Find("MindMapCanvas").GetComponentInChildren<MindMapModal>();
+        _mindMapModal = transform.parent.GetComponentInChildren<MindMapModal>();
         _canvas = GetComponent<Canvas>();
         _canvas.enabled = false;
     }
