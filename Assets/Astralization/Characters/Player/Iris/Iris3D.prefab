@@ -84,7 +84,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5622bb197ecee5e4680b32e161a3e775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _size: 3
   ActiveItemYOffset: {x: 0, y: -0.5, z: 0}
   ScrollSensitivity: 1
 --- !u!1 &8057739222434694644
@@ -525,7 +524,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 873121507167454745}
         m_TargetAssemblyTypeName: InputManager, Scripts
-        m_MethodName: HandleInputMindMap
+        m_MethodName: HandleInputDefault
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -607,7 +606,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 199f011bb37f44529bddbf74b35e55c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInput: {fileID: 8057739223163586145}
 --- !u!54 &4055782327609846884
 Rigidbody:
   m_ObjectHideFlags: 0

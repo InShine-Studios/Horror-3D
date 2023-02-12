@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 379422642652531405}
   - component: {fileID: 708671416522889377}
   - component: {fileID: 708671416522889379}
+  - component: {fileID: 8000793855886379867}
   m_Layer: 0
   m_Name: Dialogue Box
   m_TagString: Untagged
@@ -178,7 +179,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dialogueJson: {fileID: 4900000, guid: 3b5aed34ba2c841e784aa83d20bbdce5, type: 3}
   _textSpeed: 0
-  _eventSystem: {fileID: 0}
 --- !u!95 &708671416522889379
 Animator:
   serializedVersion: 3
@@ -198,6 +198,27 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!223 &8000793855886379867
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708671416522889376}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &708671416990616835
 GameObject:
   m_ObjectHideFlags: 0

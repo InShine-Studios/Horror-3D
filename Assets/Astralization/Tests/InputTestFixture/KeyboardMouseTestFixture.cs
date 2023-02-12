@@ -19,6 +19,7 @@ public class KeyboardMouseTestFixture: InputTestFixture
         NextDialogueEnter,
         NextDialogueClick,
         SimulateGhostInteract,
+        OpenMindMap,
         ChangeCoreForward,
         ChangeCoreBack,
         ChangeClueForward,
@@ -46,6 +47,7 @@ public class KeyboardMouseTestFixture: InputTestFixture
             {RegisteredInput.DiscardItem, keyboard.gKey },
             {RegisteredInput.NextDialogueEnter, keyboard.enterKey },
             {RegisteredInput.SimulateGhostInteract, keyboard.zKey }, // [TODO] Remove when Ghost Interaction fully implemented
+            {RegisteredInput.OpenMindMap, keyboard.pKey },
             {RegisteredInput.ChangeCoreForward, keyboard.eKey },
             {RegisteredInput.ChangeCoreBack, keyboard.qKey },
             {RegisteredInput.ChangeClueForward, keyboard.dKey },
