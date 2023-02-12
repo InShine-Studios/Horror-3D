@@ -79,7 +79,7 @@ public class HudManager : MonoBehaviour
         _exorcismBar = GetComponentInChildren<ExorcismBar>();
         _timeslotHud = GetComponentInChildren<TimeslotHud>();
         _mindMapCanvas = GetComponentInChildren<MindMapCanvas>();
-        _mindMapModal = transform.parent.GetComponentInChildren<MindMapModal>();
+        _mindMapModal = GetComponentInChildren<MindMapModal>();
         _canvas = GetComponent<Canvas>();
     }
     private void OnEnable()
