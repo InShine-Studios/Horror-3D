@@ -107,6 +107,7 @@ public class ExorcismBar : MonoBehaviour, IExorcismBar
 
     public void ShowBar(bool isActive)
     {
+        _canvas.enabled = isActive;
         slider.gameObject.SetActive(isActive);
     }
     #endregion

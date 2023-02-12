@@ -95,7 +95,7 @@ public class InteractableTest: TestBase
         // Closets camera
         HidingCameraConfigs hidingCameraConfigs = closets.GetComponentInChildren<HidingCameraConfigs>();
         Vector3 hidingCameraStartingPosition = hidingCameraConfigs.StartingPosition;
-        GameObject cameraHiding = GameObject.Find("Player/Camera/Camera Hiding");
+        GameObject cameraHiding = GameObject.Find("Player/Cameras/DefaultCamera/Camera Hiding").gameObject;
         Cinemachine.CinemachineVirtualCamera vcam = cameraHiding.GetComponent<Cinemachine.CinemachineVirtualCamera>();
         Vector3 cameraPosition = vcam.m_Follow.localPosition;
         Assert.AreEqual(cameraPosition, hidingCameraStartingPosition);

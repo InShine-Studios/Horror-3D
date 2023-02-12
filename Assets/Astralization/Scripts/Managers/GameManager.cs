@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour, IGameManager
     #region Event
     public static event Action ChangeWorldEvent;
     public static event Action<Utils.PlayerHelper.States> PlayerStateEvent;
+    public static event Action<Utils.PlayerHelper.States> CameraStateEvent;
     public static event Action<Utils.UiHelper.UiType, bool> HudEvent;
     // TODO: to be implemented
     public static event Action PlayerAudioDiesEvent;
@@ -64,6 +65,11 @@ public class GameManager : MonoBehaviour, IGameManager
     {
         PlayerStateEvent?.Invoke(actionMapKey);
     }
+
+    public void SendCameraStateEvent(Utils.PlayerHelper.States state)
+    {
+        CameraStateEvent?.Invoke(state);
+    }
     #endregion
 
     #region Invoker
@@ -97,6 +103,7 @@ public class GameManager : MonoBehaviour, IGameManager
     public void InvokeMindMapState()
     {
         SendPlayerStateEvent(Utils.PlayerHelper.States.MindMap);
+        SendCameraStateEvent(Utils.PlayerHelper.States.MindMap);
         //Debug.Log("[MANAGER] Reset player state to default");
     }
 
@@ -104,6 +111,7 @@ public class GameManager : MonoBehaviour, IGameManager
     {
         SendPlayerStateEvent(Utils.PlayerHelper.States.Default);
         SendHudEvent(Utils.UiHelper.UiType.Default,true);
+        SendCameraStateEvent(Utils.PlayerHelper.States.Default);
         //Debug.Log("[MANAGER] Reset player state to default");
     }
 

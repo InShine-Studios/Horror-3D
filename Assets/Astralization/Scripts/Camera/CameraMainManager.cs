@@ -6,7 +6,8 @@ using UnityEngine;
 public class CameraMainManager : MonoBehaviour
 {
     #region Variable
-    private Dictionary<string, ICameraManager> _cameraManagers = new Dictionary<string, ICameraManager>();
+    [SerializeField]
+    private SerializableDictionary<string, ICameraManager> _cameraManagers = new SerializableDictionary<string, ICameraManager>();
     #endregion
 
     #region SetGet
@@ -28,12 +29,12 @@ public class CameraMainManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.PlayerStateEvent += ActivateCinemachineBrain;
+        GameManager.CameraStateEvent += ActivateCinemachineBrain;
     }
 
     private void OnDisable()
     {
-        GameManager.PlayerStateEvent -= ActivateCinemachineBrain;
+        GameManager.CameraStateEvent -= ActivateCinemachineBrain;
     }
     #endregion
 
