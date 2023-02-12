@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -25,7 +26,10 @@ public class MindMapCameraManager : MonoBehaviour, IMindMapCameraManager
     #endregion
 
     #region SetGet
-
+    public float GetCameraBlendTime()
+    {
+        return _cinemachineBrain.m_DefaultBlend.m_Time;
+    }
     #endregion
 
     #region MonoBehaviour
