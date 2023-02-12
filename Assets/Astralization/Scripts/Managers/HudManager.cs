@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /*
@@ -14,6 +14,7 @@ public class HudManager : MonoBehaviour
     private ExorcismBar _exorcismBar;
     private TimeslotHud _timeslotHud;
     private MindMapCanvas _mindMapCanvas;
+    private MindMapModal _mindMapModal;
     private Canvas _canvas;
     #endregion
 
@@ -78,6 +79,7 @@ public class HudManager : MonoBehaviour
         _exorcismBar = GetComponentInChildren<ExorcismBar>();
         _timeslotHud = GetComponentInChildren<TimeslotHud>();
         _mindMapCanvas = GetComponentInChildren<MindMapCanvas>();
+        _mindMapModal = transform.parent.GetComponentInChildren<MindMapModal>();
         _canvas = GetComponent<Canvas>();
     }
     private void OnEnable()
@@ -86,6 +88,8 @@ public class HudManager : MonoBehaviour
         PlayerHidingState.StopHidingHudEvent += ShowHidingHud;
         Inventory.InventoryHudEvent += HandleInventoryEvent;
         TimeslotStateMachine.UpdateTimeslotHudEvent += UpdateTimeslotDisplay;
+        MindMapTree.ActivatedModal += ActivatedModal;
+        MindMapTree.SetNodeInfo += SetNodeInfo;
     }
 
     private void OnDisable()
@@ -94,6 +98,8 @@ public class HudManager : MonoBehaviour
         PlayerHidingState.StopHidingHudEvent -= ShowHidingHud;
         Inventory.InventoryHudEvent -= HandleInventoryEvent;
         TimeslotStateMachine.UpdateTimeslotHudEvent -= UpdateTimeslotDisplay;
+        MindMapTree.ActivatedModal -= ActivatedModal;
+        MindMapTree.SetNodeInfo -= SetNodeInfo;
     }
     #endregion
 
@@ -123,6 +129,16 @@ public class HudManager : MonoBehaviour
     private void UpdateTimeslotDisplay(DateTimeslot dateTimeslot)
     {
         _timeslotHud.SetDateTimeslot(dateTimeslot);
+    }
+
+    private void ActivatedModal(bool is_active)
+    {
+        _mindMapModal.ActivatedModal(is_active);
+    }
+
+    private void SetNodeInfo(MindMapNode node)
+    {
+        _mindMapModal.SetNodeInfo(node);
     }
     #endregion
 }

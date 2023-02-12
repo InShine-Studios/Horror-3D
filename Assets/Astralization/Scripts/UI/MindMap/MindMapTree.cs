@@ -36,6 +36,11 @@ public class NodeModelDictionary : SerializableDictionary<MindMapNodeType, GameO
  */
 public class MindMapTree : MonoBehaviour, IMindMapTree
 {
+    #region Event
+    public static event Action<MindMapNode> SetNodeInfo;
+    public static event Action<bool> ActivatedModal;
+    #endregion
+
     #region Const
     public static string LayerName = "MindMap";
     #endregion
@@ -127,6 +132,8 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     {
         LoadTree();
         FocusOnRoot();
+        SendNodeActiveInfo(true);
+        SendNodeInfo(_root);
     }
 
     private void OnEnable()
@@ -277,6 +284,8 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
             coreNodeIdx = Utils.MathCalcu.mod(coreNodeIdx + indexStep, coreNodes.Count);
         }
         SetCameraFocus(Root.Children[coreNodeIdx]);
+        StartCoroutine(ModalTransitioning());
+        SendNodeInfo(Root.Children[coreNodeIdx]);
     }
 
     public void ChangeClue(int indexStep)
@@ -295,7 +304,8 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
             clueNodeIdx = Utils.MathCalcu.mod(clueNodeIdx + indexStep, clueNodes.Count);
         }
         SetCameraFocus(Root.Children[coreNodeIdx].Children[clueNodeIdx]);
-
+        StartCoroutine(ModalTransitioning());
+        SendNodeInfo(Root.Children[coreNodeIdx].Children[clueNodeIdx]);
     }
     #endregion
 
@@ -304,6 +314,26 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     {
         _mindMapCameraManager.FocusOn(node.GetCameraFollow(), node.GetCameraLookAt());
         selectedNode = node;
+    }
+    #endregion
+
+    #region Send Event
+    public void SendNodeInfo(MindMapNode node)
+    {
+        SetNodeInfo?.Invoke(node);
+    }
+
+    public void SendNodeActiveInfo(bool is_active)
+    {
+        ActivatedModal?.Invoke(is_active);
+    }
+
+    private IEnumerator ModalTransitioning()
+    {
+        float _cameraBlendTime = _mindMapCameraManager.GetCameraBlendTime();
+        SendNodeActiveInfo(false);
+        yield return new WaitForSeconds(_cameraBlendTime);
+        SendNodeActiveInfo(true);
     }
     #endregion
 }
