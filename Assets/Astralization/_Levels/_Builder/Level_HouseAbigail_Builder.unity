@@ -46553,11 +46553,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 666020083460265777, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000012595388
+      value: -0.000000009082418
       objectReference: {fileID: 0}
     - target: {fileID: 666020083460265777, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -3.6925055e-10
+      value: 9.92371e-10
       objectReference: {fileID: 0}
     - target: {fileID: 2253895238881869186, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -46657,7 +46657,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5582924760804245336, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00019189731
+      value: 0.00019189734
       objectReference: {fileID: 0}
     - target: {fileID: 6394782924348329299, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalScale.x
@@ -46670,6 +46670,14 @@ PrefabInstance:
     - target: {fileID: 6394782924348329299, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7683486304251642307, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.3000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 7683486304251642307, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.725
       objectReference: {fileID: 0}
     - target: {fileID: 8849613041954922371, guid: 26419b2f59fe4584583523fd044b403d, type: 3}
       propertyPath: m_RootOrder
@@ -83450,7 +83458,7 @@ PrefabInstance:
     - target: {fileID: 8336231151137377515, guid: 9fcfb1c3a82c91045bfe433f1088e413, type: 3}
       propertyPath: _stagePointsData
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: ce2cc9c9dbd52c04b827db5af7b179b0, type: 2}
     - target: {fileID: 8336231151137377515, guid: 9fcfb1c3a82c91045bfe433f1088e413, type: 3}
       propertyPath: _stageTransitionZoneData
       value: 
