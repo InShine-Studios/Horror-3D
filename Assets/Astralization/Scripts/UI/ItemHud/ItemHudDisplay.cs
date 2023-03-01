@@ -54,6 +54,8 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     public bool IsExpanded { get { return _isExpanded; } }
     private bool _onTransition = false;
     public bool OnTransition { get { return _onTransition; } }
+
+    private Canvas _canvas;
     #endregion
 
     #region SetGet
@@ -76,9 +78,19 @@ public class ItemHudDisplay : MonoBehaviour, IItemHudDisplay
     {
         return _itemSlots[_currentActiveIdx].GetItemImage();
     }
+
+    public void EnableCanvas(bool isShown)
+    {
+        _canvas.enabled = isShown;
+    }
     #endregion
 
     #region MonoBehaviour
+    private void Awake()
+    {
+        _canvas = GetComponent<Canvas>();
+    }
+
     public void Update()
     {
         if(_isExpanded)

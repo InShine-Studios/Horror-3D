@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -10,12 +11,11 @@ public interface IMindMapCameraManager
     void FocusOn(Transform follow, Transform lookAt);
 }
 
-public class MindMapCameraManager : MonoBehaviour, IMindMapCameraManager
+public class MindMapCameraManager : MonoBehaviour, IMindMapCameraManager, ICameraManager
 {
     #region Variables
+    private Camera _camera;
     private CinemachineVirtualCamera[] _virtualCameras;
-    private HidingCameraConfigs _povCameraConfig;
-    private CinemachinePOVExtension[] _cinemachinePovExtensions;
     private CinemachineBrain _cinemachineBrain;
 
     private int _activeCameraIndex;
@@ -25,12 +25,28 @@ public class MindMapCameraManager : MonoBehaviour, IMindMapCameraManager
     #endregion
 
     #region SetGet
+    public void Enable(bool enabled)
+    {
+        _camera.enabled = enabled;
+        _cinemachineBrain.enabled = enabled;
+        _virtualCameras[_activeCameraIndex].enabled = enabled;
+    }
 
+    public string GetName()
+    {
+        return name;
+    }
+
+    public float GetCameraBlendTime()
+    {
+        return _cinemachineBrain.m_DefaultBlend.m_Time;
+    }
     #endregion
 
     #region MonoBehaviour
     private void Awake()
     {
+        _camera = GetComponent<Camera>();
         _cinemachineBrain = GetComponent<CinemachineBrain>();
         _virtualCameras = GetComponentsInChildren<CinemachineVirtualCamera>();
 

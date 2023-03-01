@@ -25,9 +25,15 @@ public class TimeslotHud : MonoBehaviour, ITimeslotHud
     private Text _dayText;
     private Text _timeslotText;
     private Animator _timeslotLogoAnimator;
+    private Canvas _canvas;
     #endregion
 
     #region SetGet
+    public void EnableCanvas(bool isShown)
+    {
+        _canvas.enabled = isShown;
+    }
+
     private void SetDay(string day)
     {
         _dayText.text = day;
@@ -73,6 +79,7 @@ public class TimeslotHud : MonoBehaviour, ITimeslotHud
         _dayText = transform.Find(DayGameObjectName).GetComponent<Text>();
         _timeslotText = transform.Find(TimeslotGameObjectName).GetComponent<Text>();
         _timeslotLogoAnimator = transform.Find(TimeslotLogoGameObjectName).GetComponent<Animator>();
+        _canvas = GetComponent<Canvas>();
     }
     #endregion
 }

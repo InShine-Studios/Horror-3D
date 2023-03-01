@@ -16,8 +16,7 @@ public class PlayerInitState : PlayerState
     {
         // set up here for future use
         yield return null;
-        //owner.SetPlayerActionMap(Utils.PlayerHelper.States.Default);
-        owner.SetPlayerActionMap(Utils.PlayerHelper.States.MindMap);
+        owner.SetPlayerActionMap(Utils.PlayerHelper.States.Default);
     }
     #endregion
 }

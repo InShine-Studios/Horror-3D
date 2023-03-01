@@ -64,6 +64,7 @@ public class PlayerDefaultState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        owner.InvokeResetToDefault();
     }
 
     public override void Exit()
@@ -151,6 +152,16 @@ public class PlayerDefaultState : PlayerState
         if (ctx.performed)
         {
             _flashlight.ToggleOnOff();
+        }
+    }
+    #endregion
+
+    #region Menu Input Handler
+    public override void OpenMindMap(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            owner.InvokeOpenMindMap();
         }
     }
     #endregion

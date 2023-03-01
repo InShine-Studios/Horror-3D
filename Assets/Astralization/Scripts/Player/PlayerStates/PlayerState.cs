@@ -78,6 +78,11 @@ public abstract class PlayerState : State
     {
         Utils.LoggerHelper.PrintStateDefaultLog("Player", "ToggleFlashlight");
     }
+
+    public virtual void OpenMindMap(InputAction.CallbackContext ctx)
+    {
+        Utils.LoggerHelper.PrintStateDefaultLog("Player", "OpenMindMap");
+    }
     #endregion
 
     #region Hiding Input Handler
@@ -95,6 +100,10 @@ public abstract class PlayerState : State
     #endregion
 
     #region MindMap Input Handler
+    public virtual void CloseMindMap(InputAction.CallbackContext ctx)
+    {
+        Utils.LoggerHelper.PrintStateDefaultLog("Player", "CloseMindMap");
+    }
     public virtual void ChangeCore(InputAction.CallbackContext ctx)
     {
         Utils.LoggerHelper.PrintStateDefaultLog("Player", "ChangeCore");

@@ -7,6 +7,14 @@ public class MindMapCanvas : MonoBehaviour
     #region Variables
     private ChapterNavigation _chapterNavigation;
     private NodeNavigation _nodeNavigation;
+    private Canvas _canvas;
+    #endregion
+
+    #region SetGet
+    public void EnableCanvas(bool isEnabled)
+    {
+        _canvas.enabled = isEnabled;
+    }
     #endregion
 
     #region MonoBehaviour
@@ -14,6 +22,7 @@ public class MindMapCanvas : MonoBehaviour
     {
         _chapterNavigation = GetComponentInChildren<ChapterNavigation>();
         _nodeNavigation = GetComponentInChildren<NodeNavigation>();
+        _canvas = GetComponent<Canvas>();
     }
 
     private void OnEnable()

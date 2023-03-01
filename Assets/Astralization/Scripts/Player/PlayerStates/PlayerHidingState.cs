@@ -36,7 +36,6 @@ public class PlayerHidingState : PlayerState
         _interactableDetector = GetComponentInChildren<InteractableDetector>();
         _vcam = this.transform.parent.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>();
         _freelook = this.transform.parent.GetComponentInChildren<Cinemachine.CinemachineFreeLook>();
-        _hidingCameraConfigs = _closets.GetComponent<HidingCameraConfigs>();
     }
     #endregion
 
@@ -47,6 +46,7 @@ public class PlayerHidingState : PlayerState
         PlayerMovementChangeState();
 
         _closets = _interactableDetector.GetClosest().transform;
+        _hidingCameraConfigs = _closets.GetComponent<HidingCameraConfigs>();
         _closetsPoint = new GameObject().transform;
         _closetsPoint.parent = _closets;
 

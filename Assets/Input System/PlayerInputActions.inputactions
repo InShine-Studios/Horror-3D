@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "Press",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OpenMindMap",
+                    "type": "Button",
+                    "id": "bb6ec7f7-3318-498b-beeb-aa7a79d1e433",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -332,6 +341,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "ToggleFlashlight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a7d8ba2e-0c2d-4212-8e9a-2d79ddab2a86",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "OpenMindMap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

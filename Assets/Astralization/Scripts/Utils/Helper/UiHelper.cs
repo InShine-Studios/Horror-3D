@@ -7,11 +7,13 @@ namespace Utils
     {
         public enum UiType
         {
+            Default,
             Tome,
             Dialogue,
             ExorcismBar,
             HidingOverlay,
-            Timeslot
+            Timeslot,
+            MindMap
         }
     }
 }

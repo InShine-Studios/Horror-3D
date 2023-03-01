@@ -30,6 +30,7 @@ Tech Stack: Unity 2020.3.25f1 (Active Since: 19 Dec 2021)
 ### Programmer Clan
 - Rafif Taris (Chief Programmer)
 - Naufal Hilmi Irfandi
+- Muhammad Rizqi Agung Prabowo
 
 ### Designer Clan
 - Gusti Ngurah Yama Adi Putra (Chief Designer and Artist)
@@ -37,8 +38,10 @@ Tech Stack: Unity 2020.3.25f1 (Active Since: 19 Dec 2021)
 
 ### Artist Clan
 - Ahmad Haydar Alkaf
-- Jahns Michael
 - Raihan Rizqi Muhtadiin
+- Hasiana Emanuela Rajagukguk
+- Muhammad Ilham Ghozali
+- Ezra Pasha Ramadhansyah
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -97,28 +100,44 @@ All project files used are in the "Assets/Astralization" folder.
 
 ### Sections
 
-> 4.1 [_Levels](#level)
+> 4.1 [_Deprecated](#deprecated)
 
-> 4.2 [Audios](#audio)
+> 4.2 [_Levels](#level)
 
-> 4.3 [Characters](#char)
+> 4.3 [Audio](#audio)
 
-> 4.4 [FX](#fx)
+> 4.4 [Characters](#char)
 
-> 4.5 [Gameplay](#gameplay)
+> 4.5 [Decorations](#decor)
 
-> 4.6 [Resources](#resources)
+> 4.6 [DialogueText](#dialogue)
 
-> 4.7 [Scripts](#script)
+> 4.7 [FX](#fx)
 
-> 4.8 [Tests](#test)
+> 4.8 [Gameplay](#gameplay)
 
-> 4.9 [UI](#ui)
+> 4.9 [MaterialLibrary](#material-library)
 
-> 4.10 [MaterialLibrary](#material-library)
+> 4.10 [Resources](#resources)
+
+> 4.11 [Scripts](#script)
+
+> 4.12 [SOs](#so)
+
+> 4.13 [Tests](#test)
+
+> 4.14 [UI](#ui)
+
+<a name="deprecated"></a>
+### 4.1 _Deprecated
+
+Folder to keep **ALL unused file** in the game.
+
+**[⬆ Back to Top](#table-of-contents)**
+
 
 <a name="level"></a>
-### 4.1 _Levels
+### 4.2 _Levels
 
 Folder to keep **ALL working levels** in the game. This includes the general assets used, frontend (menus, splash screen, etc.), maps, etc.
 
@@ -126,7 +145,7 @@ Folder to keep **ALL working levels** in the game. This includes the general ass
 
 
 <a name="audio"></a>
-### 4.2 Audios
+### 4.3 Audios
 
 Folder to keep **ALL audio assets** in the game. This includes audio classes (AudioManager, etc.), unused audios, mixers, sources, etc.
 
@@ -136,15 +155,31 @@ Folder to keep **ALL audio assets** in the game. This includes audio classes (Au
 
 
 <a name="char"></a>
-### 4.3 Characters
+### 4.4 Characters
 
 Folder to keep **ALL character related assets** in the game. This includes prefabs, spritesheets, animations, etc. If there are common assets to be used for all characters, keep them in a folder such as `Characters/Common/Animations`.
 
 **[⬆ Back to Top](#table-of-contents)**
 
 
+<a name="decor"></a>
+### 4.5 Decorations
+
+Folder to keep **ALL object decoration related assets** in the game. This includes prefabs, material, texture, etc. 
+
+**[⬆ Back to Top](#table-of-contents)**
+
+
+<a name="dialogue"></a>
+### 4.6 DialogueText
+
+Folder to keep **ALL dialogue text** in the game. Each dialogue text usually consists of 2 types (JSON and ink).
+
+**[⬆ Back to Top](#table-of-contents)**
+
+
 <a name="fx"></a>
-### 4.4 FX
+### 4.7 FX
 
 Folder to keep **ALL working effects** in the game. This includes volumes, particle system, textures, etc.
 
@@ -152,15 +187,23 @@ Folder to keep **ALL working effects** in the game. This includes volumes, parti
 
 
 <a name="gameplay"></a>
-### 4.5 Gameplay
+### 4.8 Gameplay
 
 The main folder to keep **ALL gameplay related assets**. This includes objects related to gameplay or world building. Examples are interactables, items, decorations, etc.
 
 **[⬆ Back to Top](#table-of-contents)**
 
 
+<a name="material-library"></a>
+### 4.9 MaterialLibrary
+
+This folder is used to keep **ALL the common materials and its pallete**. Don't put mesh specific material in this directory.
+
+**[⬆ Back to Top](#table-of-contents)**
+
+
 <a name="resources"></a>
-### 4.6 Resources
+### 4.10 Resources
 
 This folder is used to keep **ALL the saved data** that will be used inside the project. Saved data is a static data that can be loaded by GameObjects, for example coordinates and dialogue texts.
 
@@ -170,7 +213,7 @@ Store resources data in a **specific** subdirectory of resource and make sure it
 
 
 <a name="script"></a>
-### 4.7 Scripts
+### 4.11 Scripts
 
 This folder is used to keep **ALL the scripts** that will be used inside the project. It also has its own **assembly definition** asset to exclude it from the normal C# assembly for testing purposes.
 
@@ -179,8 +222,16 @@ Each script will be kept in its own subfolder depending on what it is used for. 
 **[⬆ Back to Top](#table-of-contents)**
 
 
+<a name="so"></a>
+### 4.12 SOs
+
+This folder is used to keep **ALL general scriptable object** that will be used inside the project.
+
+**[⬆ Back to Top](#table-of-contents)**
+
+
 <a name="test"></a>
-### 4.8 Tests
+### 4.13 Tests
 
 The folder that will be used to run both **unit** (edit mode) and **integration** (play mode) tests. Each test class will be kept under a subfolder specific to the use of that test scenario.
 
@@ -190,17 +241,9 @@ List of All [Test Cases](https://docs.google.com/spreadsheets/d/1G74XV_d05xa5i4_
 
 
 <a name="ui"></a>
-### 4.9 UI
+### 4.14 UI
 
 This folder is used to keep **ALL the assets** used for UI. User interface includes objects in game (marker, objective, etc.) or menu UI.
-
-**[⬆ Back to Top](#table-of-contents)**
-
-
-<a name="material-library"></a>
-### 4.10 MaterialLibrary
-
-This folder is used to keep **ALL the common materials and its pallete**. Don't put mesh specific material in this directory.
 
 **[⬆ Back to Top](#table-of-contents)**
 

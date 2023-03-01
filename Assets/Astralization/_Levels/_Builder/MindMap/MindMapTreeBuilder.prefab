@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7026165432199854188
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7026165432199854227}
+  - component: {fileID: 7026165432199854226}
+  - component: {fileID: 7026165432199854225}
+  m_Layer: 6
+  m_Name: MindMapTreeBuilder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7026165432199854227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7026165432199854188}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7026165432199854226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7026165432199854188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f6dd81c71139d45a87caa975f23181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mindMapNodeBase: {fileID: 9065728398844746766, guid: 45c676bd08b0e66429809cfdd7601e0b, type: 3}
+  _nodeModelDictionary:
+    m_keys: 000000000100000002000000
+    m_values:
+    - {fileID: 6627780778903583924, guid: 4ab69fd41a36ed64286e0444e39a975d, type: 3}
+    - {fileID: 6627780778903583924, guid: de93b74b6a13ece41b1703cf5a0c430e, type: 3}
+    - {fileID: 6627780778903583924, guid: e6fafdf0f0ec89d489e9231a2e1ea46b, type: 3}
+  _root: {fileID: 0}
+  _mindMapTreeData: {fileID: 11400000, guid: 1d5910d920feecb44b4a91e8c06a46f6, type: 2}
+  _mindMapCameraManager: {fileID: 0}
+--- !u!114 &7026165432199854225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7026165432199854188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a93c9eb39e41a564b92a7d70688ce4cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mindMapTreeData: {fileID: 11400000, guid: 1d5910d920feecb44b4a91e8c06a46f6, type: 2}
