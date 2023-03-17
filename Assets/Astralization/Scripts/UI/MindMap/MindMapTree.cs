@@ -48,15 +48,18 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     #region Variables
     [Header("Prefabs")]
     [SerializeField]
-    private MindMapNode _mindMapNodeBase;
+    private GameObject _mindMapNodeBase;
     [SerializeField]
     private NodeModelDictionary _nodeModelDictionary;
+    private ObjectPooler _pooler;
 
     [Header("Tree Data")]
     [SerializeField]
     private MindMapNode _root;
     [SerializeField]
-    private MindMapTreeData _mindMapTreeData;
+    [Tooltip("Mind Map Node data SO. The first data is the default menu")]
+    private MindMapTreeData[] _mindMapTreeData;
+    private MindMapTreeData _currentMindMapTreeData;
 
     [Header("Camera and Navigation")]
     [SerializeField]
@@ -125,11 +128,28 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
         clueNodeIdx = -1;
         SetCameraFocus(_root);
     }
+
+    private int GetMaxNodeCount()
+    {
+        int maxNodeCount = 0;
+        foreach(MindMapTreeData treeData in _mindMapTreeData)
+        {
+            maxNodeCount = Math.Max(maxNodeCount, treeData.NodeNames.Count);
+        }
+
+        return maxNodeCount;
+    }
     #endregion
 
     #region MonoBehaviour
     private void Start()
     {
+        // Initialize pooler
+        _pooler = gameObject.AddComponent<ObjectPooler>();
+        _pooler.Initialize(_mindMapNodeBase, GetMaxNodeCount());
+
+
+        _currentMindMapTreeData = _mindMapTreeData[0];
         LoadTree();
         FocusOnRoot();
         SendNodeActiveInfo(true);
@@ -191,7 +211,7 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
 
     public void AddNode()
     {
-        MindMapNode mindMapNode = Instantiate(_mindMapNodeBase);
+        GameObject mindMapNode = Instantiate(_mindMapNodeBase);
         mindMapNode.transform.parent = transform;
     }
 
@@ -205,27 +225,27 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
 
         ClearAllNodes();
 
-        int nodeCount = _mindMapTreeData.ParentReferenceIdx.Count;
+        int nodeCount = _currentMindMapTreeData.ParentReferenceIdx.Count;
         MindMapNode[] nodeInstances = new MindMapNode[nodeCount];
 
         for (int i = 0; i < nodeCount; i++)
         {
-            MindMapNode newNode = Instantiate(_mindMapNodeBase);
+            MindMapNode newNode = _pooler.GetObjectFromPool().GetComponent<MindMapNode>();
             // General assignments
-            newNode.NodeName = _mindMapTreeData.NodeNames[i];
-            newNode.NodeDescription = _mindMapTreeData.NodeDescriptions[i];
-            newNode.AnimController = _mindMapTreeData.NodeAnimationControllers[i];
+            newNode.NodeName = _currentMindMapTreeData.NodeNames[i];
+            newNode.NodeDescription = _currentMindMapTreeData.NodeDescriptions[i];
+            newNode.AnimController = _currentMindMapTreeData.NodeAnimationControllers[i];
             
             // Type-related assignments
-            newNode.NodeType = _mindMapTreeData.NodeTypes[i];
+            newNode.NodeType = _currentMindMapTreeData.NodeTypes[i];
             GameObject nodeModel = Instantiate(_nodeModelDictionary[newNode.NodeType]);
             nodeModel.transform.parent = newNode.transform;
             nodeModel.gameObject.layer = LayerMask.NameToLayer(LayerName);
 
             // Parent reference assignments
-            if (_mindMapTreeData.ParentReferenceIdx[i] != -1)
+            if (_currentMindMapTreeData.ParentReferenceIdx[i] != -1)
             {
-                newNode.Parent = nodeInstances[_mindMapTreeData.ParentReferenceIdx[i]];
+                newNode.Parent = nodeInstances[_currentMindMapTreeData.ParentReferenceIdx[i]];
             }
             else
             {
@@ -234,11 +254,11 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
 
             // Transform assignments
             newNode.transform.parent = transform;
-            newNode.transform.position = _mindMapTreeData.NodePositions[i];
-            newNode.transform.rotation = _mindMapTreeData.NodeRotations[i];
-            newNode.transform.localScale = _mindMapTreeData.NodeScales[i];
-            newNode.SetCameraFollowPosition(_mindMapTreeData.NodeCameraFollowPosition[i]);
-            newNode.SetCameraLookAtPosition(_mindMapTreeData.NodeCameraLookAtPosition[i]);
+            newNode.transform.position = _currentMindMapTreeData.NodePositions[i];
+            newNode.transform.rotation = _currentMindMapTreeData.NodeRotations[i];
+            newNode.transform.localScale = _currentMindMapTreeData.NodeScales[i];
+            newNode.SetCameraFollowPosition(_currentMindMapTreeData.NodeCameraFollowPosition[i]);
+            newNode.SetCameraLookAtPosition(_currentMindMapTreeData.NodeCameraLookAtPosition[i]);
 
             newNode.gameObject.layer = LayerMask.NameToLayer(LayerName);
 
@@ -251,7 +271,7 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
 
     public void LoadTree(MindMapTreeData data)
     {
-        _mindMapTreeData = data;
+        _currentMindMapTreeData = data;
         LoadTree();
     }
 
