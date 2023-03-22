@@ -22,7 +22,6 @@ public interface IMindMapTree
     bool IsNodeRelated();
     void LoadTree();
     void LoadTree(MindMapTreeData data);
-    void SetCameraFocus(MindMapNode node);
 }
 
 #region SerializableClass
@@ -48,10 +47,10 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     #region Variables
     [Header("Prefabs")]
     [SerializeField]
-    private GameObject _mindMapNodeBase;
+    private MindMapNode _mindMapNodeBase;
     [SerializeField]
     private NodeModelDictionary _nodeModelDictionary;
-    private ObjectPooler _pooler;
+    private MindMapPooler _pooler;
 
     [Header("Tree Data")]
     [SerializeField]
@@ -65,6 +64,7 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     [SerializeField]
     private MindMapCameraManager _mindMapCameraManager; // TODO: make this non-serializable and integrate with UiState
 
+    private int chapterIdx;
     private MindMapNode selectedNode = null;
     private int coreNodeIdx;
     private int clueNodeIdx;
@@ -144,12 +144,14 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     #region MonoBehaviour
     private void Start()
     {
+        ClearAllNodes();
+
         // Initialize pooler
-        _pooler = gameObject.AddComponent<ObjectPooler>();
+        _pooler = gameObject.AddComponent<MindMapPooler>();
         _pooler.Initialize(_mindMapNodeBase, GetMaxNodeCount());
 
-
-        _currentMindMapTreeData = _mindMapTreeData[0];
+        chapterIdx = 0;
+        _currentMindMapTreeData = _mindMapTreeData[chapterIdx];
         LoadTree();
         FocusOnRoot();
         SendNodeActiveInfo(true);
@@ -159,11 +161,14 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     private void OnEnable()
     {
         NodeNavigation.ChangeNodeEvent += ChangeNodeFromButton;
+        ChapterNavigation.ChangeChapterEvent += ChangeChapterFromButton;
     }
 
     private void OnDisable()
     {
         NodeNavigation.ChangeNodeEvent -= ChangeNodeFromButton;
+        ChapterNavigation.ChangeChapterEvent -= ChangeChapterFromButton;
+
     }
     #endregion
 
@@ -211,7 +216,8 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
 
     public void AddNode()
     {
-        GameObject mindMapNode = Instantiate(_mindMapNodeBase);
+        MindMapNode mindMapNode;
+        _pooler.GetInstance(out mindMapNode);
         mindMapNode.transform.parent = transform;
     }
 
@@ -223,14 +229,13 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
             return;
         }
 
-        ClearAllNodes();
-
         int nodeCount = _currentMindMapTreeData.ParentReferenceIdx.Count;
         MindMapNode[] nodeInstances = new MindMapNode[nodeCount];
 
         for (int i = 0; i < nodeCount; i++)
         {
-            MindMapNode newNode = _pooler.GetObjectFromPool().GetComponent<MindMapNode>();
+            MindMapNode newNode;
+            _pooler.GetInstance(out newNode);
             // General assignments
             newNode.NodeName = _currentMindMapTreeData.NodeNames[i];
             newNode.NodeDescription = _currentMindMapTreeData.NodeDescriptions[i];
@@ -290,6 +295,26 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
         }
     }
 
+    private void ChangeChapterFromButton(int jumpIdx)
+    {
+        ActivateCamera(false);
+        chapterIdx = Mathf.Clamp(chapterIdx + jumpIdx, 0, _mindMapTreeData.Length - 1);
+        coreNodeIdx = 0;
+        clueNodeIdx = 0;
+        _currentMindMapTreeData = _mindMapTreeData[chapterIdx];
+
+        foreach (MindMapNode mindMapNode in GetComponentsInChildren<MindMapNode>())
+        {
+            _pooler.ReturnObjectToPool(mindMapNode);
+        }
+
+        LoadTree();
+
+        SetCameraFocus(Root);
+        ActivateCamera(true);
+        SendNodeInfo(Root);
+    }
+
     public void ChangeCore(int indexStep)
     {
         if (_mindMapCameraManager.IsOnTransition) return;
@@ -330,10 +355,15 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     #endregion
 
     #region Camera Manipulation
-    public void SetCameraFocus(MindMapNode node)
+    private void SetCameraFocus(MindMapNode node)
     {
         _mindMapCameraManager.FocusOn(node.GetCameraFollow(), node.GetCameraLookAt());
         selectedNode = node;
+    }
+
+    private void ActivateCamera(bool isActive)
+    {
+        _mindMapCameraManager.Enable(isActive);
     }
     #endregion
 
