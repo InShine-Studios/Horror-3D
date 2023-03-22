@@ -148,7 +148,7 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
 
         // Initialize pooler
         _pooler = gameObject.AddComponent<MindMapPooler>();
-        _pooler.Initialize(_mindMapNodeBase, GetMaxNodeCount());
+        _pooler.Initialize(_mindMapNodeBase, _nodeModelDictionary, GetMaxNodeCount());
 
         chapterIdx = 0;
         _currentMindMapTreeData = _mindMapTreeData[chapterIdx];
@@ -235,17 +235,15 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
         for (int i = 0; i < nodeCount; i++)
         {
             MindMapNode newNode;
-            _pooler.GetInstance(out newNode);
+            MindMapNodeType newNodeType = _currentMindMapTreeData.NodeTypes[i];
+            _pooler.GetInstance(out newNode, newNodeType, LayerName);
             // General assignments
             newNode.NodeName = _currentMindMapTreeData.NodeNames[i];
             newNode.NodeDescription = _currentMindMapTreeData.NodeDescriptions[i];
             newNode.AnimController = _currentMindMapTreeData.NodeAnimationControllers[i];
-            
+
             // Type-related assignments
-            newNode.NodeType = _currentMindMapTreeData.NodeTypes[i];
-            GameObject nodeModel = Instantiate(_nodeModelDictionary[newNode.NodeType]);
-            nodeModel.transform.parent = newNode.transform;
-            nodeModel.gameObject.layer = LayerMask.NameToLayer(LayerName);
+            newNode.NodeType = newNodeType;
 
             // Parent reference assignments
             if (_currentMindMapTreeData.ParentReferenceIdx[i] != -1)
