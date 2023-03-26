@@ -311,7 +311,7 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
 
         LoadTree();
 
-        SetCameraFocus(Root);
+        FocusOnRoot();
         ActivateCamera(true);
         SendNodeInfo(Root);
     }
