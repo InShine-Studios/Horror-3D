@@ -3,7 +3,7 @@ using UnityEngine;
 
 public interface IMindMapBuilder
 {
-    void AddNode();
+    void AddNode(MindMapNodeType nodeType);
     void ClearChild();
     string Load();
     void Save(string filename);
@@ -87,10 +87,10 @@ public class MindMapBuilder : MonoBehaviour, IMindMapBuilder
     }
     #endregion
 
-    public void AddNode()
+    public void AddNode(MindMapNodeType mindMapNodeType)
     {
         if (_mindMapTree == null) _mindMapTree = GetComponent<MindMapTree>();
-        _mindMapTree.AddNode();
+        _mindMapTree.AddNodeBuilder(mindMapNodeType);
     }
 
     public void ClearChild()

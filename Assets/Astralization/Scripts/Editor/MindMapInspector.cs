@@ -23,8 +23,12 @@ public class MindMapBuilderInspector : Editor
         DrawDefaultInspector();
 
         EditorGUILayout.Space();
-        if (GUILayout.Button("Add Node"))
-            current.AddNode();
+        if (GUILayout.Button("Add Chapter Node"))
+            current.AddNode(MindMapNodeType.CHAPTER);
+        if (GUILayout.Button("Add Core Node"))
+            current.AddNode(MindMapNodeType.CORE);
+        if (GUILayout.Button("Add Clue Node"))
+            current.AddNode(MindMapNodeType.CLUE);
         if (GUILayout.Button("Clear"))
             current.ClearChild();
 

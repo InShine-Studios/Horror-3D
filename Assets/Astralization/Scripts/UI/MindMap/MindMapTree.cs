@@ -11,7 +11,7 @@ public interface IMindMapTree
     int NodeCount { get; }
     MindMapNode Root { get; }
 
-    void AddNode();
+    void AddNodeBuilder(MindMapNodeType nodeType);
     void BuildNodeRelation();
     void ChangeClue(int indexStep);
     void ChangeCore(int indexStep);
@@ -68,6 +68,7 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     private MindMapNode selectedNode = null;
     private int coreNodeIdx;
     private int clueNodeIdx;
+    private bool _isBuilder;
 
     public MindMapNode Root { get { return _root; } }
     public int NodeCount { get { return transform.childCount; } }
@@ -146,6 +147,11 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     {
         ClearAllNodes();
 
+        MindMapBuilder builder = GetComponent<MindMapBuilder>();
+        _isBuilder = builder != null;
+
+        if (_mindMapTreeData.Length == 0) Debug.LogError("Mind map data is empty");
+
         // Initialize pooler
         _pooler = gameObject.AddComponent<MindMapPooler>();
         _pooler.Initialize(_mindMapNodeBase, _nodeModelDictionary, GetMaxNodeCount());
@@ -153,9 +159,13 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
         chapterIdx = 0;
         _currentMindMapTreeData = _mindMapTreeData[chapterIdx];
         LoadTree();
-        FocusOnRoot();
-        SendNodeActiveInfo(true);
-        SendNodeInfo(_root);
+
+        if (builder == null)
+        {
+            FocusOnRoot();
+            SendNodeActiveInfo(true);
+            SendNodeInfo(_root);
+        }   
     }
 
     private void OnEnable()
@@ -212,13 +222,6 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
             DestroyImmediate(transform.GetChild(0).gameObject);
         }
         Debug.Log("[MIND MAP] Node is cleared.");
-    }
-
-    public void AddNode()
-    {
-        MindMapNode mindMapNode;
-        _pooler.GetInstance(out mindMapNode);
-        mindMapNode.transform.parent = transform;
     }
 
     public void LoadTree()
@@ -349,6 +352,16 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
         SetCameraFocus(Root.Children[coreNodeIdx].Children[clueNodeIdx]);
         StartCoroutine(ModalTransitioning());
         SendNodeInfo(Root.Children[coreNodeIdx].Children[clueNodeIdx]);
+    }
+    #endregion
+
+    #region Builder
+    public void AddNodeBuilder(MindMapNodeType nodeType)
+    {
+        MindMapNode mindMapNode = Instantiate(_mindMapNodeBase);
+        GameObject model = Instantiate(_nodeModelDictionary[nodeType]);
+        model.transform.SetParent(mindMapNode.transform, false);
+        mindMapNode.transform.SetParent(transform, false);
     }
     #endregion
 
