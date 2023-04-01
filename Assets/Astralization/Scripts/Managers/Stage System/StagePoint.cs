@@ -1,54 +1,57 @@
 using System;
 using UnityEngine;
 
-#region SerializableClass
-[Serializable]
-public class StagePointFieldValue
+namespace Astralization.Managers.StageSystem
 {
-    public string PointName;
-    public Vector3 LocalPosition;
-    public float Radius;
-
-    public StagePointFieldValue(string pointName, Vector3 position, float radius)
+    #region SerializableClass
+    [Serializable]
+    public class StagePointFieldValue
     {
-        PointName = pointName;
-        LocalPosition = position;
-        Radius = radius;
-    }
-}
-#endregion
+        public string PointName;
+        public Vector3 LocalPosition;
+        public float Radius;
 
-/*
- * A class that can keep data about a stage point
- */
-public class StagePoint : MonoBehaviour
-{
-    #region Variables
-    public string PointName;
-
-    public float Radius;
-    #endregion
-
-    #region SetGet
-    public Vector3 GetPosition()
-    {
-        return transform.position;
+        public StagePointFieldValue(string pointName, Vector3 position, float radius)
+        {
+            PointName = pointName;
+            LocalPosition = position;
+            Radius = radius;
+        }
     }
     #endregion
 
-    #region SaveLoad
-    public void Load(Vector3 localPos, string pointName, float radius)
+    /*
+     * A class that can keep data about a stage point
+     */
+    public class StagePoint : MonoBehaviour
     {
-        transform.localPosition = localPos;
-        PointName = pointName;
-        Radius = radius;
+        #region Variables
+        public string PointName;
+
+        public float Radius;
+        #endregion
+
+        #region SetGet
+        public Vector3 GetPosition()
+        {
+            return transform.position;
+        }
+        #endregion
+
+        #region SaveLoad
+        public void Load(Vector3 localPos, string pointName, float radius)
+        {
+            transform.localPosition = localPos;
+            PointName = pointName;
+            Radius = radius;
+        }
+
+        public void Load(StagePointFieldValue fieldValue)
+        {
+            transform.localPosition = fieldValue.LocalPosition;
+            PointName = fieldValue.PointName;
+            Radius = fieldValue.Radius;
+        }
+        #endregion
     }
-    
-    public void Load(StagePointFieldValue fieldValue)
-    {
-        transform.localPosition = fieldValue.LocalPosition;
-        PointName = fieldValue.PointName;
-        Radius = fieldValue.Radius;
-    }
-    #endregion
 }

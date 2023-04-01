@@ -1,4 +1,9 @@
 using System.Collections;
+using Astralization.Items;
+using Astralization.Player;
+using Astralization.UI.ItemHud;
+using Astralization.UI.Marker;
+using Astralization.Utils.Calculation;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -63,7 +68,7 @@ public class ItemTest : TestBase
         inputTestFixture.Set("Scroll/Y", inventory.GetScrollStep());
         yield return null;
 
-        int newIdx = Utils.MathCalcu.mod(idxBefore - 1, inventory.Size);
+        int newIdx = MathCalcu.mod(idxBefore - 1, inventory.Size);
         Assert.AreEqual(newIdx, inventory.GetActiveIdx());
         Assert.AreEqual(inventory.GetItemByIndex(inventory.GetActiveIdx()), inventory.GetActiveItem());
         Assert.AreEqual(itemHud.GetSelectedItemLogo(), itemHud.GetItemLogo(newIdx));

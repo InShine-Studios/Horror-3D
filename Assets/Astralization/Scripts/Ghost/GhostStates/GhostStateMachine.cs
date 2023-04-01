@@ -1,26 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Astralization.SPI;
 
-public interface IGhostStateMachine
+namespace Astralization.Enemy.EnemyStates
 {
-
-}
-
-public class GhostStateMachine : StateMachine, IGhostStateMachine
-{
-    #region MonoBehaviour
-    private void Awake()
+    public interface IGhostStateMachine
     {
-        ChangeState<GhostInitState>();
-    }
-    #endregion
 
-    #region Handler
-    public void AttemptChasing()
-    {
-        ChangeState<GhostChasingState>();
-        ((GhostChasingState)CurrentState).GhostChasing();
     }
-    #endregion
+
+    public class GhostStateMachine : StateMachine, IGhostStateMachine
+    {
+        #region MonoBehaviour
+        private void Awake()
+        {
+            ChangeState<GhostInitState>();
+        }
+        #endregion
+
+        #region Handler
+        public void AttemptChasing()
+        {
+            ChangeState<GhostChasingState>();
+            ((GhostChasingState)CurrentState).GhostChasing();
+        }
+        #endregion
+    }
 }

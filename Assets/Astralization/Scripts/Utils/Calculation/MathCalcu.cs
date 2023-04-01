@@ -1,6 +1,6 @@
 using System;
 
-namespace Utils
+namespace Astralization.Utils.Calculation
 {
     /*
      * Struct for storing ranged value

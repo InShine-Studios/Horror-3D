@@ -1,54 +1,58 @@
 using System;
 using UnityEngine;
 
-#region EventArgs
-public abstract class InventoryHudEventArgs : EventArgs
+namespace Astralization.Utils.Events
 {
-    public int InventoryLength;
-    public int CurrentActiveIdx;
-    public int LogoAnimatorIdx;
-    public RuntimeAnimatorController HudLogoAnimatorController;
-    public int HudLogoAnimationParam;
-}
 
-public class InitInventoryHudEventArgs : InventoryHudEventArgs
-{
-    public InitInventoryHudEventArgs(int inventoryLenght, int currentActiveIdx)
+    #region EventArgs
+    public abstract class InventoryHudEventArgs : EventArgs
     {
-        InventoryLength = inventoryLenght;
-        CurrentActiveIdx = currentActiveIdx;
+        public int InventoryLength;
+        public int CurrentActiveIdx;
+        public int LogoAnimatorIdx;
+        public RuntimeAnimatorController HudLogoAnimatorController;
+        public int HudLogoAnimationParam;
     }
-}
 
-public class UpdateHudLogoEventArgs : InventoryHudEventArgs
-{
-    public UpdateHudLogoEventArgs(int logoAnimatorIdx, RuntimeAnimatorController hudLogoAnimatorController, int hudLogoAnimationParam = -1)
+    public class InitInventoryHudEventArgs : InventoryHudEventArgs
     {
-        LogoAnimatorIdx = logoAnimatorIdx;
-        HudLogoAnimatorController = hudLogoAnimatorController;
-        HudLogoAnimationParam = hudLogoAnimationParam;
+        public InitInventoryHudEventArgs(int inventoryLenght, int currentActiveIdx)
+        {
+            InventoryLength = inventoryLenght;
+            CurrentActiveIdx = currentActiveIdx;
+        }
     }
-}
 
-public class ChangeActiveItemIdxEventArgs : InventoryHudEventArgs
-{
-    public ChangeActiveItemIdxEventArgs(int currentActiveIdx)
+    public class UpdateHudLogoEventArgs : InventoryHudEventArgs
     {
-        CurrentActiveIdx = currentActiveIdx;
+        public UpdateHudLogoEventArgs(int logoAnimatorIdx, RuntimeAnimatorController hudLogoAnimatorController, int hudLogoAnimationParam = -1)
+        {
+            LogoAnimatorIdx = logoAnimatorIdx;
+            HudLogoAnimatorController = hudLogoAnimatorController;
+            HudLogoAnimationParam = hudLogoAnimationParam;
+        }
     }
-}
 
-public class ChangeActiveItemAnimEventArgs : InventoryHudEventArgs
-{
-    public ChangeActiveItemAnimEventArgs(int hudLogoAnimationParam)
+    public class ChangeActiveItemIdxEventArgs : InventoryHudEventArgs
     {
-        HudLogoAnimationParam = hudLogoAnimationParam;
+        public ChangeActiveItemIdxEventArgs(int currentActiveIdx)
+        {
+            CurrentActiveIdx = currentActiveIdx;
+        }
     }
-}
 
-[Obsolete("Method is obsolete.", false)]
-public class ToggleExpandShrinkEventArgs : InventoryHudEventArgs
-{
-    public ToggleExpandShrinkEventArgs() { }
+    public class ChangeActiveItemAnimEventArgs : InventoryHudEventArgs
+    {
+        public ChangeActiveItemAnimEventArgs(int hudLogoAnimationParam)
+        {
+            HudLogoAnimationParam = hudLogoAnimationParam;
+        }
+    }
+
+    [Obsolete("Method is obsolete.", false)]
+    public class ToggleExpandShrinkEventArgs : InventoryHudEventArgs
+    {
+        public ToggleExpandShrinkEventArgs() { }
+    }
 }
 #endregion

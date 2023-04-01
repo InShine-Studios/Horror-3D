@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace Utils
+namespace Astralization.Utils.Helper
 {
     /*
     * Class that has methods related to delay a function to run

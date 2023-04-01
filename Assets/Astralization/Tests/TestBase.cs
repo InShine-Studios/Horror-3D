@@ -1,3 +1,6 @@
+using Astralization.Player;
+using Astralization.Utils.Calculation;
+using Astralization.Utils.Helper;
 using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
@@ -15,8 +18,8 @@ public abstract class TestBase
 
     protected float GetMovementDurationTowards(Transform target)
     {
-        float moveDistance = Utils.GeometryCalcu.GetDistance3D(player.transform.position, target.transform.position);
-        float moveDuration = Utils.PlayerHelper.DistanceToMoveDuration(playerMovement, moveDistance);
+        float moveDistance = GeometryCalcu.GetDistance3D(player.transform.position, target.transform.position);
+        float moveDuration = PlayerHelper.DistanceToMoveDuration(playerMovement, moveDistance);
         return moveDuration;
     }
 

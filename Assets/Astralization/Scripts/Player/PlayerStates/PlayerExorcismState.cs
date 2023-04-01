@@ -1,25 +1,27 @@
 using System;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerExorcismState : PlayerState
+namespace Astralization.Player.PlayerStates
 {
-    #region Events
-    public static event Action StopExorcismEvent;
-    #endregion
-
-    protected override void Awake()
+    public class PlayerExorcismState : PlayerState
     {
-        base.Awake();
-    }
+        #region Events
+        public static event Action StopExorcismEvent;
+        #endregion
 
-    #region InputHandler
-    public override void UseReleased(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        protected override void Awake()
         {
-            StopExorcismEvent?.Invoke();
+            base.Awake();
         }
+
+        #region InputHandler
+        public override void UseReleased(InputAction.CallbackContext ctx)
+        {
+            if (ctx.performed)
+            {
+                StopExorcismEvent?.Invoke();
+            }
+        }
+        #endregion
     }
-    #endregion
 }

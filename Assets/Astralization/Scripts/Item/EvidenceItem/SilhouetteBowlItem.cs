@@ -1,55 +1,58 @@
-using UnityEngine;
-using System.Collections.Generic;
+using Astralization.Items.EvidenceItem.SilhouetteBowlStates;
 
-/*
- * SilhouetteBowl class.
- * Override DetermineEvidence and HandleChange from base EvidenceItem class according to murder silhouette evidence mechanics.
- */
-public class SilhouetteBowlItem : EvidenceItem
+namespace Astralization.Items.EvidenceItems
 {
-    #region Variables
-    private SilhouetteBowlManager _silhouetteBowlManager;
-    #endregion
 
-    #region MonoBehaviour
-    protected override void Awake()
+    /*
+     * SilhouetteBowl class.
+     * Override DetermineEvidence and HandleChange from base EvidenceItem class according to murder silhouette evidence mechanics.
+     */
+    public class SilhouetteBowlItem : EvidenceItem
     {
-        base.Awake();
-        _silhouetteBowlManager = GetComponent<SilhouetteBowlManager>();
-    }
-    #endregion
+        #region Variables
+        private SilhouetteBowlManager _silhouetteBowlManager;
+        #endregion
 
-    #region ItemInputHandler
-    protected override void ActivateFunctionality()
-    {
-        _silhouetteBowlManager.ChangeState<SilhouetteBowlActiveState>();
-        LogoState = _silhouetteBowlManager.GetStateNum();
-    }
-
-    public override void Pick()
-    {
-        base.Pick();
-        _silhouetteBowlManager.ChangeState<SilhouetteBowlInactiveState>(); //comment this for logo testing of another states
-        LogoState = _silhouetteBowlManager.GetStateNum();
-    }
-
-    public override void OnGhostInteraction()
-    {
-        if (!(_silhouetteBowlManager.CurrentState is SilhouetteBowlInactiveState)) DetermineEvidence();
-        base.OnGhostInteraction();
-    }
-    #endregion
-
-    #region EvidenceHelper
-    public override void DetermineEvidence()
-    {
-        // TODO this dummy behavior at the moment, wait for Ghost Implementation
-        if (_silhouetteBowlManager.CurrentState is SilhouetteBowlNegativeState)
+        #region MonoBehaviour
+        protected override void Awake()
         {
-            _silhouetteBowlManager.ChangeState<SilhouetteBowlPositiveState>();
+            base.Awake();
+            _silhouetteBowlManager = GetComponent<SilhouetteBowlManager>();
         }
-        else _silhouetteBowlManager.ChangeState<SilhouetteBowlNegativeState>();
-        LogoState = _silhouetteBowlManager.GetStateNum();
+        #endregion
+
+        #region ItemInputHandler
+        protected override void ActivateFunctionality()
+        {
+            _silhouetteBowlManager.ChangeState<SilhouetteBowlActiveState>();
+            LogoState = _silhouetteBowlManager.GetStateNum();
+        }
+
+        public override void Pick()
+        {
+            base.Pick();
+            _silhouetteBowlManager.ChangeState<SilhouetteBowlInactiveState>(); //comment this for logo testing of another states
+            LogoState = _silhouetteBowlManager.GetStateNum();
+        }
+
+        public override void OnGhostInteraction()
+        {
+            if (!(_silhouetteBowlManager.CurrentState is SilhouetteBowlInactiveState)) DetermineEvidence();
+            base.OnGhostInteraction();
+        }
+        #endregion
+
+        #region EvidenceHelper
+        public override void DetermineEvidence()
+        {
+            // TODO this dummy behavior at the moment, wait for Ghost Implementation
+            if (_silhouetteBowlManager.CurrentState is SilhouetteBowlNegativeState)
+            {
+                _silhouetteBowlManager.ChangeState<SilhouetteBowlPositiveState>();
+            }
+            else _silhouetteBowlManager.ChangeState<SilhouetteBowlNegativeState>();
+            LogoState = _silhouetteBowlManager.GetStateNum();
+        }
+        #endregion
     }
-    #endregion
 }

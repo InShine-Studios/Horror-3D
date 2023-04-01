@@ -1,33 +1,39 @@
+using Astralization.Items;
+using Astralization.Player;
 using UnityEngine;
 
-/*
- * Class to keep all items in the overworld.
- * AddItemChild() to add a new items as child of the OverworldItem.
- */
-public class ItemManager : MonoBehaviour
+namespace Astralization.Managers
 {
-    #region MonoBehaviour
-    private void OnEnable()
-    {
-        Inventory.DiscardItemEvent += ReceiveDiscardedItem;
-    }
 
-    private void OnDisable()
+    /*
+     * Class to keep all items in the overworld.
+     * AddItemChild() to add a new items as child of the OverworldItem.
+     */
+    public class ItemManager : MonoBehaviour
     {
-        Inventory.DiscardItemEvent -= ReceiveDiscardedItem;
-    }
-    #endregion
+        #region MonoBehaviour
+        private void OnEnable()
+        {
+            Inventory.DiscardItemEvent += ReceiveDiscardedItem;
+        }
 
-    #region Item Handler
-    private void ReceiveDiscardedItem(Item discardedItem)
-    {
-        AddItemChild(discardedItem);
-    }
+        private void OnDisable()
+        {
+            Inventory.DiscardItemEvent -= ReceiveDiscardedItem;
+        }
+        #endregion
 
-    public void AddItemChild(Item item)
-    {
-        item.gameObject.transform.parent = this.transform;
-        item.UpdateMarker();
+        #region Item Handler
+        private void ReceiveDiscardedItem(Item discardedItem)
+        {
+            AddItemChild(discardedItem);
+        }
+
+        public void AddItemChild(Item item)
+        {
+            item.gameObject.transform.parent = transform;
+            item.UpdateMarker();
+        }
+        #endregion
     }
-    #endregion
 }

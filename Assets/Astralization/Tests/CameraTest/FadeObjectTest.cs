@@ -3,6 +3,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
+using Astralization.Player;
 
 public class FadeObjectTest : TestBase
 {

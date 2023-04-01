@@ -1,4 +1,5 @@
 using System.Collections;
+using Astralization.Player;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;

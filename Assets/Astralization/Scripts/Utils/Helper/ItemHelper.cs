@@ -1,6 +1,6 @@
 using System;
 
-namespace Utils
+namespace Astralization.Utils.Helper
 {
     /*
     * Class that has methods related to items

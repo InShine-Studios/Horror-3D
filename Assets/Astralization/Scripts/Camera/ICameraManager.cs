@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface ICameraManager
+namespace Astralization.CameraSystem
 {
-    void Enable(bool enable);
+    public interface ICameraManager
+    {
+        void Enable(bool enable);
 
-    string GetName();
+        string GetName();
+    }
 }

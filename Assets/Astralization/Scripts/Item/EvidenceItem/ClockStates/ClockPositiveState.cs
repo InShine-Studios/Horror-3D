@@ -1,12 +1,16 @@
+using Astralization.Items.EvidenceItems;
 using UnityEngine;
 
-public class ClockPositiveState : ClockState, IPositiveState
+namespace Astralization.Items.EvidenceItem.ClockStates
 {
-    #region MonoBehaviour
-    protected override void Awake()
+    public class ClockPositiveState : ClockState, IPositiveState
     {
-        base.Awake();
-        audioInUse = Resources.Load("EvidenceItem/SFX_Clock_2_Loop", typeof(AudioClip)) as AudioClip;
+        #region MonoBehaviour
+        protected override void Awake()
+        {
+            base.Awake();
+            audioInUse = Resources.Load("EvidenceItem/SFX_Clock_2_Loop", typeof(AudioClip)) as AudioClip;
+        }
+        #endregion
     }
-    #endregion
 }

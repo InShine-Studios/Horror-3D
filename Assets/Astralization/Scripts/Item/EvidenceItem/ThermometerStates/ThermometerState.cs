@@ -1,26 +1,31 @@
+using Astralization.Items.EvidenceItems;
+using Astralization.SPI;
 using UnityEngine;
 
-public class ThermometerState : State, IEvidenceState
+namespace Astralization.Items.EvidenceItem.ThermometerStates
 {
-    #region Variables
-    private MeshRenderer _mesh;
-    protected ThermometerManager owner;
-    protected Material materialInUse;
-    #endregion
-
-    #region MonoBehaviour
-    protected virtual void Awake()
+    public class ThermometerState : State, IEvidenceState
     {
-        owner = GetComponent<ThermometerManager>();
-        _mesh = transform.Find("Model").GetComponentInChildren<MeshRenderer>(true);
-    }
-    #endregion
+        #region Variables
+        private MeshRenderer _mesh;
+        protected ThermometerManager owner;
+        protected Material materialInUse;
+        #endregion
 
-    #region Handler
-    public override void Enter()
-    {
-        base.Enter();
-        _mesh.material = materialInUse;
+        #region MonoBehaviour
+        protected virtual void Awake()
+        {
+            owner = GetComponent<ThermometerManager>();
+            _mesh = transform.Find("Model").GetComponentInChildren<MeshRenderer>(true);
+        }
+        #endregion
+
+        #region Handler
+        public override void Enter()
+        {
+            base.Enter();
+            _mesh.material = materialInUse;
+        }
+        #endregion
     }
-    #endregion
 }

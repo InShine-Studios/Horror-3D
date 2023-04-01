@@ -14,7 +14,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 // ReSharper disable once CheckNamespace
-namespace DependenciesHunter
+namespace Astralization.EditorSystem
 {
     /// <summary>
     /// Lists all unreferenced assets in a project.

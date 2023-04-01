@@ -1,36 +1,39 @@
-using UnityEngine;
+using Astralization.Utils.Helper;
 
-public interface IEvidenceItem : IItem
+namespace Astralization.Items.EvidenceItems
 {
-    void DetermineEvidence();
-    void OnGhostInteraction();
-}
-
-/*
- * EvidenceItem abstract class.
- * Parent class for all evidence item objects.
- * Implement DetermineEvidence() and HandleChange() function on each child class.
- */
-public abstract class EvidenceItem : Item, IEvidenceItem
-{
-    #region MonoBehaviour
-    protected override void Awake()
+    public interface IEvidenceItem : IItem
     {
-        base.Awake();
-        UseBehaviourType = Utils.ItemHelper.UseBehaviourType.Environmental;
-        WorldConditionType = Utils.ItemHelper.WorldConditionType.Real | Utils.ItemHelper.WorldConditionType.Astral;
-    }
-    #endregion
-
-    #region GhostInput
-    public virtual void OnGhostInteraction()
-    {
-        UpdateMarker();
+        void DetermineEvidence();
+        void OnGhostInteraction();
     }
 
-    #endregion
+    /*
+     * EvidenceItem abstract class.
+     * Parent class for all evidence item objects.
+     * Implement DetermineEvidence() and HandleChange() function on each child class.
+     */
+    public abstract class EvidenceItem : Item, IEvidenceItem
+    {
+        #region MonoBehaviour
+        protected override void Awake()
+        {
+            base.Awake();
+            UseBehaviourType = ItemHelper.UseBehaviourType.Environmental;
+            WorldConditionType = ItemHelper.WorldConditionType.Real | ItemHelper.WorldConditionType.Astral;
+        }
+        #endregion
 
-    #region EvidenceHelper
-    public abstract void DetermineEvidence();
-    #endregion
+        #region GhostInput
+        public virtual void OnGhostInteraction()
+        {
+            UpdateMarker();
+        }
+
+        #endregion
+
+        #region EvidenceHelper
+        public abstract void DetermineEvidence();
+        #endregion
+    }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Utils
+namespace Astralization.Utils.Helper
 {
     /*
     * Class that has methods related to cooldown
@@ -38,7 +38,7 @@ namespace Utils
         public void AddAccumulatedTime()
         {
             _accumulatedTime += Time.deltaTime;
-            IsFinished = (_accumulatedTime >= _duration);
+            IsFinished = _accumulatedTime >= _duration;
         }
         #endregion
     }

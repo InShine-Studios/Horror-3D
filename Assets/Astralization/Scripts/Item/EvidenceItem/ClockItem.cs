@@ -1,61 +1,66 @@
-using UnityEngine;
+using Astralization.Items.EvidenceItem.ClockStates;
 
-/*
- * Clock class.
- * Override DetermineEvidence and HandleChange from base EvidenceItem class according to murder time stamp evidence mechanics.
- */
-public class ClockItem : EvidenceItem
+namespace Astralization.Items.EvidenceItems
 {
-    #region Const
-    private const string _stateAudio = "StateAudio";
-    #endregion
 
-    #region Variables
-    private ClockManager _clockManager;
-    #endregion
-
-    #region MonoBehaviour
-    protected override void Awake()
+    /*
+     * Clock class.
+     * Override DetermineEvidence and HandleChange from base EvidenceItem class according to murder time stamp evidence mechanics.
+     */
+    public class ClockItem : EvidenceItem
     {
-        base.Awake();
-        _clockManager = GetComponent<ClockManager>();
-    }
-    #endregion
+        #region Const
+        private const string _stateAudio = "StateAudio";
+        #endregion
 
-    #region ItemInputHandler
-    protected override void ActivateFunctionality()
-    {
-        _clockManager.ChangeState<ClockActiveState>();
-        LogoState = _clockManager.GetStateNum();
-    }
+        #region Variables
+        private ClockManager _clockManager;
+        #endregion
 
-    public override void Pick()
-    {
-        base.Pick();
-        _clockManager.ChangeState<ClockInactiveState>(); //comment this for logo testing of another states
-        LogoState = _clockManager.GetStateNum();
-    }
-
-    public override void OnGhostInteraction()
-    {
-        if (!(_clockManager.CurrentState is ClockInactiveState)) DetermineEvidence();
-        base.OnGhostInteraction();
-    }
-    #endregion
-
-    #region EvidenceHelper
-    public override void DetermineEvidence()
-    {
-        // TODO this dummy behavior at the moment, wait for Ghost Implementation
-        if (_clockManager.CurrentState is ClockNegativeState)
+        #region MonoBehaviour
+        protected override void Awake()
         {
-            _clockManager.ChangeState<ClockPositiveState>();
+            base.Awake();
+            _clockManager = GetComponent<ClockManager>();
         }
-        else {
-            _clockManager.ChangeState<ClockNegativeState>();
+        #endregion
+
+        #region ItemInputHandler
+        protected override void ActivateFunctionality()
+        {
+            _clockManager.ChangeState<ClockActiveState>();
+            LogoState = _clockManager.GetStateNum();
         }
-        LogoState = _clockManager.GetStateNum();
-        PlayAudio(_stateAudio);
+
+        public override void Pick()
+        {
+            base.Pick();
+            _clockManager.ChangeState<ClockInactiveState>(); //comment this for logo testing of another states
+            LogoState = _clockManager.GetStateNum();
+        }
+
+        public override void OnGhostInteraction()
+        {
+            if (!(_clockManager.CurrentState is ClockInactiveState)) DetermineEvidence();
+            base.OnGhostInteraction();
+        }
+        #endregion
+
+        #region EvidenceHelper
+        public override void DetermineEvidence()
+        {
+            // TODO this dummy behavior at the moment, wait for Ghost Implementation
+            if (_clockManager.CurrentState is ClockNegativeState)
+            {
+                _clockManager.ChangeState<ClockPositiveState>();
+            }
+            else
+            {
+                _clockManager.ChangeState<ClockNegativeState>();
+            }
+            LogoState = _clockManager.GetStateNum();
+            PlayAudio(_stateAudio);
+        }
+        #endregion
     }
-    #endregion
 }

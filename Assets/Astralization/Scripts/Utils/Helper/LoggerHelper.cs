@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils
+namespace Astralization.Utils.Helper
 {
     public static class LoggerHelper
     {

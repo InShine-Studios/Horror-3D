@@ -1,8 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Astralization.CameraSystem
+namespace Astralization.Utils.Helper
 {
-    public class CameraConstants : MonoBehaviour
+    public class CameraHelper : MonoBehaviour
     {
         #region Constants
         public static string DefaultLayer = "Default";

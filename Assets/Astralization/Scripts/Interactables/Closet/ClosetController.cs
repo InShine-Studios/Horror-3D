@@ -1,28 +1,31 @@
 using System;
-using UnityEngine;
 
-/*
- * Class to control closets door states.
- * Inherit Interactable.
- */
-public class ClosetController : Interactable
+namespace Astralization.Interactables.Closet
 {
-    #region Events
-    public static event Action StartHidingEvent;
-    #endregion
 
-    #region MonoBehaviour
-    protected override void Awake()
+    /*
+     * Class to control closets door states.
+     * Inherit Interactable.
+     */
+    public class ClosetController : Interactable
     {
-        base.Awake();
-    }
-    #endregion
+        #region Events
+        public static event Action StartHidingEvent;
+        #endregion
 
-    #region Handler
-    public override void OnInteraction()
-    {
-        //Debug.Log("[INTERACTABLE] " + this.name + " interacted");
-        StartHidingEvent?.Invoke();
+        #region MonoBehaviour
+        protected override void Awake()
+        {
+            base.Awake();
+        }
+        #endregion
+
+        #region Handler
+        public override void OnInteraction()
+        {
+            //Debug.Log("[INTERACTABLE] " + this.name + " interacted");
+            StartHidingEvent?.Invoke();
+        }
+        #endregion
     }
-    #endregion
 }

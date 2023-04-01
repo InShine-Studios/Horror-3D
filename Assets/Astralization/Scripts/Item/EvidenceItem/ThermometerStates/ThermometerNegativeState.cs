@@ -1,12 +1,16 @@
+using Astralization.Items.EvidenceItems;
 using UnityEngine;
 
-public class ThermometerNegativeState : ThermometerState, INegativeState
+namespace Astralization.Items.EvidenceItem.ThermometerStates
 {
-    #region MonoBehaviour
-    protected override void Awake()
+    public class ThermometerNegativeState : ThermometerState, INegativeState
     {
-        base.Awake();
-        materialInUse = Resources.Load("EvidenceItem/MAT_Thermometer_Negative", typeof(Material)) as Material;
+        #region MonoBehaviour
+        protected override void Awake()
+        {
+            base.Awake();
+            materialInUse = Resources.Load("EvidenceItem/MAT_Thermometer_Negative", typeof(Material)) as Material;
+        }
+        #endregion
     }
-    #endregion
 }

@@ -1,40 +1,43 @@
+using Astralization.Utils.Calculation;
+using Astralization.Utils.Helper;
 using System;
-using System.Collections.Generic;
-using UnityEngine;
 
-enum AnkhState : int
+namespace Astralization.Items
 {
-    Inactive = 0,
-    Active = 1
-}
-
-/*
- * Ankh class.
- * Implement mechanics related to ankh item, such as toggle on/off astral world.
- */
-public class AnkhItem : Item
-{
-    #region Events
-    public static event Action ChangeWorldGM;
-    #endregion
-
-    #region MonoBehaviour
-    protected override void Awake()
+    internal enum AnkhState : int
     {
-        UseBehaviourType = Utils.ItemHelper.UseBehaviourType.Handheld;
-        WorldConditionType = Utils.ItemHelper.WorldConditionType.Real | Utils.ItemHelper.WorldConditionType.Astral;
-        LogoState = (int)AnkhState.Inactive;
-        base.Awake();
+        Inactive = 0,
+        Active = 1
     }
-    #endregion
 
-    #region Use
-    protected override void ActivateFunctionality()
+    /*
+     * Ankh class.
+     * Implement mechanics related to ankh item, such as toggle on/off astral world.
+     */
+    public class AnkhItem : Item
     {
-        ChangeWorldGM?.Invoke();
-        LogoState = Utils.MathCalcu.mod(LogoState + 1, 2);
-        //TODO: Call PlayAudio for Ankh
-        //TODO: Implement transition animation
+        #region Events
+        public static event Action ChangeWorldGM;
+        #endregion
+
+        #region MonoBehaviour
+        protected override void Awake()
+        {
+            UseBehaviourType = ItemHelper.UseBehaviourType.Handheld;
+            WorldConditionType = ItemHelper.WorldConditionType.Real | ItemHelper.WorldConditionType.Astral;
+            LogoState = (int)AnkhState.Inactive;
+            base.Awake();
+        }
+        #endregion
+
+        #region Use
+        protected override void ActivateFunctionality()
+        {
+            ChangeWorldGM?.Invoke();
+            LogoState = MathCalcu.mod(LogoState + 1, 2);
+            //TODO: Call PlayAudio for Ankh
+            //TODO: Implement transition animation
+        }
+        #endregion
     }
-    #endregion
 }

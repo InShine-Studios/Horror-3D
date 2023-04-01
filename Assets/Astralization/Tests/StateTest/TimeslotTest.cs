@@ -1,3 +1,7 @@
+using Assets.Astralization.Scripts.UI;
+using Astralization.Player;
+using Astralization.States.TimeslotStates;
+using Astralization.Utils.Calculation;
 using NUnit.Framework;
 using System;
 using System.Collections;
@@ -71,7 +75,7 @@ public class TimeslotTest : TestBase
             yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
             interactionCount++;
             TimeslotState nextState = _timeslotStateMachine.CurrentDateTimeslot.Timeslot;
-            int currentTimeNum = Utils.MathCalcu.mod(currentState.TimeNum + interactionCount, _timeslotStateMachine.TimeslotCount);
+            int currentTimeNum = MathCalcu.mod(currentState.TimeNum + interactionCount, _timeslotStateMachine.TimeslotCount);
             Assert.AreEqual(currentTimeNum, nextState.TimeNum);
             Assert.AreEqual(currentTimeNum, _timeslotHud.GetCurrentAnimatorParam());
         }
@@ -96,7 +100,7 @@ public class TimeslotTest : TestBase
             yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
             interactionCount++;
             TimeslotState nextState = _timeslotStateMachine.CurrentDateTimeslot.Timeslot;
-            int currentTimeNum = Utils.MathCalcu.mod(currentState.TimeNum + (interactionCount*2), _timeslotStateMachine.TimeslotCount);
+            int currentTimeNum = MathCalcu.mod(currentState.TimeNum + (interactionCount*2), _timeslotStateMachine.TimeslotCount);
             Assert.AreEqual(currentTimeNum, nextState.TimeNum);
             Assert.AreEqual(currentTimeNum, _timeslotHud.GetCurrentAnimatorParam());
         }

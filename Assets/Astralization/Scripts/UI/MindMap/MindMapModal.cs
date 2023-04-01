@@ -1,56 +1,59 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public interface IMindMapModal
+namespace Astralization.UI.MindMap
 {
-    GameObject GetModal();
-    string GetTitle();
-    string GetDescription();
-}
-
-public class MindMapModal : MonoBehaviour, IMindMapModal
-{
-    #region Variables
-    private GameObject _modal;
-    private Text _title;
-    private Text _desc;
-    #endregion
-
-    #region SetGet
-    public GameObject GetModal()
+    public interface IMindMapModal
     {
-        return _modal;
+        GameObject GetModal();
+        string GetTitle();
+        string GetDescription();
     }
 
-    public string GetTitle()
+    public class MindMapModal : MonoBehaviour, IMindMapModal
     {
-        return _title.text;
-    }
+        #region Variables
+        private GameObject _modal;
+        private Text _title;
+        private Text _desc;
+        #endregion
 
-    public string GetDescription()
-    {
-        return _desc.text;
-    }
-    #endregion
+        #region SetGet
+        public GameObject GetModal()
+        {
+            return _modal;
+        }
 
-    #region MonoBehaviour
-    private void Awake()
-    {
-        _modal = transform.Find("Modal").gameObject;
-        _title = _modal.transform.Find("Title").GetComponent<Text>();
-        _desc = _modal.transform.Find("Description").GetComponent<Text>();
-    }
-    #endregion
+        public string GetTitle()
+        {
+            return _title.text;
+        }
 
-    #region ModalHandler
-    public void ActivatedModal(bool is_active)
-    {
-        _modal.SetActive(is_active);
+        public string GetDescription()
+        {
+            return _desc.text;
+        }
+        #endregion
+
+        #region MonoBehaviour
+        private void Awake()
+        {
+            _modal = transform.Find("Modal").gameObject;
+            _title = _modal.transform.Find("Title").GetComponent<Text>();
+            _desc = _modal.transform.Find("Description").GetComponent<Text>();
+        }
+        #endregion
+
+        #region ModalHandler
+        public void ActivatedModal(bool is_active)
+        {
+            _modal.SetActive(is_active);
+        }
+        public void SetNodeInfo(MindMapNode node)
+        {
+            _title.text = node.NodeName;
+            _desc.text = node.NodeDescription;
+        }
+        #endregion
     }
-    public void SetNodeInfo(MindMapNode node)
-    {
-        _title.text = node.NodeName;
-        _desc.text = node.NodeDescription;
-    }
-    #endregion
 }

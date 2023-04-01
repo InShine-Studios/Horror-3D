@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class TimeslotAfternoonState : TimeslotState
+namespace Astralization.States.TimeslotStates
 {
-    #region MonoBehaviour
-    protected override void Awake()
+    public class TimeslotAfternoonState : TimeslotState
     {
-        base.Awake();
-        timeNum = 1;
-        timeName = "Afternoon";
+        #region MonoBehaviour
+        protected override void Awake()
+        {
+            base.Awake();
+            timeNum = 1;
+            timeName = "Afternoon";
+        }
+        #endregion
     }
-    #endregion
 }
