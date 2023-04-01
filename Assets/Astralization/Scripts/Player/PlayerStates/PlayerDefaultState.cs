@@ -1,168 +1,173 @@
+using Astralization.Items;
+using Astralization.Player.Detectors;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
-public class PlayerDefaultState : PlayerState
+namespace Astralization.Player.PlayerStates
 {
-    #region Variables
-    [Header("Movement and Rotation")]
-    private PlayerMovement _playerMovement;
-
-    [Header("Accessory")]
-    private Flashlight _flashlight;
-
-    [Header("Inventory and Detector")]
-    private Inventory _inventory;
-    private InteractableDetector _interactableDetector;
-    private ItemDetector _itemDetector;
-    private GhostSimulationInteractableDetector _ghostSimulationInteractableDetector;
-    #endregion
-
-    #region MonoBehaviour
-    protected override void Awake()
+    public class PlayerDefaultState : PlayerState
     {
-        base.Awake();
-        _playerMovement = GetComponent<PlayerMovement>();
-        _inventory = GetComponentInChildren<Inventory>();
-        _interactableDetector = GetComponentInChildren<InteractableDetector>();
-        _itemDetector = GetComponentInChildren<ItemDetector>();
-        _ghostSimulationInteractableDetector = GetComponentInChildren<GhostSimulationInteractableDetector>();
-        _flashlight = GetComponentInChildren<Flashlight>();
-    }
-    #endregion
+        #region Variables
+        [Header("Movement and Rotation")]
+        private PlayerMovement _playerMovement;
 
-    #region Movement Input Handler
-    public override void OnMovementInput(InputAction.CallbackContext ctx)
-    {
-        _playerMovement.SetFaceDirection(ctx.ReadValue<Vector2>());
-    }
+        [Header("Accessory")]
+        private Flashlight _flashlight;
 
-    public override void SprintPressed(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        [Header("Inventory and Detector")]
+        private Inventory _inventory;
+        private InteractableDetector _interactableDetector;
+        private ItemDetector _itemDetector;
+        private GhostSimulationInteractableDetector _ghostSimulationInteractableDetector;
+        #endregion
+
+        #region MonoBehaviour
+        protected override void Awake()
         {
-            _playerMovement.SetSprinting(true);
+            base.Awake();
+            _playerMovement = GetComponent<PlayerMovement>();
+            _inventory = GetComponentInChildren<Inventory>();
+            _interactableDetector = GetComponentInChildren<InteractableDetector>();
+            _itemDetector = GetComponentInChildren<ItemDetector>();
+            _ghostSimulationInteractableDetector = GetComponentInChildren<GhostSimulationInteractableDetector>();
+            _flashlight = GetComponentInChildren<Flashlight>();
         }
-    }
+        #endregion
 
-    public override void SprintReleased(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        #region Movement Input Handler
+        public override void OnMovementInput(InputAction.CallbackContext ctx)
+        {
+            _playerMovement.SetFaceDirection(ctx.ReadValue<Vector2>());
+        }
+
+        public override void SprintPressed(InputAction.CallbackContext ctx)
+        {
+            if (ctx.performed)
+            {
+                _playerMovement.SetSprinting(true);
+            }
+        }
+
+        public override void SprintReleased(InputAction.CallbackContext ctx)
+        {
+            if (ctx.performed)
+            {
+                _playerMovement.SetSprinting(false);
+            }
+        }
+        #endregion
+
+        #region StateHandler
+        private void ResetDefaultState()
         {
             _playerMovement.SetSprinting(false);
         }
-    }
-    #endregion
 
-    #region StateHandler
-    private void ResetDefaultState()
-    {
-        _playerMovement.SetSprinting(false);
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-        owner.InvokeResetToDefault();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-        ResetDefaultState();
-    }
-    #endregion
-
-    #region Inventory Input Handler
-    public override void UseActiveItem(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        public override void Enter()
         {
-            _inventory.UseActiveItem();
+            base.Enter();
+            owner.InvokeResetToDefault();
         }
-    }
 
-    public override void DiscardItemInput(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        public override void Exit()
         {
-            _inventory.DiscardItemInput();
+            base.Exit();
+            ResetDefaultState();
         }
-    }
+        #endregion
 
-    public override void ScrollActiveItem(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        #region Inventory Input Handler
+        public override void UseActiveItem(InputAction.CallbackContext ctx)
         {
-            _inventory.ScrollActiveItem(ctx.ReadValue<Vector2>());
+            if (ctx.performed)
+            {
+                _inventory.UseActiveItem();
+            }
         }
-    }
 
-    [Obsolete("Method is obsolete.", false)]
-    public override void ChangeActiveItemQuickslot(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        public override void DiscardItemInput(InputAction.CallbackContext ctx)
         {
-            Key pressedKey = ((KeyControl)ctx.control).keyCode;
-            int newIdx = pressedKey - Key.Digit1;
-            _inventory.SetActiveItemByQuickSlot(newIdx);
+            if (ctx.performed)
+            {
+                _inventory.DiscardItemInput();
+            }
         }
-    }
 
-    [Obsolete("Method is obsolete.", false)]
-    public override void ToggleItemHudDisplay(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        public override void ScrollActiveItem(InputAction.CallbackContext ctx)
         {
-            _inventory.ToggleItemHudDisplay();
+            if (ctx.performed)
+            {
+                _inventory.ScrollActiveItem(ctx.ReadValue<Vector2>());
+            }
         }
-    }
-    #endregion
 
-    #region Detector Input Handler
-    public override void CheckInteractionInteractable(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        [Obsolete("Method is obsolete.", false)]
+        public override void ChangeActiveItemQuickslot(InputAction.CallbackContext ctx)
         {
-            _interactableDetector.CheckInteraction();
+            if (ctx.performed)
+            {
+                Key pressedKey = ((KeyControl)ctx.control).keyCode;
+                int newIdx = pressedKey - Key.Digit1;
+                _inventory.SetActiveItemByQuickSlot(newIdx);
+            }
         }
-    }
 
-    public override void CheckInteractionItem(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        [Obsolete("Method is obsolete.", false)]
+        public override void ToggleItemHudDisplay(InputAction.CallbackContext ctx)
         {
-            _itemDetector.CheckInteraction();
+            if (ctx.performed)
+            {
+                _inventory.ToggleItemHudDisplay();
+            }
         }
-    }
+        #endregion
 
-    public override void CheckInteractionGhost(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        #region Detector Input Handler
+        public override void CheckInteractionInteractable(InputAction.CallbackContext ctx)
         {
-            _ghostSimulationInteractableDetector.CheckInteraction();
+            if (ctx.performed)
+            {
+                _interactableDetector.CheckInteraction();
+            }
         }
-    }
-    #endregion
 
-    #region Accessory Input Handler
-    public override void ToggleFlashlight(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        public override void CheckInteractionItem(InputAction.CallbackContext ctx)
         {
-            _flashlight.ToggleOnOff();
+            if (ctx.performed)
+            {
+                _itemDetector.CheckInteraction();
+            }
         }
-    }
-    #endregion
 
-    #region Menu Input Handler
-    public override void OpenMindMap(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        public override void CheckInteractionGhost(InputAction.CallbackContext ctx)
         {
-            owner.InvokeOpenMindMap();
+            if (ctx.performed)
+            {
+                _ghostSimulationInteractableDetector.CheckInteraction();
+            }
         }
+        #endregion
+
+        #region Accessory Input Handler
+        public override void ToggleFlashlight(InputAction.CallbackContext ctx)
+        {
+            if (ctx.performed)
+            {
+                _flashlight.ToggleOnOff();
+            }
+        }
+        #endregion
+
+        #region Menu Input Handler
+        public override void OpenMindMap(InputAction.CallbackContext ctx)
+        {
+            if (ctx.performed)
+            {
+                owner.InvokeOpenMindMap();
+            }
+        }
+        #endregion
     }
-    #endregion
 }

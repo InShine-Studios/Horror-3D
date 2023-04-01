@@ -1,38 +1,39 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DefaultCameraManager : MonoBehaviour, ICameraManager
+namespace Astralization.CameraSystem
 {
-    #region Variables
-    private Camera _camera;
-    private CinemachineBrain _cinemachineBrain;
-    private CinemachineVirtualCamera _hidingCamera;
-    private CinemachineFreeLook _freeLookCamera;
-    #endregion
-
-    #region SetGet
-    public void Enable(bool enable)
+    public class DefaultCameraManager : MonoBehaviour, ICameraManager
     {
-        _camera.enabled = enable;
-        _cinemachineBrain.enabled = enable;
-        _freeLookCamera.enabled = enable;
-    }
+        #region Variables
+        private Camera _camera;
+        private CinemachineBrain _cinemachineBrain;
+        private CinemachineVirtualCamera _hidingCamera;
+        private CinemachineFreeLook _freeLookCamera;
+        #endregion
 
-    public string GetName()
-    {
-        return name;
-    }
-    #endregion
+        #region SetGet
+        public void Enable(bool enable)
+        {
+            _camera.enabled = enable;
+            _cinemachineBrain.enabled = enable;
+            _freeLookCamera.enabled = enable;
+        }
 
-    #region MonoBehaviour
-    private void Awake()
-    {
-        _camera = GetComponent<Camera>();
-        _cinemachineBrain = GetComponent<CinemachineBrain>();
-        _hidingCamera = GetComponentInChildren<CinemachineVirtualCamera>();
-        _freeLookCamera = GetComponentInChildren<CinemachineFreeLook>();
+        public string GetName()
+        {
+            return name;
+        }
+        #endregion
+
+        #region MonoBehaviour
+        private void Awake()
+        {
+            _camera = GetComponent<Camera>();
+            _cinemachineBrain = GetComponent<CinemachineBrain>();
+            _hidingCamera = GetComponentInChildren<CinemachineVirtualCamera>();
+            _freeLookCamera = GetComponentInChildren<CinemachineFreeLook>();
+        }
+        #endregion
     }
-    #endregion
 }

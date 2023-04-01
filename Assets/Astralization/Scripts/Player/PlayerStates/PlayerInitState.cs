@@ -1,22 +1,26 @@
+using Astralization.Utils.Helper;
 using System.Collections;
 using UnityEngine.InputSystem;
 
-public class PlayerInitState : PlayerState
+namespace Astralization.Player.PlayerStates
 {
-    #region MonoBehaviour
-    protected override void Awake()
+    public class PlayerInitState : PlayerState
     {
-        base.Awake();
-        StartCoroutine(Init());
-    }
-    #endregion
+        #region MonoBehaviour
+        protected override void Awake()
+        {
+            base.Awake();
+            StartCoroutine(Init());
+        }
+        #endregion
 
-    #region Initialization
-    private IEnumerator Init()
-    {
-        // set up here for future use
-        yield return null;
-        owner.SetPlayerActionMap(Utils.PlayerHelper.States.Default);
+        #region Initialization
+        private IEnumerator Init()
+        {
+            // set up here for future use
+            yield return null;
+            owner.SetPlayerActionMap(PlayerHelper.States.Default);
+        }
+        #endregion
     }
-    #endregion
 }

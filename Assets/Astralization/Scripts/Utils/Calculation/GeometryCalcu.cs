@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Utils
+namespace Astralization.Utils.Calculation
 {
     /*
     * Class that has methods for geometry calculation

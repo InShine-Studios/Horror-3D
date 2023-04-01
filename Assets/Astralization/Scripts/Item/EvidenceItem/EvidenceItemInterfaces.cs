@@ -1,9 +1,12 @@
-﻿public interface IActiveState { }
+﻿namespace Astralization.Items.EvidenceItems
+{
+    public interface IActiveState { }
 
-public interface IEvidenceState { }
+    public interface IEvidenceState { }
 
-public interface IInactiveState { }
+    public interface IInactiveState { }
 
-public interface IPositiveState { }
+    public interface IPositiveState { }
 
-public interface INegativeState { }
+    public interface INegativeState { }
+}

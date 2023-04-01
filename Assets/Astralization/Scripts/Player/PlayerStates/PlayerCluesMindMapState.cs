@@ -1,63 +1,66 @@
-using System.Collections;
-using System.Collections.Generic;
+using Astralization.UI.MindMap;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// TODO: implement pause menu control here, rename to PlayerPauseState
-public class PlayerCluesMindMapState : PlayerState
+namespace Astralization.Player.PlayerStates
 {
-    #region Variables
-    private MindMapTree _mindMapTree;
-    #endregion
 
-    #region MonoBehaviour
-    protected override void Awake()
+    // TODO: implement pause menu control here, rename to PlayerPauseState
+    public class PlayerCluesMindMapState : PlayerState
     {
-        base.Awake();
-        _mindMapTree = this.transform.parent.GetComponentInChildren<MindMapTree>();
-    }
-    #endregion
+        #region Variables
+        private MindMapTree _mindMapTree;
+        #endregion
 
-    #region StateHandler
-    public override void Enter()
-    {
-        base.Enter();
-        Cursor.lockState = CursorLockMode.Confined;
-        owner.InvokeOpenMindMap();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-        Cursor.lockState = CursorLockMode.Locked;
-        owner.InvokeCloseMindMap();
-        _mindMapTree.FocusOnRoot();
-    }
-    #endregion
-
-    #region InputHandler
-    public override void ChangeCore(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        #region MonoBehaviour
+        protected override void Awake()
         {
-            _mindMapTree.ChangeCore((int)ctx.ReadValue<float>());
+            base.Awake();
+            _mindMapTree = transform.parent.GetComponentInChildren<MindMapTree>();
         }
-    }
+        #endregion
 
-    public override void ChangeClue(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        #region StateHandler
+        public override void Enter()
         {
-            _mindMapTree.ChangeClue((int)ctx.ReadValue<float>());
+            base.Enter();
+            Cursor.lockState = CursorLockMode.Confined;
+            owner.InvokeOpenMindMap();
         }
-    }
 
-    public override void CloseMindMap(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        public override void Exit()
         {
-            owner.ChangeState<PlayerDefaultState>();
+            base.Exit();
+            Cursor.lockState = CursorLockMode.Locked;
+            owner.InvokeCloseMindMap();
+            _mindMapTree.FocusOnRoot();
         }
+        #endregion
+
+        #region InputHandler
+        public override void ChangeCore(InputAction.CallbackContext ctx)
+        {
+            if (ctx.performed)
+            {
+                _mindMapTree.ChangeCore((int)ctx.ReadValue<float>());
+            }
+        }
+
+        public override void ChangeClue(InputAction.CallbackContext ctx)
+        {
+            if (ctx.performed)
+            {
+                _mindMapTree.ChangeClue((int)ctx.ReadValue<float>());
+            }
+        }
+
+        public override void CloseMindMap(InputAction.CallbackContext ctx)
+        {
+            if (ctx.performed)
+            {
+                owner.ChangeState<PlayerDefaultState>();
+            }
+        }
+        #endregion
     }
-    #endregion
 }

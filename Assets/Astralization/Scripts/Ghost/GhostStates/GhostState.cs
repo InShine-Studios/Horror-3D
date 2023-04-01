@@ -1,26 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
+using Astralization.SPI;
 using UnityEngine;
 
-public abstract class GhostState : State
+namespace Astralization.Enemy.EnemyStates
 {
-    #region Variables
-    protected GhostStateMachine owner;
-    protected Material debugMaterial;
-    #endregion
-
-    #region MonoBehaviour
-    protected virtual void Awake()
+    public abstract class GhostState : State
     {
-        owner = GetComponent<GhostStateMachine>();
-    }
-    #endregion
+        #region Variables
+        protected GhostStateMachine owner;
+        protected Material debugMaterial;
+        #endregion
 
-    #region StateHandler
-    public override void Enter()
-    {
-        base.Enter();
-        transform.Find("Model").GetComponent<MeshRenderer>().material = debugMaterial;
+        #region MonoBehaviour
+        protected virtual void Awake()
+        {
+            owner = GetComponent<GhostStateMachine>();
+        }
+        #endregion
+
+        #region StateHandler
+        public override void Enter()
+        {
+            base.Enter();
+            transform.Find("Model").GetComponent<MeshRenderer>().material = debugMaterial;
+        }
+        #endregion
     }
-    #endregion
 }

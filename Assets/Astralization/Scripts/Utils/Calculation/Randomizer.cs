@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Utils
+namespace Astralization.Utils.Calculation
 {
     /**
      * Randomizer Class
@@ -16,20 +16,20 @@ namespace Utils
         {
             float range = max - min;
             double sample = Rand.NextDouble();
-            double scaled = (sample * range) + min;
+            double scaled = sample * range + min;
             return (float)scaled;
         }
 
         public static TValue GetRandomValue<TKey, TValue>(IDictionary<TKey, TValue> dict)
         {
-            List<TValue> values = Enumerable.ToList(dict.Values);
+            List<TValue> values = dict.Values.ToList();
             int size = dict.Count;
             return values[Rand.Next(size)];
         }
 
         public static TKey GetRandomKey<TKey, TValue>(IDictionary<TKey, TValue> dict)
         {
-            List<TKey> values = Enumerable.ToList(dict.Keys);
+            List<TKey> values = dict.Keys.ToList();
             int size = dict.Count;
             return values[Rand.Next(size)];
         }

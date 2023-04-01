@@ -1,7 +1,8 @@
+using Astralization.Player;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils
+namespace Astralization.Utils.Helper
 {
     /*
     * Class that has methods related to player

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Astralization.Player;
+using Astralization.UI;
 
 public class ExorcismTest : TestBase
 {

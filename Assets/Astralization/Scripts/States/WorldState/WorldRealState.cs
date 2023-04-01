@@ -1,23 +1,26 @@
 ﻿using UnityEngine;
 
-public interface IWorldRealState { }
-
-public class WorldRealState : WorldState, IWorldRealState
+namespace Astralization.States.WorldStates
 {
-    #region MonoBehaviour
-    protected override void Awake()
-    {
-        base.Awake();
-        colorInUse = Color.black;
-        volumeInUse = transform.Find("VOL_RealWorld").gameObject;
-    }
-    #endregion
+    public interface IWorldRealState { }
 
-    #region StateHandler
-    public override void Enter()
+    public class WorldRealState : WorldState, IWorldRealState
     {
-        base.Enter();
-        astralMeterLogic.SetRealRate();
+        #region MonoBehaviour
+        protected override void Awake()
+        {
+            base.Awake();
+            colorInUse = Color.black;
+            volumeInUse = transform.Find("VOL_RealWorld").gameObject;
+        }
+        #endregion
+
+        #region StateHandler
+        public override void Enter()
+        {
+            base.Enter();
+            astralMeterLogic.SetRealRate();
+        }
+        #endregion
     }
-    #endregion
 }

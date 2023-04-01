@@ -1,27 +1,32 @@
+using Astralization.Items.EvidenceItems;
+using Astralization.SPI;
 using UnityEngine;
 
-public class ClockState : State, IEvidenceState
+namespace Astralization.Items.EvidenceItem.ClockStates
 {
-    #region Variables
-    private AudioSource _audioSource;
-    protected ClockManager owner;
-    protected AudioClip audioInUse;
-    #endregion
-
-    #region MonoBehaviour
-    protected virtual void Awake()
+    public class ClockState : State, IEvidenceState
     {
-        owner = GetComponent<ClockManager>();
-        GameObject StateAudio = transform.Find("AudioPlayer/StateAudio").gameObject;
-        _audioSource = StateAudio.GetComponent<AudioSource>();
-    }
-    #endregion
+        #region Variables
+        private AudioSource _audioSource;
+        protected ClockManager owner;
+        protected AudioClip audioInUse;
+        #endregion
 
-    #region Handler
-    public override void Enter()
-    {
-        base.Enter();
-        _audioSource.clip = audioInUse;
+        #region MonoBehaviour
+        protected virtual void Awake()
+        {
+            owner = GetComponent<ClockManager>();
+            GameObject StateAudio = transform.Find("AudioPlayer/StateAudio").gameObject;
+            _audioSource = StateAudio.GetComponent<AudioSource>();
+        }
+        #endregion
+
+        #region Handler
+        public override void Enter()
+        {
+            base.Enter();
+            _audioSource.clip = audioInUse;
+        }
+        #endregion
     }
-    #endregion
 }

@@ -1,77 +1,80 @@
 using System;
 using UnityEngine;
 
-public interface IDoorController: IInteractable
+namespace Astralization.Interactables.Door
 {
-    bool IsOpen { get; }
-
-    float GetAngle();
-    void SetIsTransitioning(bool isTransitioning);
-}
-
-/*
- * Class to control door states and animation.
- * Inherit Interactable.
- */
-public class DoorController : Interactable, IDoorController
-{
-    #region Constants
-    private const string _animParam = "isOpen";
-    private static readonly string[] _transitionAnimNames = { "Opening", "Closing" };
-    #endregion
-
-    #region Variables
-    [Header("Door States")]
-    [SerializeField]
-    [Tooltip("True if door is in open state")]
-    private bool _isOpen = false;
-    public bool IsOpen { get { return _isOpen; } }
-    [Tooltip("True if door is in open state")]
-    private bool _isTransitioning = true;
-
-    private Animator _animator;
-    #endregion
-
-    #region SetGet
-    public float GetAngle()
+    public interface IDoorController : IInteractable
     {
-        return transform.parent.rotation.y;
+        bool IsOpen { get; }
+
+        float GetAngle();
+        void SetIsTransitioning(bool isTransitioning);
     }
 
-    public void SetIsTransitioning(bool isTransitioning)
+    /*
+     * Class to control door states and animation.
+     * Inherit Interactable.
+     */
+    public class DoorController : Interactable, IDoorController
     {
-        _isTransitioning = isTransitioning;
-    }
-    #endregion
+        #region Constants
+        private const string _animParam = "isOpen";
+        private static readonly string[] _transitionAnimNames = { "Opening", "Closing" };
+        #endregion
 
-    #region MonoBehaviour
-    protected override void Awake()
-    {
-        base.Awake();
-        _animator = GetComponentInParent<Animator>();
-        _isTransitioning = true;
-    }
-    #endregion
+        #region Variables
+        [Header("Door States")]
+        [SerializeField]
+        [Tooltip("True if door is in open state")]
+        private bool _isOpen = false;
+        public bool IsOpen { get { return _isOpen; } }
+        [Tooltip("True if door is in open state")]
+        private bool _isTransitioning = true;
 
-    #region Handler
-    // General function to change the state of doors
-    private void ChangeState()
-    {
-        if (_isTransitioning)
+        private Animator _animator;
+        #endregion
+
+        #region SetGet
+        public float GetAngle()
         {
-            //Debug.Log("[INTERACTABLE] " + (isOpen ? "Closing " : "Opening ") + this.name);
-            _isOpen = !_isOpen;
-            _animator.SetBool(_animParam, _isOpen);
-            if (_isOpen) PlayAudio("Door_Open");
-            else PlayAudio("Door_Close");
+            return transform.parent.rotation.y;
         }
-    }
 
-    public override void OnInteraction()
-    {
-        ChangeState();
-    }
-    #endregion
+        public void SetIsTransitioning(bool isTransitioning)
+        {
+            _isTransitioning = isTransitioning;
+        }
+        #endregion
 
-    //TODO: Half Open for Ghost Interaction
+        #region MonoBehaviour
+        protected override void Awake()
+        {
+            base.Awake();
+            _animator = GetComponentInParent<Animator>();
+            _isTransitioning = true;
+        }
+        #endregion
+
+        #region Handler
+        // General function to change the state of doors
+        private void ChangeState()
+        {
+            if (_isTransitioning)
+            {
+                //Debug.Log("[INTERACTABLE] " + (isOpen ? "Closing " : "Opening ") + this.name);
+                _isOpen = !_isOpen;
+                _animator.SetBool(_animParam, _isOpen);
+                if (_isOpen) PlayAudio("Door_Open");
+                else PlayAudio("Door_Close");
+            }
+        }
+
+        public override void OnInteraction()
+        {
+            ChangeState();
+        }
+        #endregion
+
+        //TODO: Half Open for Ghost Interaction
+    }
 }

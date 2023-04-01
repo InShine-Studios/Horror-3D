@@ -1,43 +1,48 @@
-﻿using UnityEngine;
+﻿using Astralization.SPI;
+using Astralization.Utils.Helper;
+using UnityEngine;
 
-public interface IWorldState { }
-
-public class WorldState : State, IWorldState
+namespace Astralization.States.WorldStates
 {
-    #region Variables
-    protected WorldStateMachine owner;
-    protected Color colorInUse;
-    protected AstralMeterLogic astralMeterLogic;
-    protected GameObject volumeInUse;
-    protected Utils.ItemHelper.WorldConditionType worldCondition;
-    #endregion
+    public interface IWorldState { }
 
-    #region MonoBehaviour
-    protected virtual void Awake()
+    public class WorldState : State, IWorldState
     {
-        owner = GetComponent<WorldStateMachine>();
-        astralMeterLogic = AstralMeterLogic.Instance;
-    }
-    #endregion
+        #region Variables
+        protected WorldStateMachine owner;
+        protected Color colorInUse;
+        protected AstralMeterLogic astralMeterLogic;
+        protected GameObject volumeInUse;
+        protected ItemHelper.WorldConditionType worldCondition;
+        #endregion
 
-    #region StateHandler
-    public override void Enter()
-    {
-        base.Enter();
-        RenderSettings.fogColor = colorInUse;
-        if(volumeInUse != null)
+        #region MonoBehaviour
+        protected virtual void Awake()
         {
-            volumeInUse.SetActive(true);
+            owner = GetComponent<WorldStateMachine>();
+            astralMeterLogic = AstralMeterLogic.Instance;
         }
-    }
+        #endregion
 
-    public override void Exit()
-    {
-        base.Exit();
-        if (volumeInUse != null)
+        #region StateHandler
+        public override void Enter()
         {
-            volumeInUse.SetActive(false);
+            base.Enter();
+            RenderSettings.fogColor = colorInUse;
+            if (volumeInUse != null)
+            {
+                volumeInUse.SetActive(true);
+            }
         }
+
+        public override void Exit()
+        {
+            base.Exit();
+            if (volumeInUse != null)
+            {
+                volumeInUse.SetActive(false);
+            }
+        }
+        #endregion
     }
-    #endregion
 }

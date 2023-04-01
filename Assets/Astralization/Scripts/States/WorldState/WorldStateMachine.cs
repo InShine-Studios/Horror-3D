@@ -1,58 +1,65 @@
-﻿using UnityEngine;
+﻿using Astralization.Enemy;
+using Astralization.Managers;
+using Astralization.SPI;
+using Astralization.States.TimeslotStates;
+using UnityEngine;
 
-public class WorldStateMachine : StateMachine
+namespace Astralization.States.WorldStates
 {
-    #region Variables
-    [Tooltip("Bool flag to check if the player is in Real World or Astral World")]
-    private bool _isInAstralWorld = false;
-
-    private GhostManager _ghostManager;
-
-    private static WorldStateMachine _instance;
-    public static WorldStateMachine Instance { get { return _instance; } }
-    #endregion
-
-    #region SetGet
-    public bool IsKillPhase()
+    public class WorldStateMachine : StateMachine
     {
-        if (_ghostManager == null) return false;
-        return _ghostManager.IsKillPhase();
-    }
-    #endregion
+        #region Variables
+        [Tooltip("Bool flag to check if the player is in Real World or Astral World")]
+        private bool _isInAstralWorld = false;
 
-    #region MonoBehaviour
-    private void Awake()
-    {
-        _ghostManager = GameObject.Find("Ghost")?.GetComponent<GhostManager>(); //TODO: Refactor this
-        ChangeState<WorldInitState>();
-        _instance = this;
-    }
+        private GhostManager _ghostManager;
 
-    private void OnEnable()
-    {
-        GameManager.ChangeWorldEvent += ChangeState;
-    }
+        private static WorldStateMachine _instance;
+        public static WorldStateMachine Instance { get { return _instance; } }
+        #endregion
 
-    private void OnDisable()
-    {
-        GameManager.ChangeWorldEvent -= ChangeState;
-    }
-    #endregion
-
-    #region WorldHandler
-    protected virtual void ChangeState()
-    {
-        _isInAstralWorld = !_isInAstralWorld;
-        if (_isInAstralWorld)
+        #region SetGet
+        public bool IsKillPhase()
         {
-            ChangeState<WorldAstralState>();
-            //Debug.Log("[WORLD STATE] Changing world state to Astral");
+            if (_ghostManager == null) return false;
+            return _ghostManager.IsKillPhase();
         }
-        else
+        #endregion
+
+        #region MonoBehaviour
+        private void Awake()
         {
-            ChangeState<WorldRealState>();
-            //Debug.Log("[WORLD STATE] Changing world state to Real");
+            _ghostManager = GameObject.Find("Ghost")?.GetComponent<GhostManager>(); //TODO: Refactor this
+            ChangeState<WorldInitState>();
+            _instance = this;
         }
+
+        private void OnEnable()
+        {
+            GameManager.ChangeWorldEvent += ChangeState;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.ChangeWorldEvent -= ChangeState;
+        }
+        #endregion
+
+        #region WorldHandler
+        protected virtual void ChangeState()
+        {
+            _isInAstralWorld = !_isInAstralWorld;
+            if (_isInAstralWorld)
+            {
+                ChangeState<WorldAstralState>();
+                //Debug.Log("[WORLD STATE] Changing world state to Astral");
+            }
+            else
+            {
+                ChangeState<WorldRealState>();
+                //Debug.Log("[WORLD STATE] Changing world state to Real");
+            }
+        }
+        #endregion
     }
-    #endregion
 }

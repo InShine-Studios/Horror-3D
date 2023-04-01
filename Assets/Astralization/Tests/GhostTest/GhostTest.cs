@@ -1,8 +1,15 @@
 using System.Collections;
+using Astralization.Enemy;
+using Astralization.Enemy.EnemyStates;
+using Astralization.Managers;
+using Astralization.Managers.StageSystem;
+using Astralization.SPI;
+using Astralization.States.TimeslotStates;
+using Astralization.States.WorldStates;
+using Astralization.Utils.Calculation;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.TestTools;
 
 public class GhostTest : TestBase
 {
@@ -49,7 +56,7 @@ public class GhostTest : TestBase
         ghost.GetComponent<IGhostWanderState>().SetWanderTarget(targetRoomName,false);
         yield return new WaitWhile(ghostMovement.IsOnRoute);
         float delta = Mathf.Abs(
-            Utils.GeometryCalcu.GetDistance3D(
+            GeometryCalcu.GetDistance3D(
                 targetRoom.GetPosition(),
                 ghost.transform.position
             )
@@ -101,7 +108,7 @@ public class GhostTest : TestBase
 
         yield return new WaitWhile(() => ghostFieldOfView.ChasingTarget is null);
         Assert.True(ghostStateMachine.CurrentState is GhostChasingState);
-        float distance = Utils.GeometryCalcu.GetDistance3D(ghostFieldOfView.ChasingTarget.position, ghostMovement.NavMeshAgent.destination);
+        float distance = GeometryCalcu.GetDistance3D(ghostFieldOfView.ChasingTarget.position, ghostMovement.NavMeshAgent.destination);
         Assert.True(distance < 1f);
 
         ghost.transform.rotation = Quaternion.Inverse(ghost.transform.rotation); // Make the ghost unsee the player

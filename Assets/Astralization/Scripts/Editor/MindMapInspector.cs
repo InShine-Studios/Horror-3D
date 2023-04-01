@@ -1,39 +1,43 @@
 using UnityEngine;
 using UnityEditor;
+using Astralization.UI.MindMap;
 
-/*
- * The editor script to edit clue nodes in Mind Map.
- */
-[CustomEditor(typeof(MindMapBuilder))]
-[ExecuteInEditMode]
-public class MindMapBuilderInspector : Editor
+namespace Astralization.EditorSystem
 {
-    private string filename = "MindMapTree_Chapter1";
-
-    public MindMapBuilder current
+    /*
+     * The editor script to edit clue nodes in Mind Map.
+     */
+    [CustomEditor(typeof(MindMapBuilder))]
+    [ExecuteInEditMode]
+    public class MindMapBuilderInspector : Editor
     {
-        get
+        private string filename = "MindMapTree_Chapter1";
+
+        public MindMapBuilder current
         {
-            return (MindMapBuilder)target;
+            get
+            {
+                return (MindMapBuilder)target;
+            }
         }
+
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+
+            EditorGUILayout.Space();
+            if (GUILayout.Button("Add Node"))
+                current.AddNode();
+            if (GUILayout.Button("Clear"))
+                current.ClearChild();
+
+            EditorGUILayout.Space();
+            filename = EditorGUILayout.TextField("Mind Map Filename: ", filename);
+            if (GUILayout.Button("Save"))
+                current.Save(filename);
+            if (GUILayout.Button("Load"))
+                filename = current.Load();
+        }
+
     }
-
-    public override void OnInspectorGUI()
-    {
-        DrawDefaultInspector();
-
-        EditorGUILayout.Space();
-        if (GUILayout.Button("Add Node"))
-            current.AddNode();
-        if (GUILayout.Button("Clear"))
-            current.ClearChild();
-
-        EditorGUILayout.Space();
-        filename = EditorGUILayout.TextField("Mind Map Filename: ", filename);
-        if (GUILayout.Button("Save"))
-            current.Save(filename);
-        if (GUILayout.Button("Load"))
-            filename = current.Load();
-    }
-
 }

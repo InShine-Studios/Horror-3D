@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Utils
+namespace Astralization.Utils.Helper
 {
     /**
      * Utils class for managing I/O and filesystem related things

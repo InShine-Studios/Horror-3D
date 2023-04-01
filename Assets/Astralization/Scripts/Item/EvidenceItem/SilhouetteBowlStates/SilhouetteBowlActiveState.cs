@@ -1,20 +1,24 @@
+using Astralization.Items.EvidenceItems;
 using UnityEngine;
 
-public class SilhouetteBowlActiveState : SilhouetteBowlState, IActiveState
+namespace Astralization.Items.EvidenceItem.SilhouetteBowlStates
 {
-    #region MonoBehaviour
-    protected override void Awake()
+    public class SilhouetteBowlActiveState : SilhouetteBowlState, IActiveState
     {
-        base.Awake();
-    }
-    #endregion
+        #region MonoBehaviour
+        protected override void Awake()
+        {
+            base.Awake();
+        }
+        #endregion
 
-    #region Handler
-    public override void Enter()
-    {
-        base.Enter();
-        positiveModel.SetActive(false);
-        negativeModel.SetActive(false);
+        #region Handler
+        public override void Enter()
+        {
+            base.Enter();
+            positiveModel.SetActive(false);
+            negativeModel.SetActive(false);
+        }
+        #endregion
     }
-    #endregion
 }

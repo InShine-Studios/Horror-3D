@@ -1,32 +1,37 @@
 using UnityEngine;
 using UnityEditor;
+using Astralization.Managers.StageSystem;
 
-/*
- * The editor script to edit rooms of a stage.
- */
-[CustomEditor(typeof(StagePoint))]
-public class StagePointInspector : Editor
+namespace Astralization.EditorSystem
 {
-    public StagePoint current
+
+    /*
+     * The editor script to edit rooms of a stage.
+     */
+    [CustomEditor(typeof(StagePoint))]
+    public class StagePointInspector : Editor
     {
-        get
+        public StagePoint current
         {
-            return (StagePoint)target;
+            get
+            {
+                return (StagePoint)target;
+            }
         }
+
+        private StageBuilder _stageBuilder;
+
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+
+            _stageBuilder = current.GetComponentInParent<StageBuilder>();
+            if (_stageBuilder == null) return;
+
+            EditorGUILayout.Space();
+            if (GUILayout.Button("Save"))
+                _stageBuilder.AddCurrentStagePoint();
+        }
+
     }
-
-    private StageBuilder _stageBuilder;
-
-    public override void OnInspectorGUI()
-    {
-        DrawDefaultInspector();
-
-        _stageBuilder = current.GetComponentInParent<StageBuilder>();
-        if (_stageBuilder == null) return;
-
-        EditorGUILayout.Space();
-        if (GUILayout.Button("Save"))
-            _stageBuilder.AddCurrentStagePoint();
-    }
-
 }

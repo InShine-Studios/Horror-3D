@@ -1,19 +1,24 @@
+using Astralization.Items.EvidenceItems;
+using Astralization.SPI;
 using UnityEngine;
 
-public class SilhouetteBowlState : State, IEvidenceState
+namespace Astralization.Items.EvidenceItem.SilhouetteBowlStates
 {
-    #region Variables
-    protected SilhouetteBowlManager owner;
-    protected GameObject positiveModel;
-    protected GameObject negativeModel;
-    #endregion
-
-    #region MonoBehaviour
-    protected virtual void Awake()
+    public class SilhouetteBowlState : State, IEvidenceState
     {
-        owner = GetComponent<SilhouetteBowlManager>();
-        positiveModel = transform.Find("Model/Headless").gameObject;
-        negativeModel = transform.Find("Model/Heartless").gameObject;
+        #region Variables
+        protected SilhouetteBowlManager owner;
+        protected GameObject positiveModel;
+        protected GameObject negativeModel;
+        #endregion
+
+        #region MonoBehaviour
+        protected virtual void Awake()
+        {
+            owner = GetComponent<SilhouetteBowlManager>();
+            positiveModel = transform.Find("Model/Headless").gameObject;
+            negativeModel = transform.Find("Model/Heartless").gameObject;
+        }
+        #endregion
     }
-    #endregion
 }

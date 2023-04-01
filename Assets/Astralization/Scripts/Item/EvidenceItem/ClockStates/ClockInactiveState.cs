@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Astralization.Items.EvidenceItems;
 
-public class ClockInactiveState : ClockState, IInactiveState
+namespace Astralization.Items.EvidenceItem.ClockStates
 {
-    #region MonoBehaviour
-    protected override void Awake()
+    public class ClockInactiveState : ClockState, IInactiveState
     {
-        base.Awake();
-        audioInUse = null;
+        #region MonoBehaviour
+        protected override void Awake()
+        {
+            base.Awake();
+            audioInUse = null;
+        }
+        #endregion
     }
-    #endregion
 }

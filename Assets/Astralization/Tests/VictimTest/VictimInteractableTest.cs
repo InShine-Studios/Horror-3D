@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Ink.Runtime;
+using Astralization.Player;
+using Astralization.UI.Marker;
+using Astralization.UI;
 
 public class VictimInteractableTest : TestBase
 {

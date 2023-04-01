@@ -2,28 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorAnimator : MonoBehaviour
+namespace Astralization.Interactables.Door
 {
-    #region Variables
-    private DoorController _doorController;
-    #endregion
-
-    #region MonoBehaviour
-    private void Awake()
+    public class DoorAnimator : MonoBehaviour
     {
-        _doorController = GetComponentInChildren<DoorController>();
-    }
-    #endregion
+        #region Variables
+        private DoorController _doorController;
+        #endregion
 
-    #region Handler
-    public void StartTransition()
-    {
-        _doorController.SetIsTransitioning(false);
-    }
+        #region MonoBehaviour
+        private void Awake()
+        {
+            _doorController = GetComponentInChildren<DoorController>();
+        }
+        #endregion
 
-    public void FinishTransition()
-    {
-        _doorController.SetIsTransitioning(true);
+        #region Handler
+        public void StartTransition()
+        {
+            _doorController.SetIsTransitioning(false);
+        }
+
+        public void FinishTransition()
+        {
+            _doorController.SetIsTransitioning(true);
+        }
+        #endregion
     }
-    #endregion
 }

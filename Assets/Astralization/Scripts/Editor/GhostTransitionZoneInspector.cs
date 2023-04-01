@@ -1,38 +1,43 @@
+using Astralization.Managers.StageSystem;
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
 
-/*
- * The editor script to edit rooms of a stage.
- */
-[CustomEditor(typeof(GhostTransitionZone))]
-public class GhostTransitionZoneInspector : Editor
+namespace Astralization.EditorSystem
 {
-    public GhostTransitionZone current
+
+    /*
+     * The editor script to edit rooms of a stage.
+     */
+    [CustomEditor(typeof(GhostTransitionZone))]
+    public class GhostTransitionZoneInspector : Editor
     {
-        get
+        public GhostTransitionZone current
         {
-            return (GhostTransitionZone)target;
+            get
+            {
+                return (GhostTransitionZone)target;
+            }
         }
-    }
 
-    private StageBuilder _stageBuilder;
-    private string _name;
+        private StageBuilder _stageBuilder;
+        private string _name;
 
-    public override void OnInspectorGUI()
-    {
-        DrawDefaultInspector();
-
-        _stageBuilder = current.GetComponentInParent<StageBuilder>();
-        if (_stageBuilder == null) return;
-
-        EditorGUILayout.Space();
-        EditorGUILayout.LabelField("Current Transition Zone: " + current.GetZoneName());
-        if (GUILayout.Button("Save"))
+        public override void OnInspectorGUI()
         {
-            IEnumerator enumerator = _stageBuilder.AddCurrentTransitionZone().GetEnumerator();
-            while (enumerator.MoveNext()) { }
-        }
-    }
+            DrawDefaultInspector();
 
+            _stageBuilder = current.GetComponentInParent<StageBuilder>();
+            if (_stageBuilder == null) return;
+
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Current Transition Zone: " + current.GetZoneName());
+            if (GUILayout.Button("Save"))
+            {
+                IEnumerator enumerator = _stageBuilder.AddCurrentTransitionZone().GetEnumerator();
+                while (enumerator.MoveNext()) { }
+            }
+        }
+
+    }
 }

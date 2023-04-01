@@ -1,37 +1,40 @@
 using UnityEngine;
 
-public interface IPlayerBase
+namespace Astralization.Player
 {
-    float GetPlayerMovementSpeed();
-    float GetSprintSpeed();
-}
-
-/*
- * Class to keep all player constants.
- * Use Setter and Getter to access the variables.
- */
-[System.Serializable]
-public class PlayerBase : IPlayerBase
-{
-    #region Variables
-    [Header("Movement Constants")]
-    [Tooltip("Walk Speed")]
-    [SerializeField] private float _movementSpeed;
-
-    [Header("Sprint Constants")]
-    [Tooltip("Sprint Speed")]
-    [SerializeField] private float _sprintSpeed;
-    #endregion
-
-    #region SetGet
-    public float GetPlayerMovementSpeed()
+    public interface IPlayerBase
     {
-        return _movementSpeed;
+        float GetPlayerMovementSpeed();
+        float GetSprintSpeed();
     }
 
-    public float GetSprintSpeed()
+    /*
+     * Class to keep all player constants.
+     * Use Setter and Getter to access the variables.
+     */
+    [System.Serializable]
+    public class PlayerBase : IPlayerBase
     {
-        return _sprintSpeed;
+        #region Variables
+        [Header("Movement Constants")]
+        [Tooltip("Walk Speed")]
+        [SerializeField] private float _movementSpeed;
+
+        [Header("Sprint Constants")]
+        [Tooltip("Sprint Speed")]
+        [SerializeField] private float _sprintSpeed;
+        #endregion
+
+        #region SetGet
+        public float GetPlayerMovementSpeed()
+        {
+            return _movementSpeed;
+        }
+
+        public float GetSprintSpeed()
+        {
+            return _sprintSpeed;
+        }
+        #endregion
     }
-    #endregion
 }

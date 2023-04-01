@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GhostTransitionZoneEndpoint : MonoBehaviour
+namespace Astralization.Managers.StageSystem
 {
-    #region Variables
-    public string AreaName;
-    #endregion
+    public class GhostTransitionZoneEndpoint : MonoBehaviour
+    {
+        #region Variables
+        public string AreaName;
+        #endregion
+    }
 }

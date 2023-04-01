@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using Astralization.CameraSystem;
+using Astralization.UI.MindMap;
 
 public class MindMapTest : TestBase
 {

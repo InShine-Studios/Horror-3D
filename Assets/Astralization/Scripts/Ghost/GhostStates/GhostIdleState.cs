@@ -1,70 +1,73 @@
-using System.Collections;
-using System.Collections.Generic;
+using Astralization.Utils.Calculation;
+using Astralization.Utils.Helper;
 using UnityEngine;
 
-public class GhostIdleState : GhostState
+namespace Astralization.Enemy.EnemyStates
 {
-    #region Variables
-    [SerializeField]
-    [Tooltip("True if ghost can rotate")]
-    private bool _enableRotate;
-    [SerializeField]
-    [Tooltip("Rotation Speed of ghost")]
-    private float _rotateSpeed = 0.025f;
-    private Quaternion targetRotation;
-    #endregion
-
-    #region MonoBehaviour
-    protected override void Awake()
+    public class GhostIdleState : GhostState
     {
-        base.Awake();
-        targetRotation = transform.rotation;
-        debugMaterial = Resources.Load("EvidenceItem/MAT_Thermometer_Base", typeof(Material)) as Material;
-    }
+        #region Variables
+        [SerializeField]
+        [Tooltip("True if ghost can rotate")]
+        private bool _enableRotate;
+        [SerializeField]
+        [Tooltip("Rotation Speed of ghost")]
+        private float _rotateSpeed = 0.025f;
+        private Quaternion targetRotation;
+        #endregion
 
-    protected void Update()
-    {
-        if (_enableRotate)
+        #region MonoBehaviour
+        protected override void Awake()
         {
-            RotateGhost();
+            base.Awake();
+            targetRotation = transform.rotation;
+            debugMaterial = Resources.Load("EvidenceItem/MAT_Thermometer_Base", typeof(Material)) as Material;
         }
-    }
-    #endregion
 
-    #region StateHandler
-    public override void Enter()
-    {
-        base.Enter();
-        _enableRotate = true;
-        float randomDelay = Utils.Randomizer.GetFloat(2f, 5f);
-        ChangeToWanderInSeconds(randomDelay);
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-        _enableRotate = false;
-    }
-    #endregion
-
-    #region MovementHelper
-    private void RotateGhost()
-    {
-        Quaternion delta = Utils.GeometryCalcu.GetAngleDelta(transform.rotation, targetRotation);
-        if (delta.eulerAngles.y <= 5f)
+        protected void Update()
         {
-            targetRotation = Quaternion.Euler(0f, Utils.Randomizer.GetFloat(-180f, 180f), 0f);
+            if (_enableRotate)
+            {
+                RotateGhost();
+            }
         }
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotateSpeed);
-    }
-    #endregion
+        #endregion
 
-    #region StateTransitionHelper
-    private void ChangeToWanderInSeconds(float delay)
-    {
-        StartCoroutine(
-            Utils.DelayerHelper.Delay(delay, () => owner.ChangeState<GhostWanderState>())
-        );
+        #region StateHandler
+        public override void Enter()
+        {
+            base.Enter();
+            _enableRotate = true;
+            float randomDelay = Randomizer.GetFloat(2f, 5f);
+            ChangeToWanderInSeconds(randomDelay);
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            _enableRotate = false;
+        }
+        #endregion
+
+        #region MovementHelper
+        private void RotateGhost()
+        {
+            Quaternion delta = GeometryCalcu.GetAngleDelta(transform.rotation, targetRotation);
+            if (delta.eulerAngles.y <= 5f)
+            {
+                targetRotation = Quaternion.Euler(0f, Randomizer.GetFloat(-180f, 180f), 0f);
+            }
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotateSpeed);
+        }
+        #endregion
+
+        #region StateTransitionHelper
+        private void ChangeToWanderInSeconds(float delay)
+        {
+            StartCoroutine(
+                DelayerHelper.Delay(delay, () => owner.ChangeState<GhostWanderState>())
+            );
+        }
+        #endregion
     }
-    #endregion
 }

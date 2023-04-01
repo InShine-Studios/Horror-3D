@@ -3,6 +3,11 @@
 Clearly and concisely describe the feature(s) that you developed.
 ```
 
+### Additional changes (Optional)
+```
+Add notes for additional changes that is outside the main scope of the task. Delete this section if there is no additional changes.
+```
+
 
 ### Tasks List
 ```
@@ -28,3 +33,9 @@ List of new packages that you use to developed the feature(s)
 ```
 List of url(s) used to developed the feature(s)
 ```
+
+### Steps to Test 
+```
+Define thoroughly steps to help reviewers in blackbox testing.
+```
+

@@ -1,56 +1,59 @@
-using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
+using Astralization.Managers;
+using Astralization.Utils.Helper;
+using Astralization.Utils.Helper.Inspector;
 using UnityEngine;
 
-public class CameraMainManager : MonoBehaviour
+namespace Astralization.CameraSystem
 {
-    #region Variable
-    [SerializeField]
-    private SerializableDictionary<string, ICameraManager> _cameraManagers = new SerializableDictionary<string, ICameraManager>();
-    #endregion
-
-    #region SetGet
-    private string GetCameraName(Utils.PlayerHelper.States state)
+    public class CameraMainManager : MonoBehaviour
     {
-        return state.ToString() + "Camera"; //ALL CAMERA SHOULD FOLLOW THIS NAMING FORMAT
-    }
-    #endregion
+        #region Variable
+        [SerializeField]
+        private SerializableDictionary<string, ICameraManager> _cameraManagers = new SerializableDictionary<string, ICameraManager>();
+        #endregion
 
-    #region MonoBehaviour
-    private void Awake()
-    {
-        ICameraManager[] cameraManagers = GetComponentsInChildren<ICameraManager>();
-        foreach (ICameraManager cameraManager in cameraManagers)
+        #region SetGet
+        private string GetCameraName(PlayerHelper.States state)
         {
-            _cameraManagers.Add(cameraManager.GetName(), cameraManager);
+            return state.ToString() + "Camera"; //ALL CAMERA SHOULD FOLLOW THIS NAMING FORMAT
         }
-    }
+        #endregion
 
-    private void OnEnable()
-    {
-        GameManager.CameraStateEvent += ActivateCinemachineBrain;
-    }
-
-    private void OnDisable()
-    {
-        GameManager.CameraStateEvent -= ActivateCinemachineBrain;
-    }
-    #endregion
-
-    #region CameraManagement
-    public void DeactivateAllCinemachineBrain()
-    {
-        foreach (ICameraManager cameraManager in _cameraManagers.Values)
+        #region MonoBehaviour
+        private void Awake()
         {
-            cameraManager.Enable(false);
+            ICameraManager[] cameraManagers = GetComponentsInChildren<ICameraManager>();
+            foreach (ICameraManager cameraManager in cameraManagers)
+            {
+                _cameraManagers.Add(cameraManager.GetName(), cameraManager);
+            }
         }
-    }
 
-    public void ActivateCinemachineBrain(Utils.PlayerHelper.States state)
-    {
-        DeactivateAllCinemachineBrain();
-        _cameraManagers[GetCameraName(state)].Enable(true);
+        private void OnEnable()
+        {
+            GameManager.CameraStateEvent += ActivateCinemachineBrain;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.CameraStateEvent -= ActivateCinemachineBrain;
+        }
+        #endregion
+
+        #region CameraManagement
+        public void DeactivateAllCinemachineBrain()
+        {
+            foreach (ICameraManager cameraManager in _cameraManagers.Values)
+            {
+                cameraManager.Enable(false);
+            }
+        }
+
+        public void ActivateCinemachineBrain(PlayerHelper.States state)
+        {
+            DeactivateAllCinemachineBrain();
+            _cameraManagers[GetCameraName(state)].Enable(true);
+        }
+        #endregion
     }
-    #endregion
 }

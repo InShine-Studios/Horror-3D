@@ -1,19 +1,23 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/*
- * Class to control Main Menu buttons.
- */
-public class MainMenu : MonoBehaviour
+namespace Astralization.Menus
 {
-    public void PlayGame ()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
 
-    public void QuitGame ()
+    /*
+     * Class to control Main Menu buttons.
+     */
+    public class MainMenu : MonoBehaviour
     {
-        Debug.Log("[MENU SYSTEM] QUIT!");
-        Application.Quit();
+        public void PlayGame()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+
+        public void QuitGame()
+        {
+            Debug.Log("[MENU SYSTEM] QUIT!");
+            Application.Quit();
+        }
     }
 }

@@ -1,74 +1,79 @@
+using Astralization.Utils.Helper;
 using System.Collections;
 using UnityEngine;
 
-public interface IGhostFieldOfView
+namespace Astralization.Enemy
 {
-    Transform ChasingTarget { get; set; }
-
-    bool FieldOfViewCheck();
-    void ResetTarget();
-}
-
-public class GhostFieldOfView : MonoBehaviour, IGhostFieldOfView
-{
-    #region Variables
-    [SerializeField]
-    [Tooltip("Sight radius of the ghost")]
-    private float radius = 10f;
-    [SerializeField]
-    [Tooltip("Sight angle of the ghost")]
-    [Range(0, 360)]
-    private float angle = 180f;
-
-    [Tooltip("Target layer mask of ghost vision. By default: Player")]
-    private LayerMask targetMask;
-    [Tooltip("Target layer mask of ghost vision. By default: Building and HidingPlace")]
-    private LayerMask obstructionMask;
-
-    public Transform ChasingTarget { get; set; }
-    #endregion
-
-    #region MonoBehaviour
-    private void Awake()
+    public interface IGhostFieldOfView
     {
-        targetMask = LayerMask.GetMask(CameraHelper.PlayerLayer);
-        obstructionMask = LayerMask.GetMask(CameraHelper.BuildingLayer, CameraHelper.HidingPlaceLayer);
+        Transform ChasingTarget { get; set; }
+
+        bool FieldOfViewCheck();
+        void ResetTarget();
     }
-    #endregion
 
-    #region VisionHandler
-    public bool FieldOfViewCheck()
+    public class GhostFieldOfView : MonoBehaviour, IGhostFieldOfView
     {
-        Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radius, targetMask);
+        #region Variables
+        [SerializeField]
+        [Tooltip("Sight radius of the ghost")]
+        private float radius = 10f;
+        [SerializeField]
+        [Tooltip("Sight angle of the ghost")]
+        [Range(0, 360)]
+        private float angle = 180f;
 
-        bool canSeePlayer = false;
-        if (rangeChecks.Length != 0)
+        [Tooltip("Target layer mask of ghost vision. By default: Player")]
+        private LayerMask targetMask;
+        [Tooltip("Target layer mask of ghost vision. By default: Building and HidingPlace")]
+        private LayerMask obstructionMask;
+
+        public Transform ChasingTarget { get; set; }
+        #endregion
+
+        #region MonoBehaviour
+        private void Awake()
         {
-            Transform chasingTarget = rangeChecks[0].transform;
+            targetMask = LayerMask.GetMask(CameraHelper.PlayerLayer);
+            obstructionMask = LayerMask.GetMask(CameraHelper.BuildingLayer, CameraHelper.HidingPlaceLayer);
+        }
+        #endregion
 
-            Vector3 directionToTarget = (chasingTarget.position - transform.position).normalized;
+        #region VisionHandler
+        public bool FieldOfViewCheck()
+        {
+            Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radius, targetMask);
 
-            if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2)
+            bool canSeePlayer = false;
+            if (rangeChecks.Length != 0)
             {
-                float distanceToTarget = Vector3.Distance(transform.position, chasingTarget.position);
+                Transform chasingTarget = rangeChecks[0].transform;
 
-                canSeePlayer = !Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask);
+                Vector3 directionToTarget = (chasingTarget.position - transform.position).normalized;
+
+                if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2)
+                {
+                    float distanceToTarget = Vector3.Distance(transform.position, chasingTarget.position);
+
+                    canSeePlayer = !Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask);
+                }
             }
+
+            if (canSeePlayer)
+            {
+                ChasingTarget = rangeChecks[0].transform;
+            }
+            else
+            {
+                ChasingTarget = null;
+            }
+            return canSeePlayer;
         }
 
-        if (canSeePlayer)
+        public void ResetTarget()
         {
-            ChasingTarget = rangeChecks[0].transform;
-        }
-        else {
             ChasingTarget = null;
         }
-        return canSeePlayer;
+        #endregion
     }
-
-    public void ResetTarget()
-    {
-        ChasingTarget = null;
-    }
-    #endregion
 }

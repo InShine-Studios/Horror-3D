@@ -1,21 +1,24 @@
 using System.Collections;
 
-public class ClockInitState : ClockState
+namespace Astralization.Items.EvidenceItem.ClockStates
 {
-    #region MonoBehaviour
-    protected override void Awake()
+    public class ClockInitState : ClockState
     {
-        base.Awake();
-        StartCoroutine(Init());
-    }
-    #endregion
+        #region MonoBehaviour
+        protected override void Awake()
+        {
+            base.Awake();
+            StartCoroutine(Init());
+        }
+        #endregion
 
-    #region Initialization
-    private IEnumerator Init()
-    {
-        // set up here for future use
-        yield return null;
-        owner.ChangeState<ClockInactiveState>();
+        #region Initialization
+        private IEnumerator Init()
+        {
+            // set up here for future use
+            yield return null;
+            owner.ChangeState<ClockInactiveState>();
+        }
+        #endregion
     }
-    #endregion
 }

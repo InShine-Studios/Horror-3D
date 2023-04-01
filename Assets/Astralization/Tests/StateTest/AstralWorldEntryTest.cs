@@ -1,4 +1,8 @@
 using System.Collections;
+using Astralization.Player;
+using Astralization.SPI;
+using Astralization.States;
+using Astralization.States.TimeslotStates;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;

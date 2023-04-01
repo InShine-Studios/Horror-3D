@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.InputSystem;
+using Astralization.Interactables.Closet;
+using Astralization.Interactables.Door;
+using Astralization.Interactables.LightSwitch;
+using Astralization.Player;
+using Astralization.UI.Marker;
+using Astralization.Utils.Calculation;
 
 public class InteractableTest: TestBase
 {
@@ -103,7 +109,7 @@ public class InteractableTest: TestBase
         // Try moving while hiding
         Transform currentPosition = player.transform;
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.MoveBack, false, 1f);
-        Assert.Less(Utils.GeometryCalcu.GetDistance3D(calOffset, player.transform.position), 1f);
+        Assert.Less(GeometryCalcu.GetDistance3D(calOffset, player.transform.position), 1f);
 
         // Unhide
         yield return SimulateInput(KeyboardMouseTestFixture.RegisteredInput.Interact);
