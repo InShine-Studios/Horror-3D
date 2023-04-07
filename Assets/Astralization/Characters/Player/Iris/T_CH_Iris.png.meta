@@ -63,7 +63,7 @@ TextureImporter:
       213: -1303490584651202289
     second: Iris_Walk_E_4
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -84,6 +84,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -122,6 +123,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -177,6 +179,18 @@ TextureImporter:
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -616,6 +630,27 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Iris_Walk_N_2: -1579511259143518391
+      Iris_Idle_E: 8056438600732892827
+      Iris_Idle_N: -3867007719872533840
+      Iris_Walk_W_1: 8058100071692831564
+      Iris_Walk_W_4: 7108747446145009248
+      Iris_Walk_W_3: 2799779409974673524
+      Iris_Walk_N_1: 4290809868943643366
+      Iris_Walk_S_1: 1750114890588715735
+      Iris_Walk_E_1: -1465232239126492999
+      Iris_Walk_E_2: 8294919119271670447
+      Iris_Walk_S_4: 3788099229274205984
+      Iris_Walk_N_4: 6546096912459702245
+      Iris_Idle_W: -2274722635950148253
+      Iris_Walk_W_2: -5933367349575647330
+      Iris_Walk_N_3: -8053532685904637835
+      Iris_Walk_S_3: -5075469079216474781
+      Iris_Walk_E_4: -1303490584651202289
+      Iris_Walk_S_2: -2859805241022969283
+      Iris_Walk_E_3: -5168448283608330390
+      Iris_Idle_S: -2762090392597500839
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
