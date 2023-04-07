@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -51,4 +52,8 @@ MonoBehaviour:
     - {fileID: 6627780778903583924, guid: de93b74b6a13ece41b1703cf5a0c430e, type: 3}
     - {fileID: 6627780778903583924, guid: e6fafdf0f0ec89d489e9231a2e1ea46b, type: 3}
   _root: {fileID: 0}
-  _mindMapTreeData: {fileID: 11400000, guid: 1d5910d920feecb44b4a91e8c06a46f6, type: 2}
+  _mindMapTreeData:
+  - {fileID: 11400000, guid: 1d5910d920feecb44b4a91e8c06a46f6, type: 2}
+  - {fileID: 11400000, guid: 3bf3bd55843a7fe47bacfb2a03b9fb64, type: 2}
+  - {fileID: 11400000, guid: 16646238182eaec46bfc5cb6541e9a01, type: 2}
+  _mindMapCameraManager: {fileID: 0}
