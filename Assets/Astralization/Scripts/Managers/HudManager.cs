@@ -88,8 +88,8 @@ public class HudManager : MonoBehaviour
         PlayerHidingState.StopHidingHudEvent += ShowHidingHud;
         Inventory.InventoryHudEvent += HandleInventoryEvent;
         TimeslotStateMachine.UpdateTimeslotHudEvent += UpdateTimeslotDisplay;
-        MindMapTree.ActivatedModal += ActivatedModal;
-        MindMapTree.SetNodeInfo += SetNodeInfo;
+        MindMapTree.ActivateModalEvent += ActivateModal;
+        MindMapTree.SetNodeInfoEvent += SetNodeInfo;
     }
 
     private void OnDisable()
@@ -98,8 +98,8 @@ public class HudManager : MonoBehaviour
         PlayerHidingState.StopHidingHudEvent -= ShowHidingHud;
         Inventory.InventoryHudEvent -= HandleInventoryEvent;
         TimeslotStateMachine.UpdateTimeslotHudEvent -= UpdateTimeslotDisplay;
-        MindMapTree.ActivatedModal -= ActivatedModal;
-        MindMapTree.SetNodeInfo -= SetNodeInfo;
+        MindMapTree.ActivateModalEvent -= ActivateModal;
+        MindMapTree.SetNodeInfoEvent -= SetNodeInfo;
     }
     #endregion
 
@@ -131,9 +131,9 @@ public class HudManager : MonoBehaviour
         _timeslotHud.SetDateTimeslot(dateTimeslot);
     }
 
-    private void ActivatedModal(bool is_active)
+    private void ActivateModal(bool isActive)
     {
-        _mindMapModal.ActivatedModal(is_active);
+        _mindMapModal.ActivateModal(isActive);
     }
 
     private void SetNodeInfo(MindMapNode node)

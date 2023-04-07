@@ -36,8 +36,8 @@ public class NodeModelDictionary : SerializableDictionary<MindMapNodeType, GameO
 public class MindMapTree : MonoBehaviour, IMindMapTree
 {
     #region Event
-    public static event Action<MindMapNode> SetNodeInfo;
-    public static event Action<bool> ActivatedModal;
+    public static event Action<MindMapNode> SetNodeInfoEvent;
+    public static event Action<bool> ActivateModalEvent;
     #endregion
 
     #region Const
@@ -381,12 +381,12 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     #region Send Event
     public void SendNodeInfo(MindMapNode node)
     {
-        SetNodeInfo?.Invoke(node);
+        SetNodeInfoEvent?.Invoke(node);
     }
 
     public void SendNodeActiveInfo(bool is_active)
     {
-        ActivatedModal?.Invoke(is_active);
+        ActivateModalEvent?.Invoke(is_active);
     }
 
     private IEnumerator ModalTransitioning()
