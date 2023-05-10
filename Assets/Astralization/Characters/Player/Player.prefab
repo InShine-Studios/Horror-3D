@@ -112,6 +112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3ed0792445f3ee49a522877e932551f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cameraManagers:
+    m_keys: []
 --- !u!1 &3506707378040111099
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,6 +841,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7840536065210460080, guid: 233b81b35f9a44045a2374a3cf4a9c92, type: 3}
+      propertyPath: _mindMapCameraManager
+      value: 
+      objectReference: {fileID: 7231394165201482586}
     - target: {fileID: 8064491169947349008, guid: 233b81b35f9a44045a2374a3cf4a9c92, type: 3}
       propertyPath: m_IsActive
       value: 1

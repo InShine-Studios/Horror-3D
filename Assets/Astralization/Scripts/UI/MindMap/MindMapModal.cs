@@ -43,9 +43,9 @@ public class MindMapModal : MonoBehaviour, IMindMapModal
     #endregion
 
     #region ModalHandler
-    public void ActivatedModal(bool is_active)
+    public void ActivateModal(bool isActive)
     {
-        _modal.SetActive(is_active);
+        _modal.SetActive(isActive);
     }
     public void SetNodeInfo(MindMapNode node)
     {

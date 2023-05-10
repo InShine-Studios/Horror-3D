@@ -11,7 +11,7 @@ public interface IMindMapTree
     int NodeCount { get; }
     MindMapNode Root { get; }
 
-    void AddNode();
+    void AddNodeBuilder(MindMapNodeType nodeType);
     void BuildNodeRelation();
     void ChangeClue(int indexStep);
     void ChangeCore(int indexStep);
@@ -22,7 +22,6 @@ public interface IMindMapTree
     bool IsNodeRelated();
     void LoadTree();
     void LoadTree(MindMapTreeData data);
-    void SetCameraFocus(MindMapNode node);
 }
 
 #region SerializableClass
@@ -37,8 +36,8 @@ public class NodeModelDictionary : SerializableDictionary<MindMapNodeType, GameO
 public class MindMapTree : MonoBehaviour, IMindMapTree
 {
     #region Event
-    public static event Action<MindMapNode> SetNodeInfo;
-    public static event Action<bool> ActivatedModal;
+    public static event Action<MindMapNode> SetNodeInfoEvent;
+    public static event Action<bool> ActivateModalEvent;
     #endregion
 
     #region Const
@@ -51,20 +50,25 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     private MindMapNode _mindMapNodeBase;
     [SerializeField]
     private NodeModelDictionary _nodeModelDictionary;
+    private MindMapPooler _pooler;
 
     [Header("Tree Data")]
     [SerializeField]
     private MindMapNode _root;
     [SerializeField]
-    private MindMapTreeData _mindMapTreeData;
+    [Tooltip("Mind Map Node data SO. The first data is the default menu")]
+    private MindMapTreeData[] _mindMapTreeData;
+    private MindMapTreeData _currentMindMapTreeData;
 
     [Header("Camera and Navigation")]
     [SerializeField]
     private MindMapCameraManager _mindMapCameraManager; // TODO: make this non-serializable and integrate with UiState
 
+    private int chapterIdx;
     private MindMapNode selectedNode = null;
     private int coreNodeIdx;
     private int clueNodeIdx;
+    private bool _isBuilder;
 
     public MindMapNode Root { get { return _root; } }
     public int NodeCount { get { return transform.childCount; } }
@@ -125,25 +129,56 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
         clueNodeIdx = -1;
         SetCameraFocus(_root);
     }
+
+    private int GetMaxNodeCount()
+    {
+        int maxNodeCount = 0;
+        foreach(MindMapTreeData treeData in _mindMapTreeData)
+        {
+            maxNodeCount = Math.Max(maxNodeCount, treeData.NodeNames.Count);
+        }
+
+        return maxNodeCount;
+    }
     #endregion
 
     #region MonoBehaviour
     private void Start()
     {
+        ClearAllNodes();
+
+        MindMapBuilder builder = GetComponent<MindMapBuilder>();
+        _isBuilder = builder != null;
+
+        if (_mindMapTreeData.Length == 0) Debug.LogError("Mind map data is empty");
+
+        // Initialize pooler
+        _pooler = gameObject.AddComponent<MindMapPooler>();
+        _pooler.Initialize(_mindMapNodeBase, _nodeModelDictionary, GetMaxNodeCount());
+
+        chapterIdx = 0;
+        _currentMindMapTreeData = _mindMapTreeData[chapterIdx];
         LoadTree();
-        FocusOnRoot();
-        SendNodeActiveInfo(true);
-        SendNodeInfo(_root);
+
+        if (builder == null)
+        {
+            FocusOnRoot();
+            SendNodeActiveInfo(true);
+            SendNodeInfo(_root);
+        }   
     }
 
     private void OnEnable()
     {
         NodeNavigation.ChangeNodeEvent += ChangeNodeFromButton;
+        ChapterNavigation.ChangeChapterEvent += ChangeChapterFromButton;
     }
 
     private void OnDisable()
     {
         NodeNavigation.ChangeNodeEvent -= ChangeNodeFromButton;
+        ChapterNavigation.ChangeChapterEvent -= ChangeChapterFromButton;
+
     }
     #endregion
 
@@ -189,12 +224,6 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
         Debug.Log("[MIND MAP] Node is cleared.");
     }
 
-    public void AddNode()
-    {
-        MindMapNode mindMapNode = Instantiate(_mindMapNodeBase);
-        mindMapNode.transform.parent = transform;
-    }
-
     public void LoadTree()
     {
         if (_mindMapTreeData == null)
@@ -203,29 +232,26 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
             return;
         }
 
-        ClearAllNodes();
-
-        int nodeCount = _mindMapTreeData.ParentReferenceIdx.Count;
+        int nodeCount = _currentMindMapTreeData.ParentReferenceIdx.Count;
         MindMapNode[] nodeInstances = new MindMapNode[nodeCount];
 
         for (int i = 0; i < nodeCount; i++)
         {
-            MindMapNode newNode = Instantiate(_mindMapNodeBase);
+            MindMapNode newNode;
+            MindMapNodeType newNodeType = _currentMindMapTreeData.NodeTypes[i];
+            _pooler.GetInstance(out newNode, newNodeType, LayerName);
             // General assignments
-            newNode.NodeName = _mindMapTreeData.NodeNames[i];
-            newNode.NodeDescription = _mindMapTreeData.NodeDescriptions[i];
-            newNode.AnimController = _mindMapTreeData.NodeAnimationControllers[i];
-            
+            newNode.NodeName = _currentMindMapTreeData.NodeNames[i];
+            newNode.NodeDescription = _currentMindMapTreeData.NodeDescriptions[i];
+            newNode.AnimController = _currentMindMapTreeData.NodeAnimationControllers[i];
+
             // Type-related assignments
-            newNode.NodeType = _mindMapTreeData.NodeTypes[i];
-            GameObject nodeModel = Instantiate(_nodeModelDictionary[newNode.NodeType]);
-            nodeModel.transform.parent = newNode.transform;
-            nodeModel.gameObject.layer = LayerMask.NameToLayer(LayerName);
+            newNode.NodeType = newNodeType;
 
             // Parent reference assignments
-            if (_mindMapTreeData.ParentReferenceIdx[i] != -1)
+            if (_currentMindMapTreeData.ParentReferenceIdx[i] != -1)
             {
-                newNode.Parent = nodeInstances[_mindMapTreeData.ParentReferenceIdx[i]];
+                newNode.Parent = nodeInstances[_currentMindMapTreeData.ParentReferenceIdx[i]];
             }
             else
             {
@@ -234,11 +260,11 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
 
             // Transform assignments
             newNode.transform.parent = transform;
-            newNode.transform.position = _mindMapTreeData.NodePositions[i];
-            newNode.transform.rotation = _mindMapTreeData.NodeRotations[i];
-            newNode.transform.localScale = _mindMapTreeData.NodeScales[i];
-            newNode.SetCameraFollowPosition(_mindMapTreeData.NodeCameraFollowPosition[i]);
-            newNode.SetCameraLookAtPosition(_mindMapTreeData.NodeCameraLookAtPosition[i]);
+            newNode.transform.position = _currentMindMapTreeData.NodePositions[i];
+            newNode.transform.rotation = _currentMindMapTreeData.NodeRotations[i];
+            newNode.transform.localScale = _currentMindMapTreeData.NodeScales[i];
+            newNode.SetCameraFollowPosition(_currentMindMapTreeData.NodeCameraFollowPosition[i]);
+            newNode.SetCameraLookAtPosition(_currentMindMapTreeData.NodeCameraLookAtPosition[i]);
 
             newNode.gameObject.layer = LayerMask.NameToLayer(LayerName);
 
@@ -251,7 +277,7 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
 
     public void LoadTree(MindMapTreeData data)
     {
-        _mindMapTreeData = data;
+        _currentMindMapTreeData = data;
         LoadTree();
     }
 
@@ -268,6 +294,26 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
             default:
                 break;
         }
+    }
+
+    private void ChangeChapterFromButton(int jumpIdx)
+    {
+        ActivateCamera(false);
+        chapterIdx = Mathf.Clamp(chapterIdx + jumpIdx, 0, _mindMapTreeData.Length - 1);
+        coreNodeIdx = 0;
+        clueNodeIdx = 0;
+        _currentMindMapTreeData = _mindMapTreeData[chapterIdx];
+
+        foreach (MindMapNode mindMapNode in GetComponentsInChildren<MindMapNode>())
+        {
+            _pooler.ReturnObjectToPool(mindMapNode);
+        }
+
+        LoadTree();
+
+        FocusOnRoot();
+        ActivateCamera(true);
+        SendNodeInfo(Root);
     }
 
     public void ChangeCore(int indexStep)
@@ -309,23 +355,38 @@ public class MindMapTree : MonoBehaviour, IMindMapTree
     }
     #endregion
 
+    #region Builder
+    public void AddNodeBuilder(MindMapNodeType nodeType)
+    {
+        MindMapNode mindMapNode = Instantiate(_mindMapNodeBase);
+        GameObject model = Instantiate(_nodeModelDictionary[nodeType]);
+        model.transform.SetParent(mindMapNode.transform, false);
+        mindMapNode.transform.SetParent(transform, false);
+    }
+    #endregion
+
     #region Camera Manipulation
-    public void SetCameraFocus(MindMapNode node)
+    private void SetCameraFocus(MindMapNode node)
     {
         _mindMapCameraManager.FocusOn(node.GetCameraFollow(), node.GetCameraLookAt());
         selectedNode = node;
+    }
+
+    private void ActivateCamera(bool isActive)
+    {
+        _mindMapCameraManager.Enable(isActive);
     }
     #endregion
 
     #region Send Event
     public void SendNodeInfo(MindMapNode node)
     {
-        SetNodeInfo?.Invoke(node);
+        SetNodeInfoEvent?.Invoke(node);
     }
 
     public void SendNodeActiveInfo(bool is_active)
     {
-        ActivatedModal?.Invoke(is_active);
+        ActivateModalEvent?.Invoke(is_active);
     }
 
     private IEnumerator ModalTransitioning()
