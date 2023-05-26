@@ -6,7 +6,7 @@ public class WorldStateMachine : StateMachine
     [Tooltip("Bool flag to check if the player is in Real World or Astral World")]
     private bool _isInAstralWorld = false;
 
-    private GhostManager _ghostManager;
+    private EnemyManager _enemyManager;
 
     private static WorldStateMachine _instance;
     public static WorldStateMachine Instance { get { return _instance; } }
@@ -15,15 +15,15 @@ public class WorldStateMachine : StateMachine
     #region SetGet
     public bool IsKillPhase()
     {
-        if (_ghostManager == null) return false;
-        return _ghostManager.IsKillPhase();
+        if (_enemyManager == null) return false;
+        return _enemyManager.IsKillPhase();
     }
     #endregion
 
     #region MonoBehaviour
     private void Awake()
     {
-        _ghostManager = GameObject.Find("Ghost")?.GetComponent<GhostManager>(); //TODO: Refactor this
+        _enemyManager = GameObject.Find("Enemy")?.GetComponent<EnemyManager>(); //TODO: Refactor this
         ChangeState<WorldInitState>();
         _instance = this;
     }

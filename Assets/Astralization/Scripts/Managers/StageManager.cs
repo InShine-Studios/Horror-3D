@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IStageManager 
+public interface IStageManager
 {
     StagePoint GetRandomRoomCoordinate();
     StagePoint GetRoomCoordinate(string roomName);
@@ -15,14 +15,14 @@ public class StageManager : MonoBehaviour, IStageManager
 {
     #region Variables
     private Dictionary<string, StagePoint> _stagePoints = new Dictionary<string, StagePoint>();
-    private Dictionary<string, GhostTransitionZone> _ghostTransitionZones = new Dictionary<string, GhostTransitionZone>();
+    private Dictionary<string, EnemyTransitionZone> _enemyTransitionZones = new Dictionary<string, EnemyTransitionZone>();
 
     [Header("Prefab")]
     [SerializeField]
     private StagePoint _stagePointPrefab;
     [SerializeField]
-    private GhostTransitionZone _ghostTransitionZonePrefab;
-   
+    private EnemyTransitionZone _enemyTransitionZonePrefab;
+
     [Header("Stage Data")]
     [SerializeField]
     private StagePointsData _stagePointsData;
@@ -77,19 +77,19 @@ public class StageManager : MonoBehaviour, IStageManager
 
         if (!_stageTransitionZoneData) return;
 
-        for (int i = 0; i < _stageTransitionZoneData.GhostTransitionZonePosition.Count; i++)
+        for (int i = 0; i < _stageTransitionZoneData.EnemyTransitionZonePosition.Count; i++)
         {
-            GhostTransitionZone instance = Instantiate(_ghostTransitionZonePrefab);
+            EnemyTransitionZone instance = Instantiate(_enemyTransitionZonePrefab);
             instance.transform.parent = transform;
             instance.Load(
-                _stageTransitionZoneData.GhostTransitionZonePosition[i],
-                _stageTransitionZoneData.GhostTransitionZoneCenter[i],
-                _stageTransitionZoneData.GhostTransitionZoneSize[i],
-                _stageTransitionZoneData.GhostTransitionZoneEndpoint[i].list,
+                _stageTransitionZoneData.EnemyTransitionZonePosition[i],
+                _stageTransitionZoneData.EnemyTransitionZoneCenter[i],
+                _stageTransitionZoneData.EnemyTransitionZoneSize[i],
+                _stageTransitionZoneData.EnemyTransitionZoneEndpoint[i].list,
                 renameEndpoint: true
                 );
             instance.SetZoneName("Zone");
-            _ghostTransitionZones.Add(instance.name, instance);
+            _enemyTransitionZones.Add(instance.name, instance);
         }
     }
     #endregion

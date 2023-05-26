@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public interface IGhostFieldOfView
+public interface IEnemyFieldOfView
 {
     Transform ChasingTarget { get; set; }
 
@@ -9,20 +9,20 @@ public interface IGhostFieldOfView
     void ResetTarget();
 }
 
-public class GhostFieldOfView : MonoBehaviour, IGhostFieldOfView
+public class EnemyFieldOfView : MonoBehaviour, IEnemyFieldOfView
 {
     #region Variables
     [SerializeField]
-    [Tooltip("Sight radius of the ghost")]
+    [Tooltip("Sight radius of the enemy")]
     private float radius = 10f;
     [SerializeField]
-    [Tooltip("Sight angle of the ghost")]
+    [Tooltip("Sight angle of the enemy")]
     [Range(0, 360)]
     private float angle = 180f;
 
-    [Tooltip("Target layer mask of ghost vision. By default: Player")]
+    [Tooltip("Target layer mask of enemy vision. By default: Player")]
     private LayerMask targetMask;
-    [Tooltip("Target layer mask of ghost vision. By default: Building and HidingPlace")]
+    [Tooltip("Target layer mask of enemy vision. By default: Building and HidingPlace")]
     private LayerMask obstructionMask;
 
     public Transform ChasingTarget { get; set; }
@@ -60,7 +60,8 @@ public class GhostFieldOfView : MonoBehaviour, IGhostFieldOfView
         {
             ChasingTarget = rangeChecks[0].transform;
         }
-        else {
+        else
+        {
             ChasingTarget = null;
         }
         return canSeePlayer;

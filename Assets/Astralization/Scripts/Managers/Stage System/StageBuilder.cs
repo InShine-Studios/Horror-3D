@@ -6,9 +6,9 @@ using System.Collections;
 
 #region SerializableClass
 [Serializable]
-public class StagePointsDictionary: SerializableDictionary<string, StagePointFieldValue> { }
+public class StagePointsDictionary : SerializableDictionary<string, StagePointFieldValue> { }
 [Serializable]
-public class TransitionZoneDictionary: SerializableDictionary<string, TransitionZoneFieldValue> { }
+public class TransitionZoneDictionary : SerializableDictionary<string, TransitionZoneFieldValue> { }
 #endregion
 
 /*
@@ -30,7 +30,7 @@ public class StageBuilder : MonoBehaviour
 
     [Header("Prefab")]
     private StagePoint _stagePoint;
-    private GhostTransitionZone _ghostTransitionZone;
+    private EnemyTransitionZone _enemyTransitionZone;
 
     [Space]
     [Header("StageData")]
@@ -73,15 +73,15 @@ public class StageBuilder : MonoBehaviour
     }
     #endregion
 
-    #region GhostTransitionZone
+    #region EnemyTransitionZone
     public IEnumerable AddCurrentTransitionZone()
     {
-        if (_ghostTransitionZone == null) _ghostTransitionZone = GetComponentInChildren<GhostTransitionZone>();
+        if (_enemyTransitionZone == null) _enemyTransitionZone = GetComponentInChildren<EnemyTransitionZone>();
 
-        _ghostTransitionZone.Save();
-        yield return new WaitUntil(() => !_ghostTransitionZone.IsSaving);
+        _enemyTransitionZone.Save();
+        yield return new WaitUntil(() => !_enemyTransitionZone.IsSaving);
 
-        TransitionZoneFieldValue fieldValue = _ghostTransitionZone.GetZoneFieldValue();
+        TransitionZoneFieldValue fieldValue = _enemyTransitionZone.GetZoneFieldValue();
 
         if (_transitionZoneDict.ContainsKey(fieldValue.ZoneName)) _transitionZoneDict[fieldValue.ZoneName] = fieldValue;
         else _transitionZoneDict.Add(fieldValue.ZoneName, fieldValue);
@@ -89,14 +89,14 @@ public class StageBuilder : MonoBehaviour
     public void DisplayTransitionZone(string zoneName)
     {
         if (zoneName == null) return;
-        if (_ghostTransitionZone == null) _ghostTransitionZone = GetComponentInChildren<GhostTransitionZone>();
+        if (_enemyTransitionZone == null) _enemyTransitionZone = GetComponentInChildren<EnemyTransitionZone>();
 
         if (_transitionZoneDict.ContainsKey(zoneName))
         {
-            _ghostTransitionZone.Load(_transitionZoneDict[zoneName]);
-            Debug.Log("[STAGE BUILDER] Ghost transition zone updated to display \"" + zoneName + "\" zone");
+            _enemyTransitionZone.Load(_transitionZoneDict[zoneName]);
+            Debug.Log("[STAGE BUILDER] Enemy transition zone updated to display \"" + zoneName + "\" zone");
         }
-        else Debug.Log("[STAGE BUILDER] Ghost transition zone with name: \"" + zoneName + "\" is not found");
+        else Debug.Log("[STAGE BUILDER] Enemy transition zone with name: \"" + zoneName + "\" is not found");
     }
     #endregion
 
@@ -128,32 +128,32 @@ public class StageBuilder : MonoBehaviour
         _stageTransitionZoneData = null;
 
         StageTransitionZoneData stageZones = ScriptableObject.CreateInstance<StageTransitionZoneData>();
-        stageZones.GhostTransitionZonePosition = new List<Vector3>(_transitionZoneDict.Count);
-        stageZones.GhostTransitionZoneCenter = new List<Vector3>(_transitionZoneDict.Count);
-        stageZones.GhostTransitionZoneSize = new List<Vector3>(_transitionZoneDict.Count);
-        stageZones.GhostTransitionZoneEndpoint = new List<TransitionEndpointList>(_transitionZoneDict.Count);
+        stageZones.EnemyTransitionZonePosition = new List<Vector3>(_transitionZoneDict.Count);
+        stageZones.EnemyTransitionZoneCenter = new List<Vector3>(_transitionZoneDict.Count);
+        stageZones.EnemyTransitionZoneSize = new List<Vector3>(_transitionZoneDict.Count);
+        stageZones.EnemyTransitionZoneEndpoint = new List<TransitionEndpointList>(_transitionZoneDict.Count);
 
         foreach (TransitionZoneFieldValue zone in _transitionZoneDict.Values)
         {
-            stageZones.GhostTransitionZonePosition.Add(zone.LocalPosition);
-            stageZones.GhostTransitionZoneCenter.Add(zone.ZoneCenter);
-            stageZones.GhostTransitionZoneSize.Add(zone.ZoneSize);
-            stageZones.GhostTransitionZoneEndpoint.Add(zone.EndpointList);
+            stageZones.EnemyTransitionZonePosition.Add(zone.LocalPosition);
+            stageZones.EnemyTransitionZoneCenter.Add(zone.ZoneCenter);
+            stageZones.EnemyTransitionZoneSize.Add(zone.ZoneSize);
+            stageZones.EnemyTransitionZoneEndpoint.Add(zone.EndpointList);
         }
 
-        if (filename == null || filename == "") filename = string.Format("{0} - {1}", transform.root.name, "GhostTransitionZone");
+        if (filename == null || filename == "") filename = string.Format("{0} - {1}", transform.root.name, "EnemyTransitionZone");
 
         Utils.FileSystemHelper.CreateAsset(stageZones, DirectoryPathSequence, filename + ".asset");
         return filename;
     }
 
-    public (string,string) Save(string pointFilename, string transitionZoneFilename)
+    public (string, string) Save(string pointFilename, string transitionZoneFilename)
     {
         Utils.FileSystemHelper.CreateDirectories(DirectoryPathSequence);
 
         SaveStagePoints(pointFilename);
         SaveTransitionZones(transitionZoneFilename);
-        return (pointFilename,transitionZoneFilename);
+        return (pointFilename, transitionZoneFilename);
     }
 
     public void LoadStagePoints()
@@ -179,23 +179,23 @@ public class StageBuilder : MonoBehaviour
     {
         if (!_stageTransitionZoneData)
         {
-            Debug.Log("[STAGE BUILDER] Ghost Transition Zone data is not assigned");
+            Debug.Log("[STAGE BUILDER] Enemy Transition Zone data is not assigned");
             return;
         }
 
         _transitionZoneDict.Clear();
 
-        for (int i = 0; i < _stageTransitionZoneData.GhostTransitionZonePosition.Count; i++)
+        for (int i = 0; i < _stageTransitionZoneData.EnemyTransitionZonePosition.Count; i++)
         {
-            string zoneName = GhostTransitionZone.GenerateZoneName(
-                endpoints: _stageTransitionZoneData.GhostTransitionZoneEndpoint[i]
+            string zoneName = EnemyTransitionZone.GenerateZoneName(
+                endpoints: _stageTransitionZoneData.EnemyTransitionZoneEndpoint[i]
                 );
             _transitionZoneDict.Add(zoneName, new TransitionZoneFieldValue(
                 zoneName: zoneName,
-                localPosition: _stageTransitionZoneData.GhostTransitionZonePosition[i],
-                zoneCenter: _stageTransitionZoneData.GhostTransitionZoneCenter[i],
-                zoneSize: _stageTransitionZoneData.GhostTransitionZoneSize[i],
-                endpointList: _stageTransitionZoneData.GhostTransitionZoneEndpoint[i]
+                localPosition: _stageTransitionZoneData.EnemyTransitionZonePosition[i],
+                zoneCenter: _stageTransitionZoneData.EnemyTransitionZoneCenter[i],
+                zoneSize: _stageTransitionZoneData.EnemyTransitionZoneSize[i],
+                endpointList: _stageTransitionZoneData.EnemyTransitionZoneEndpoint[i]
             ));
         }
     }

@@ -9,7 +9,7 @@ public class TransitionEndpointList
 {
     public List<TransitionEndpoint> list;
 
-    public TransitionEndpointList (List<TransitionEndpoint> list)
+    public TransitionEndpointList(List<TransitionEndpoint> list)
     {
         this.list = list;
     }
@@ -47,7 +47,7 @@ public class TransitionZoneFieldValue
 }
 #endregion
 
-public class GhostTransitionZone : MonoBehaviour
+public class EnemyTransitionZone : MonoBehaviour
 {
     #region Variables
     private TransitionEndpointList Endpoints;
@@ -78,7 +78,7 @@ public class GhostTransitionZone : MonoBehaviour
     }
     public void SetZoneName(string prefix = "")
     {
-        name = GenerateZoneName(Endpoints,prefix);
+        name = GenerateZoneName(Endpoints, prefix);
     }
 
     public TransitionZoneFieldValue GetZoneFieldValue()
@@ -95,7 +95,7 @@ public class GhostTransitionZone : MonoBehaviour
     #region MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Ghost"))
+        if (other.CompareTag("Enemy"))
         {
             int endpointIndex = GetEnteringPointIndex(other.transform.position);
             EnterPoint = transform.GetChild(endpointIndex);
@@ -105,7 +105,7 @@ public class GhostTransitionZone : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Ghost"))
+        if (other.CompareTag("Enemy"))
         {
             EnterPoint = null;
             ExitPoint = null;
@@ -118,13 +118,13 @@ public class GhostTransitionZone : MonoBehaviour
     {
         _isSaving = true;
         if (_boxCollider == null) _boxCollider = GetComponent<BoxCollider>();
-        
+
         // Update Endpoints
-        GhostTransitionZoneEndpoint[] ghostTransitionZoneEndpoints = GetComponentsInChildren<GhostTransitionZoneEndpoint>();
+        EnemyTransitionZoneEndpoint[] enemyTransitionZoneEndpoints = GetComponentsInChildren<EnemyTransitionZoneEndpoint>();
         List<TransitionEndpoint> transitionEndpoints = new List<TransitionEndpoint>();
-        for (int i = 0; i < ghostTransitionZoneEndpoints.Length; i++)
+        for (int i = 0; i < enemyTransitionZoneEndpoints.Length; i++)
         {
-            transitionEndpoints.Add(new TransitionEndpoint(ghostTransitionZoneEndpoints[i].AreaName, ghostTransitionZoneEndpoints[i].transform.localPosition));
+            transitionEndpoints.Add(new TransitionEndpoint(enemyTransitionZoneEndpoints[i].AreaName, enemyTransitionZoneEndpoints[i].transform.localPosition));
         }
         Endpoints = new TransitionEndpointList(transitionEndpoints);
 
@@ -141,7 +141,7 @@ public class GhostTransitionZone : MonoBehaviour
 
     private void UpdateEndpoints(bool renameEndppoint = false)
     {
-        GhostTransitionZoneEndpoint[] transitionZoneEndpoints = GetComponentsInChildren<GhostTransitionZoneEndpoint>();
+        EnemyTransitionZoneEndpoint[] transitionZoneEndpoints = GetComponentsInChildren<EnemyTransitionZoneEndpoint>();
         for (int i = 0; i < Endpoints.list.Count; i++)
         {
             transitionZoneEndpoints[i].AreaName = Endpoints.list[i].AreaName;

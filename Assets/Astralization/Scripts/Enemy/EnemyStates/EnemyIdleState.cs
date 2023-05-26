@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GhostIdleState : GhostState
+public class EnemyIdleState : EnemyState
 {
     #region Variables
     [SerializeField]
-    [Tooltip("True if ghost can rotate")]
+    [Tooltip("True if enemy can rotate")]
     private bool _enableRotate;
     [SerializeField]
-    [Tooltip("Rotation Speed of ghost")]
+    [Tooltip("Rotation Speed of enemy")]
     private float _rotateSpeed = 0.025f;
     private Quaternion targetRotation;
     #endregion
@@ -26,7 +26,7 @@ public class GhostIdleState : GhostState
     {
         if (_enableRotate)
         {
-            RotateGhost();
+            RotateEnemy();
         }
     }
     #endregion
@@ -48,7 +48,7 @@ public class GhostIdleState : GhostState
     #endregion
 
     #region MovementHelper
-    private void RotateGhost()
+    private void RotateEnemy()
     {
         Quaternion delta = Utils.GeometryCalcu.GetAngleDelta(transform.rotation, targetRotation);
         if (delta.eulerAngles.y <= 5f)
@@ -63,7 +63,7 @@ public class GhostIdleState : GhostState
     private void ChangeToWanderInSeconds(float delay)
     {
         StartCoroutine(
-            Utils.DelayerHelper.Delay(delay, () => owner.ChangeState<GhostWanderState>())
+            Utils.DelayerHelper.Delay(delay, () => owner.ChangeState<EnemyWanderState>())
         );
     }
     #endregion

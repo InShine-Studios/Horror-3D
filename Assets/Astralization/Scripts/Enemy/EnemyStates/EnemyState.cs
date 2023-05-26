@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class GhostState : State
+public abstract class EnemyState : State
 {
     #region Variables
-    protected GhostStateMachine owner;
+    protected EnemyStateMachine owner;
     protected Material debugMaterial;
     #endregion
 
     #region MonoBehaviour
     protected virtual void Awake()
     {
-        owner = GetComponent<GhostStateMachine>();
+        owner = GetComponent<EnemyStateMachine>();
     }
     #endregion
 

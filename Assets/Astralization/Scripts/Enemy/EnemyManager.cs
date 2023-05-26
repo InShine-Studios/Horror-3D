@@ -2,12 +2,12 @@
 using System.Collections;
 using UnityEngine;
 
-public interface IGhostManager
+public interface IEnemyManager
 {
     bool IsKillPhase();
 }
 
-public class GhostManager : MonoBehaviour, IGhostManager
+public class EnemyManager : MonoBehaviour, IEnemyManager
 {
     #region Events
     public static event Action ChangeWorldGM;
@@ -25,10 +25,10 @@ public class GhostManager : MonoBehaviour, IGhostManager
     [SerializeField]
     private float _randomIntervalTime;
     [SerializeField]
-    [Range(0,1)]
+    [Range(0, 1)]
     private float _thresholdKillPhase;
-    private GhostFieldOfView _ghostFieldOfView;
-    private GhostStateMachine _ghostStateMachine;
+    private EnemyFieldOfView _enemyFieldOfView;
+    private EnemyStateMachine _enemyStateMachine;
 
     private bool _isKillPhase = false;
     #endregion
@@ -43,8 +43,8 @@ public class GhostManager : MonoBehaviour, IGhostManager
     #region MonoBehaviour
     private void Awake()
     {
-        _ghostFieldOfView = GetComponent<GhostFieldOfView>();
-        _ghostStateMachine = GetComponent<GhostStateMachine>();
+        _enemyFieldOfView = GetComponent<EnemyFieldOfView>();
+        _enemyStateMachine = GetComponent<EnemyStateMachine>();
         StartCoroutine(StartGracePeriod());
     }
     #endregion
@@ -87,7 +87,7 @@ public class GhostManager : MonoBehaviour, IGhostManager
         _isKillPhase = false;
         ChangeWorld();
         StopAllCoroutines();
-        _ghostStateMachine.ChangeState<GhostIdleState>();
+        _enemyStateMachine.ChangeState<EnemyIdleState>();
         StartCoroutine(StartGracePeriod());
     }
 
@@ -104,11 +104,11 @@ public class GhostManager : MonoBehaviour, IGhostManager
         while (true)
         {
             yield return wait;
-            bool playerSeen = _ghostFieldOfView.FieldOfViewCheck();
+            bool playerSeen = _enemyFieldOfView.FieldOfViewCheck();
             if (playerSeen)
             {
-                //Debug.Log("[GHOST VISION] Player sighted.");
-                _ghostStateMachine.AttemptChasing();
+                //Debug.Log("[ENEMY VISION] Player sighted.");
+                _enemyStateMachine.AttemptChasing();
             }
         }
     }

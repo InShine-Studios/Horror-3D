@@ -5,14 +5,14 @@ using System.Collections;
 /*
  * The editor script to edit rooms of a stage.
  */
-[CustomEditor(typeof(GhostTransitionZone))]
-public class GhostTransitionZoneInspector : Editor
+[CustomEditor(typeof(EnemyTransitionZone))]
+public class EnemyTransitionZoneInspector : Editor
 {
-    public GhostTransitionZone current
+    public EnemyTransitionZone current
     {
         get
         {
-            return (GhostTransitionZone)target;
+            return (EnemyTransitionZone)target;
         }
     }
 

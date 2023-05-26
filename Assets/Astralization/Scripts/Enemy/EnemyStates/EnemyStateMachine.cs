@@ -2,25 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IGhostStateMachine
+public interface IEnemyStateMachine
 {
 
 }
 
-public class GhostStateMachine : StateMachine, IGhostStateMachine
+public class EnemyStateMachine : StateMachine, IEnemyStateMachine
 {
     #region MonoBehaviour
     private void Awake()
     {
-        ChangeState<GhostInitState>();
+        ChangeState<EnemyInitState>();
     }
     #endregion
 
     #region Handler
     public void AttemptChasing()
     {
-        ChangeState<GhostChasingState>();
-        ((GhostChasingState)CurrentState).GhostChasing();
+        ChangeState<EnemyChasingState>();
+        ((EnemyChasingState)CurrentState).EnemyChasing();
     }
     #endregion
 }

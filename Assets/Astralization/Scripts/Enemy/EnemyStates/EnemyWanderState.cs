@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IGhostWanderState
+public interface IEnemyWanderState
 {
     void SetWanderTarget(string wanderTarget, bool isShifted);
 }
 
-public class GhostWanderState : GhostState, IGhostWanderState
+public class EnemyWanderState : EnemyState, IEnemyWanderState
 {
     #region Variables
-    private GhostMovement _ghostMovement;
+    private EnemyMovement _enemyMovement;
     [Tooltip("Current delay in seconds for checking")]
     private float _checkRate = 1f;
-    [Tooltip("Room name for wander target. Ghost will wander randomly if wander target is not specified.")]
+    [Tooltip("Room name for wander target. Enemy will wander randomly if wander target is not specified.")]
     private string _wanderTarget;
     [Tooltip("True if wander target randomly shifted")]
     private bool _isShifted;
@@ -24,8 +24,8 @@ public class GhostWanderState : GhostState, IGhostWanderState
     {
         _wanderTarget = wanderTarget;
         _isShifted = isShifted;
-        _ghostMovement.ResetPath();
-        GhostWander();
+        _enemyMovement.ResetPath();
+        EnemyWander();
     }
     #endregion
 
@@ -33,58 +33,58 @@ public class GhostWanderState : GhostState, IGhostWanderState
     protected override void Awake()
     {
         base.Awake();
-        _ghostMovement = GetComponent<GhostMovement>();
+        _enemyMovement = GetComponent<EnemyMovement>();
         _wanderTarget = "";
         _isShifted = true;
         debugMaterial = Resources.Load("EvidenceItem/MAT_Thermometer_Active", typeof(Material)) as Material;
     }
     #endregion
 
-    #region GhostStateHandler
+    #region EnemyStateHandler
     public override void Enter()
     {
         base.Enter();
-        GhostWander();
-        StartCoroutine(CheckGhostRoutine());
+        EnemyWander();
+        StartCoroutine(CheckEnemyRoutine());
     }
 
     public override void Exit()
     {
         base.Exit();
-        _ghostMovement.ResetPath();
-        StopCoroutine(CheckGhostRoutine());
+        _enemyMovement.ResetPath();
+        StopCoroutine(CheckEnemyRoutine());
     }
     #endregion
 
     #region WanderingHandler
-    protected IEnumerator CheckGhostRoutine()
+    protected IEnumerator CheckEnemyRoutine()
     {
         WaitForSeconds wait = new WaitForSeconds(_checkRate);
 
         while (true)
         {
             yield return wait;
-            CheckGhostPosition();
+            CheckEnemyPosition();
         }
     }
 
-    private void CheckGhostPosition()
+    private void CheckEnemyPosition()
     {
-        if (!_ghostMovement.IsOnRoute())
+        if (!_enemyMovement.IsOnRoute())
         {
-            owner.ChangeState<GhostIdleState>();
+            owner.ChangeState<EnemyIdleState>();
         }
     }
 
-    private void GhostWander()
+    private void EnemyWander()
     {
         if (_wanderTarget == "")
         {
-            _ghostMovement.RandomWander();
+            _enemyMovement.RandomWander();
         }
         else
         {
-            _ghostMovement.WanderTarget(_wanderTarget, _isShifted);
+            _enemyMovement.WanderTarget(_wanderTarget, _isShifted);
         }
     }
     #endregion

@@ -61,7 +61,7 @@ public class StageBuilderInspector : Editor
             current.LoadStagePoints();
 
         EditorGUILayout.Space();
-        EditorGUILayout.LabelField("Ghost Transition Zone", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Enemy Transition Zone", EditorStyles.boldLabel);
         EditorGUILayout.LabelField("Display");
         zoneName = EditorGUILayout.TextField("Zone name: ", zoneName);
         if (GUILayout.Button("Display Transition Zone"))
@@ -70,11 +70,11 @@ public class StageBuilderInspector : Editor
         }
 
         EditorGUILayout.LabelField("Save - Load");
-        if (GUILayout.Button("Save Ghost Transition Zones"))
+        if (GUILayout.Button("Save Enemy Transition Zones"))
             transitionZoneFilename = current.SaveTransitionZones(transitionZoneFilename);
-        if (GUILayout.Button("Load Ghost Transition Zones"))
+        if (GUILayout.Button("Load Enemy Transition Zones"))
             current.LoadTransitionZones();
-        
+
     }
 
 }

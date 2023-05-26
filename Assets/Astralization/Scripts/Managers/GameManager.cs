@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private void OnEnable()
     {
         AnkhItem.ChangeWorldGM += InvokeChangeWorld;
-        GhostManager.ChangeWorldGM += InvokeChangeWorld;
+        EnemyManager.ChangeWorldGM += InvokeChangeWorld;
         VictimController.VictimInteractionEvent += InvokeDialogueState;
         DialogueManager.FinishDialogueEvent += ResetPlayerState;
         ClosetController.StartHidingEvent += InvokeHidingState;
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private void OnDisable()
     {
         AnkhItem.ChangeWorldGM -= InvokeChangeWorld;
-        GhostManager.ChangeWorldGM -= InvokeChangeWorld;
+        EnemyManager.ChangeWorldGM -= InvokeChangeWorld;
         VictimController.VictimInteractionEvent -= InvokeDialogueState;
         DialogueManager.FinishDialogueEvent -= ResetPlayerState;
         ClosetController.StartHidingEvent -= InvokeHidingState;
@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour, IGameManager
     public void ResetPlayerState()
     {
         SendPlayerStateEvent(Utils.PlayerHelper.States.Default);
-        SendHudEvent(Utils.UiHelper.UiType.Default,true);
+        SendHudEvent(Utils.UiHelper.UiType.Default, true);
         SendCameraStateEvent(Utils.PlayerHelper.States.Default);
         //Debug.Log("[MANAGER] Reset player state to default");
     }
@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour, IGameManager
     public void InvokeOpenMindMap()
     {
         InvokeMindMapState();
-        SendHudEvent(Utils.UiHelper.UiType.MindMap,true);
+        SendHudEvent(Utils.UiHelper.UiType.MindMap, true);
     }
     #endregion
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public interface IGhostMovement
+public interface IEnemyMovement
 {
     NavMeshAgent NavMeshAgent { get; }
 
@@ -11,11 +11,11 @@ public interface IGhostMovement
 }
 
 /*
- * GhostMovement
- * Controls ghost movement's target and delay.
- * Ghost movement target is defined by sampling position from NavMesh.
+ * EnemyMovement
+ * Controls enemy movement's target and delay.
+ * Enemy movement target is defined by sampling position from NavMesh.
  */
-public class GhostMovement : MonoBehaviour, IGhostMovement
+public class EnemyMovement : MonoBehaviour, IEnemyMovement
 {
     #region Const
     private const float _wanderRange = 3f;
@@ -23,12 +23,12 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
 
     #region Variables
     [SerializeField]
-    [Tooltip("Consider ghost is arrive at destination if distance between ghost position and destination is less than thresh")]
+    [Tooltip("Consider enemy is arrive at destination if distance between enemy position and destination is less than thresh")]
     private float _distanceThresh = 0.5f;
     public NavMeshAgent NavMeshAgent { get; private set; }
     private NavMeshHit _navMeshHit;
 
-    [Tooltip("Ghost current room")]
+    [Tooltip("Enemy current room")]
     private string _currentRoom = "Living Room";
     [Tooltip("Target destination of movement")]
     private Vector3 _wanderTarget;
@@ -97,7 +97,7 @@ public class GhostMovement : MonoBehaviour, IGhostMovement
         {
             result = _navMeshHit.position;
             _currentRoom = targetRoom.PointName;
-            //Debug.Log("[GHOST MOVEMENT] Sampling target position. Target Room: " + _currentRoom + " with coordinate " + result);
+            //Debug.Log("[ENEMY MOVEMENT] Sampling target position. Target Room: " + _currentRoom + " with coordinate " + result);
             return true;
         }
         else
